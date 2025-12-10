@@ -20,14 +20,14 @@ function initializeLogging() {
 
 function logMessage() {
   local timestamp
-  timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+  timestamp=$(date '+%Y-%m-%dT%H:%M:%S')
   local message="[$timestamp] $1"
   echo "$message" | tee -a "$LOG_FILE"
 }
 
 function logError() {
   local timestamp
-  timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+  timestamp=$(date '+%Y-%m-%dT%H:%M:%S')
   local message="[$timestamp] ERROR: $1"
   echo "$message" | tee -a "$LOG_FILE" >&2
 }
