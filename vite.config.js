@@ -1,8 +1,15 @@
+import path from "path";
+import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import compression from "vite-plugin-compression2";
 import { ViteMinifyPlugin } from "vite-plugin-minify";
+import Sitemap from "vite-plugin-sitemap";
+
+var __filename = fileURLToPath(import.meta.url);
+var __dirname = path.dirname(__filename);
 
 export default defineConfig({
+  root: ".",
   plugins: [
     ViteMinifyPlugin({
       collapseWhitespace: true,
@@ -24,6 +31,11 @@ export default defineConfig({
       ext: ".br",
       threshold: 1024,
     }),
+    Sitemap({
+      hostname: "https://licenseware-collector.com",
+      dynamicRoutes: ["/", "/404"],
+      readable: true,
+    }),
   ],
   build: {
     minify: "terser",
@@ -36,6 +48,10 @@ export default defineConfig({
     sourcemap: false,
     cssMinify: true,
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        notFound: path.resolve(__dirname, "404.html"),
+      },
       output: {
         manualChunks: function splitVendorChunk(id) {
           if (id.includes("node_modules")) {
