@@ -16,7 +16,7 @@ export default defineConfig({
   ],
   build: {
     target: "esnext",
-    minify: "esbuild",
+    minify: "terser",
     sourcemap: false,
     cssMinify: true,
     rollupOptions: {
