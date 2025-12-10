@@ -9,6 +9,69 @@ on:
       - main
 
 jobs:
+  preview:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('**/bun.lock', '**/package-lock.json') }}
+          restore-keys: |
+            node-modules-${{ runner.os }}-
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install bun deps
+        run: bun install
+      - name: Build
+        run: bun run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: build-pr${{ github.event.pull_request.number }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist
+      - name: Deploy to Netlify
+        id: netlify
+        run: |
+          bunx netlify-cli@v23 deploy \
+            --site "$NETLIFY_SITE_ID" \
+            --no-build \
+            --json \
+            --dir './dist' \
+            --message 'pr:${{ github.event.pull_request.number }} sha:${{ github.sha }}' \
+            | jq -r .deploy_url | tee deploy_url.txt
+          deploy_url="$(cat deploy_url.txt)"
+          echo "deploy_url=$deploy_url" >> "$GITHUB_OUTPUT"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Comment PR
+        uses: meysam81/comment-pr@main
+        with:
+          title: "# Live preview"
+          content: |
+            The live preview of the changes are available at the following URL:
+            <${{ steps.netlify.outputs.deploy_url }}>
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose
+          fail: false
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
   deploy-website:
     if: github.ref == 'refs/heads/main'
     environment:
