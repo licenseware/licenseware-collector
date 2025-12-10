@@ -53,8 +53,8 @@
     />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/webp" href="favicon.webp" />
-    <link rel="apple-touch-icon" href="favicon.webp" />
+    <link rel="icon" type="image/webp" href="public/favicon.webp" />
+    <link rel="apple-touch-icon" href="public/favicon.webp" />
     <style>
       :root {
         /* --- Color Palette Definition --- */
@@ -99,7 +99,7 @@
         --code-text: var(--palette-green);
       }
 
-      /* --- Bright Mode Overrides --- */
+      /* --- Bright Mode Overrides (manual toggle) --- */
       body.light-mode {
         --bg-main: var(--palette-light-bg);
         --bg-card: var(--palette-light-bg);
@@ -117,6 +117,44 @@
         /* Code box readable colors */
         --code-bg: #f9fafb;
         --code-text: #166534;
+      }
+
+      /* --- Auto Light Mode based on OS preference --- */
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-main: var(--palette-light-bg);
+          --bg-card: var(--palette-light-bg);
+          --bg-highlight: #f8fafc;
+
+          --text-primary: var(--palette-light-text);
+          --text-secondary: #555;
+
+          --primary: var(--palette-accent);
+
+          --border: var(--palette-grey);
+          --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+          --code-bg: #f9fafb;
+          --code-text: #166534;
+        }
+      }
+
+      /* Force dark mode when manually toggled */
+      body.dark-mode {
+        --bg-main: var(--palette-dark-bg);
+        --bg-card: var(--palette-dark-bg);
+        --bg-highlight: rgba(219, 222, 232, 0.05);
+
+        --text-primary: var(--palette-dark-text);
+        --text-secondary: var(--palette-grey);
+
+        --primary: var(--palette-green);
+
+        --border: rgba(219, 222, 232, 0.2);
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+        --code-bg: rgba(0,0,0,0.3);
+        --code-text: var(--palette-green);
       }
 
       * {
@@ -271,8 +309,24 @@
         transition: filter 0.3s ease;
       }
 
+      body.light-mode .header-logo,
+      body.dark-mode .header-logo {
+        /* manual overrides handled by class */
+      }
+
       body.light-mode .header-logo {
         filter: invert(0); /* keep original dark logo for light mode */
+      }
+
+      body.dark-mode .header-logo {
+        filter: invert(1); /* inverted for dark mode */
+      }
+
+      /* Auto-detect OS preference for logo */
+      @media (prefers-color-scheme: light) {
+        .header-logo {
+          filter: invert(0);
+        }
       }
 
       header h1 {
@@ -401,14 +455,14 @@
       }
 
       .method-get {
-        background: rgba(29, 78, 210, 0.15); /* Primary low opacity */
-        color: var(--primary);
-        border: 1px solid var(--primary);
+        background: rgba(37, 201, 230, 0.15); /* Cyan low opacity */
+        color: var(--info);
+        border: 1px solid var(--info);
       }
       .method-post {
-        background: rgba(87, 209, 108, 0.15); /* Green low opacity */
-        color: var(--success);
-        border: 1px solid var(--success);
+        background: rgba(239, 190, 83, 0.15); /* Yellow low opacity */
+        color: var(--warning);
+        border: 1px solid var(--warning);
       }
 
       .endpoint {
@@ -1205,12 +1259,12 @@
               <strong>1.</strong>
               <span data-i18n="process.step1">Download<br />Collector</span>
             </div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
             <div class="flow-step">
               <strong>2.</strong>
               <span data-i18n="process.step2">Register<br />Collector</span>
             </div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
             <div
               class="flow-step"
               style="border-color: var(--success); color: var(--success)"
@@ -1704,7 +1758,7 @@
             </h2>
           </div>
 
-          <!-- Video Embed -->
+          <!-- Video Embed - uncomment when new video is ready
           <div style="margin-bottom: 2rem">
             <h3
               style="
@@ -1718,25 +1772,17 @@
               Video Walkthrough
             </h3>
             <div class="video-wrapper">
-              <!-- TODO: Replace VIDEO_ID_HERE with the actual YouTube Video ID -->
               <iframe
                 width="560"
                 height="315"
                 src="https://www.youtube.com/embed/VIDEO_ID_HERE"
                 title="LICENSEWARE Collector Installation Guide"
-                allow="
-                  accelerometer;
-                  autoplay;
-                  clipboard-write;
-                  encrypted-media;
-                  gyroscope;
-                  picture-in-picture;
-                "
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
-              >
-              </iframe>
+              ></iframe>
             </div>
           </div>
+          -->
 
           <!-- Step 1 -->
           <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
@@ -2149,9 +2195,35 @@
 
     <script>
       // Theme Toggle Logic
+      // Theme Toggle Logic - respects OS preference
       function toggleTheme() {
-        document.body.classList.toggle("light-mode");
+        const checkbox = document.getElementById('themeCheckbox');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (checkbox.checked) {
+          // Toggle is ON = light mode requested
+          document.body.classList.add('light-mode');
+          document.body.classList.remove('dark-mode');
+        } else {
+          // Toggle is OFF = dark mode requested
+          document.body.classList.add('dark-mode');
+          document.body.classList.remove('light-mode');
+        }
       }
+
+      // Initialize theme based on OS preference
+      (function initTheme() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const checkbox = document.getElementById('themeCheckbox');
+        
+        if (prefersDark) {
+          checkbox.checked = false;
+          document.body.classList.add('dark-mode');
+        } else {
+          checkbox.checked = true;
+          document.body.classList.add('light-mode');
+        }
+      })();
 
       // Language Toggle Logic
       const translations = {
