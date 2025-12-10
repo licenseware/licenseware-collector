@@ -5,29 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary Meta Tags -->
-    <title>
-      Licenseware Collector - Software License Compliance Agent | Technical
-      Documentation
-    </title>
+    <title>LICENSEWARE Collector - Software License Compliance Agent</title>
     <meta
       name="title"
-      content="Licenseware Collector - Software License Compliance Agent | Technical Documentation"
+      content="LICENSEWARE Collector - Software License Compliance Agent"
     />
     <meta
       name="description"
-      content="Licenseware Collector is a lightweight agent that collects system and software inventory data from Windows, Linux, and macOS servers using OSQuery for software license compliance analysis."
+      content="LICENSEWARE Collector is a lightweight agent that collects system and software inventory data from Windows, Linux, and macOS servers."
     />
-    <meta
-      name="keywords"
-      content="software license compliance, software asset management, SAM tool, license management, OSQuery agent, IT asset discovery, software inventory, Windows license audit, Linux software inventory, macOS asset management, license optimization, compliance automation"
-    />
-    <meta name="author" content="Licenseware" />
+    <meta name="author" content="LICENSEWARE ™" />
     <meta
       name="robots"
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
-    <meta name="googlebot" content="index, follow" />
-    <meta name="bingbot" content="index, follow" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://licenseware-collector.com/" />
@@ -37,74 +28,133 @@
     <meta property="og:url" content="https://licenseware-collector.com/" />
     <meta
       property="og:title"
-      content="Licenseware Collector - Software License Compliance Agent"
+      content="LICENSEWARE Collector - Software License Compliance Agent"
     />
     <meta
       property="og:description"
-      content="Lightweight agent for collecting system and software inventory data from Windows, Linux, and macOS. Automate your software license compliance with OSQuery-powered data collection."
+      content="Lightweight agent for collecting system and software inventory data from Windows, Linux, and macOS."
     />
     <meta
       property="og:image"
       content="https://licenseware-collector.com/lc.svg"
     />
-    <meta property="og:image:alt" content="Licenseware Collector Logo" />
-    <meta property="og:site_name" content="Licenseware" />
+    <meta property="og:site_name" content="LICENSEWARE ™" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://licenseware-collector.com/" />
-    <meta
-      name="twitter:title"
-      content="Licenseware Collector - Software License Compliance Agent"
-    />
-    <meta
-      name="twitter:description"
-      content="Lightweight agent for collecting system and software inventory data from Windows, Linux, and macOS. Automate your software license compliance."
-    />
-    <meta
-      name="twitter:image"
-      content="https://licenseware-collector.com/lc.svg"
-    />
-
     <!-- Additional SEO Meta Tags -->
-    <meta name="theme-color" content="#2563eb" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Licenseware Collector" />
-    <meta name="application-name" content="Licenseware Collector" />
-    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#191919" />
 
-    <!-- Resource Hints for Performance -->
+    <!-- Fonts: Mulish -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preconnect"
-      href="https://9142296.fs1.hubspotusercontent-na1.net"
-      crossorigin
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
     />
-    <link
-      rel="dns-prefetch"
-      href="https://9142296.fs1.hubspotusercontent-na1.net"
-    />
-    <link rel="preconnect" href="https://js.hs-scripts.com" crossorigin />
-    <link rel="dns-prefetch" href="https://js.hs-scripts.com" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/webp" href="favicon.webp" />
-    <link rel="apple-touch-icon" href="favicon.webp" />
+    <link rel="icon" type="image/webp" href="public/favicon.webp" />
+    <link rel="apple-touch-icon" href="public/favicon.webp" />
     <style>
       :root {
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --secondary: #64748b;
-        --success: #22c55e;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-        --bg-light: #f8fafc;
-        --bg-card: #ffffff;
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        --border: #e2e8f0;
+        /* --- Color Palette Definition --- */
+        --palette-dark-bg: #191919;
+        --palette-light-bg: #ffffff;
+        --palette-dark-text: #ffffff;
+        --palette-light-text: #191919;
+
+        --palette-accent: #1d4ed2; /* Blue */
+        --palette-accent-sec: #00bfa5; /* Teal */
+
+        --palette-yellow: #efbe53;
+        --palette-pink: #e063e6;
+        --palette-cyan: #25c9e6;
+        --palette-purple: #8867f4;
+        --palette-green: #57d16c;
+        --palette-red: #f76157;
+        --palette-grey: #dbdee8;
+
+        /* --- Default Theme (Dark Mode) --- */
+        --bg-main: var(--palette-dark-bg);
+        --bg-card: var(--palette-dark-bg);
+        --bg-highlight: rgba(219, 222, 232, 0.05); /* Low opacity grey */
+
+        --text-primary: var(--palette-dark-text);
+        --text-secondary: var(--palette-grey);
+
+        /* Dark Mode: Green Primary */
+        --primary: var(--palette-green);
+        --secondary: var(--palette-grey);
+
+        --success: var(--palette-green);
+        --warning: var(--palette-yellow);
+        --danger: var(--palette-red);
+        --info: var(--palette-cyan);
+        --purple: var(--palette-purple);
+
+        --border: rgba(219, 222, 232, 0.2); /* Grey with opacity */
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+        --code-bg: rgba(0, 0, 0, 0.3);
+        --code-text: var(--palette-green);
+      }
+
+      /* --- Bright Mode Overrides (manual toggle) --- */
+      body.light-mode {
+        --bg-main: var(--palette-light-bg);
+        --bg-card: var(--palette-light-bg);
+        --bg-highlight: #f8fafc;
+
+        --text-primary: var(--palette-light-text);
+        --text-secondary: #555;
+
+        /* Bright mode keeps Blue accent */
+        --primary: var(--palette-accent);
+
+        --border: var(--palette-grey);
+        --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+        /* Code box readable colors */
+        --code-bg: #f9fafb;
+        --code-text: #166534;
+      }
+
+      /* --- Auto Light Mode based on OS preference --- */
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-main: var(--palette-light-bg);
+          --bg-card: var(--palette-light-bg);
+          --bg-highlight: #f8fafc;
+
+          --text-primary: var(--palette-light-text);
+          --text-secondary: #555;
+
+          --primary: var(--palette-accent);
+
+          --border: var(--palette-grey);
+          --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+          --code-bg: #f9fafb;
+          --code-text: #166534;
+        }
+      }
+
+      /* Force dark mode when manually toggled */
+      body.dark-mode {
+        --bg-main: var(--palette-dark-bg);
+        --bg-card: var(--palette-dark-bg);
+        --bg-highlight: rgba(219, 222, 232, 0.05);
+
+        --text-primary: var(--palette-dark-text);
+        --text-secondary: var(--palette-grey);
+
+        --primary: var(--palette-green);
+
+        --border: rgba(219, 222, 232, 0.2);
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+        --code-bg: rgba(0, 0, 0, 0.3);
+        --code-text: var(--palette-green);
       }
 
       * {
@@ -115,11 +165,18 @@
 
       body {
         font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, sans-serif;
-        background: var(--bg-light);
+          "Mulish",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: var(--bg-main);
         color: var(--text-primary);
         line-height: 1.6;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
       }
 
       .container {
@@ -163,17 +220,18 @@
         border-radius: 6px;
         transition: all 0.15s ease;
         border-left: 3px solid transparent;
+        font-weight: 500;
       }
 
       .sidebar-nav a:hover {
-        background: var(--bg-card);
-        color: var(--text-primary);
+        background: var(--bg-highlight);
+        color: var(--primary);
         border-left-color: var(--primary);
       }
 
       .sidebar-title {
         font-size: 0.7rem;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--text-secondary);
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -200,11 +258,12 @@
       }
 
       header {
-        background: var(--bg-light);
+        background: var(--bg-main);
         color: var(--text-primary);
         padding: 2rem 0;
         margin-bottom: 2rem;
         border-bottom: 1px solid var(--border);
+        transition: border-color 0.3s ease;
       }
 
       header .container {
@@ -222,6 +281,7 @@
 
       .header-content h1 {
         margin: 0 0 0.25rem 0;
+        font-weight: 800;
       }
 
       .header-content p {
@@ -244,6 +304,29 @@
 
       .header-logo {
         max-height: 48px;
+        object-fit: contain;
+        filter: invert(1); /* invert dark logo to white for dark mode */
+        transition: filter 0.3s ease;
+      }
+
+      body.light-mode .header-logo,
+      body.dark-mode .header-logo {
+        /* manual overrides handled by class */
+      }
+
+      body.light-mode .header-logo {
+        filter: invert(0); /* keep original dark logo for light mode */
+      }
+
+      body.dark-mode .header-logo {
+        filter: invert(1); /* inverted for dark mode */
+      }
+
+      /* Auto-detect OS preference for logo */
+      @media (prefers-color-scheme: light) {
+        .header-logo {
+          filter: invert(0);
+        }
       }
 
       header h1 {
@@ -262,14 +345,14 @@
         padding: 0.25rem 0.75rem;
         border-radius: 9999px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-top: 0.5rem;
       }
 
       .badge-version {
-        background: var(--bg-light);
+        background: transparent;
         color: var(--text-secondary);
         border: 1px solid var(--border);
       }
@@ -277,10 +360,13 @@
       .card {
         background: var(--bg-card);
         border-radius: 12px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--card-shadow);
         padding: 1.5rem;
         margin-bottom: 1.5rem;
         border: 1px solid var(--border);
+        transition:
+          border-color 0.3s ease,
+          background-color 0.3s ease;
       }
 
       .card-header {
@@ -300,32 +386,30 @@
         align-items: center;
         justify-content: center;
         font-size: 1.25rem;
+        /* Default subtle background */
+        background: var(--bg-highlight);
       }
 
+      /* Specific colors for icons using new palette - Removed Borders */
       .card-icon.network {
-        background: #dbeafe;
         color: var(--primary);
       }
       .card-icon.os {
-        background: #dcfce7;
-        color: var(--success);
+        color: var(--palette-accent-sec);
       }
       .card-icon.api {
-        background: #fef3c7;
         color: var(--warning);
       }
       .card-icon.flow {
-        background: #f3e8ff;
-        color: #9333ea;
+        color: var(--purple);
       }
       .card-icon.security {
-        background: #fee2e2;
         color: var(--danger);
       }
 
       .card h2 {
         font-size: 1.25rem;
-        font-weight: 600;
+        font-weight: 700;
       }
 
       .grid {
@@ -348,8 +432,8 @@
       }
 
       th {
-        background: var(--bg-light);
-        font-weight: 600;
+        background: var(--bg-highlight);
+        font-weight: 700;
         font-size: 0.875rem;
         color: var(--text-secondary);
         text-transform: uppercase;
@@ -358,6 +442,7 @@
 
       td {
         font-size: 0.9375rem;
+        color: var(--text-primary);
       }
 
       .method-badge {
@@ -365,26 +450,30 @@
         padding: 0.25rem 0.5rem;
         border-radius: 4px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
         font-family: "Monaco", "Consolas", monospace;
       }
 
       .method-get {
-        background: #dbeafe;
-        color: var(--primary);
+        background: rgba(37, 201, 230, 0.15); /* Cyan low opacity */
+        color: var(--info);
+        border: 1px solid var(--info);
       }
       .method-post {
-        background: #dcfce7;
-        color: #166534;
+        background: rgba(239, 190, 83, 0.15); /* Yellow low opacity */
+        color: var(--warning);
+        border: 1px solid var(--warning);
       }
 
       .endpoint {
         font-family: "Monaco", "Consolas", monospace;
         font-size: 0.8125rem;
-        background: var(--bg-light);
+        background: var(--bg-highlight);
         padding: 0.25rem 0.5rem;
         border-radius: 4px;
         word-break: break-all;
+        color: var(--text-primary);
+        border: 1px solid var(--border);
       }
 
       .os-grid {
@@ -395,7 +484,8 @@
       }
 
       .os-card {
-        background: var(--bg-light);
+        background: var(--bg-highlight);
+        border: 1px solid var(--border);
         border-radius: 8px;
         padding: 1.25rem;
         text-align: center;
@@ -404,6 +494,7 @@
       .os-card h3 {
         font-size: 1rem;
         margin: 0.5rem 0;
+        font-weight: 700;
       }
 
       .os-card .icon {
@@ -429,20 +520,22 @@
         flex-wrap: wrap;
         gap: 0.5rem;
         padding: 1.5rem;
-        background: var(--bg-light);
+        background: var(--bg-highlight);
         border-radius: 8px;
         margin-top: 1rem;
+        border: 1px solid var(--border);
       }
 
       .flow-step {
-        background: white;
-        border: 2px solid var(--primary);
+        background: var(--bg-card);
+        border: 2px solid var(--border); /* Neutral border */
         border-radius: 8px;
         padding: 0.75rem 1rem;
         font-size: 0.875rem;
-        font-weight: 500;
+        font-weight: 600;
         text-align: center;
         min-width: 120px;
+        color: var(--text-primary);
       }
 
       .flow-arrow {
@@ -458,40 +551,70 @@
 
       .req-list li {
         padding: 0.75rem;
-        background: var(--bg-light);
+        background: var(--bg-highlight);
+        border: 1px solid var(--border);
         border-radius: 6px;
         margin-bottom: 0.5rem;
         display: flex;
         align-items: flex-start;
         gap: 0.75rem;
+        position: relative;
+        padding-right: 2.5rem;
+      }
+
+      /* compact version for quick reference */
+      .req-list.compact li {
+        padding: 0.5rem 0.75rem;
+        padding-right: 2rem;
+        margin-bottom: 0.35rem;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .req-list.compact code {
+        font-size: 0.75rem;
+      }
+
+      .req-list.compact .copy-btn {
+        top: 0.35rem;
+        right: 0.35rem;
+      }
+
+      .req-list.compact .copy-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .req-list li div {
+        word-break: break-all;
       }
 
       .req-list .check {
         color: var(--success);
         font-weight: bold;
+        flex-shrink: 0;
       }
 
       .port-badge {
         display: inline-block;
         background: var(--primary);
-        color: white;
+        color: #fff;
         padding: 0.125rem 0.5rem;
         border-radius: 4px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
         margin-left: 0.5rem;
       }
 
       .section-title {
         font-size: 0.875rem;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--text-secondary);
         text-transform: uppercase;
         letter-spacing: 0.1em;
         margin: 1.5rem 0 1rem;
       }
 
-      /* Screen-reader only text for accessibility */
       .visually-hidden {
         position: absolute;
         width: 1px;
@@ -504,16 +627,35 @@
         border: 0;
       }
 
+      /* Highlight Box Styling */
       .highlight-box {
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(87, 209, 108, 0.05) 0%,
+          rgba(87, 209, 108, 0.02) 100%
+        );
+        border: 1px solid var(--primary);
         border-left: 4px solid var(--primary);
         padding: 1rem 1.25rem;
-        border-radius: 0 8px 8px 0;
+        border-radius: 4px;
         margin: 1rem 0;
       }
 
+      body.light-mode .highlight-box {
+        background: linear-gradient(
+          135deg,
+          rgba(29, 78, 210, 0.1) 0%,
+          rgba(29, 78, 210, 0.05) 100%
+        );
+      }
+
       .highlight-box.warning {
-        background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(239, 190, 83, 0.1) 0%,
+          rgba(239, 190, 83, 0.05) 100%
+        );
+        border-color: var(--warning);
         border-left-color: var(--warning);
       }
 
@@ -523,6 +665,64 @@
         font-size: 0.875rem;
         border-top: 1px solid var(--border);
         margin-top: 2rem;
+      }
+
+      /* Code blocks */
+      code {
+        font-family: "Monaco", "Consolas", monospace;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        position: relative; /* For Copy Button */
+      }
+
+      .code-block code {
+        color: var(--code-text);
+        display: block;
+        padding-right: 2rem;
+      }
+
+      /* Copy Button Styles (Minimalist) */
+      .copy-btn {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        opacity: 0.7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .req-list .copy-btn {
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+
+      .copy-btn:hover {
+        color: var(--primary);
+        opacity: 1;
+        background: rgba(128, 128, 128, 0.1);
+      }
+
+      /* Inline Code Copy Button Override for Paths */
+      .path-container {
+        position: relative;
+        padding-right: 2rem;
+      }
+      .path-container .copy-btn {
+        top: 0;
+        right: 0;
       }
 
       @media (max-width: 768px) {
@@ -543,45 +743,151 @@
           text-align: center;
         }
       }
+
+      /* --- Control Panel (Language & Theme) --- */
+      .controls {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      /* Language Dropdown */
+      .lang-select {
+        appearance: none;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: 0.5rem 2rem 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: "Mulish", sans-serif;
+        font-weight: 700;
+        font-size: 0.75rem;
+        box-shadow: var(--card-shadow);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .lang-select:hover,
+      .lang-select:focus {
+        border-color: var(--primary);
+      }
+
+      /* Theme Switch (Toggle) */
+      .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+      }
+
+      .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--bg-card);
+        border: 1px solid var(--border);
+        transition: 0.4s;
+        border-radius: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5px;
+        box-shadow: var(--card-shadow);
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: var(--primary);
+        transition: 0.4s;
+        border-radius: 50%;
+        z-index: 2;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(24px);
+      }
+
+      .icon-sun,
+      .icon-moon {
+        font-size: 12px;
+        z-index: 1;
+        line-height: 1;
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Video Wrapper */
+      .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        height: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        background: #000;
+        border: 1px solid var(--border);
+      }
+
+      .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
     </style>
-    <!-- Start Single Page Apps for GitHub Pages -->
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      // This script checks to see if a redirect is present in the query string,
-      // converts it back into the correct url and adds it to the
-      // browser's history using window.history.replaceState(...),
-      // which won't cause the browser to attempt to load the new url.
-      // When the single page app is loaded further down in this file,
-      // the correct url will be waiting in the browser's history for
-      // the single page app to route accordingly.
-      (function (l) {
-        if (l.search[1] === "/") {
-          var decoded = l.search
-            .slice(1)
-            .split("&")
-            .map(function (s) {
-              return s.replace(/~and~/g, "&");
-            })
-            .join("?");
-          window.history.replaceState(
-            null,
-            null,
-            l.pathname.slice(0, -1) + decoded + l.hash,
-          );
-        }
-      })(window.location);
-    </script>
-    <script
-      type="text/javascript"
-      id="hs-script-loader"
-      async
-      defer
-      src="//js.hs-scripts.com/9142296.js"
-    ></script>
   </head>
   <body>
+    <!-- Controls -->
+    <div class="controls">
+      <select
+        class="lang-select"
+        id="langSelect"
+        onchange="changeLanguage()"
+        aria-label="Select Language"
+      >
+        <option value="en">🇺🇸 EN</option>
+        <option value="es">🇪🇸 ES</option>
+      </select>
+
+      <label class="theme-switch" aria-label="Toggle Theme">
+        <input type="checkbox" id="themeCheckbox" onchange="toggleTheme()" />
+        <span class="slider">
+          <span class="icon-moon">🌙</span>
+          <span class="icon-sun">☀️</span>
+        </span>
+      </label>
+    </div>
+
     <header>
       <div class="container">
         <div class="header-content">
@@ -596,27 +902,32 @@
             >
               <div class="app-icon">
                 <img
-                  src="lc.svg"
-                  alt="Licenseware Collector - Software License Compliance Agent Logo"
+                  src="public/lc.svg"
+                  alt="LICENSEWARE Collector Logo"
                   width="56"
                   height="56"
                   loading="eager"
                 />
               </div>
-              <h1>Licenseware Collector</h1>
+              <h1 data-i18n="app.title">LICENSEWARE Collector</h1>
             </div>
-            <p>Technical Requirements for Software License Compliance Agent</p>
-            <span class="badge badge-version">Version 1.0 • December 2025</span>
           </div>
         </div>
-        <img
-          src="favicon.webp"
-          alt="Licenseware - Software License Management Platform"
-          class="header-logo"
-          width="56"
-          height="56"
-          loading="eager"
-        />
+
+        <!-- Licenseware Logo with Link -->
+        <a
+          href="https://www.licenseware.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit LICENSEWARE ™ Homepage"
+        >
+          <img
+            src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
+            alt="LICENSEWARE ™"
+            class="header-logo"
+            loading="eager"
+          />
+        </a>
       </div>
     </header>
 
@@ -625,23 +936,53 @@
       <aside class="sidebar" aria-label="Page navigation">
         <nav aria-label="Table of contents">
           <ul class="sidebar-nav" role="list">
-            <li class="sidebar-title" role="presentation">Overview</li>
-            <li><a href="#overview">What is it?</a></li>
-            <li><a href="#compatibility">OS Compatibility</a></li>
+            <li
+              class="sidebar-title"
+              role="presentation"
+              data-i18n="nav.overview"
+            >
+              Overview
+            </li>
+            <li><a href="#overview" data-i18n="nav.what">What is it?</a></li>
+            <li>
+              <a href="#compatibility" data-i18n="nav.compatibility"
+                >OS Compatibility</a
+              >
+            </li>
 
-            <li class="sidebar-title" role="presentation">Requirements</li>
-            <li><a href="#network">Network</a></li>
-            <li><a href="#system">System</a></li>
+            <li
+              class="sidebar-title"
+              role="presentation"
+              data-i18n="nav.requirements"
+            >
+              Requirements
+            </li>
+            <li><a href="#network" data-i18n="nav.network">Network</a></li>
+            <li><a href="#system" data-i18n="nav.system">System</a></li>
 
-            <li class="sidebar-title" role="presentation">Technical Details</li>
-            <li><a href="#endpoints">API Endpoints</a></li>
-            <li><a href="#process">Process Flow</a></li>
-            <li><a href="#catalogs">Data Collection</a></li>
-            <li><a href="#paths">Installation Paths</a></li>
+            <li class="sidebar-title" role="presentation" data-i18n="nav.tech">
+              Technical Details
+            </li>
+            <li>
+              <a href="#endpoints" data-i18n="nav.endpoints">API Endpoints</a>
+            </li>
+            <li><a href="#process" data-i18n="nav.process">Process Flow</a></li>
+            <li>
+              <a href="#catalogs" data-i18n="nav.catalogs">Data Collection</a>
+            </li>
+            <li>
+              <a href="#paths" data-i18n="nav.paths">Installation Paths</a>
+            </li>
 
-            <li class="sidebar-title" role="presentation">Getting Started</li>
-            <li><a href="#installation">Installation Guide</a></li>
-            <li><a href="#commands">Commands</a></li>
+            <li class="sidebar-title" role="presentation" data-i18n="nav.start">
+              Getting Started
+            </li>
+            <li>
+              <a href="#installation" data-i18n="nav.install"
+                >Installation Guide</a
+              >
+            </li>
+            <li><a href="#commands" data-i18n="nav.commands">Commands</a></li>
           </ul>
         </nav>
       </aside>
@@ -655,10 +996,14 @@
           aria-labelledby="overview-title"
         >
           <h2 id="overview-title" class="visually-hidden">Product Overview</h2>
-          <strong>What is Licenseware Collector?</strong><br />
-          A lightweight agent that collects system and software inventory data
-          from your servers using OSQuery, then securely transmits it to the
-          Licenseware platform for software license compliance analysis.
+          <strong data-i18n="overview.title"
+            >What is LICENSEWARE Collector?</strong
+          ><br />
+          <span data-i18n="overview.desc"
+            >A lightweight agent that collects system and software inventory
+            data from your servers and securely transmits it to the LICENSEWARE
+            ™ platform for software license compliance analysis.</span
+          >
         </section>
 
         <!-- Operating System Compatibility -->
@@ -669,35 +1014,37 @@
         >
           <div class="card-header">
             <div class="card-icon os" aria-hidden="true">🖥️</div>
-            <h2 id="compatibility-title">Operating System Compatibility</h2>
+            <h2 id="compatibility-title" data-i18n="compat.title">
+              Operating System Compatibility
+            </h2>
           </div>
 
           <div class="os-grid" role="list">
             <article class="os-card" role="listitem">
               <div class="icon" aria-hidden="true">🐧</div>
-              <h3>Linux Software Inventory Agent</h3>
+              <h3>Linux</h3>
               <ul>
-                <li>x86_64 (64-bit) only</li>
-                <li>systemd required</li>
+                <li data-i18n="compat.linux.1">x86_64 (64-bit) only</li>
+                <li data-i18n="compat.linux.2">systemd required</li>
                 <li>RHEL, Ubuntu, Debian, etc.</li>
               </ul>
             </article>
             <article class="os-card" role="listitem">
               <div class="icon" aria-hidden="true">🪟</div>
-              <h3>Windows Software Inventory Agent</h3>
+              <h3>Windows</h3>
               <ul>
-                <li>x86_64 (64-bit) only</li>
-                <li>Windows 7 SP1+ (Desktop)</li>
-                <li>Windows Server 2012 R2+</li>
+                <li data-i18n="compat.win.1">x86_64 (64-bit) only</li>
+                <li data-i18n="compat.win.2">Windows 7 SP1+ (Desktop)</li>
+                <li data-i18n="compat.win.3">Windows Server 2012 R2+</li>
               </ul>
             </article>
             <article class="os-card" role="listitem">
               <div class="icon" aria-hidden="true">🍎</div>
-              <h3>macOS Software Inventory Agent</h3>
+              <h3>macOS</h3>
               <ul>
-                <li>Intel (x86_64) & Apple Silicon (ARM)</li>
+                <li data-i18n="compat.mac.1">Intel & Apple Silicon</li>
                 <li>macOS 10.15+</li>
-                <li>launchd service</li>
+                <li data-i18n="compat.mac.2">launchd service</li>
               </ul>
             </article>
           </div>
@@ -707,11 +1054,16 @@
             role="note"
             aria-label="Legacy Windows Support Warning"
           >
-            <strong>⚠️ Legacy Windows Support</strong><br />
-            Windows 7 SP1 and Windows Server 2012 R2 are supported but have
-            reached Microsoft end-of-life. While the collector will function on
-            these systems, we recommend upgrading to supported operating systems
-            for security compliance.
+            <strong
+              style="color: var(--warning)"
+              data-i18n="compat.legacy.title"
+              >⚠️ Legacy Windows Support</strong
+            ><br />
+            <span data-i18n="compat.legacy.desc"
+              >Windows 7 SP1 and Windows Server 2012 R2 are supported but have
+              reached Microsoft end-of-life. We recommend upgrading to supported
+              operating systems.</span
+            >
           </aside>
         </section>
 
@@ -720,10 +1072,14 @@
           <section class="card" id="network" aria-labelledby="network-title">
             <div class="card-header">
               <div class="card-icon network" aria-hidden="true">🌐</div>
-              <h2 id="network-title">Network Requirements</h2>
+              <h2 id="network-title" data-i18n="network.title">
+                Network Requirements
+              </h2>
             </div>
 
-            <h3 class="section-title">Outbound Connections Required</h3>
+            <h3 class="section-title" data-i18n="network.subtitle">
+              Outbound Connections Required
+            </h3>
             <ul class="req-list" role="list">
               <li>
                 <span class="check" aria-hidden="true">✓</span>
@@ -731,6 +1087,8 @@
                   <strong>api.licenseware.io</strong
                   ><span class="port-badge">HTTPS 443</span><br />
                   <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.api_desc"
                     >Primary API for data ingestion and configuration</small
                   >
                 </div>
@@ -740,7 +1098,11 @@
                 <div>
                   <strong>github.com</strong
                   ><span class="port-badge">HTTPS 443</span><br />
-                  <small>OSQuery binary downloads (registration only)</small>
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.git_desc"
+                    >OSQuery binary downloads (registration only)</small
+                  >
                 </div>
               </li>
             </ul>
@@ -750,9 +1112,15 @@
               style="margin-top: 1rem"
               role="note"
             >
-              <strong>⚠️ Firewall Configuration</strong><br />
-              Ensure outbound HTTPS (port 443) is allowed to the domains listed
-              above. No inbound ports required.
+              <strong
+                style="color: var(--warning)"
+                data-i18n="network.firewall.title"
+                >⚠️ Firewall Configuration</strong
+              ><br />
+              <span data-i18n="network.firewall.desc"
+                >Ensure outbound HTTPS (port 443) is allowed to the domains
+                listed above. No inbound ports required.</span
+              >
             </aside>
           </section>
 
@@ -760,36 +1128,57 @@
           <section class="card" id="system" aria-labelledby="system-title">
             <div class="card-header">
               <div class="card-icon security" aria-hidden="true">⚙️</div>
-              <h2 id="system-title">System Requirements</h2>
+              <h2 id="system-title" data-i18n="system.title">
+                System Requirements
+              </h2>
             </div>
 
             <ul class="req-list" role="list">
               <li>
                 <span class="check" aria-hidden="true">✓</span>
                 <div>
-                  <strong>Architecture</strong><br />
-                  <small>64-bit only (32-bit not supported)</small>
+                  <strong data-i18n="system.arch.title">Architecture</strong
+                  ><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="system.arch.desc"
+                    >64-bit only (32-bit not supported)</small
+                  >
                 </div>
               </li>
               <li>
                 <span class="check" aria-hidden="true">✓</span>
                 <div>
-                  <strong>Privileges</strong><br />
-                  <small>Root (Linux/macOS) or Administrator (Windows)</small>
+                  <strong data-i18n="system.priv.title">Privileges</strong
+                  ><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="system.priv.desc"
+                    >Root (Linux/macOS) or Administrator (Windows)</small
+                  >
                 </div>
               </li>
               <li>
                 <span class="check" aria-hidden="true">✓</span>
                 <div>
-                  <strong>Disk Space</strong><br />
-                  <small>~100 MB for binaries and temp files</small>
+                  <strong data-i18n="system.disk.title">Disk Space</strong
+                  ><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="system.disk.desc"
+                    >~100 MB for binaries and temp files</small
+                  >
                 </div>
               </li>
               <li>
                 <span class="check" aria-hidden="true">✓</span>
                 <div>
-                  <strong>Memory</strong><br />
-                  <small>Minimal (~50 MB during operation)</small>
+                  <strong data-i18n="system.mem.title">Memory</strong><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="system.mem.desc"
+                    >Minimal (~50 MB during operation)</small
+                  >
                 </div>
               </li>
             </ul>
@@ -800,62 +1189,56 @@
         <section class="card" id="endpoints" aria-labelledby="endpoints-title">
           <div class="card-header">
             <div class="card-icon api" aria-hidden="true">🔌</div>
-            <h2 id="endpoints-title">
-              API Endpoints for License Data Collection
+            <h2 id="endpoints-title" data-i18n="endpoints.title">
+              API Endpoints
             </h2>
           </div>
 
-          <p>All communication uses HTTPS with Bearer token authentication.</p>
+          <p data-i18n="endpoints.desc">
+            All communication uses HTTPS with Bearer token authentication.
+          </p>
 
           <table>
             <thead>
               <tr>
-                <th>Method</th>
-                <th>Endpoint</th>
-                <th>Purpose</th>
-                <th>Frequency</th>
+                <th data-i18n="table.method">Method</th>
+                <th data-i18n="table.endpoint">Endpoint</th>
+                <th data-i18n="table.purpose">Purpose</th>
+                <th data-i18n="table.freq">Frequency</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><span class="method-badge method-post">POST</span></td>
                 <td>
-                  <span class="endpoint"
-                    >/licenseware-collector/agent/register</span
-                  >
+                  <span class="endpoint">/agent/register</span>
                 </td>
-                <td>Register agent with system information</td>
-                <td>Once (at installation)</td>
+                <td data-i18n="endpoints.row1">Register agent</td>
+                <td data-i18n="endpoints.once">Once</td>
               </tr>
               <tr>
                 <td><span class="method-badge method-get">GET</span></td>
                 <td>
-                  <span class="endpoint"
-                    >/licenseware-collector/agent/configs</span
-                  >
+                  <span class="endpoint">/agent/configs</span>
                 </td>
-                <td>Fetch remote configuration overrides</td>
-                <td>Every 30 minutes</td>
+                <td data-i18n="endpoints.row2">Fetch configs</td>
+                <td data-i18n="time.30m">Every 30m</td>
               </tr>
               <tr>
                 <td><span class="method-badge method-get">GET</span></td>
                 <td>
-                  <span class="endpoint"
-                    >/licenseware-collector/agent/catalogs</span
-                  >
+                  <span class="endpoint">/agent/catalogs</span>
                 </td>
-                <td>Retrieve query catalogs to execute</td>
-                <td>Every 30 minutes</td>
+                <td data-i18n="endpoints.row3">Get catalogs</td>
+                <td data-i18n="time.30m">Every 30m</td>
               </tr>
               <tr>
                 <td><span class="method-badge method-post">POST</span></td>
                 <td>
-                  <span class="endpoint"
-                    >/licenseware-collector/agent/ingest</span
-                  >
+                  <span class="endpoint">/agent/ingest</span>
                 </td>
-                <td>Upload collected inventory data (JSON)</td>
-                <td>After each collection cycle</td>
+                <td data-i18n="endpoints.row4">Upload data</td>
+                <td data-i18n="endpoints.cycle">Cyclical</td>
               </tr>
             </tbody>
           </table>
@@ -865,134 +1248,83 @@
         <section class="card" id="process" aria-labelledby="process-title">
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true">📊</div>
-            <h2 id="process-title">Data Collection Process</h2>
+            <h2 id="process-title" data-i18n="process.title">
+              Data Collection Process
+            </h2>
           </div>
 
-          <p class="section-title">What You Do (2 Steps)</p>
-          <div
-            class="flow-diagram"
-            style="
-              background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            "
-          >
-            <div
-              class="flow-step"
-              style="border-color: var(--primary); background: white"
-            >
-              <strong>1.</strong> Download<br />Collector
+          <p class="section-title" data-i18n="process.user">What You Do</p>
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <strong>1.</strong>
+              <span data-i18n="process.step1">Download<br />Collector</span>
             </div>
-            <span class="flow-arrow">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--primary); background: white"
+            <span class="flow-arrow" style="color: var(--text-secondary)"
+              >→</span
             >
-              <strong>2.</strong> Run<br />Register Command
+            <div class="flow-step">
+              <strong>2.</strong>
+              <span data-i18n="process.step2">Register<br />Collector</span>
             </div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" style="color: var(--text-secondary)"
+              >→</span
+            >
             <div
               class="flow-step"
-              style="
-                border-color: var(--success);
-                background: #dcfce7;
-                color: var(--success);
-              "
+              style="border-color: var(--success); color: var(--success)"
+              data-i18n="process.done"
             >
               ✓ Done!
             </div>
           </div>
 
-          <p class="section-title">What the Collector Does Automatically</p>
-          <div class="flow-diagram" style="opacity: 0.85">
+          <p class="section-title" data-i18n="process.auto">
+            What the Collector Does
+          </p>
+          <div class="flow-diagram">
             <div
               class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
-            >
-              Download<br />Dependencies
-            </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
-            >
-              Install<br />Dependencies
-            </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
-            >
-              Create<br />System Service
-            </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
-            >
-              Register<br />with API
-            </div>
-          </div>
-
-          <p class="section-title">Ongoing Collection (Runs in Background)</p>
-          <div class="flow-diagram" style="opacity: 0.85">
-            <div
-              class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
+              style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step3"
             >
               Fetch Query<br />Catalogs
             </div>
             <span class="flow-arrow" style="color: var(--secondary)">→</span>
             <div
               class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
+              style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step4"
             >
-              Execute Queries<br />per Schedule
+              Execute<br />Queries
             </div>
             <span class="flow-arrow" style="color: var(--secondary)">→</span>
             <div
               class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
+              style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step5"
             >
-              Collect<br />Inventory Data
-            </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--secondary); font-size: 0.8rem"
-            >
-              Upload to<br />Licenseware API
+              Upload to<br />LICENSEWARE ™
             </div>
           </div>
-
-          <aside class="highlight-box" style="margin-top: 1.5rem" role="note">
-            <strong>📋 Data Collected</strong><br />
-            System information, OS version, installed software, running
-            processes, and other inventory data as defined by query catalogs.
-            All data is transmitted securely over HTTPS.
-          </aside>
         </section>
 
         <!-- Data Collection Catalogs -->
         <section class="card" id="catalogs" aria-labelledby="catalogs-title">
           <div class="card-header">
-            <div class="card-icon api" aria-hidden="true">📊</div>
-            <h2 id="catalogs-title">
-              Software Inventory Data Collection Catalogs
+            <div class="card-icon api" aria-hidden="true">📂</div>
+            <h2 id="catalogs-title" data-i18n="catalogs.title">
+              Data Collection Catalogs
             </h2>
           </div>
-
-          <p>
-            The collector executes predefined query catalogs on schedule. Each
-            catalog targets specific inventory data.
-          </p>
 
           <!-- Daily Catalog -->
           <div
             style="
               margin-top: 1.5rem;
               padding: 1.25rem;
-              background: var(--bg-light);
+              background: var(--bg-highlight);
               border-radius: 8px;
-              border-left: 4px solid var(--primary);
+              border: 1px solid var(--border);
             "
           >
             <div
@@ -1003,8 +1335,16 @@
                 margin-bottom: 0.75rem;
               "
             >
-              <h3 style="font-size: 1.1rem; margin: 0">System Inventory</h3>
-              <span class="port-badge" style="background: var(--primary)"
+              <h3
+                style="font-size: 1.1rem; margin: 0; font-weight: 700"
+                data-i18n="catalogs.sys.title"
+              >
+                System Inventory
+              </h3>
+              <span
+                class="port-badge"
+                style="background: var(--success)"
+                data-i18n="time.24h"
                 >Every 24 hours</span
               >
             </div>
@@ -1014,13 +1354,14 @@
                 color: var(--text-secondary);
                 margin-bottom: 1rem;
               "
+              data-i18n="catalogs.sys.desc"
             >
               Comprehensive system, hardware, and software inventory collection
             </p>
             <table style="margin: 0">
               <thead>
                 <tr>
-                  <th>Data Collected</th>
+                  <th data-i18n="table.data">Data Collected</th>
                   <th style="text-align: center">Linux</th>
                   <th style="text-align: center">Windows</th>
                   <th style="text-align: center">macOS</th>
@@ -1028,69 +1369,15 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    System Information (hostname, UUID, CPU, memory, hardware)
+                  <td data-i18n="catalogs.row.sysinfo">
+                    System Info (hostname, CPU, RAM)
                   </td>
                   <td style="text-align: center">✓</td>
                   <td style="text-align: center">✓</td>
                   <td style="text-align: center">✓</td>
                 </tr>
                 <tr>
-                  <td>OS Version & Kernel Info</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-                <tr>
-                  <td>User Accounts</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-                <tr>
-                  <td>Installed Programs (Add/Remove Programs)</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>DEB Packages</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>RPM Packages</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>macOS Applications & Bundle Info</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-                <tr>
-                  <td>Homebrew Packages</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-                <tr>
-                  <td>Chocolatey Packages</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>NPM & Python Packages</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-                <tr>
-                  <td>Startup Items & Cron Jobs</td>
+                  <td data-i18n="catalogs.row.programs">Installed Programs</td>
                   <td style="text-align: center">✓</td>
                   <td style="text-align: center">✓</td>
                   <td style="text-align: center">✓</td>
@@ -1104,9 +1391,9 @@
             style="
               margin-top: 1.5rem;
               padding: 1.25rem;
-              background: var(--bg-light);
+              background: var(--bg-highlight);
               border-radius: 8px;
-              border-left: 4px solid var(--warning);
+              border: 1px solid var(--border);
             "
           >
             <div
@@ -1117,8 +1404,16 @@
                 margin-bottom: 0.75rem;
               "
             >
-              <h3 style="font-size: 1.1rem; margin: 0">Software Usage</h3>
-              <span class="port-badge" style="background: var(--warning)"
+              <h3
+                style="font-size: 1.1rem; margin: 0; font-weight: 700"
+                data-i18n="catalogs.usage.title"
+              >
+                Software Usage
+              </h3>
+              <span
+                class="port-badge"
+                style="background: var(--success)"
+                data-i18n="time.4h"
                 >Every 4 hours</span
               >
             </div>
@@ -1128,13 +1423,14 @@
                 color: var(--text-secondary);
                 margin-bottom: 1rem;
               "
+              data-i18n="catalogs.usage.desc"
             >
               Software usage patterns and execution history
             </p>
             <table style="margin: 0">
               <thead>
                 <tr>
-                  <th>Data Collected</th>
+                  <th data-i18n="table.data">Data Collected</th>
                   <th style="text-align: center">Linux</th>
                   <th style="text-align: center">Windows</th>
                   <th style="text-align: center">macOS</th>
@@ -1142,27 +1438,11 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Prefetch Data (application launch history)</td>
-                  <td style="text-align: center">—</td>
+                  <td data-i18n="catalogs.row.exec">
+                    Execution History (Prefetch, BAM, Access Times)
+                  </td>
                   <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>UserAssist Registry (GUI app usage)</td>
-                  <td style="text-align: center">—</td>
                   <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>Background Activities Moderator (BAM)</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>Application File Access Times</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
                   <td style="text-align: center">✓</td>
                 </tr>
               </tbody>
@@ -1174,9 +1454,9 @@
             style="
               margin-top: 1.5rem;
               padding: 1.25rem;
-              background: var(--bg-light);
+              background: var(--bg-highlight);
               border-radius: 8px;
-              border-left: 4px solid var(--success);
+              border: 1px solid var(--border);
             "
           >
             <div
@@ -1187,8 +1467,16 @@
                 margin-bottom: 0.75rem;
               "
             >
-              <h3 style="font-size: 1.1rem; margin: 0">Runtime State</h3>
-              <span class="port-badge" style="background: var(--success)"
+              <h3
+                style="font-size: 1.1rem; margin: 0; font-weight: 700"
+                data-i18n="catalogs.state.title"
+              >
+                Runtime State
+              </h3>
+              <span
+                class="port-badge"
+                style="background: var(--success)"
+                data-i18n="time.30m"
                 >Every 30 minutes</span
               >
             </div>
@@ -1198,13 +1486,14 @@
                 color: var(--text-secondary);
                 margin-bottom: 1rem;
               "
+              data-i18n="catalogs.state.desc"
             >
               Running processes, services, and active sessions
             </p>
             <table style="margin: 0">
               <thead>
                 <tr>
-                  <th>Data Collected</th>
+                  <th data-i18n="table.data">Data Collected</th>
                   <th style="text-align: center">Linux</th>
                   <th style="text-align: center">Windows</th>
                   <th style="text-align: center">macOS</th>
@@ -1212,33 +1501,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    Running Processes (PID, path, command line, resource usage)
+                  <td data-i18n="catalogs.row.proc">
+                    Running Processes & Active Users
                   </td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-                <tr>
-                  <td>Windows Services (running)</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>Systemd Units (running)</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">—</td>
-                </tr>
-                <tr>
-                  <td>LaunchD Services (active)</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">—</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-                <tr>
-                  <td>Logged-in Users</td>
                   <td style="text-align: center">✓</td>
                   <td style="text-align: center">✓</td>
                   <td style="text-align: center">✓</td>
@@ -1252,14 +1517,15 @@
         <section class="card" id="paths" aria-labelledby="paths-title">
           <div class="card-header">
             <div class="card-icon os" aria-hidden="true">📁</div>
-            <h2 id="paths-title">Installation Paths by Operating System</h2>
+            <h2 id="paths-title" data-i18n="paths.title">Installation Paths</h2>
           </div>
 
           <div class="os-grid">
             <!-- Linux -->
             <div
               style="
-                background: var(--bg-light);
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
                 border-radius: 8px;
                 padding: 1.25rem;
               "
@@ -1278,61 +1544,55 @@
                 <h3 style="margin: 0; font-size: 1rem">Linux</h3>
               </div>
               <div style="font-size: 0.8rem">
-                <div style="margin-bottom: 0.75rem">
+                <div class="path-container">
                   <div
                     style="
                       color: var(--text-secondary);
-                      font-weight: 600;
+                      font-weight: 700;
                       margin-bottom: 0.25rem;
                     "
+                    data-i18n="paths.binary"
                   >
-                    Collector Binary
+                    Binary
                   </div>
-                  <code style="font-size: 0.75rem; word-break: break-all"
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
                     >/usr/local/bin/licenseware-collector</code
                   >
-                </div>
-                <div style="margin-bottom: 0.75rem">
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
+                  <!-- SVG Copy Icon -->
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
                   >
-                    OSQuery Binary
-                  </div>
-                  <code style="font-size: 0.75rem"
-                    >/usr/local/bin/osqueryi</code
-                  >
-                </div>
-                <div style="margin-bottom: 0.75rem">
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
-                  >
-                    Service File
-                  </div>
-                  <code style="font-size: 0.75rem; word-break: break-all"
-                    >/etc/systemd/system/licenseware-collector.service</code
-                  >
-                </div>
-                <div>
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
-                  >
-                    Config File
-                  </div>
-                  <code style="font-size: 0.75rem"
-                    >/etc/default/licenseware-collector</code
-                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1340,7 +1600,8 @@
             <!-- Windows -->
             <div
               style="
-                background: var(--bg-light);
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
                 border-radius: 8px;
                 padding: 1.25rem;
               "
@@ -1352,66 +1613,61 @@
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid #0078d4;
+                  border-bottom: 2px solid var(--palette-accent-sec);
                 "
               >
                 <span style="font-size: 1.5rem">🪟</span>
                 <h3 style="margin: 0; font-size: 1rem">Windows</h3>
               </div>
               <div style="font-size: 0.8rem">
-                <div style="margin-bottom: 0.75rem">
+                <div class="path-container">
                   <div
                     style="
                       color: var(--text-secondary);
-                      font-weight: 600;
+                      font-weight: 700;
                       margin-bottom: 0.25rem;
                     "
+                    data-i18n="paths.binary"
                   >
-                    Collector Binary
+                    Binary
                   </div>
-                  <code style="font-size: 0.75rem; word-break: break-all"
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
                     >C:\Program Files\Licenseware\collector.exe</code
                   >
-                </div>
-                <div style="margin-bottom: 0.75rem">
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
                   >
-                    OSQuery Binary
-                  </div>
-                  <code style="font-size: 0.75rem; word-break: break-all"
-                    >C:\Program Files\osquery\osqueryi.exe</code
-                  >
-                </div>
-                <div style="margin-bottom: 0.75rem">
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
-                  >
-                    Service
-                  </div>
-                  <code style="font-size: 0.75rem">NSSM Windows Service</code>
-                </div>
-                <div>
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
-                  >
-                    Config File
-                  </div>
-                  <code style="font-size: 0.75rem; word-break: break-all"
-                    >%PROGRAMDATA%\Licenseware\collector.env</code
-                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1419,7 +1675,8 @@
             <!-- macOS -->
             <div
               style="
-                background: var(--bg-light);
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
                 border-radius: 8px;
                 padding: 1.25rem;
               "
@@ -1431,68 +1688,61 @@
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid #555;
+                  border-bottom: 2px solid var(--text-secondary);
                 "
               >
                 <span style="font-size: 1.5rem">🍎</span>
                 <h3 style="margin: 0; font-size: 1rem">macOS</h3>
               </div>
               <div style="font-size: 0.8rem">
-                <div style="margin-bottom: 0.75rem">
+                <div class="path-container">
                   <div
                     style="
                       color: var(--text-secondary);
-                      font-weight: 600;
+                      font-weight: 700;
                       margin-bottom: 0.25rem;
                     "
+                    data-i18n="paths.binary"
                   >
-                    Collector Binary
+                    Binary
                   </div>
-                  <code style="font-size: 0.75rem; word-break: break-all"
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
                     >/usr/local/bin/licenseware-collector</code
                   >
-                </div>
-                <div style="margin-bottom: 0.75rem">
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
                   >
-                    OSQuery Binary
-                  </div>
-                  <code style="font-size: 0.75rem"
-                    >/usr/local/bin/osqueryi</code
-                  >
-                </div>
-                <div style="margin-bottom: 0.75rem">
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
-                  >
-                    Service File
-                  </div>
-                  <code style="font-size: 0.75rem; word-break: break-all"
-                    >/Library/LaunchDaemons/io.licenseware.*.plist</code
-                  >
-                </div>
-                <div>
-                  <div
-                    style="
-                      color: var(--text-secondary);
-                      font-weight: 600;
-                      margin-bottom: 0.25rem;
-                    "
-                  >
-                    Config File
-                  </div>
-                  <code style="font-size: 0.75rem"
-                    >/usr/local/etc/licenseware-collector</code
-                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1507,10 +1757,36 @@
         >
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true">🚀</div>
-            <h2 id="installation-title">
-              Installation Guide for License Compliance Agent
+            <h2 id="installation-title" data-i18n="install.title">
+              Installation Guide
             </h2>
           </div>
+
+          <!-- Video Embed - uncomment when new video is ready
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                margin-bottom: 0.75rem;
+                font-size: 1rem;
+                color: var(--text-secondary);
+                font-weight: 700;
+              "
+              data-i18n="install.video.title"
+            >
+              Video Walkthrough
+            </h3>
+            <div class="video-wrapper">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/VIDEO_ID_HERE"
+                title="LICENSEWARE Collector Installation Guide"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+          -->
 
           <!-- Step 1 -->
           <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
@@ -1519,19 +1795,26 @@
                 width: 36px;
                 height: 36px;
                 background: var(--primary);
-                color: white;
+                color: #fff;
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-weight: 700;
+                font-weight: 800;
                 flex-shrink: 0;
               "
             >
               1
             </div>
             <div style="flex: 1">
-              <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem">
+              <h3
+                style="
+                  margin: 0 0 0.5rem 0;
+                  font-size: 1.1rem;
+                  font-weight: 700;
+                "
+                data-i18n="install.step1.title"
+              >
                 Get Your Token
               </h3>
               <ol
@@ -1542,32 +1825,28 @@
                 "
               >
                 <li>
-                  Go to
+                  <span data-i18n="install.step1.1">Go to</span>
                   <a
                     href="https://app.licenseware.io"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >Licenseware</a
+                    >app.licenseware.io</a
                   >
-                  and sign in (or register a new account)
+                  <span data-i18n="install.step1.2">and sign in</span>
                 </li>
                 <li>
-                  Navigate to the
-                  <strong>Licenseware Collector</strong> application
+                  <span data-i18n="install.step1.3"
+                    >Navigate to <strong>LC App</strong> and go to
+                    <strong>API Keys</strong> Tab</span
+                  >
                 </li>
-                <li>Navigate to the <strong>API Keys</strong> tab</li>
                 <li>
-                  Click <strong>Create Key</strong> to create a new agent token
+                  <span data-i18n="install.step1.4"
+                    >Click <strong>Create Key</strong>, configure it, and copy
+                    the token</span
+                  >
                 </li>
-                <li>Copy the token, you'll need it for the next step</li>
               </ol>
-              <div
-                class="highlight-box warning"
-                style="margin-top: 0.75rem; margin-bottom: 0"
-              >
-                <strong>🔐 Keep your token secure!</strong> It grants access to
-                register agents under your account.
-              </div>
             </div>
           </div>
 
@@ -1578,150 +1857,125 @@
                 width: 36px;
                 height: 36px;
                 background: var(--primary);
-                color: white;
+                color: #fff;
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-weight: 700;
+                font-weight: 800;
                 flex-shrink: 0;
               "
             >
               2
             </div>
             <div style="flex: 1">
-              <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem">
-                Download the Collector
-              </h3>
-              <p style="margin: 0 0 0.75rem 0; color: var(--text-secondary)">
-                Download the appropriate binary for your operating system from
-                the Licenseware Collector releases page or your Licenseware
-                dashboard.
-              </p>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
-            <div
-              style="
-                width: 36px;
-                height: 36px;
-                background: var(--primary);
-                color: white;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 700;
-                flex-shrink: 0;
-              "
-            >
-              3
-            </div>
-            <div style="flex: 1">
-              <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem">
-                Register the Agent
-              </h3>
-              <p style="margin: 0 0 0.75rem 0; color: var(--text-secondary)">
-                Run the registration command with elevated privileges. This will
-                install dependencies, configure the service, and register with
-                Licenseware.
-              </p>
-
-              <div
+              <h3
                 style="
-                  background: #1e293b;
-                  border-radius: 8px;
-                  padding: 1rem;
-                  margin-bottom: 0.75rem;
+                  margin: 0 0 0.5rem 0;
+                  font-size: 1.1rem;
+                  font-weight: 700;
                 "
+                data-i18n="install.step2.title"
               >
+                Download & Register
+              </h3>
+              <p
+                style="margin: 0 0 0.75rem 0; color: var(--text-secondary)"
+                data-i18n="install.step2.desc"
+              >
+                Download the collector agent from the Collector app in
+                Licenseware. Run with elevated privileges.
+              </p>
+
+              <div class="code-block" style="margin-bottom: 0.75rem">
                 <div
                   style="
-                    color: #94a3b8;
+                    color: var(--text-secondary);
                     font-size: 0.75rem;
                     margin-bottom: 0.5rem;
+                    font-weight: 700;
                   "
                 >
                   Linux / macOS
                 </div>
-                <code style="color: #e2e8f0; font-size: 0.875rem"
+                <code style="font-size: 0.875rem"
                   >sudo ./licenseware-collector register --token
                   YOUR_TOKEN</code
                 >
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard(this)"
+                  aria-label="Copy command"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
+                </button>
               </div>
 
-              <div
-                style="background: #1e293b; border-radius: 8px; padding: 1rem"
-              >
+              <div class="code-block">
                 <div
                   style="
-                    color: #94a3b8;
+                    color: var(--text-secondary);
                     font-size: 0.75rem;
                     margin-bottom: 0.5rem;
+                    font-weight: 700;
                   "
                 >
-                  Windows (Run as Administrator)
+                  Windows (Admin)
                 </div>
-                <code style="color: #e2e8f0; font-size: 0.875rem"
+                <code style="font-size: 0.875rem"
                   >.\licenseware-collector.exe register --token YOUR_TOKEN</code
                 >
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div style="display: flex; gap: 1rem">
-            <div
-              style="
-                width: 36px;
-                height: 36px;
-                background: var(--success);
-                color: white;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 700;
-                flex-shrink: 0;
-              "
-            >
-              ✓
-            </div>
-            <div style="flex: 1">
-              <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem">
-                Done! The Collector is Running
-              </h3>
-              <p style="margin: 0 0 0.75rem 0; color: var(--text-secondary)">
-                The registration process automatically:
-              </p>
-              <ul
-                style="
-                  margin: 0;
-                  padding-left: 1.25rem;
-                  color: var(--text-secondary);
-                "
-              >
-                <li>Downloads and installs OSQuery</li>
-                <li>Installs the collector binary to the system path</li>
-                <li>Creates and starts a background service (daemon)</li>
-                <li>Registers the agent with your Licenseware account</li>
-              </ul>
-              <p style="margin: 0.75rem 0 0 0; color: var(--text-secondary)">
-                You can verify the service is running with:
-              </p>
-              <div
-                style="
-                  background: #1e293b;
-                  border-radius: 8px;
-                  padding: 1rem;
-                  margin-top: 0.5rem;
-                "
-              >
-                <code style="color: #e2e8f0; font-size: 0.875rem"
-                  >licenseware-collector status</code
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard(this)"
+                  aria-label="Copy command"
                 >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -1731,30 +1985,43 @@
         <section class="card" id="commands" aria-labelledby="commands-title">
           <div class="card-header">
             <div class="card-icon api" aria-hidden="true">📖</div>
-            <h2 id="commands-title">Quick Reference Commands</h2>
+            <h2 id="commands-title" data-i18n="quick.title">Quick Reference</h2>
           </div>
 
           <div class="grid" style="margin-top: 1rem">
             <div>
-              <h3 class="section-title">Agent Intervals</h3>
-              <ul class="req-list" role="list">
+              <h3 class="section-title" data-i18n="quick.intervals">
+                Agent Intervals
+              </h3>
+              <ul class="req-list compact" role="list">
                 <li>
                   <span class="check" aria-hidden="true">⏱</span>
-                  <div>Config Refresh: <strong>Every 30 minutes</strong></div>
+                  <div>
+                    <span data-i18n="quick.config">Config Refresh:</span>
+                    <strong>30 mins</strong>
+                  </div>
                 </li>
                 <li>
                   <span class="check" aria-hidden="true">⏱</span>
-                  <div>Catalog Check: <strong>Every 30 minutes</strong></div>
+                  <div>
+                    <span data-i18n="quick.catalog">Catalog Check:</span>
+                    <strong>30 mins</strong>
+                  </div>
                 </li>
                 <li>
                   <span class="check" aria-hidden="true">⏱</span>
-                  <div>Failed File Cleanup: <strong>Every 6 hours</strong></div>
+                  <div>
+                    <span data-i18n="quick.cleanup">Failed File Cleanup:</span>
+                    <strong>6 hours</strong>
+                  </div>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 class="section-title">Service Commands</h3>
-              <ul class="req-list" role="list">
+              <h3 class="section-title" data-i18n="quick.service">
+                Service Commands
+              </h3>
+              <ul class="req-list compact" role="list">
                 <li>
                   <span class="check" aria-hidden="true">$</span>
                   <div>
@@ -1763,18 +2030,134 @@
                       &lt;TOKEN&gt;</code
                     >
                   </div>
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
                 </li>
                 <li>
                   <span class="check" aria-hidden="true">$</span>
                   <div><code>licenseware-collector status</code></div>
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
                 </li>
                 <li>
                   <span class="check" aria-hidden="true">$</span>
                   <div><code>licenseware-collector stop</code></div>
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
                 </li>
                 <li>
                   <span class="check" aria-hidden="true">$</span>
                   <div><code>licenseware-collector run-once</code></div>
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -1793,152 +2176,332 @@
         "
       >
         <div style="text-align: left">
-          <p>© 2025 Licenseware. All rights reserved.</p>
-          <p>
-            For support, contact
-            <a
-              href="mailto:contact@licenseware.io"
-              aria-label="Email Licenseware support"
-              >contact@licenseware.io</a
-            >
+          <p data-i18n="footer.copyright">
+            © 2025 LICENSEWARE ™. All rights reserved.
           </p>
         </div>
-        <img
-          src="favicon.webp"
-          alt="Licenseware - Software License Management Platform"
-          class="header-logo"
-          style="opacity: 0.5"
-          width="56"
-          height="56"
-          loading="lazy"
-        />
+        <!-- Simple link to homepage via logo -->
+        <a
+          href="https://www.licenseware.io"
+          target="_blank"
+          aria-label="LICENSEWARE ™"
+        >
+          <img
+            src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
+            alt="LICENSEWARE ™"
+            class="header-logo"
+            style="opacity: 0.6; max-height: 24px"
+            loading="lazy"
+          />
+        </a>
       </div>
     </footer>
 
-    <!-- Structured Data (JSON-LD) for SEO -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Licenseware Collector",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": ["Windows", "Linux", "macOS"],
-        "description": "A lightweight agent that collects system and software inventory data from servers using OSQuery for software license compliance analysis.",
-        "url": "https://licenseware-collector.com/",
-        "softwareVersion": "1.0",
-        "author": {
-          "@type": "Organization",
-          "name": "Licenseware",
-          "url": "https://licenseware.io",
-          "email": "contact@licenseware.io",
-          "logo": "favicon.webp"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "featureList": [
-          "Software inventory collection",
-          "System information gathering",
-          "Cross-platform support (Windows, Linux, macOS)",
-          "OSQuery-powered data collection",
-          "Automated license compliance analysis",
-          "Secure HTTPS data transmission",
-          "Background service operation"
-        ],
-        "screenshot": "https://licenseware-collector.com/lc.svg",
-        "softwareRequirements": "64-bit operating system, Administrator/Root privileges, 100MB disk space"
+    <script>
+      // Theme Toggle Logic
+      // Theme Toggle Logic - respects OS preference
+      function toggleTheme() {
+        const checkbox = document.getElementById("themeCheckbox");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        if (checkbox.checked) {
+          // Toggle is ON = light mode requested
+          document.body.classList.add("light-mode");
+          document.body.classList.remove("dark-mode");
+        } else {
+          // Toggle is OFF = dark mode requested
+          document.body.classList.add("dark-mode");
+          document.body.classList.remove("light-mode");
+        }
       }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "TechArticle",
-        "headline": "Licenseware Collector Technical Requirements",
-        "description": "Complete technical documentation for Licenseware Collector software license compliance agent including system requirements, API endpoints, installation guide, and data collection catalogs.",
-        "author": {
-          "@type": "Organization",
-          "name": "Licenseware"
+
+      // Initialize theme based on OS preference
+      (function initTheme() {
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const checkbox = document.getElementById("themeCheckbox");
+
+        if (prefersDark) {
+          checkbox.checked = false;
+          document.body.classList.add("dark-mode");
+        } else {
+          checkbox.checked = true;
+          document.body.classList.add("light-mode");
+        }
+      })();
+
+      // Language Toggle Logic
+      const translations = {
+        en: {
+          "app.title": "LICENSEWARE Collector",
+          "nav.overview": "Overview",
+          "nav.what": "What is it?",
+          "nav.compatibility": "OS Compatibility",
+          "nav.requirements": "Requirements",
+          "nav.network": "Network",
+          "nav.system": "System",
+          "nav.tech": "Technical Details",
+          "nav.endpoints": "API Endpoints",
+          "nav.process": "Process Flow",
+          "nav.catalogs": "Data Collection",
+          "nav.paths": "Installation Paths",
+          "nav.start": "Getting Started",
+          "nav.install": "Installation Guide",
+          "nav.commands": "Commands",
+          "overview.title": "What is LICENSEWARE Collector?",
+          "overview.desc":
+            "A lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE ™ platform for software license compliance analysis.",
+          "compat.title": "Operating System Compatibility",
+          "compat.linux.1": "x86_64 (64-bit) only",
+          "compat.linux.2": "systemd required",
+          "compat.win.1": "x86_64 (64-bit) only",
+          "compat.win.2": "Windows 7 SP1+ (Desktop)",
+          "compat.win.3": "Windows Server 2012 R2+",
+          "compat.mac.1": "Intel & Apple Silicon",
+          "compat.mac.2": "launchd service",
+          "compat.legacy.title": "⚠️ Legacy Windows Support",
+          "compat.legacy.desc":
+            "Windows 7 SP1 and Windows Server 2012 R2 are supported but have reached Microsoft end-of-life. We recommend upgrading to supported operating systems.",
+          "network.title": "Network Requirements",
+          "network.subtitle": "Outbound Connections Required",
+          "network.api_desc":
+            "Primary API for data ingestion and configuration",
+          "network.git_desc": "OSQuery binary downloads (registration only)",
+          "network.firewall.title": "⚠️ Firewall Configuration",
+          "network.firewall.desc":
+            "Ensure outbound HTTPS (port 443) is allowed to the domains listed above. No inbound ports required.",
+          "system.title": "System Requirements",
+          "system.arch.title": "Architecture",
+          "system.arch.desc": "64-bit only (32-bit not supported)",
+          "system.priv.title": "Privileges",
+          "system.priv.desc": "Root (Linux/macOS) or Administrator (Windows)",
+          "system.disk.title": "Disk Space",
+          "system.disk.desc": "~100 MB for binaries and temp files",
+          "system.mem.title": "Memory",
+          "system.mem.desc": "Minimal (~50 MB during operation)",
+          "endpoints.title": "API Endpoints",
+          "endpoints.desc":
+            "All communication uses HTTPS with Bearer token authentication.",
+          "table.method": "Method",
+          "table.endpoint": "Endpoint",
+          "table.purpose": "Purpose",
+          "table.freq": "Frequency",
+          "endpoints.row1": "Register agent",
+          "endpoints.once": "Once",
+          "endpoints.row2": "Fetch configs",
+          "endpoints.row3": "Get catalogs",
+          "endpoints.row4": "Upload data",
+          "endpoints.cycle": "Cyclical",
+          "time.30m": "Every 30m",
+          "process.title": "Data Collection Process",
+          "process.user": "What You Do",
+          "process.step1": "Download<br />Collector",
+          "process.step2": "Run<br />Register",
+          "process.done": "✓ Done!",
+          "process.auto": "What the Collector Does",
+          "process.step3": "Fetch Query<br />Catalogs",
+          "process.step4": "Execute<br />Queries",
+          "process.step5": "Upload to<br />LICENSEWARE ™",
+          "catalogs.title": "Data Collection Catalogs",
+          "catalogs.sys.title": "System Inventory",
+          "time.24h": "Every 24 hours",
+          "catalogs.sys.desc":
+            "Comprehensive system, hardware, and software inventory collection",
+          "table.data": "Data Collected",
+          "catalogs.row.sysinfo": "System Info (hostname, CPU, RAM)",
+          "catalogs.row.programs": "Installed Programs",
+          "catalogs.usage.title": "Software Usage",
+          "time.4h": "Every 4 hours",
+          "catalogs.usage.desc":
+            "Software usage patterns and execution history",
+          "catalogs.row.exec":
+            "Execution History (Prefetch, BAM, Access Times)",
+          "catalogs.state.title": "Runtime State",
+          "catalogs.state.desc":
+            "Running processes, services, and active sessions",
+          "table.all_os": "All OS",
+          "catalogs.row.proc": "Running Processes & Active Users",
+          "paths.title": "Installation Paths",
+          "paths.binary": "Binary",
+          "install.title": "Installation Guide",
+          "install.video.title": "Video Walkthrough",
+          "install.step1.title": "Get Your Token",
+          "install.step1.1": "Go to",
+          "install.step1.2": "and sign in",
+          "install.step1.3": "Navigate to <strong>API Keys</strong>",
+          "install.step1.4": "Click <strong>Create Key</strong>",
+          "install.step2.title": "Download & Register",
+          "install.step2.desc":
+            "Download the collector agent from the Collector app in Licenseware. Run with elevated privileges.",
+          "quick.title": "Quick Reference",
+          "quick.intervals": "Agent Intervals",
+          "quick.service": "Service Commands",
+          "quick.config": "Config Refresh:",
+          "quick.catalog": "Catalog Check:",
+          "quick.cleanup": "Failed File Cleanup:",
+          "footer.copyright": "© 2025 LICENSEWARE ™. All rights reserved.",
         },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Licenseware",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
-          }
+        es: {
+          "app.title": "LICENSEWARE Collector",
+          "nav.overview": "Resumen",
+          "nav.what": "¿Qué es?",
+          "nav.compatibility": "Compatibilidad",
+          "nav.requirements": "Requisitos",
+          "nav.network": "Red",
+          "nav.system": "Sistema",
+          "nav.tech": "Detalles Técnicos",
+          "nav.endpoints": "Puntos finales de API",
+          "nav.process": "Flujo del proceso",
+          "nav.catalogs": "Recopilación de datos",
+          "nav.paths": "Rutas de instalación",
+          "nav.start": "Empezando",
+          "nav.install": "Guía de instalación",
+          "nav.commands": "Comandos",
+          "overview.title": "¿Qué es LICENSEWARE Collector?",
+          "overview.desc":
+            "Un agente ligero que recopila datos de inventario de software y sistemas de sus servidores y los transmite de forma segura a la plataforma LICENSEWARE ™ para el análisis de cumplimiento de licencias.",
+          "compat.title": "Compatibilidad del Sistema Operativo",
+          "compat.linux.1": "x86_64 (64-bit) solamente",
+          "compat.linux.2": "systemd requerido",
+          "compat.win.1": "x86_64 (64-bit) solamente",
+          "compat.win.2": "Windows 7 SP1+ (Escritorio)",
+          "compat.win.3": "Windows Server 2012 R2+",
+          "compat.mac.1": "Intel y Apple Silicon",
+          "compat.mac.2": "servicio launchd",
+          "compat.legacy.title": "⚠️ Soporte Legacy Windows",
+          "compat.legacy.desc":
+            "Windows 7 SP1 y Windows Server 2012 R2 son compatibles pero han llegado al final de su vida útil de Microsoft. Recomendamos actualizar a sistemas operativos compatibles.",
+          "network.title": "Requisitos de Red",
+          "network.subtitle": "Conexiones salientes requeridas",
+          "network.api_desc":
+            "API principal para la ingestión de datos y configuración",
+          "network.git_desc":
+            "Descargas de binarios de OSQuery (solo registro)",
+          "network.firewall.title": "⚠️ Configuración del Firewall",
+          "network.firewall.desc":
+            "Asegúrese de que se permita HTTPS saliente (puerto 443) a los dominios enumerados anteriormente. No se requieren puertos de entrada.",
+          "system.title": "Requisitos del Sistema",
+          "system.arch.title": "Arquitectura",
+          "system.arch.desc": "Solo 64-bit (32-bit no compatible)",
+          "system.priv.title": "Privilegios",
+          "system.priv.desc": "Root (Linux/macOS) o Administrador (Windows)",
+          "system.disk.title": "Espacio en disco",
+          "system.disk.desc": "~100 MB para binarios y archivos temporales",
+          "system.mem.title": "Memoria",
+          "system.mem.desc": "Mínima (~50 MB durante la operación)",
+          "endpoints.title": "Puntos finales de API",
+          "endpoints.desc":
+            "Toda la comunicación utiliza HTTPS con autenticación Bearer token.",
+          "table.method": "Método",
+          "table.endpoint": "Endpoint",
+          "table.purpose": "Propósito",
+          "table.freq": "Frecuencia",
+          "endpoints.row1": "Registrar agente",
+          "endpoints.once": "Una vez",
+          "endpoints.row2": "Obtener configuraciones",
+          "endpoints.row3": "Obtener catálogos",
+          "endpoints.row4": "Subir datos",
+          "endpoints.cycle": "Cíclico",
+          "time.30m": "Cada 30m",
+          "process.title": "Proceso de Recopilación de Datos",
+          "process.user": "Lo que usted hace",
+          "process.step1": "Descargar<br />Collector",
+          "process.step2": "Ejecutar<br />Registro",
+          "process.done": "✓ ¡Listo!",
+          "process.auto": "Lo que hace el Collector",
+          "process.step3": "Obtener catálogos<br />de consultas",
+          "process.step4": "Ejecutar<br />Consultas",
+          "process.step5": "Subir a<br />LICENSEWARE ™",
+          "catalogs.title": "Catálogos de Recopilación de Datos",
+          "catalogs.sys.title": "Inventario del Sistema",
+          "time.24h": "Cada 24 horas",
+          "catalogs.sys.desc":
+            "Recopilación exhaustiva de inventario de sistema, hardware y software",
+          "table.data": "Datos Recopilados",
+          "catalogs.row.sysinfo": "Info del Sistema (hostname, CPU, RAM)",
+          "catalogs.row.programs": "Programas Instalados",
+          "catalogs.usage.title": "Uso de Software",
+          "time.4h": "Cada 4 horas",
+          "catalogs.usage.desc":
+            "Patrones de uso de software e historial de ejecución",
+          "catalogs.row.exec":
+            "Historial de Ejecución (Prefetch, BAM, tiempos de acceso)",
+          "catalogs.state.title": "Estado de Ejecución",
+          "catalogs.state.desc":
+            "Procesos en ejecución, servicios y sesiones activas",
+          "table.all_os": "Todos los SO",
+          "catalogs.row.proc": "Procesos en Ejecución y Usuarios Activos",
+          "paths.title": "Rutas de Instalación",
+          "paths.binary": "Binario",
+          "install.title": "Guía de Instalación",
+          "install.video.title": "Video Tutorial",
+          "install.step1.title": "Obtenga su Token",
+          "install.step1.1": "Vaya a",
+          "install.step1.2": "e inicie sesión",
+          "install.step1.3": "Navegue a <strong>Claves API</strong>",
+          "install.step1.4": "Haga clic en <strong>Crear Clave</strong>",
+          "install.step2.title": "Descargar y Registrar",
+          "install.step2.desc":
+            "Descargue el agente recolector desde la aplicación Collector en Licenseware. Ejecute con privilegios elevados.",
+          "quick.title": "Referencia Rápida",
+          "quick.intervals": "Intervalos del Agente",
+          "quick.service": "Comandos del Servicio",
+          "quick.config": "Refrescar Config:",
+          "quick.catalog": "Comprobar Catálogo:",
+          "quick.cleanup": "Limpieza de Archivos:",
+          "footer.copyright":
+            "© 2025 LICENSEWARE ™. Todos los derechos reservados.",
         },
-        "datePublished": "2025-12-01",
-        "dateModified": "2025-12-10",
-        "mainEntityOfPage": "https://licenseware-collector.com/",
-        "articleSection": [
-          "Software Requirements",
-          "Network Configuration",
-          "Installation",
-          "API Documentation"
-        ],
-        "keywords": "software license compliance, software asset management, OSQuery, IT inventory, license audit"
+      };
+
+      let currentLang = "en";
+
+      function changeLanguage() {
+        const select = document.getElementById("langSelect");
+        currentLang = select.value;
+        updateContent();
       }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Licenseware",
-            "item": "https://licenseware.io"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Licenseware Collector",
-            "item": "https://licenseware-collector.com/"
+
+      function updateContent() {
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[currentLang][key]) {
+            el.innerHTML = translations[currentLang][key];
           }
-        ]
+        });
       }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What operating systems does Licenseware Collector support?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Licenseware Collector supports Windows (7 SP1+, Server 2012 R2+), Linux (x86_64 with systemd - RHEL, Ubuntu, Debian), and macOS (10.15+ on Intel and Apple Silicon)."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What are the network requirements for Licenseware Collector?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Licenseware Collector requires outbound HTTPS (port 443) access to api.licenseware.io for data ingestion and github.com for OSQuery downloads during registration. No inbound ports are required."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What data does Licenseware Collector gather?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Licenseware Collector gathers system information (hostname, UUID, CPU, memory), OS version, installed software packages (DEB, RPM, Windows programs, macOS apps, Homebrew, Chocolatey), running processes, and software usage patterns for license compliance analysis."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do I install Licenseware Collector?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "1) Get your API token from app.licenseware.io, 2) Download the collector binary for your OS, 3) Run 'licenseware-collector register --token YOUR_TOKEN' with administrator/root privileges. The agent will automatically install dependencies and start as a background service."
-            }
-          }
-        ]
+
+      function copyToClipboard(btn) {
+        // Find the code element sibling
+        const parent = btn.parentElement;
+        const codeElement =
+          parent.querySelector("code") ||
+          parent.parentElement.querySelector("code");
+
+        if (codeElement) {
+          const textToCopy = codeElement.innerText;
+          navigator.clipboard
+            .writeText(textToCopy)
+            .then(() => {
+              // Visual feedback - swap SVG
+              const originalHTML = btn.innerHTML;
+              btn.innerHTML =
+                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+              btn.style.color = "var(--success)";
+
+              setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.color = "";
+              }, 2000);
+            })
+            .catch((err) => {
+              console.error("Failed to copy: ", err);
+            });
+        }
       }
     </script>
   </body>
