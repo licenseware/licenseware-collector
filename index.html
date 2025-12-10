@@ -1,9 +1,97 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Licenseware Collector - Technical Requirements Bulletin</title>
+
+    <!-- Primary Meta Tags -->
+    <title>
+      Licenseware Collector - Software License Compliance Agent | Technical
+      Documentation
+    </title>
+    <meta
+      name="title"
+      content="Licenseware Collector - Software License Compliance Agent | Technical Documentation"
+    />
+    <meta
+      name="description"
+      content="Licenseware Collector is a lightweight agent that collects system and software inventory data from Windows, Linux, and macOS servers using OSQuery for software license compliance analysis."
+    />
+    <meta
+      name="keywords"
+      content="software license compliance, software asset management, SAM tool, license management, OSQuery agent, IT asset discovery, software inventory, Windows license audit, Linux software inventory, macOS asset management, license optimization, compliance automation"
+    />
+    <meta name="author" content="Licenseware" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://licenseware-collector.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://licenseware-collector.com/" />
+    <meta
+      property="og:title"
+      content="Licenseware Collector - Software License Compliance Agent"
+    />
+    <meta
+      property="og:description"
+      content="Lightweight agent for collecting system and software inventory data from Windows, Linux, and macOS. Automate your software license compliance with OSQuery-powered data collection."
+    />
+    <meta
+      property="og:image"
+      content="https://licenseware-collector.com/lc.svg"
+    />
+    <meta property="og:image:alt" content="Licenseware Collector Logo" />
+    <meta property="og:site_name" content="Licenseware" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://licenseware-collector.com/" />
+    <meta
+      name="twitter:title"
+      content="Licenseware Collector - Software License Compliance Agent"
+    />
+    <meta
+      name="twitter:description"
+      content="Lightweight agent for collecting system and software inventory data from Windows, Linux, and macOS. Automate your software license compliance."
+    />
+    <meta
+      name="twitter:image"
+      content="https://licenseware-collector.com/lc.svg"
+    />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Licenseware Collector" />
+    <meta name="application-name" content="Licenseware Collector" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Resource Hints for Performance -->
+    <link
+      rel="preconnect"
+      href="https://9142296.fs1.hubspotusercontent-na1.net"
+      crossorigin
+    />
+    <link
+      rel="dns-prefetch"
+      href="https://9142296.fs1.hubspotusercontent-na1.net"
+    />
+    <link rel="preconnect" href="https://js.hs-scripts.com" crossorigin />
+    <link rel="dns-prefetch" href="https://js.hs-scripts.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="favicon.webp" />
+    <link rel="apple-touch-icon" href="favicon.webp" />
     <style>
       :root {
         --primary: #2563eb;
@@ -141,8 +229,8 @@
       }
 
       .app-icon {
-        width: 44px;
-        height: 44px;
+        width: 56px;
+        height: 56px;
         border-radius: 10px;
         overflow: hidden;
         flex-shrink: 0;
@@ -155,7 +243,7 @@
       }
 
       .header-logo {
-        height: 24px;
+        max-height: 48px;
       }
 
       header h1 {
@@ -403,6 +491,19 @@
         margin: 1.5rem 0 1rem;
       }
 
+      /* Screen-reader only text for accessibility */
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       .highlight-box {
         background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
         border-left: 4px solid var(--primary);
@@ -494,42 +595,51 @@
               "
             >
               <div class="app-icon">
-                <img src="lc.svg" alt="Licenseware Collector Icon" />
+                <img
+                  src="lc.svg"
+                  alt="Licenseware Collector - Software License Compliance Agent Logo"
+                  width="56"
+                  height="56"
+                  loading="eager"
+                />
               </div>
               <h1>Licenseware Collector</h1>
             </div>
-            <p>Technical Requirements</p>
+            <p>Technical Requirements for Software License Compliance Agent</p>
             <span class="badge badge-version">Version 1.0 • December 2025</span>
           </div>
         </div>
         <img
-          src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
-          alt="Licenseware"
+          src="favicon.webp"
+          alt="Licenseware - Software License Management Platform"
           class="header-logo"
+          width="56"
+          height="56"
+          loading="eager"
         />
       </div>
     </header>
 
     <div class="main-layout">
       <!-- Sidebar Navigation -->
-      <aside class="sidebar">
-        <nav>
-          <ul class="sidebar-nav">
-            <li class="sidebar-title">Overview</li>
+      <aside class="sidebar" aria-label="Page navigation">
+        <nav aria-label="Table of contents">
+          <ul class="sidebar-nav" role="list">
+            <li class="sidebar-title" role="presentation">Overview</li>
             <li><a href="#overview">What is it?</a></li>
             <li><a href="#compatibility">OS Compatibility</a></li>
 
-            <li class="sidebar-title">Requirements</li>
+            <li class="sidebar-title" role="presentation">Requirements</li>
             <li><a href="#network">Network</a></li>
             <li><a href="#system">System</a></li>
 
-            <li class="sidebar-title">Technical Details</li>
+            <li class="sidebar-title" role="presentation">Technical Details</li>
             <li><a href="#endpoints">API Endpoints</a></li>
             <li><a href="#process">Process Flow</a></li>
             <li><a href="#catalogs">Data Collection</a></li>
             <li><a href="#paths">Installation Paths</a></li>
 
-            <li class="sidebar-title">Getting Started</li>
+            <li class="sidebar-title" role="presentation">Getting Started</li>
             <li><a href="#installation">Installation Guide</a></li>
             <li><a href="#commands">Commands</a></li>
           </ul>
@@ -537,73 +647,86 @@
       </aside>
 
       <!-- Main Content -->
-      <main class="main-content">
+      <main class="main-content" role="main">
         <!-- Quick Overview -->
-        <div class="highlight-box" id="overview">
+        <section
+          class="highlight-box"
+          id="overview"
+          aria-labelledby="overview-title"
+        >
+          <h2 id="overview-title" class="visually-hidden">Product Overview</h2>
           <strong>What is Licenseware Collector?</strong><br />
           A lightweight agent that collects system and software inventory data
           from your servers using OSQuery, then securely transmits it to the
           Licenseware platform for software license compliance analysis.
-        </div>
+        </section>
 
         <!-- Operating System Compatibility -->
-        <div class="card" id="compatibility">
+        <section
+          class="card"
+          id="compatibility"
+          aria-labelledby="compatibility-title"
+        >
           <div class="card-header">
-            <div class="card-icon os">🖥️</div>
-            <h2>Operating System Compatibility</h2>
+            <div class="card-icon os" aria-hidden="true">🖥️</div>
+            <h2 id="compatibility-title">Operating System Compatibility</h2>
           </div>
 
-          <div class="os-grid">
-            <div class="os-card">
-              <div class="icon">🐧</div>
-              <h3>Linux</h3>
+          <div class="os-grid" role="list">
+            <article class="os-card" role="listitem">
+              <div class="icon" aria-hidden="true">🐧</div>
+              <h3>Linux Software Inventory Agent</h3>
               <ul>
                 <li>x86_64 (64-bit) only</li>
                 <li>systemd required</li>
                 <li>RHEL, Ubuntu, Debian, etc.</li>
               </ul>
-            </div>
-            <div class="os-card">
-              <div class="icon">🪟</div>
-              <h3>Windows</h3>
+            </article>
+            <article class="os-card" role="listitem">
+              <div class="icon" aria-hidden="true">🪟</div>
+              <h3>Windows Software Inventory Agent</h3>
               <ul>
                 <li>x86_64 (64-bit) only</li>
                 <li>Windows 7 SP1+ (Desktop)</li>
                 <li>Windows Server 2012 R2+</li>
               </ul>
-            </div>
-            <div class="os-card">
-              <div class="icon">🍎</div>
-              <h3>macOS</h3>
+            </article>
+            <article class="os-card" role="listitem">
+              <div class="icon" aria-hidden="true">🍎</div>
+              <h3>macOS Software Inventory Agent</h3>
               <ul>
                 <li>Intel (x86_64) & Apple Silicon (ARM)</li>
                 <li>macOS 10.15+</li>
                 <li>launchd service</li>
               </ul>
-            </div>
+            </article>
           </div>
 
-          <div class="highlight-box warning">
+          <aside
+            class="highlight-box warning"
+            role="note"
+            aria-label="Legacy Windows Support Warning"
+          >
             <strong>⚠️ Legacy Windows Support</strong><br />
             Windows 7 SP1 and Windows Server 2012 R2 are supported but have
             reached Microsoft end-of-life. While the collector will function on
             these systems, we recommend upgrading to supported operating systems
             for security compliance.
-          </div>
-        </div>
+          </aside>
+        </section>
 
         <div class="grid">
           <!-- Network Requirements -->
-          <div class="card" id="network">
+          <section class="card" id="network" aria-labelledby="network-title">
             <div class="card-header">
-              <div class="card-icon network">🌐</div>
-              <h2>Network Requirements</h2>
+              <div class="card-icon network" aria-hidden="true">🌐</div>
+              <h2 id="network-title">Network Requirements</h2>
             </div>
 
-            <p class="section-title">Outbound Connections Required</p>
-            <ul class="req-list">
+            <h3 class="section-title">Outbound Connections Required</h3>
+            <ul class="req-list" role="list">
               <li>
-                <span class="check">✓</span>
+                <span class="check" aria-hidden="true">✓</span>
                 <div>
                   <strong>api.licenseware.io</strong
                   ><span class="port-badge">HTTPS 443</span><br />
@@ -613,7 +736,7 @@
                 </div>
               </li>
               <li>
-                <span class="check">✓</span>
+                <span class="check" aria-hidden="true">✓</span>
                 <div>
                   <strong>github.com</strong
                   ><span class="port-badge">HTTPS 443</span><br />
@@ -622,58 +745,64 @@
               </li>
             </ul>
 
-            <div class="highlight-box warning" style="margin-top: 1rem">
+            <aside
+              class="highlight-box warning"
+              style="margin-top: 1rem"
+              role="note"
+            >
               <strong>⚠️ Firewall Configuration</strong><br />
               Ensure outbound HTTPS (port 443) is allowed to the domains listed
               above. No inbound ports required.
-            </div>
-          </div>
+            </aside>
+          </section>
 
           <!-- System Requirements -->
-          <div class="card" id="system">
+          <section class="card" id="system" aria-labelledby="system-title">
             <div class="card-header">
-              <div class="card-icon security">⚙️</div>
-              <h2>System Requirements</h2>
+              <div class="card-icon security" aria-hidden="true">⚙️</div>
+              <h2 id="system-title">System Requirements</h2>
             </div>
 
-            <ul class="req-list">
+            <ul class="req-list" role="list">
               <li>
-                <span class="check">✓</span>
+                <span class="check" aria-hidden="true">✓</span>
                 <div>
                   <strong>Architecture</strong><br />
                   <small>64-bit only (32-bit not supported)</small>
                 </div>
               </li>
               <li>
-                <span class="check">✓</span>
+                <span class="check" aria-hidden="true">✓</span>
                 <div>
                   <strong>Privileges</strong><br />
                   <small>Root (Linux/macOS) or Administrator (Windows)</small>
                 </div>
               </li>
               <li>
-                <span class="check">✓</span>
+                <span class="check" aria-hidden="true">✓</span>
                 <div>
                   <strong>Disk Space</strong><br />
                   <small>~100 MB for binaries and temp files</small>
                 </div>
               </li>
               <li>
-                <span class="check">✓</span>
+                <span class="check" aria-hidden="true">✓</span>
                 <div>
                   <strong>Memory</strong><br />
                   <small>Minimal (~50 MB during operation)</small>
                 </div>
               </li>
             </ul>
-          </div>
+          </section>
         </div>
 
         <!-- API Endpoints -->
-        <div class="card" id="endpoints">
+        <section class="card" id="endpoints" aria-labelledby="endpoints-title">
           <div class="card-header">
-            <div class="card-icon api">🔌</div>
-            <h2>API Endpoints</h2>
+            <div class="card-icon api" aria-hidden="true">🔌</div>
+            <h2 id="endpoints-title">
+              API Endpoints for License Data Collection
+            </h2>
           </div>
 
           <p>All communication uses HTTPS with Bearer token authentication.</p>
@@ -730,50 +859,60 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        </section>
 
         <!-- Process Flow -->
-        <div class="card" id="process">
+        <section class="card" id="process" aria-labelledby="process-title">
           <div class="card-header">
-            <div class="card-icon flow">📊</div>
-            <h2>Collection Process Overview</h2>
+            <div class="card-icon flow" aria-hidden="true">📊</div>
+            <h2 id="process-title">Software License Data Collection Process</h2>
           </div>
 
-          <p class="section-title">Registration Flow (One-time)</p>
-          <div class="flow-diagram">
+          <h3 class="section-title">Registration Flow (One-time)</h3>
+          <div
+            class="flow-diagram"
+            role="img"
+            aria-label="Registration flow: Download OSQuery, Install Dependencies, Create System Service, Register with API"
+          >
             <div class="flow-step">Download<br />OSQuery</div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
             <div class="flow-step">Install<br />Dependencies</div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
             <div class="flow-step">Create<br />System Service</div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
             <div class="flow-step">Register<br />with API</div>
           </div>
 
-          <p class="section-title">Daemon Operation (Continuous)</p>
-          <div class="flow-diagram">
+          <h3 class="section-title">Daemon Operation (Continuous)</h3>
+          <div
+            class="flow-diagram"
+            role="img"
+            aria-label="Daemon operation flow: Fetch Query Catalogs, Execute Queries per Schedule, Collect Inventory Data, Upload to Licenseware API"
+          >
             <div class="flow-step">Fetch Query<br />Catalogs</div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
             <div class="flow-step">Execute Queries<br />per Schedule</div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
             <div class="flow-step">Collect<br />Inventory Data</div>
-            <span class="flow-arrow">→</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
             <div class="flow-step">Upload to<br />Licenseware API</div>
           </div>
 
-          <div class="highlight-box" style="margin-top: 1.5rem">
+          <aside class="highlight-box" style="margin-top: 1.5rem" role="note">
             <strong>📋 Data Collected</strong><br />
             System information, OS version, installed software, running
             processes, and other inventory data as defined by query catalogs.
             All data is transmitted securely over HTTPS.
-          </div>
-        </div>
+          </aside>
+        </section>
 
         <!-- Data Collection Catalogs -->
-        <div class="card" id="catalogs">
+        <section class="card" id="catalogs" aria-labelledby="catalogs-title">
           <div class="card-header">
-            <div class="card-icon api">📊</div>
-            <h2>Data Collection Catalogs</h2>
+            <div class="card-icon api" aria-hidden="true">📊</div>
+            <h2 id="catalogs-title">
+              Software Inventory Data Collection Catalogs
+            </h2>
           </div>
 
           <p>
@@ -1042,13 +1181,13 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </section>
 
         <!-- Installation Paths -->
-        <div class="card" id="paths">
+        <section class="card" id="paths" aria-labelledby="paths-title">
           <div class="card-header">
-            <div class="card-icon os">📁</div>
-            <h2>Installation Paths</h2>
+            <div class="card-icon os" aria-hidden="true">📁</div>
+            <h2 id="paths-title">Installation Paths by Operating System</h2>
           </div>
 
           <div class="os-grid">
@@ -1293,13 +1432,19 @@
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Installation Guide -->
-        <div class="card" id="installation">
+        <section
+          class="card"
+          id="installation"
+          aria-labelledby="installation-title"
+        >
           <div class="card-header">
-            <div class="card-icon flow">🚀</div>
-            <h2>Installation Guide</h2>
+            <div class="card-icon flow" aria-hidden="true">🚀</div>
+            <h2 id="installation-title">
+              Installation Guide for License Compliance Agent
+            </h2>
           </div>
 
           <!-- Step 1 -->
@@ -1333,7 +1478,10 @@
               >
                 <li>
                   Go to
-                  <a href="https://app.licenseware.io" target="_blank"
+                  <a
+                    href="https://app.licenseware.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     >Licenseware</a
                   >
                   and sign in (or register a new account)
@@ -1512,38 +1660,38 @@
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Quick Reference -->
-        <div class="card" id="commands">
+        <section class="card" id="commands" aria-labelledby="commands-title">
           <div class="card-header">
-            <div class="card-icon api">📖</div>
-            <h2>Quick Reference</h2>
+            <div class="card-icon api" aria-hidden="true">📖</div>
+            <h2 id="commands-title">Quick Reference Commands</h2>
           </div>
 
           <div class="grid" style="margin-top: 1rem">
             <div>
-              <p class="section-title">Agent Intervals</p>
-              <ul class="req-list">
+              <h3 class="section-title">Agent Intervals</h3>
+              <ul class="req-list" role="list">
                 <li>
-                  <span class="check">⏱</span>
+                  <span class="check" aria-hidden="true">⏱</span>
                   <div>Config Refresh: <strong>Every 30 minutes</strong></div>
                 </li>
                 <li>
-                  <span class="check">⏱</span>
+                  <span class="check" aria-hidden="true">⏱</span>
                   <div>Catalog Check: <strong>Every 30 minutes</strong></div>
                 </li>
                 <li>
-                  <span class="check">⏱</span>
+                  <span class="check" aria-hidden="true">⏱</span>
                   <div>Failed File Cleanup: <strong>Every 6 hours</strong></div>
                 </li>
               </ul>
             </div>
             <div>
-              <p class="section-title">Service Commands</p>
-              <ul class="req-list">
+              <h3 class="section-title">Service Commands</h3>
+              <ul class="req-list" role="list">
                 <li>
-                  <span class="check">$</span>
+                  <span class="check" aria-hidden="true">$</span>
                   <div>
                     <code
                       >licenseware-collector register --token
@@ -1552,25 +1700,25 @@
                   </div>
                 </li>
                 <li>
-                  <span class="check">$</span>
+                  <span class="check" aria-hidden="true">$</span>
                   <div><code>licenseware-collector status</code></div>
                 </li>
                 <li>
-                  <span class="check">$</span>
+                  <span class="check" aria-hidden="true">$</span>
                   <div><code>licenseware-collector stop</code></div>
                 </li>
                 <li>
-                  <span class="check">$</span>
+                  <span class="check" aria-hidden="true">$</span>
                   <div><code>licenseware-collector run-once</code></div>
                 </li>
               </ul>
             </div>
           </div>
-        </div>
+        </section>
       </main>
     </div>
 
-    <footer>
+    <footer role="contentinfo">
       <div
         class="container"
         style="
@@ -1583,16 +1731,150 @@
           <p>© 2025 Licenseware. All rights reserved.</p>
           <p>
             For support, contact
-            <a href="mailto:contact@licenseware.io">contact@licenseware.io</a>
+            <a
+              href="mailto:contact@licenseware.io"
+              aria-label="Email Licenseware support"
+              >contact@licenseware.io</a
+            >
           </p>
         </div>
         <img
-          src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
-          alt="Licenseware"
+          src="favicon.webp"
+          alt="Licenseware - Software License Management Platform"
           class="header-logo"
           style="opacity: 0.5"
+          width="56"
+          height="56"
+          loading="lazy"
         />
       </div>
     </footer>
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Licenseware Collector",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": ["Windows", "Linux", "macOS"],
+        "description": "A lightweight agent that collects system and software inventory data from servers using OSQuery for software license compliance analysis.",
+        "url": "https://licenseware-collector.com/",
+        "softwareVersion": "1.0",
+        "author": {
+          "@type": "Organization",
+          "name": "Licenseware",
+          "url": "https://licenseware.io",
+          "email": "contact@licenseware.io",
+          "logo": "favicon.webp"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Software inventory collection",
+          "System information gathering",
+          "Cross-platform support (Windows, Linux, macOS)",
+          "OSQuery-powered data collection",
+          "Automated license compliance analysis",
+          "Secure HTTPS data transmission",
+          "Background service operation"
+        ],
+        "screenshot": "https://licenseware-collector.com/lc.svg",
+        "softwareRequirements": "64-bit operating system, Administrator/Root privileges, 100MB disk space"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Licenseware Collector Technical Requirements",
+        "description": "Complete technical documentation for Licenseware Collector software license compliance agent including system requirements, API endpoints, installation guide, and data collection catalogs.",
+        "author": {
+          "@type": "Organization",
+          "name": "Licenseware"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Licenseware",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
+          }
+        },
+        "datePublished": "2025-12-01",
+        "dateModified": "2025-12-10",
+        "mainEntityOfPage": "https://licenseware-collector.com/",
+        "articleSection": [
+          "Software Requirements",
+          "Network Configuration",
+          "Installation",
+          "API Documentation"
+        ],
+        "keywords": "software license compliance, software asset management, OSQuery, IT inventory, license audit"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Licenseware",
+            "item": "https://licenseware.io"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Licenseware Collector",
+            "item": "https://licenseware-collector.com/"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What operating systems does Licenseware Collector support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Licenseware Collector supports Windows (7 SP1+, Server 2012 R2+), Linux (x86_64 with systemd - RHEL, Ubuntu, Debian), and macOS (10.15+ on Intel and Apple Silicon)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the network requirements for Licenseware Collector?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Licenseware Collector requires outbound HTTPS (port 443) access to api.licenseware.io for data ingestion and github.com for OSQuery downloads during registration. No inbound ports are required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What data does Licenseware Collector gather?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Licenseware Collector gathers system information (hostname, UUID, CPU, memory), OS version, installed software packages (DEB, RPM, Windows programs, macOS apps, Homebrew, Chocolatey), running processes, and software usage patterns for license compliance analysis."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I install Licenseware Collector?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "1) Get your API token from app.licenseware.io, 2) Download the collector binary for your OS, 3) Run 'licenseware-collector register --token YOUR_TOKEN' with administrator/root privileges. The agent will automatically install dependencies and start as a background service."
+            }
+          }
+        ]
+      }
+    </script>
   </body>
 </html>
