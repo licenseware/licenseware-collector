@@ -1,0 +1,4 @@
+.venv
+CHANGELOG.md
+renovate.json
+tsconfig.json

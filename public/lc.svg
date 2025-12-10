@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <g transform="translate(-651 -369)">
+    <rect width="70" height="70" rx="6" style="fill: rgb(0, 191, 165);" transform="translate(651 369)"/>
+    <g>
+      <path d="M246.243 61.115h-2.36v8.4h5.832v-1.941h-3.471z" transform="translate(434.933 355.908)" style="fill:#fff"/>
+      <path d="M245.52 4635.469a4.538 4.538 0 0 1-2.239-.525 3.625 3.625 0 0 1-1.46-1.478 4.612 4.612 0 0 1-.513-2.222 4.538 4.538 0 0 1 .513-2.2 3.632 3.632 0 0 1 1.46-1.473 4.548 4.548 0 0 1 2.239-.523 5.033 5.033 0 0 1 1.564.243 3.291 3.291 0 0 1 1.218.657l-.658 1.535a4.008 4.008 0 0 0-1.039-.553 3.179 3.179 0 0 0-1.039-.174 1.9 1.9 0 0 0-1.518.623 2.8 2.8 0 0 0-.537 1.869 2.853 2.853 0 0 0 .537 1.882 1.882 1.882 0 0 0 1.518.635 3.218 3.218 0 0 0 1.039-.174 4.071 4.071 0 0 0 1.039-.554l.658 1.535a3.327 3.327 0 0 1-1.218.657 5.107 5.107 0 0 1-1.564.24z" transform="translate(444.937 -4210.022)" style="fill:#fff"/>
+      <g>
+        <path d="M0 19.73 2.6 2.7.132 0z" transform="rotate(-115 464.357 -11.65)" style="stroke-miterlimit:10;fill:#fff"/>
+        <path d="M7.549 19.489 7.7 0 0 4.5zM7.2 17.953.475 4.642 7.339.629z" transform="rotate(-115 468.414 -8.987)" style="stroke-miterlimit:10;fill:#fff"/>
+        <path d="m0 16.084 5.95 7.59L20.4 0zm5.913 6.961L.5 16.144l18.553-14.62z" transform="rotate(-157.97 386.048 135.591)" style="stroke-miterlimit:10;fill:#fff"/>
+        <path d="M0 24.359 5.214 10.99 1.493 0z" transform="rotate(-130.02 430.426 42.112)" style="stroke-miterlimit:10;fill:#fff"/>
+        <path d="M0 18.833 2.478 2.575.126 0z" transform="rotate(65 33.406 749.157)" style="stroke-miterlimit:10;fill:#fff"/>
+        <path d="M7.206 18.6 7.353 0 0 4.3zm-.331-1.466L.453 4.431 7.006.6z" transform="rotate(65 37.395 743.079)" style="stroke-miterlimit:10;fill:#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>
