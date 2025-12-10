@@ -1,8 +1,19 @@
 import { defineConfig } from "vite";
 import compression from "vite-plugin-compression2";
+import { ViteMinifyPlugin } from "vite-plugin-minify";
 
 export default defineConfig({
   plugins: [
+    ViteMinifyPlugin({
+      collapseWhitespace: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true,
+      minifyCSS: true,
+      minifyJS: true,
+    }),
     compression({
       algorithm: "gzip",
       ext: ".gz",
@@ -15,8 +26,13 @@ export default defineConfig({
     }),
   ],
   build: {
-    target: "esnext",
     minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
     sourcemap: false,
     cssMinify: true,
     rollupOptions: {
