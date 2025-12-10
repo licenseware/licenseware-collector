@@ -508,6 +508,29 @@
         padding-right: 2.5rem;
       }
 
+      /* compact version for quick reference */
+      .req-list.compact li {
+        padding: 0.5rem 0.75rem;
+        padding-right: 2rem;
+        margin-bottom: 0.35rem;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .req-list.compact code {
+        font-size: 0.75rem;
+      }
+
+      .req-list.compact .copy-btn {
+        top: 0.35rem;
+        right: 0.35rem;
+      }
+
+      .req-list.compact .copy-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
       .req-list li div {
         word-break: break-all;
       }
@@ -1920,7 +1943,7 @@
               <h3 class="section-title" data-i18n="quick.intervals">
                 Agent Intervals
               </h3>
-              <ul class="req-list" role="list">
+              <ul class="req-list compact" role="list">
                 <li>
                   <span class="check" aria-hidden="true">⏱</span>
                   <div>
@@ -1948,7 +1971,7 @@
               <h3 class="section-title" data-i18n="quick.service">
                 Service Commands
               </h3>
-              <ul class="req-list" role="list">
+              <ul class="req-list compact" role="list">
                 <li>
                   <span class="check" aria-hidden="true">$</span>
                   <div>
