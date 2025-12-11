@@ -53,8 +53,8 @@
     />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/webp" href="public/favicon.webp" />
-    <link rel="apple-touch-icon" href="public/favicon.webp" />
+    <link rel="icon" type="image/webp" href="favicon.webp" />
+    <link rel="apple-touch-icon" href="favicon.webp" />
     <style>
       :root {
         /* --- Color Palette Definition --- */
@@ -63,7 +63,7 @@
         --palette-dark-text: #ffffff;
         --palette-light-text: #191919;
 
-        --palette-accent: #1d4ed2; /* Blue */
+        --palette-accent: #1d4ed2; /* Blue - Reserved for Active State */
         --palette-accent-sec: #00bfa5; /* Teal */
 
         --palette-yellow: #efbe53;
@@ -73,6 +73,7 @@
         --palette-green: #57d16c;
         --palette-red: #f76157;
         --palette-grey: #dbdee8;
+        --palette-blue: #3b82f6;
 
         /* --- Default Theme (Dark Mode) --- */
         --bg-main: var(--palette-dark-bg);
@@ -108,13 +109,11 @@
         --text-primary: var(--palette-light-text);
         --text-secondary: #555;
 
-        /* Bright mode keeps Blue accent */
-        --primary: var(--palette-accent);
+        --primary: var(--palette-green);
 
         --border: var(--palette-grey);
         --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
-        /* Code box readable colors */
         --code-bg: #f9fafb;
         --code-text: #166534;
       }
@@ -129,7 +128,7 @@
           --text-primary: var(--palette-light-text);
           --text-secondary: #555;
 
-          --primary: var(--palette-accent);
+          --primary: var(--palette-green);
 
           --border: var(--palette-grey);
           --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -180,7 +179,7 @@
       }
 
       .container {
-        max-width: 1100px;
+        max-width: 1320px;
         margin: 0 auto;
         padding: 2rem;
       }
@@ -218,15 +217,22 @@
         text-decoration: none;
         font-size: 0.875rem;
         border-radius: 6px;
-        transition: all 0.15s ease;
+        transition: all 0.2s ease;
         border-left: 3px solid transparent;
         font-weight: 500;
       }
 
       .sidebar-nav a:hover {
         background: var(--bg-highlight);
-        color: var(--primary);
-        border-left-color: var(--primary);
+        color: var(--text-primary);
+      }
+
+      /* Active State for Sidebar (Scroll Spy) - BLUE */
+      .sidebar-nav a.active {
+        color: var(--palette-blue);
+        background: rgba(59, 130, 246, 0.1);
+        border-left-color: var(--palette-blue);
+        font-weight: 700;
       }
 
       .sidebar-title {
@@ -289,8 +295,8 @@
       }
 
       .app-icon {
-        width: 56px;
-        height: 56px;
+        width: 70px;
+        height: 70px;
         border-radius: 10px;
         overflow: hidden;
         flex-shrink: 0;
@@ -305,26 +311,23 @@
       .header-logo {
         max-height: 48px;
         object-fit: contain;
-        filter: invert(1); /* invert dark logo to white for dark mode */
+        filter: invert(1);
         transition: filter 0.3s ease;
       }
 
-      body.light-mode .header-logo,
+      /* Force white logo in dark mode */
       body.dark-mode .header-logo {
-        /* manual overrides handled by class */
+        filter: invert(1) !important;
       }
 
+      /* Black logo in light mode */
       body.light-mode .header-logo {
-        filter: invert(0); /* keep original dark logo for light mode */
+        filter: invert(0) !important;
       }
 
-      body.dark-mode .header-logo {
-        filter: invert(1); /* inverted for dark mode */
-      }
-
-      /* Auto-detect OS preference for logo */
+      /* Auto-detect OS preference for logo (only when no class set) */
       @media (prefers-color-scheme: light) {
-        .header-logo {
+        body:not(.dark-mode):not(.light-mode) .header-logo {
           filter: invert(0);
         }
       }
@@ -388,23 +391,13 @@
         font-size: 1.25rem;
         /* Default subtle background */
         background: var(--bg-highlight);
+        color: var(--palette-blue) !important; /* All header icons BLUE */
       }
 
-      /* Specific colors for icons using new palette - Removed Borders */
-      .card-icon.network {
-        color: var(--primary);
-      }
-      .card-icon.os {
-        color: var(--palette-accent-sec);
-      }
-      .card-icon.api {
-        color: var(--warning);
-      }
-      .card-icon.flow {
-        color: var(--purple);
-      }
-      .card-icon.security {
-        color: var(--danger);
+      .card-icon svg {
+        width: 24px;
+        height: 24px;
+        stroke-width: 2;
       }
 
       .card h2 {
@@ -455,14 +448,14 @@
       }
 
       .method-get {
-        background: rgba(37, 201, 230, 0.15); /* Cyan low opacity */
-        color: var(--info);
-        border: 1px solid var(--info);
+        background: rgba(59, 130, 246, 0.15);
+        color: var(--palette-blue);
+        border: 1px solid var(--palette-blue);
       }
       .method-post {
-        background: rgba(239, 190, 83, 0.15); /* Yellow low opacity */
-        color: var(--warning);
-        border: 1px solid var(--warning);
+        background: rgba(87, 209, 108, 0.15);
+        color: var(--success);
+        border: 1px solid var(--success);
       }
 
       .endpoint {
@@ -500,6 +493,22 @@
       .os-card .icon {
         font-size: 2rem;
         margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: center;
+        color: var(--text-primary);
+      }
+
+      .os-card .icon svg {
+        width: 32px;
+        height: 32px;
+        fill: currentColor;
+      }
+
+      /* Linux icon (No Fill/Stroke) override */
+      .os-card .icon.linux svg {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
       }
 
       .os-card ul {
@@ -528,7 +537,7 @@
 
       .flow-step {
         background: var(--bg-card);
-        border: 2px solid var(--border); /* Neutral border */
+        border: 2px solid var(--border);
         border-radius: 8px;
         padding: 0.75rem 1rem;
         font-size: 0.875rem;
@@ -539,7 +548,7 @@
       }
 
       .flow-arrow {
-        color: var(--primary);
+        color: var(--text-secondary);
         font-size: 1.5rem;
         font-weight: bold;
       }
@@ -593,6 +602,14 @@
         color: var(--success);
         font-weight: bold;
         flex-shrink: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .req-list .check svg {
+        width: 18px;
+        height: 18px;
+        stroke-width: 3;
       }
 
       .port-badge {
@@ -686,6 +703,10 @@
         padding-right: 2rem;
       }
 
+      #commands code {
+        font-size: 0.75rem;
+      }
+
       /* Copy Button Styles (Minimalist) */
       .copy-btn {
         position: absolute;
@@ -723,6 +744,45 @@
       .path-container .copy-btn {
         top: 0;
         right: 0;
+      }
+
+      /* Details/Summary for Video */
+      details.video-details {
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--bg-card);
+      }
+      details.video-details summary {
+        padding: 0.75rem 1rem;
+        background: var(--bg-highlight);
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--text-secondary);
+        list-style: none; /* Hide default triangle */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1rem;
+      }
+      details.video-details summary::-webkit-details-marker {
+        display: none;
+      }
+      details.video-details[open] summary {
+        border-bottom: 1px solid var(--border);
+      }
+      details.video-details .video-content {
+        padding: 1rem;
+        background: var(--bg-card);
+      }
+      /* Icon rotation */
+      details.video-details summary svg {
+        transition: transform 0.3s ease;
+        color: var(--text-secondary);
+      }
+      details.video-details[open] summary svg {
+        transform: rotate(180deg);
       }
 
       @media (max-width: 768px) {
@@ -882,8 +942,44 @@
       <label class="theme-switch" aria-label="Toggle Theme">
         <input type="checkbox" id="themeCheckbox" onchange="toggleTheme()" />
         <span class="slider">
-          <span class="icon-moon">🌙</span>
-          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="icon-sun">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
         </span>
       </label>
     </div>
@@ -904,8 +1000,8 @@
                 <img
                   src="public/lc.svg"
                   alt="LICENSEWARE Collector Logo"
-                  width="56"
-                  height="56"
+                  width="70"
+                  height="70"
                   loading="eager"
                 />
               </div>
@@ -1000,9 +1096,10 @@
             >What is LICENSEWARE Collector?</strong
           ><br />
           <span data-i18n="overview.desc"
-            >A lightweight agent that collects system and software inventory
-            data from your servers and securely transmits it to the LICENSEWARE
-            ™ platform for software license compliance analysis.</span
+            >A <strong>free</strong> lightweight agent that collects system and
+            software inventory data from your servers and securely transmits it
+            to the LICENSEWARE ™ platform for software license compliance
+            analysis.</span
           >
         </section>
 
@@ -1013,7 +1110,23 @@
           aria-labelledby="compatibility-title"
         >
           <div class="card-header">
-            <div class="card-icon os" aria-hidden="true">🖥️</div>
+            <div class="card-icon os" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
             <h2 id="compatibility-title" data-i18n="compat.title">
               Operating System Compatibility
             </h2>
@@ -1021,7 +1134,20 @@
 
           <div class="os-grid" role="list">
             <article class="os-card" role="listitem">
-              <div class="icon" aria-hidden="true">🐧</div>
+              <div class="icon" aria-hidden="true">
+                <!-- Terminal / Command Line Icon -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="32"
+                  height="32"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"
+                  />
+                </svg>
+              </div>
               <h3>Linux</h3>
               <ul>
                 <li data-i18n="compat.linux.1">x86_64 (64-bit) only</li>
@@ -1030,7 +1156,20 @@
               </ul>
             </article>
             <article class="os-card" role="listitem">
-              <div class="icon" aria-hidden="true">🪟</div>
+              <div class="icon" aria-hidden="true">
+                <!-- Official Windows 10/11 SVG -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 88 88"
+                  width="32"
+                  height="32"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"
+                  />
+                </svg>
+              </div>
               <h3>Windows</h3>
               <ul>
                 <li data-i18n="compat.win.1">x86_64 (64-bit) only</li>
@@ -1039,7 +1178,20 @@
               </ul>
             </article>
             <article class="os-card" role="listitem">
-              <div class="icon" aria-hidden="true">🍎</div>
+              <div class="icon" aria-hidden="true">
+                <!-- Official Apple Logo SVG -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 384 512"
+                  width="32"
+                  height="32"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"
+                  />
+                </svg>
+              </div>
               <h3>macOS</h3>
               <ul>
                 <li data-i18n="compat.mac.1">Intel & Apple Silicon</li>
@@ -1071,18 +1223,46 @@
           <!-- Network Requirements -->
           <section class="card" id="network" aria-labelledby="network-title">
             <div class="card-header">
-              <div class="card-icon network" aria-hidden="true">🌐</div>
+              <div class="card-icon network" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                  ></path>
+                </svg>
+              </div>
               <h2 id="network-title" data-i18n="network.title">
                 Network Requirements
               </h2>
             </div>
-
-            <h3 class="section-title" data-i18n="network.subtitle">
-              Outbound Connections Required
-            </h3>
             <ul class="req-list" role="list">
               <li>
-                <span class="check" aria-hidden="true">✓</span>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
                 <div>
                   <strong>api.licenseware.io</strong
                   ><span class="port-badge">HTTPS 443</span><br />
@@ -1094,7 +1274,21 @@
                 </div>
               </li>
               <li>
-                <span class="check" aria-hidden="true">✓</span>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
                 <div>
                   <strong>github.com</strong
                   ><span class="port-badge">HTTPS 443</span><br />
@@ -1127,7 +1321,24 @@
           <!-- System Requirements -->
           <section class="card" id="system" aria-labelledby="system-title">
             <div class="card-header">
-              <div class="card-icon security" aria-hidden="true">⚙️</div>
+              <div class="card-icon security" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                  ></path>
+                </svg>
+              </div>
               <h2 id="system-title" data-i18n="system.title">
                 System Requirements
               </h2>
@@ -1135,7 +1346,21 @@
 
             <ul class="req-list" role="list">
               <li>
-                <span class="check" aria-hidden="true">✓</span>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
                 <div>
                   <strong data-i18n="system.arch.title">Architecture</strong
                   ><br />
@@ -1147,19 +1372,21 @@
                 </div>
               </li>
               <li>
-                <span class="check" aria-hidden="true">✓</span>
-                <div>
-                  <strong data-i18n="system.priv.title">Privileges</strong
-                  ><br />
-                  <small
-                    style="color: var(--text-secondary)"
-                    data-i18n="system.priv.desc"
-                    >Root (Linux/macOS) or Administrator (Windows)</small
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                   >
-                </div>
-              </li>
-              <li>
-                <span class="check" aria-hidden="true">✓</span>
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
                 <div>
                   <strong data-i18n="system.disk.title">Disk Space</strong
                   ><br />
@@ -1171,7 +1398,21 @@
                 </div>
               </li>
               <li>
-                <span class="check" aria-hidden="true">✓</span>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
                 <div>
                   <strong data-i18n="system.mem.title">Memory</strong><br />
                   <small
@@ -1188,7 +1429,26 @@
         <!-- API Endpoints -->
         <section class="card" id="endpoints" aria-labelledby="endpoints-title">
           <div class="card-header">
-            <div class="card-icon api" aria-hidden="true">🔌</div>
+            <div class="card-icon api" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+                ></path>
+                <path
+                  d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+                ></path>
+              </svg>
+            </div>
             <h2 id="endpoints-title" data-i18n="endpoints.title">
               API Endpoints
             </h2>
@@ -1247,7 +1507,21 @@
         <!-- Process Flow -->
         <section class="card" id="process" aria-labelledby="process-title">
           <div class="card-header">
-            <div class="card-icon flow" aria-hidden="true">📊</div>
+            <div class="card-icon flow" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
             <h2 id="process-title" data-i18n="process.title">
               Data Collection Process
             </h2>
@@ -1256,19 +1530,13 @@
           <p class="section-title" data-i18n="process.user">What You Do</p>
           <div class="flow-diagram">
             <div class="flow-step">
-              <strong>1.</strong>
               <span data-i18n="process.step1">Download<br />Collector</span>
             </div>
-            <span class="flow-arrow" style="color: var(--text-secondary)"
-              >→</span
-            >
+            <span class="flow-arrow">→</span>
             <div class="flow-step">
-              <strong>2.</strong>
               <span data-i18n="process.step2">Register<br />Collector</span>
             </div>
-            <span class="flow-arrow" style="color: var(--text-secondary)"
-              >→</span
-            >
+            <span class="flow-arrow">→</span>
             <div
               class="flow-step"
               style="border-color: var(--success); color: var(--success)"
@@ -1311,7 +1579,23 @@
         <!-- Data Collection Catalogs -->
         <section class="card" id="catalogs" aria-labelledby="catalogs-title">
           <div class="card-header">
-            <div class="card-icon api" aria-hidden="true">📂</div>
+            <div class="card-icon api" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+            </div>
             <h2 id="catalogs-title" data-i18n="catalogs.title">
               Data Collection Catalogs
             </h2>
@@ -1516,7 +1800,23 @@
         <!-- Installation Paths -->
         <section class="card" id="paths" aria-labelledby="paths-title">
           <div class="card-header">
-            <div class="card-icon os" aria-hidden="true">📁</div>
+            <div class="card-icon os" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
             <h2 id="paths-title" data-i18n="paths.title">Installation Paths</h2>
           </div>
 
@@ -1537,10 +1837,23 @@
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--primary);
+                  border-bottom: 2px solid var(--text-secondary);
                 "
               >
-                <span style="font-size: 1.5rem">🐧</span>
+                <span style="font-size: 1.5rem; display: flex">
+                  <!-- Terminal / Command Line Icon -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"
+                    />
+                  </svg>
+                </span>
                 <h3 style="margin: 0; font-size: 1rem">Linux</h3>
               </div>
               <div style="font-size: 0.8rem">
@@ -1613,10 +1926,22 @@
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--palette-accent-sec);
+                  border-bottom: 2px solid var(--text-secondary);
                 "
               >
-                <span style="font-size: 1.5rem">🪟</span>
+                <span style="font-size: 1.5rem; display: flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 88 88"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"
+                    />
+                  </svg>
+                </span>
                 <h3 style="margin: 0; font-size: 1rem">Windows</h3>
               </div>
               <div style="font-size: 0.8rem">
@@ -1691,7 +2016,19 @@
                   border-bottom: 2px solid var(--text-secondary);
                 "
               >
-                <span style="font-size: 1.5rem">🍎</span>
+                <span style="font-size: 1.5rem; display: flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"
+                    />
+                  </svg>
+                </span>
                 <h3 style="margin: 0; font-size: 1rem">macOS</h3>
               </div>
               <div style="font-size: 0.8rem">
@@ -1756,44 +2093,67 @@
           aria-labelledby="installation-title"
         >
           <div class="card-header">
-            <div class="card-icon flow" aria-hidden="true">🚀</div>
+            <div class="card-icon flow" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
             <h2 id="installation-title" data-i18n="install.title">
               Installation Guide
             </h2>
           </div>
 
-          <!-- Video Embed - uncomment when new video is ready
-          <div style="margin-bottom: 2rem">
-            <h3
+          <!-- Interactive Demo -->
+          <div style="margin-bottom: 1.5rem">
+            <!--ARCADE EMBED START-->
+            <div
               style="
-                margin-bottom: 0.75rem;
-                font-size: 1rem;
-                color: var(--text-secondary);
-                font-weight: 700;
+                position: relative;
+                padding-bottom: calc(55.4722% + 41px);
+                height: 0px;
+                width: 100%;
               "
-              data-i18n="install.video.title"
             >
-              Video Walkthrough
-            </h3>
-            <div class="video-wrapper">
               <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/VIDEO_ID_HERE"
-                title="LICENSEWARE Collector Installation Guide"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                src="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+                title="Generate and Manage API Keys in Licenseware Collector"
+                frameborder="0"
+                loading="lazy"
+                webkitallowfullscreen
+                mozallowfullscreen
                 allowfullscreen
+                allow="clipboard-write"
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  color-scheme: light;
+                "
               ></iframe>
             </div>
+            <!--ARCADE EMBED END-->
           </div>
-          -->
 
           <!-- Step 1 -->
           <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
             <div
               style="
-                width: 36px;
-                height: 36px;
+                width: 27px;
+                height: 27px;
                 background: var(--primary);
                 color: #fff;
                 border-radius: 50%;
@@ -1801,6 +2161,7 @@
                 align-items: center;
                 justify-content: center;
                 font-weight: 800;
+                font-size: 0.9rem;
                 flex-shrink: 0;
               "
             >
@@ -1830,14 +2191,16 @@
                     href="https://app.licenseware.io"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >app.licenseware.io</a
+                    >LICENSEWARE</a
                   >
-                  <span data-i18n="install.step1.2">and sign in</span>
+                  <span data-i18n="install.step1.2"
+                    >and sign in or create a free account</span
+                  >
                 </li>
                 <li>
                   <span data-i18n="install.step1.3"
                     >Navigate to <strong>LC App</strong> and go to
-                    <strong>API Keys</strong> Tab</span
+                    <strong>API Keys</strong> tab</span
                   >
                 </li>
                 <li>
@@ -1854,8 +2217,8 @@
           <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
             <div
               style="
-                width: 36px;
-                height: 36px;
+                width: 27px;
+                height: 27px;
                 background: var(--primary);
                 color: #fff;
                 border-radius: 50%;
@@ -1863,6 +2226,7 @@
                 align-items: center;
                 justify-content: center;
                 font-weight: 800;
+                font-size: 0.9rem;
                 flex-shrink: 0;
               "
             >
@@ -1877,7 +2241,7 @@
                 "
                 data-i18n="install.step2.title"
               >
-                Download & Register
+                Download and Install
               </h3>
               <p
                 style="margin: 0 0 0.75rem 0; color: var(--text-secondary)"
@@ -1886,6 +2250,17 @@
                 Download the collector agent from the Collector app in
                 Licenseware. Run with elevated privileges.
               </p>
+
+              <!-- Admin privileges warning -->
+              <div class="highlight-box warning" style="margin-bottom: 0.75rem">
+                <strong style="color: var(--warning)"
+                  >⚠️ Administrator Privileges Required</strong
+                ><br />
+                <span
+                  >Installation requires Root (Linux/macOS) or Administrator
+                  (Windows) privileges.</span
+                >
+              </div>
 
               <div class="code-block" style="margin-bottom: 0.75rem">
                 <div
@@ -1984,7 +2359,22 @@
         <!-- Quick Reference -->
         <section class="card" id="commands" aria-labelledby="commands-title">
           <div class="card-header">
-            <div class="card-icon api" aria-hidden="true">📖</div>
+            <div class="card-icon api" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </div>
             <h2 id="commands-title" data-i18n="quick.title">Quick Reference</h2>
           </div>
 
@@ -1995,21 +2385,66 @@
               </h3>
               <ul class="req-list compact" role="list">
                 <li>
-                  <span class="check" aria-hidden="true">⏱</span>
+                  <span class="check" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                  </span>
                   <div>
                     <span data-i18n="quick.config">Config Refresh:</span>
                     <strong>30 mins</strong>
                   </div>
                 </li>
                 <li>
-                  <span class="check" aria-hidden="true">⏱</span>
+                  <span class="check" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                  </span>
                   <div>
                     <span data-i18n="quick.catalog">Catalog Check:</span>
                     <strong>30 mins</strong>
                   </div>
                 </li>
                 <li>
-                  <span class="check" aria-hidden="true">⏱</span>
+                  <span class="check" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                  </span>
                   <div>
                     <span data-i18n="quick.cleanup">Failed File Cleanup:</span>
                     <strong>6 hours</strong>
@@ -2021,9 +2456,24 @@
               <h3 class="section-title" data-i18n="quick.service">
                 Service Commands
               </h3>
-              <ul class="req-list compact" role="list">
+              <ul class="req-list compact" role="list" id="commands-list">
                 <li>
-                  <span class="check" aria-hidden="true">$</span>
+                  <span class="check" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="4 17 10 11 4 5"></polyline>
+                      <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                  </span>
                   <div>
                     <code
                       >licenseware-collector register --token
@@ -2061,7 +2511,22 @@
                   </button>
                 </li>
                 <li>
-                  <span class="check" aria-hidden="true">$</span>
+                  <span class="check" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="4 17 10 11 4 5"></polyline>
+                      <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                  </span>
                   <div><code>licenseware-collector status</code></div>
                   <button
                     class="copy-btn"
@@ -2094,7 +2559,22 @@
                   </button>
                 </li>
                 <li>
-                  <span class="check" aria-hidden="true">$</span>
+                  <span class="check" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="4 17 10 11 4 5"></polyline>
+                      <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                  </span>
                   <div><code>licenseware-collector stop</code></div>
                   <button
                     class="copy-btn"
@@ -2127,7 +2607,22 @@
                   </button>
                 </li>
                 <li>
-                  <span class="check" aria-hidden="true">$</span>
+                  <span class="check" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="4 17 10 11 4 5"></polyline>
+                      <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                  </span>
                   <div><code>licenseware-collector run-once</code></div>
                   <button
                     class="copy-btn"
@@ -2199,19 +2694,12 @@
 
     <script>
       // Theme Toggle Logic
-      // Theme Toggle Logic - respects OS preference
       function toggleTheme() {
         const checkbox = document.getElementById("themeCheckbox");
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-
         if (checkbox.checked) {
-          // Toggle is ON = light mode requested
           document.body.classList.add("light-mode");
           document.body.classList.remove("dark-mode");
         } else {
-          // Toggle is OFF = dark mode requested
           document.body.classList.add("dark-mode");
           document.body.classList.remove("light-mode");
         }
@@ -2223,7 +2711,6 @@
           "(prefers-color-scheme: dark)",
         ).matches;
         const checkbox = document.getElementById("themeCheckbox");
-
         if (prefersDark) {
           checkbox.checked = false;
           document.body.classList.add("dark-mode");
@@ -2253,7 +2740,7 @@
           "nav.commands": "Commands",
           "overview.title": "What is LICENSEWARE Collector?",
           "overview.desc":
-            "A lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE ™ platform for software license compliance analysis.",
+            "A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE ™ platform for software license compliance analysis.",
           "compat.title": "Operating System Compatibility",
           "compat.linux.1": "x86_64 (64-bit) only",
           "compat.linux.2": "systemd required",
@@ -2266,7 +2753,6 @@
           "compat.legacy.desc":
             "Windows 7 SP1 and Windows Server 2012 R2 are supported but have reached Microsoft end-of-life. We recommend upgrading to supported operating systems.",
           "network.title": "Network Requirements",
-          "network.subtitle": "Outbound Connections Required",
           "network.api_desc":
             "Primary API for data ingestion and configuration",
           "network.git_desc": "OSQuery binary downloads (registration only)",
@@ -2276,8 +2762,6 @@
           "system.title": "System Requirements",
           "system.arch.title": "Architecture",
           "system.arch.desc": "64-bit only (32-bit not supported)",
-          "system.priv.title": "Privileges",
-          "system.priv.desc": "Root (Linux/macOS) or Administrator (Windows)",
           "system.disk.title": "Disk Space",
           "system.disk.desc": "~100 MB for binaries and temp files",
           "system.mem.title": "Memory",
@@ -2299,7 +2783,7 @@
           "process.title": "Data Collection Process",
           "process.user": "What You Do",
           "process.step1": "Download<br />Collector",
-          "process.step2": "Run<br />Register",
+          "process.step2": "Register<br />Collector",
           "process.done": "✓ Done!",
           "process.auto": "What the Collector Does",
           "process.step3": "Fetch Query<br />Catalogs",
@@ -2330,10 +2814,12 @@
           "install.video.title": "Video Walkthrough",
           "install.step1.title": "Get Your Token",
           "install.step1.1": "Go to",
-          "install.step1.2": "and sign in",
-          "install.step1.3": "Navigate to <strong>API Keys</strong>",
-          "install.step1.4": "Click <strong>Create Key</strong>",
-          "install.step2.title": "Download & Register",
+          "install.step1.2": "and sign in or create a free account",
+          "install.step1.3":
+            "Navigate to <strong>LC App</strong> and go to <strong>API Keys</strong> tab",
+          "install.step1.4":
+            "Click <strong>Create Key</strong>, configure it, and copy the token",
+          "install.step2.title": "Download and Install",
           "install.step2.desc":
             "Download the collector agent from the Collector app in Licenseware. Run with elevated privileges.",
           "quick.title": "Quick Reference",
@@ -2362,7 +2848,7 @@
           "nav.commands": "Comandos",
           "overview.title": "¿Qué es LICENSEWARE Collector?",
           "overview.desc":
-            "Un agente ligero que recopila datos de inventario de software y sistemas de sus servidores y los transmite de forma segura a la plataforma LICENSEWARE ™ para el análisis de cumplimiento de licencias.",
+            "Un agente <strong>gratuito</strong> y ligero que recopila datos de inventario de software y sistemas de sus servidores y los transmite de forma segura a la plataforma LICENSEWARE ™ para el análisis de cumplimiento de licencias.",
           "compat.title": "Compatibilidad del Sistema Operativo",
           "compat.linux.1": "x86_64 (64-bit) solamente",
           "compat.linux.2": "systemd requerido",
@@ -2375,7 +2861,6 @@
           "compat.legacy.desc":
             "Windows 7 SP1 y Windows Server 2012 R2 son compatibles pero han llegado al final de su vida útil de Microsoft. Recomendamos actualizar a sistemas operativos compatibles.",
           "network.title": "Requisitos de Red",
-          "network.subtitle": "Conexiones salientes requeridas",
           "network.api_desc":
             "API principal para la ingestión de datos y configuración",
           "network.git_desc":
@@ -2386,8 +2871,6 @@
           "system.title": "Requisitos del Sistema",
           "system.arch.title": "Arquitectura",
           "system.arch.desc": "Solo 64-bit (32-bit no compatible)",
-          "system.priv.title": "Privilegios",
-          "system.priv.desc": "Root (Linux/macOS) o Administrador (Windows)",
           "system.disk.title": "Espacio en disco",
           "system.disk.desc": "~100 MB para binarios y archivos temporales",
           "system.mem.title": "Memoria",
@@ -2409,7 +2892,7 @@
           "process.title": "Proceso de Recopilación de Datos",
           "process.user": "Lo que usted hace",
           "process.step1": "Descargar<br />Collector",
-          "process.step2": "Ejecutar<br />Registro",
+          "process.step2": "Registrar<br />Collector",
           "process.done": "✓ ¡Listo!",
           "process.auto": "Lo que hace el Collector",
           "process.step3": "Obtener catálogos<br />de consultas",
@@ -2440,10 +2923,12 @@
           "install.video.title": "Video Tutorial",
           "install.step1.title": "Obtenga su Token",
           "install.step1.1": "Vaya a",
-          "install.step1.2": "e inicie sesión",
-          "install.step1.3": "Navegue a <strong>Claves API</strong>",
-          "install.step1.4": "Haga clic en <strong>Crear Clave</strong>",
-          "install.step2.title": "Descargar y Registrar",
+          "install.step1.2": "e inicie sesión o cree una cuenta gratuita",
+          "install.step1.3":
+            "Navegue a <strong>LC App</strong> y vaya a la pestaña <strong>Claves API</strong>",
+          "install.step1.4":
+            "Haga clic en <strong>Crear Clave</strong>, configúrela y copie el token",
+          "install.step2.title": "Descargar e Instalar",
           "install.step2.desc":
             "Descargue el agente recolector desde la aplicación Collector en Licenseware. Ejecute con privilegios elevados.",
           "quick.title": "Referencia Rápida",
@@ -2503,6 +2988,46 @@
             });
         }
       }
+
+      // Scroll Spy Logic
+      const sections = document.querySelectorAll("section");
+      const navLinks = document.querySelectorAll(".sidebar-nav a");
+
+      function scrollSpy() {
+        let current = "";
+        const scrollPosition = window.scrollY + 100; // Offset for sticky header
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+
+          if (
+            scrollPosition >= sectionTop &&
+            scrollPosition < sectionTop + sectionHeight
+          ) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        // Fallback for bottom of page
+        if (
+          window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 50
+        ) {
+          const lastSection = sections[sections.length - 1];
+          if (lastSection) current = lastSection.getAttribute("id");
+        }
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", scrollSpy);
+      window.addEventListener("load", scrollSpy); // Check on load
     </script>
   </body>
 </html>
