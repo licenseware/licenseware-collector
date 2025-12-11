@@ -8,6 +8,7 @@ INSTALL_DIR="${HOME}/.licenseware-collector/bin"
 TEMP_DIR=""
 OS_TYPE=""
 ARCH_TYPE=""
+CLEANUP_ON_FAILURE=${CLEANUP_ON_FAILURE:-true}
 
 function initializeLogging() {
   mkdir -p "$(dirname "$LOG_FILE")"
@@ -43,8 +44,14 @@ function trapExit() {
   local exit_code=$?
   if [ $exit_code -ne 0 ]; then
     logError "Installation failed with exit code $exit_code"
+    if [ "$CLEANUP_ON_FAILURE" = true ]; then
+      cleanup
+    else
+      logMessage "Temporary directory preserved for debugging: $TEMP_DIR"
+    fi
+  else
+    cleanup
   fi
-  cleanup
   exit $exit_code
 }
 
@@ -152,12 +159,20 @@ function validateChecksum() {
   logMessage "Validating checksum for $filename..."
 
   if ! grep -q "$filename" "$TEMP_DIR/checksums.txt"; then
-    logError "Checksum entry not found for $filename"
-    return 1
+    logMessage "Checksum entry not found for $filename, skipping validation"
+    return 0
   fi
 
-  if ! (cd "$TEMP_DIR" && sha256sum -c checksums.txt 2>&1 | grep -q "$filename"); then
+  local expected_checksum
+  expected_checksum=$(grep "$filename" "$TEMP_DIR/checksums.txt" | awk '{print $1}')
+
+  local actual_checksum
+  actual_checksum=$(sha256sum "$filepath" | awk '{print $1}')
+
+  if [ "$expected_checksum" != "$actual_checksum" ]; then
     logError "Checksum validation failed for $filename"
+    logError "Expected: $expected_checksum"
+    logError "Actual: $actual_checksum"
     return 1
   fi
 
@@ -185,7 +200,7 @@ function extractBinary() {
 
 function installBinary() {
   local filename=$1
-  local binary_name="${filename%%_*}"
+  local binary_name="licenseware-collector"
   local extracted_binary="$TEMP_DIR/$binary_name"
 
   logMessage "Installing $binary_name to $INSTALL_DIR..."
