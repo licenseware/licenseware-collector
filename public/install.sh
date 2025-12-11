@@ -365,8 +365,8 @@ function registerCollector() {
 }
 
 function main() {
-  parseArguments "$@"
   initializeLogging
+  parseArguments "$@"
   validateRequiredTools
   detectSystem
   createTempDir
