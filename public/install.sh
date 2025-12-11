@@ -9,6 +9,32 @@ TEMP_DIR=""
 OS_TYPE=""
 ARCH_TYPE=""
 CLEANUP_ON_FAILURE=${CLEANUP_ON_FAILURE:-true}
+TOKEN="${TOKEN:-}"
+
+function parseArguments() {
+  local i=1
+  local arg
+  while [ $i -le $# ]; do
+    arg="${!i}"
+    case "$arg" in
+      -t|--token)
+        i=$((i + 1))
+        if [ $i -le $# ]; then
+          TOKEN="${!i}"
+          logMessage "Token provided via command-line argument"
+        else
+          logError "Option $arg requires a value"
+          exit 1
+        fi
+        ;;
+      *)
+        logError "Unknown option: $arg"
+        exit 1
+        ;;
+    esac
+    i=$((i + 1))
+  done
+}
 
 function initializeLogging() {
   mkdir -p "$(dirname "$LOG_FILE")"
@@ -31,6 +57,12 @@ function logError() {
   timestamp=$(date '+%Y-%m-%dT%H:%M:%S')
   local message="[$timestamp] ERROR: $1"
   echo "$message" | tee -a "$LOG_FILE" >&2
+}
+
+function getAuthHeader() {
+  if [ -n "$TOKEN" ]; then
+    echo "-H \"Authorization: Bearer $TOKEN\""
+  fi
 }
 
 function cleanup() {
@@ -309,13 +341,38 @@ function updatePATH() {
   fi
 }
 
+function registerCollector() {
+  local binary_path="$INSTALL_DIR/licenseware-collector"
+
+  logMessage "Registering collector..."
+
+  if [ ! -f "$binary_path" ]; then
+    logError "Binary not found at $binary_path"
+    return 1
+  fi
+
+  if [ -z "$TOKEN" ]; then
+    logError "No token provided, registeration failed"
+    return 1
+  fi
+
+  if ! "$binary_path" -t "$TOKEN" register; then
+    logError "Failed to register collector"
+    return 1
+  fi
+
+  logMessage "✓ Collector registered successfully"
+}
+
 function main() {
+  parseArguments "$@"
   initializeLogging
   validateRequiredTools
   detectSystem
   createTempDir
   downloadAndInstallBinaries
   updatePATH
+  registerCollector
   logMessage "========== Installation Completed Successfully =========="
   logMessage "Binaries installed to: $INSTALL_DIR"
   logMessage "Log file: $LOG_FILE"
