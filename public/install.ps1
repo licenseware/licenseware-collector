@@ -249,14 +249,12 @@ function Expand-Binary {
 function Install-Binary {
     param([string]$Filename)
 
-    $binaryName = "licenseware-collector"
+    $binaryName = "LicensewareCollector"
     $extractedBinary = Join-Path $script:TEMP_DIR $binaryName
 
     if ($Filename -eq "LicensewareCollector.exe") {
         $extractedBinary = Join-Path $script:TEMP_DIR "LicensewareCollector.exe"
-        $binaryName = "licenseware-collector.exe"
-    } elseif ($Filename -eq "LicensewareCollector-macOS.zip") {
-        $extractedBinary = Join-Path $script:TEMP_DIR "LicensewareCollector"
+        $binaryName = "LicensewareCollector.exe"
     } elseif ($script:OS_TYPE -eq "windows") {
         $exePath = Join-Path $script:TEMP_DIR "$binaryName.exe"
         if (Test-Path $exePath) {
