@@ -373,7 +373,7 @@ function Update-PathEnvironment {
 }
 
 function Register-Collector {
-    $binaryName = if ($script:OS_TYPE -eq "windows") { "licenseware-collector.exe" } else { "licenseware-collector" }
+    $binaryName = if ($script:OS_TYPE -eq "windows") { "LicensewareCollector.exe" } else { "LicensewareCollector" }
     $binaryPath = Join-Path $script:INSTALL_DIR $binaryName
 
     Write-Log "Registering collector..."
