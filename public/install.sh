@@ -101,7 +101,7 @@ function checkRequiredCommand() {
 
 function validateRequiredTools() {
   logMessage "Validating required tools..."
-  local required_tools=("curl" "tar" "sha256sum" "mkdir" "rm")
+  local required_tools=("curl" "tar" "sha256sum" "mkdir" "rm" "unzip")
 
   for tool in "${required_tools[@]}"; do
     checkRequiredCommand "$tool" || {
@@ -222,6 +222,11 @@ function extractBinary() {
       logError "Failed to extract $filename"
       return 1
     fi
+  elif [ "${filename##*.}" = "zip" ]; then
+    if ! unzip -q "$filepath" -d "$TEMP_DIR"; then
+      logError "Failed to extract $filename"
+      return 1
+    fi
   else
     logError "Unsupported file format: $filename"
     return 1
@@ -234,6 +239,10 @@ function installBinary() {
   local filename=$1
   local binary_name="licenseware-collector"
   local extracted_binary="$TEMP_DIR/$binary_name"
+
+  if [ "$filename" = "LicensewareCollector-macOS.zip" ]; then
+    extracted_binary="$TEMP_DIR/LicensewareCollector"
+  fi
 
   logMessage "Installing $binary_name to $INSTALL_DIR..."
 
