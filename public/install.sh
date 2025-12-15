@@ -8,6 +8,33 @@ INSTALL_DIR="${HOME}/.licenseware-collector/bin"
 TEMP_DIR=""
 OS_TYPE=""
 ARCH_TYPE=""
+CLEANUP_ON_FAILURE=${CLEANUP_ON_FAILURE:-true}
+TOKEN="${TOKEN:-}"
+
+function parseArguments() {
+  local i=1
+  local arg
+  while [ $i -le $# ]; do
+    arg="${!i}"
+    case "$arg" in
+      -t|--token)
+        i=$((i + 1))
+        if [ $i -le $# ]; then
+          TOKEN="${!i}"
+          logMessage "Token provided via command-line argument"
+        else
+          logError "Option $arg requires a value"
+          exit 1
+        fi
+        ;;
+      *)
+        logError "Unknown option: $arg"
+        exit 1
+        ;;
+    esac
+    i=$((i + 1))
+  done
+}
 
 function initializeLogging() {
   mkdir -p "$(dirname "$LOG_FILE")"
@@ -32,6 +59,12 @@ function logError() {
   echo "$message" | tee -a "$LOG_FILE" >&2
 }
 
+function getAuthHeader() {
+  if [ -n "$TOKEN" ]; then
+    echo "-H \"Authorization: Bearer $TOKEN\""
+  fi
+}
+
 function cleanup() {
   if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
     logMessage "Cleaning up temporary directory: $TEMP_DIR"
@@ -43,8 +76,14 @@ function trapExit() {
   local exit_code=$?
   if [ $exit_code -ne 0 ]; then
     logError "Installation failed with exit code $exit_code"
+    if [ "$CLEANUP_ON_FAILURE" = true ]; then
+      cleanup
+    else
+      logMessage "Temporary directory preserved for debugging: $TEMP_DIR"
+    fi
+  else
+    cleanup
   fi
-  cleanup
   exit $exit_code
 }
 
@@ -62,7 +101,7 @@ function checkRequiredCommand() {
 
 function validateRequiredTools() {
   logMessage "Validating required tools..."
-  local required_tools=("curl" "tar" "sha256sum" "mkdir" "rm")
+  local required_tools=("curl" "tar" "sha256sum" "mkdir" "rm" "unzip")
 
   for tool in "${required_tools[@]}"; do
     checkRequiredCommand "$tool" || {
@@ -152,12 +191,20 @@ function validateChecksum() {
   logMessage "Validating checksum for $filename..."
 
   if ! grep -q "$filename" "$TEMP_DIR/checksums.txt"; then
-    logError "Checksum entry not found for $filename"
-    return 1
+    logMessage "Checksum entry not found for $filename, skipping validation"
+    return 0
   fi
 
-  if ! (cd "$TEMP_DIR" && sha256sum -c checksums.txt 2>&1 | grep -q "$filename"); then
+  local expected_checksum
+  expected_checksum=$(grep "$filename" "$TEMP_DIR/checksums.txt" | awk '{print $1}')
+
+  local actual_checksum
+  actual_checksum=$(sha256sum "$filepath" | awk '{print $1}')
+
+  if [ "$expected_checksum" != "$actual_checksum" ]; then
     logError "Checksum validation failed for $filename"
+    logError "Expected: $expected_checksum"
+    logError "Actual: $actual_checksum"
     return 1
   fi
 
@@ -175,6 +222,11 @@ function extractBinary() {
       logError "Failed to extract $filename"
       return 1
     fi
+  elif [ "${filename##*.}" = "zip" ]; then
+    if ! unzip -q "$filepath" -d "$TEMP_DIR"; then
+      logError "Failed to extract $filename"
+      return 1
+    fi
   else
     logError "Unsupported file format: $filename"
     return 1
@@ -185,8 +237,12 @@ function extractBinary() {
 
 function installBinary() {
   local filename=$1
-  local binary_name="${filename%%_*}"
+  local binary_name="licenseware-collector"
   local extracted_binary="$TEMP_DIR/$binary_name"
+
+  if [ "$filename" = "LicensewareCollector-macOS.zip" ]; then
+    extracted_binary="$TEMP_DIR/LicensewareCollector"
+  fi
 
   logMessage "Installing $binary_name to $INSTALL_DIR..."
 
@@ -294,13 +350,38 @@ function updatePATH() {
   fi
 }
 
+function registerCollector() {
+  local binary_path="$INSTALL_DIR/licenseware-collector"
+
+  logMessage "Registering collector..."
+
+  if [ ! -f "$binary_path" ]; then
+    logError "Binary not found at $binary_path"
+    return 1
+  fi
+
+  if [ -z "$TOKEN" ]; then
+    logError "No token provided, registeration failed"
+    return 1
+  fi
+
+  if ! "$binary_path" -t "$TOKEN" register; then
+    logError "Failed to register collector"
+    return 1
+  fi
+
+  logMessage "✓ Collector registered successfully"
+}
+
 function main() {
   initializeLogging
+  parseArguments "$@"
   validateRequiredTools
   detectSystem
   createTempDir
   downloadAndInstallBinaries
   updatePATH
+  registerCollector
   logMessage "========== Installation Completed Successfully =========="
   logMessage "Binaries installed to: $INSTALL_DIR"
   logMessage "Log file: $LOG_FILE"

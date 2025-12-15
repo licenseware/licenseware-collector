@@ -1,325 +1,264 @@
+#Requires -Version 5.1
+
+<#
+.SYNOPSIS
+    Installs Licenseware Collector on Windows.
+.PARAMETER Token
+    Registration token for the collector.
+#>
+
+[CmdletBinding()]
+param(
+    [Parameter()]
+    [Alias("t")]
+    [string]$Token = $env:TOKEN
+)
+
 $ErrorActionPreference = "Stop"
-$VerbosePreference = "Continue"
 
 $CDN_BASE_URL = "https://cdn.licenseware-collector.com"
-$INSTALL_DIR = "$env:LOCALAPPDATA\LicensewareCollector\bin"
-$LOG_DIR = "$env:LOCALAPPDATA\LicensewareCollector\logs"
+$INSTALL_DIR = Join-Path $env:USERPROFILE ".licenseware-collector\bin"
+$LOG_DIR = Join-Path $env:USERPROFILE ".licenseware-collector"
 $LOG_FILE = Join-Path $LOG_DIR "install.log"
-$TEMP_DIR = ""
-
-function Initialize-Logging {
-  if (-not (Test-Path $LOG_DIR)) {
-    New-Item -ItemType Directory -Path $LOG_DIR -Force | Out-Null
-  }
-
-  Write-Log "========== Licenseware Collector Installation Started =========="
-  Write-Log "Timestamp: $(Get-Date)"
-  Write-Log "User: $env:USERNAME"
-  Write-Log "PowerShell Version: $($PSVersionTable.PSVersion)"
-}
+$BINARY_NAME = "LicensewareCollector.exe"
+$DOWNLOAD_FILENAME = "LicensewareCollector.exe"
+$script:TEMP_DIR = $null
+$CLEANUP_ON_FAILURE = if ($env:CLEANUP_ON_FAILURE -eq "false") { $false } else { $true }
 
 function Write-Log {
-  param(
-    [string]$Message
-  )
+    param(
+        [Parameter(Mandatory)]
+        [string]$Message,
+        [ValidateSet("INFO", "ERROR")]
+        [string]$Level = "INFO"
+    )
 
-  var timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-  var logMessage = "[$timestamp] $Message"
+    $timestamp = Get-Date -Format "yyyy-MM-ddTHH:mm:ss"
+    $prefix = if ($Level -eq "ERROR") { "ERROR: " } else { "" }
+    $logEntry = "[$timestamp] $prefix$Message"
 
-  Add-Content -Path $LOG_FILE -Value $logMessage
-  Write-Host $logMessage
-}
+    if (-not (Test-Path $LOG_DIR)) {
+        New-Item -ItemType Directory -Path $LOG_DIR -Force | Out-Null
+    }
 
-function Write-LogError {
-  param(
-    [string]$Message
-  )
+    Add-Content -Path $LOG_FILE -Value $logEntry
 
-  var timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-  var logMessage = "[$timestamp] ERROR: $Message"
-
-  Add-Content -Path $LOG_FILE -Value $logMessage
-  Write-Host $logMessage -ForegroundColor Red
-}
-
-function Cleanup {
-  if ($TEMP_DIR -and (Test-Path $TEMP_DIR)) {
-    Write-Log "Cleaning up temporary directory: $TEMP_DIR"
-    Remove-Item -Path $TEMP_DIR -Recurse -Force -ErrorAction SilentlyContinue
-  }
-}
-
-trap {
-  Write-LogError "Installation failed: $_"
-  Cleanup
-  exit 1
-}
-
-function Check-RequiredCommand {
-  param(
-    [string]$Command
-  )
-
-  var resolvedCmd = Get-Command $Command -ErrorAction SilentlyContinue
-
-  if (-not $resolvedCmd) {
-    Write-LogError "Required command not found: $Command"
-    return $false
-  }
-
-  Write-Log "✓ Found required command: $Command ($($resolvedCmd.Source))"
-  return $true
-}
-
-function Validate-RequiredTools {
-  Write-Log "Validating required tools..."
-
-  var requiredTools = @("curl", "Expand-Archive", "Get-FileHash")
-
-  foreach ($tool in $requiredTools) {
-    if ($tool -eq "Expand-Archive" -or $tool -eq "Get-FileHash") {
-      if (-not (Get-Command $tool -ErrorAction SilentlyContinue)) {
-        Write-LogError "Missing required PowerShell cmdlet: $tool"
-        exit 1
-      }
+    if ($Level -eq "ERROR") {
+        Write-Error $logEntry
     } else {
-      if (-not (Check-RequiredCommand $tool)) {
-        Write-LogError "Missing required command: $tool"
-        exit 1
-      }
+        Write-Host $logEntry
     }
-  }
-
-  Write-Log "✓ All required tools validated"
 }
 
-function Detect-System {
-  Write-Log "Detecting system architecture..."
-
-  var arch = $env:PROCESSOR_ARCHITECTURE
-
-  if ($arch -eq "AMD64") {
-    var detectedArch = "amd64"
-  } elseif ($arch -eq "ARM64") {
-    var detectedArch = "arm64"
-  } else {
-    Write-LogError "Unsupported architecture: $arch"
-    exit 1
-  }
-
-  Write-Log "Detected Architecture: $detectedArch"
-  return $detectedArch
-}
-
-function Create-TempDir {
-  $TEMP_DIR = New-Item -ItemType Directory -Path "$env:TEMP\LicensewareCollector_$(Get-Random)" -Force
-  Write-Log "Created temporary directory: $TEMP_DIR"
-}
-
-function Download-Checksums {
-  Write-Log "Downloading checksums from CDN..."
-
-  var checksumsUrl = "$CDN_BASE_URL/checksums.txt"
-  var checksumPath = Join-Path $TEMP_DIR "checksums.txt"
-
-  try {
-    $ProgressPreference = 'SilentlyContinue'
-    Invoke-WebRequest -Uri $checksumsUrl -OutFile $checksumPath -TimeoutSec 30 -MaximumRetryCount 3 -RetryIntervalSec 2
-    Write-Log "✓ Checksums downloaded successfully"
-  } catch {
-    Write-LogError "Failed to download checksums from $checksumsUrl : $_"
-    return $false
-  }
-}
-
-function Download-Binary {
-  param(
-    [string]$Filename
-  )
-
-  var url = "$CDN_BASE_URL/$Filename"
-  var filepath = Join-Path $TEMP_DIR $Filename
-
-  Write-Log "Downloading $Filename from $url..."
-
-  try {
-    $ProgressPreference = 'SilentlyContinue'
-    Invoke-WebRequest -Uri $url -OutFile $filepath -TimeoutSec 300 -MaximumRetryCount 3 -RetryIntervalSec 5
-
-    if (-not (Test-Path $filepath)) {
-      Write-LogError "Downloaded file not found: $filepath"
-      return $false
+function Initialize-Logging {
+    if (-not (Test-Path $LOG_DIR)) {
+        New-Item -ItemType Directory -Path $LOG_DIR -Force | Out-Null
     }
 
-    var fileSize = (Get-Item $filepath).Length / 1MB
-    Write-Log "✓ Downloaded $Filename ($('{0:F2}' -f $fileSize) MB)"
-    return $true
-  } catch {
-    Write-LogError "Failed to download $Filename : $_"
-    return $false
-  }
+    Write-Log "========== Licenseware Collector Installation Started =========="
+    Write-Log "Timestamp: $(Get-Date)"
+    Write-Log "User: $env:USERNAME"
+    Write-Log "PowerShell Version: $($PSVersionTable.PSVersion)"
+    Write-Log "OS: $([System.Environment]::OSVersion.VersionString)"
 }
 
-function Validate-Checksum {
-  param(
-    [string]$Filename
-  )
-
-  var filepath = Join-Path $TEMP_DIR $Filename
-  var checksumFile = Join-Path $TEMP_DIR "checksums.txt"
-
-  Write-Log "Validating checksum for $Filename..."
-
-  try {
-    var checksumContent = Get-Content $checksumFile | Where-Object { $_ -match $Filename }
-
-    if (-not $checksumContent) {
-      Write-LogError "Checksum entry not found for $Filename"
-      return $false
+function Remove-TempDir {
+    if ($script:TEMP_DIR -and (Test-Path $script:TEMP_DIR)) {
+        Write-Log "Cleaning up temporary directory: $script:TEMP_DIR"
+        Remove-Item -Path $script:TEMP_DIR -Recurse -Force -ErrorAction SilentlyContinue
     }
-
-    var expectedHash = ($checksumContent -split " ")[0]
-    var actualHash = (Get-FileHash -Path $filepath -Algorithm SHA256).Hash.ToLower()
-
-    if ($expectedHash.ToLower() -ne $actualHash) {
-      Write-LogError "Checksum mismatch for $Filename"
-      Write-LogError "Expected: $expectedHash"
-      Write-LogError "Actual: $actualHash"
-      return $false
-    }
-
-    Write-Log "✓ Checksum validated for $Filename"
-    return $true
-  } catch {
-    Write-LogError "Checksum validation failed for $Filename : $_"
-    return $false
-  }
 }
 
-function Extract-Binary {
-  param(
-    [string]$Filename
-  )
+function Test-Architecture {
+    Write-Log "Validating system architecture..."
 
-  var filepath = Join-Path $TEMP_DIR $Filename
-
-  Write-Log "Extracting $Filename..."
-
-  try {
-    if ($Filename -like "*.zip") {
-      Expand-Archive -Path $filepath -DestinationPath $TEMP_DIR -Force
-    } else {
-      Write-LogError "Unsupported file format: $Filename"
-      return $false
+    $arch = [System.Environment]::Is64BitOperatingSystem
+    if (-not $arch) {
+        Write-Log "Unsupported architecture: 32-bit systems are not supported" -Level ERROR
+        throw "Only 64-bit Windows (amd64) is supported"
     }
 
-    Write-Log "✓ Extracted $Filename"
-    return $true
-  } catch {
-    Write-LogError "Failed to extract $Filename : $_"
-    return $false
-  }
+    $procArch = $env:PROCESSOR_ARCHITECTURE
+    if ($procArch -ne "AMD64") {
+        Write-Log "Unsupported processor architecture: $procArch" -Level ERROR
+        throw "Only AMD64 architecture is supported"
+    }
+
+    Write-Log "[OK] Architecture validated: Windows amd64"
+}
+
+function New-TempDirectory {
+    $script:TEMP_DIR = Join-Path $env:TEMP "licenseware-install-$(Get-Random)"
+    New-Item -ItemType Directory -Path $script:TEMP_DIR -Force | Out-Null
+    Write-Log "Created temporary directory: $script:TEMP_DIR"
+}
+
+function Get-Checksums {
+    Write-Log "Downloading checksums from CDN..."
+    $checksumsUrl = "$CDN_BASE_URL/checksums.txt"
+    $checksumsPath = Join-Path $script:TEMP_DIR "checksums.txt"
+
+    try {
+        $ProgressPreference = 'SilentlyContinue'
+        Invoke-WebRequest -Uri $checksumsUrl -OutFile $checksumsPath -UseBasicParsing -TimeoutSec 30
+        Write-Log "[OK] Checksums downloaded successfully"
+        return $checksumsPath
+    } catch {
+        Write-Log "Failed to download checksums from $checksumsUrl : $_" -Level ERROR
+        throw
+    }
+}
+
+function Get-Binary {
+    Write-Log "Downloading $DOWNLOAD_FILENAME from CDN..."
+    $binaryUrl = "$CDN_BASE_URL/$DOWNLOAD_FILENAME"
+    $binaryPath = Join-Path $script:TEMP_DIR $DOWNLOAD_FILENAME
+
+    try {
+        $ProgressPreference = 'SilentlyContinue'
+        Invoke-WebRequest -Uri $binaryUrl -OutFile $binaryPath -UseBasicParsing -TimeoutSec 300
+
+        if (-not (Test-Path $binaryPath)) {
+            throw "Downloaded file not found: $binaryPath"
+        }
+
+        $fileSize = (Get-Item $binaryPath).Length / 1MB
+        $fileSizeRounded = [math]::Round($fileSize, 2)
+        Write-Log "[OK] Downloaded $DOWNLOAD_FILENAME ($fileSizeRounded MB)"
+        return $binaryPath
+    } catch {
+        Write-Log "Failed to download $DOWNLOAD_FILENAME : $_" -Level ERROR
+        throw
+    }
+}
+
+function Test-Checksum {
+    param(
+        [Parameter(Mandatory)]
+        [string]$FilePath,
+        [Parameter(Mandatory)]
+        [string]$ChecksumsPath
+    )
+
+    $filename = Split-Path $FilePath -Leaf
+    Write-Log "Validating checksum for $filename..."
+
+    if (-not (Test-Path $ChecksumsPath)) {
+        Write-Log "Checksums file not found, skipping validation"
+        return
+    }
+
+    $checksumLine = Get-Content $ChecksumsPath | Where-Object { $_ -match $filename }
+
+    if (-not $checksumLine) {
+        Write-Log "Checksum entry not found for $filename, skipping validation"
+        return
+    }
+
+    $expectedChecksum = ($checksumLine -split '\s+')[0]
+    $actualChecksum = (Get-FileHash -Path $FilePath -Algorithm SHA256).Hash.ToLower()
+
+    if ($expectedChecksum.ToLower() -ne $actualChecksum) {
+        Write-Log "Checksum validation failed for $filename" -Level ERROR
+        Write-Log "Expected: $expectedChecksum" -Level ERROR
+        Write-Log "Actual: $actualChecksum" -Level ERROR
+        throw "Checksum mismatch"
+    }
+
+    Write-Log "[OK] Checksum validated for $filename"
 }
 
 function Install-Binary {
-  param(
-    [string]$Filename
-  )
+    param(
+        [Parameter(Mandatory)]
+        [string]$SourcePath
+    )
 
-  var binaryName = $Filename -replace "_.*", ""
-  var binaryName = $binaryName -replace "\.zip", ".exe"
-  var extractedBinary = Join-Path $TEMP_DIR $binaryName
+    Write-Log "Installing $BINARY_NAME to $INSTALL_DIR..."
 
-  Write-Log "Installing $binaryName to $INSTALL_DIR..."
+    if (-not (Test-Path $INSTALL_DIR)) {
+        New-Item -ItemType Directory -Path $INSTALL_DIR -Force | Out-Null
+    }
 
-  if (-not (Test-Path $INSTALL_DIR)) {
-    New-Item -ItemType Directory -Path $INSTALL_DIR -Force | Out-Null
-  }
+    $destinationPath = Join-Path $INSTALL_DIR $BINARY_NAME
 
-  if (-not (Test-Path $extractedBinary)) {
-    Write-LogError "Extracted binary not found: $extractedBinary"
-    return $false
-  }
+    Copy-Item -Path $SourcePath -Destination $destinationPath -Force
 
-  try {
-    Copy-Item -Path $extractedBinary -Destination "$INSTALL_DIR\$binaryName" -Force
-    Write-Log "✓ Installed $binaryName to $INSTALL_DIR\$binaryName"
-    return $true
-  } catch {
-    Write-LogError "Failed to install binary : $_"
-    return $false
-  }
+    if (-not (Test-Path $destinationPath)) {
+        Write-Log "Failed to copy binary to $INSTALL_DIR" -Level ERROR
+        throw "Installation failed"
+    }
+
+    Write-Log "[OK] Installed $BINARY_NAME to $destinationPath"
 }
 
-function Download-AndInstall-Binaries {
-  var arch = Detect-System
-  var blobs = @()
+function Update-Path {
+    Write-Log "Updating PATH configuration..."
 
-  if ($arch -eq "amd64") {
-    $blobs = @("LicensewareCollector.exe")
-  } else {
-    Write-LogError "No binary available for Windows $arch"
-    return $false
-  }
+    $currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
 
-  if (-not (Download-Checksums)) {
-    return $false
-  }
-
-  foreach ($blob in $blobs) {
-    if (-not (Download-Binary $blob)) {
-      return $false
+    if ($currentPath -split ';' | Where-Object { $_ -eq $INSTALL_DIR }) {
+        Write-Log "[OK] $INSTALL_DIR already in PATH"
+        return
     }
 
-    if (-not (Validate-Checksum $blob)) {
-      return $false
-    }
+    $newPath = if ($currentPath) { "$currentPath;$INSTALL_DIR" } else { $INSTALL_DIR }
+    [Environment]::SetEnvironmentVariable("PATH", $newPath, "User")
 
-    if (-not (Extract-Binary $blob)) {
-      return $false
-    }
+    # Update current session
+    $env:PATH = "$env:PATH;$INSTALL_DIR"
 
-    if (-not (Install-Binary $blob)) {
-      return $false
-    }
-  }
-
-  Write-Log "✓ All binaries downloaded and installed successfully"
-  return $true
+    Write-Log "[OK] Added $INSTALL_DIR to user PATH"
+    Write-Log "Note: Restart your terminal for PATH changes to take effect in new sessions"
 }
 
-function Update-PATH {
-  Write-Log "Updating PATH configuration..."
+function Register-Collector {
+    $binaryPath = Join-Path $INSTALL_DIR $BINARY_NAME
 
-  var userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    Write-Log "Registering collector..."
 
-  if ($userPath -notlike "*$INSTALL_DIR*") {
-    var newPath = "$userPath;$INSTALL_DIR"
-    [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
-    Write-Log "✓ Added $INSTALL_DIR to user PATH"
-    Write-Log "Please restart your terminal to use the new PATH"
-  } else {
-    Write-Log "✓ $INSTALL_DIR already in PATH"
-  }
+    if (-not (Test-Path $binaryPath)) {
+        Write-Log "Binary not found at $binaryPath" -Level ERROR
+        throw "Registration failed: binary not found"
+    }
+
+    & $binaryPath
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Log "Registration failed with exit code $LASTEXITCODE" -Level ERROR
+        throw "Registration failed"
+    }
+
+    Write-Log "[OK] Collector registered successfully"
 }
 
 function Main {
-  Initialize-Logging
-  Validate-RequiredTools
-  Create-TempDir
+    try {
+        Initialize-Logging
+        Test-Architecture
+        New-TempDirectory
 
-  if (Download-AndInstall-Binaries) {
-    Update-PATH
-    Write-Log "========== Installation Completed Successfully =========="
-    Write-Log "Binaries installed to: $INSTALL_DIR"
-    Write-Log "Log file: $LOG_FILE"
-    Cleanup
-    exit 0
-  } else {
-    Write-LogError "Installation failed"
-    Cleanup
-    exit 1
-  }
+        $checksumsPath = Get-Checksums
+        $binaryPath = Get-Binary
+        Test-Checksum -FilePath $binaryPath -ChecksumsPath $checksumsPath
+        Install-Binary -SourcePath $binaryPath
+        Update-Path
+        Register-Collector
+
+        Write-Log "========== Installation Completed Successfully =========="
+        Write-Log "Binary installed to: $INSTALL_DIR\$BINARY_NAME"
+        Write-Log "Log file: $LOG_FILE"
+
+        Remove-TempDir
+    } catch {
+        Write-Log "Installation failed: $_" -Level ERROR
+        if ($CLEANUP_ON_FAILURE) {
+            Remove-TempDir
+        } else {
+            Write-Log "Temporary directory preserved for debugging: $script:TEMP_DIR"
+        }
+        exit 1
+    }
 }
 
 Main
