@@ -67,7 +67,6 @@ export default defineConfig({
     assetsInlineLimit: 4096,
   },
   server: {
-    open: true,
     port: 3000,
     strictPort: true,
   },

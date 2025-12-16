@@ -998,7 +998,7 @@
             >
               <div class="app-icon">
                 <img
-                  src="public/lc.svg"
+                  src="/lc.svg"
                   alt="LICENSEWARE Collector Logo"
                   width="70"
                   height="70"
@@ -1270,6 +1270,32 @@
                     style="color: var(--text-secondary)"
                     data-i18n="network.api_desc"
                     >Primary API for data ingestion and configuration</small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>cdn.licenseware-collector.com</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.cdn_desc"
+                    >Fetches static assets and updates</small
                   >
                 </div>
               </li>
@@ -2148,12 +2174,12 @@
             <!--ARCADE EMBED END-->
           </div>
 
-          <!-- Step 1 -->
-          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
+          <!-- Common Step: Get Your Token -->
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
             <div
               style="
-                width: 27px;
-                height: 27px;
+                width: 28px;
+                height: 28px;
                 background: var(--primary);
                 color: #fff;
                 border-radius: 50%;
@@ -2171,7 +2197,7 @@
               <h3
                 style="
                   margin: 0 0 0.5rem 0;
-                  font-size: 1.1rem;
+                  font-size: 1.05rem;
                   font-weight: 700;
                 "
                 data-i18n="install.step1.title"
@@ -2183,6 +2209,7 @@
                   margin: 0;
                   padding-left: 1.25rem;
                   color: var(--text-secondary);
+                  line-height: 1.7;
                 "
               >
                 <li>
@@ -2191,34 +2218,31 @@
                     href="https://app.licenseware.io/?utm_campaign=LGen&utm_source=licenseware%20collector&utm_medium=web"
                     target="_blank"
                     rel="noopener noreferrer"
+                    style="font-weight: 600"
                     >LICENSEWARE</a
                   >
                   <span data-i18n="install.step1.2"
                     >and sign in or create a free account</span
                   >
                 </li>
-                <li>
-                  <span data-i18n="install.step1.3"
-                    >Navigate to <strong>LC App</strong> and go to
-                    <strong>API Keys</strong> tab</span
-                  >
+                <li data-i18n="install.step1.3">
+                  Navigate to <strong>LC App</strong> and go to
+                  <strong>API Keys</strong> tab
                 </li>
-                <li>
-                  <span data-i18n="install.step1.4"
-                    >Click <strong>Create Key</strong>, configure it, and copy
-                    the token</span
-                  >
+                <li data-i18n="install.step1.4">
+                  Click <strong>Create Key</strong>, configure it, and copy the
+                  token
                 </li>
               </ol>
             </div>
           </div>
 
-          <!-- Step 2 -->
+          <!-- Step 2 Header -->
           <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
             <div
               style="
-                width: 27px;
-                height: 27px;
+                width: 28px;
+                height: 28px;
                 background: var(--primary);
                 color: #fff;
                 border-radius: 50%;
@@ -2232,127 +2256,384 @@
             >
               2
             </div>
-            <div style="flex: 1">
-              <h3
-                style="
-                  margin: 0 0 0.5rem 0;
-                  font-size: 1.1rem;
-                  font-weight: 700;
-                "
-                data-i18n="install.step2.title"
-              >
-                Download and Install
-              </h3>
-              <p
-                style="margin: 0 0 0.75rem 0; color: var(--text-secondary)"
-                data-i18n="install.step2.desc"
-              >
-                Download the collector agent from the Collector app in
-                Licenseware. Run with elevated privileges.
-              </p>
+            <h3
+              style="
+                margin: 0;
+                font-size: 1.05rem;
+                font-weight: 700;
+                line-height: 28px;
+              "
+              data-i18n="install.step2.title"
+            >
+              Download and Install
+            </h3>
+          </div>
 
-              <!-- Admin privileges warning -->
-              <div class="highlight-box warning" style="margin-bottom: 0.75rem">
-                <strong style="color: var(--warning)"
-                  >⚠️ Administrator Privileges Required</strong
-                ><br />
+          <!-- Linux / macOS Installation -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+            >
+              Linux / macOS
+            </h3>
+            <p
+              style="
+                margin: 0 0 1rem 0;
+                color: var(--warning);
+                font-size: 0.85rem;
+              "
+              data-i18n="install.unix.root"
+            >
+              ⚠️ Requires root privileges
+            </p>
+
+            <ol
+              style="
+                margin: 0;
+                padding-left: 1.25rem;
+                color: var(--text-secondary);
+                line-height: 1.7;
+              "
+            >
+              <li style="margin-bottom: 0.75rem">
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.unix.step1"
+                  >Set your token as an environment variable</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >export TOKEN="your-token-here"</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.unix.step2"
+                  >Run the install script</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >curl -sSL https://licenseware-collector.com/install.sh |
+                    sudo bash -s -- -t $TOKEN</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Windows Installation -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+            >
+              Windows
+            </h3>
+            <p
+              style="
+                margin: 0 0 1rem 0;
+                color: var(--warning);
+                font-size: 0.85rem;
+              "
+              data-i18n="install.win.admin"
+            >
+              ⚠️ Requires Administrator privileges
+            </p>
+
+            <ol
+              style="
+                margin: 0;
+                padding-left: 1.25rem;
+                color: var(--text-secondary);
+                line-height: 1.7;
+              "
+            >
+              <li style="margin-bottom: 0.75rem">
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.win.step1"
+                  >Load token into environment variable</strong
+                >
+                <div
+                  style="
+                    background: var(--surface);
+                    padding: 0.75rem;
+                    border-radius: 6px;
+                    margin: 0.5rem 0;
+                  "
+                >
+                  <strong
+                    style="
+                      font-size: 0.85rem;
+                      color: var(--text-primary);
+                      display: block;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="install.win.optionA"
+                    >Option A: From file (recommended)</strong
+                  >
+                  <span
+                    style="font-size: 0.8rem; color: var(--text-secondary)"
+                    data-i18n="install.win.optionA.desc"
+                    >Create <code>token.txt</code> with your token pasted in the
+                    file, then run:</span
+                  >
+                  <div class="code-block" style="margin-top: 0.5rem">
+                    <code style="font-size: 0.85rem"
+                      >$env:TOKEN = Get-Content token.txt -Raw</code
+                    >
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(this)"
+                      aria-label="Copy command"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: var(--surface);
+                    padding: 0.75rem;
+                    border-radius: 6px;
+                  "
+                >
+                  <strong
+                    style="
+                      font-size: 0.85rem;
+                      color: var(--text-primary);
+                      display: block;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="install.win.optionB"
+                    >Option B: Directly paste token</strong
+                  >
+                  <div class="code-block" style="margin-top: 0.5rem">
+                    <code style="font-size: 0.85rem"
+                      >$env:TOKEN = "your-token-here"</code
+                    >
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(this)"
+                      aria-label="Copy command"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li style="margin-bottom: 0.75rem">
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.win.step2"
+                  >Download the installer</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >Invoke-WebRequest -Uri
+                    https://cdn.licenseware-collector.com/LicensewareCollector.exe
+                    -OutFile LicensewareCollector.exe</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.win.step3"
+                  >Run the installer</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >.\LicensewareCollector.exe</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
                 <span
-                  >Installation requires Root (Linux/macOS) or Administrator
-                  (Windows) privileges.</span
-                >
-              </div>
-
-              <div class="code-block" style="margin-bottom: 0.75rem">
-                <div
                   style="
+                    font-size: 0.8rem;
                     color: var(--text-secondary);
-                    font-size: 0.75rem;
-                    margin-bottom: 0.5rem;
-                    font-weight: 700;
+                    display: block;
+                    margin-top: 0.25rem;
                   "
+                  data-i18n="install.win.note"
+                  >The installer reads the token from the environment variable
+                  and registers automatically.</span
                 >
-                  Linux / macOS
-                </div>
-                <code style="font-size: 0.875rem"
-                  >sudo ./licenseware-collector register --token
-                  YOUR_TOKEN</code
-                >
-                <button
-                  class="copy-btn"
-                  onclick="copyToClipboard(this)"
-                  aria-label="Copy command"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <rect
-                      x="9"
-                      y="9"
-                      width="13"
-                      height="13"
-                      rx="2"
-                      ry="2"
-                    ></rect>
-                    <path
-                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-
-              <div class="code-block">
-                <div
-                  style="
-                    color: var(--text-secondary);
-                    font-size: 0.75rem;
-                    margin-bottom: 0.5rem;
-                    font-weight: 700;
-                  "
-                >
-                  Windows (Admin)
-                </div>
-                <code style="font-size: 0.875rem"
-                  >.\licenseware-collector.exe register --token YOUR_TOKEN</code
-                >
-                <button
-                  class="copy-btn"
-                  onclick="copyToClipboard(this)"
-                  aria-label="Copy command"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <rect
-                      x="9"
-                      y="9"
-                      width="13"
-                      height="13"
-                      rx="2"
-                      ry="2"
-                    ></rect>
-                    <path
-                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
+              </li>
+            </ol>
           </div>
         </section>
 
@@ -2755,6 +3036,7 @@
           "network.title": "Network Requirements",
           "network.api_desc":
             "Primary API for data ingestion and configuration",
+          "network.cdn_desc": "Fetches static assets and updates",
           "network.git_desc": "Downloads dependencies (installation only)",
           "network.firewall.title": "⚠️ Firewall Configuration",
           "network.firewall.desc":
@@ -2811,7 +3093,6 @@
           "paths.title": "Installation Paths",
           "paths.binary": "Binary",
           "install.title": "Installation Guide",
-          "install.video.title": "Video Walkthrough",
           "install.step1.title": "Get Your Token",
           "install.step1.1": "Go to",
           "install.step1.2": "and sign in or create a free account",
@@ -2820,8 +3101,19 @@
           "install.step1.4":
             "Click <strong>Create Key</strong>, configure it, and copy the token",
           "install.step2.title": "Download and Install",
-          "install.step2.desc":
-            "Download the collector agent from the Collector app in Licenseware. Run with elevated privileges.",
+          "install.unix.root": "⚠️ Requires root privileges",
+          "install.unix.step1": "Set your token as an environment variable",
+          "install.unix.step2": "Run the install script",
+          "install.win.admin": "⚠️ Requires Administrator privileges",
+          "install.win.step1": "Load token into environment variable",
+          "install.win.optionA": "Option A: From file (recommended)",
+          "install.win.optionA.desc":
+            "Create <code>token.txt</code> with your token pasted in the file, then run:",
+          "install.win.optionB": "Option B: Directly paste token",
+          "install.win.step2": "Download the installer",
+          "install.win.step3": "Run the installer",
+          "install.win.note":
+            "The installer reads the token from the environment variable and registers automatically.",
           "quick.title": "Quick Reference",
           "quick.intervals": "Agent Intervals",
           "quick.service": "Service Commands",
@@ -2863,6 +3155,7 @@
           "network.title": "Requisitos de Red",
           "network.api_desc":
             "API principal para la ingestión de datos y configuración",
+          "network.cdn_desc": "Obtiene recursos estáticos y actualizaciones",
           "network.git_desc": "Descarga de dependencias (solo instalación)",
           "network.firewall.title": "⚠️ Configuración del Firewall",
           "network.firewall.desc":
@@ -2919,7 +3212,6 @@
           "paths.title": "Rutas de Instalación",
           "paths.binary": "Binario",
           "install.title": "Guía de Instalación",
-          "install.video.title": "Video Tutorial",
           "install.step1.title": "Obtenga su Token",
           "install.step1.1": "Vaya a",
           "install.step1.2": "e inicie sesión o cree una cuenta gratuita",
@@ -2927,9 +3219,20 @@
             "Navegue a <strong>LC App</strong> y vaya a la pestaña <strong>Claves API</strong>",
           "install.step1.4":
             "Haga clic en <strong>Crear Clave</strong>, configúrela y copie el token",
-          "install.step2.title": "Descargar e Instalar",
-          "install.step2.desc":
-            "Descargue el agente recolector desde la aplicación Collector en Licenseware. Ejecute con privilegios elevados.",
+          "install.step2.title": "Descargue e Instale",
+          "install.unix.root": "⚠️ Requiere privilegios de root",
+          "install.unix.step1": "Configure su token como variable de entorno",
+          "install.unix.step2": "Ejecute el script de instalación",
+          "install.win.admin": "⚠️ Requiere privilegios de Administrador",
+          "install.win.step1": "Cargue el token en una variable de entorno",
+          "install.win.optionA": "Opción A: Desde archivo (recomendado)",
+          "install.win.optionA.desc":
+            "Cree <code>token.txt</code> con su token pegado en el archivo, luego ejecute:",
+          "install.win.optionB": "Opción B: Pegar token directamente",
+          "install.win.step2": "Descargue el instalador",
+          "install.win.step3": "Ejecute el instalador",
+          "install.win.note":
+            "El instalador lee el token de la variable de entorno y se registra automáticamente.",
           "quick.title": "Referencia Rápida",
           "quick.intervals": "Intervalos del Agente",
           "quick.service": "Comandos del Servicio",
