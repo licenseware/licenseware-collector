@@ -998,7 +998,7 @@
             >
               <div class="app-icon">
                 <img
-                  src="public/lc.svg"
+                  src="/lc.svg"
                   alt="LICENSEWARE Collector Logo"
                   width="70"
                   height="70"
@@ -2115,242 +2115,560 @@
             </h2>
           </div>
 
-          <!-- Interactive Demo -->
-          <div style="margin-bottom: 1.5rem">
-            <!--ARCADE EMBED START-->
-            <div
-              style="
-                position: relative;
-                padding-bottom: calc(55.4722% + 41px);
-                height: 0px;
-                width: 100%;
-              "
-            >
-              <iframe
-                src="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-                title="Generate and Manage API Keys in Licenseware Collector"
-                frameborder="0"
-                loading="lazy"
-                webkitallowfullscreen
-                mozallowfullscreen
-                allowfullscreen
-                allow="clipboard-write"
-                style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  color-scheme: light;
-                "
-              ></iframe>
+          <div style="margin-bottom: 2rem">
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
+              <div style="display: flex; gap: 1rem; flex: 1">
+                <button
+                  id="tab-windows"
+                  style="
+                    flex: 1;
+                    padding: 0.75rem 1rem;
+                    background: var(--primary);
+                    color: #fff;
+                    border: none;
+                    border-radius: 6px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    font-family: inherit;
+                    transition: opacity 0.2s;
+                  "
+                  onclick="switchTab('windows')"
+                >
+                  Windows
+                </button>
+                <button
+                  id="tab-linux"
+                  style="
+                    flex: 1;
+                    padding: 0.75rem 1rem;
+                    background: transparent;
+                    color: var(--text-secondary);
+                    border: 1px solid var(--border);
+                    border-radius: 6px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    font-family: inherit;
+                    transition: all 0.2s;
+                  "
+                  onclick="switchTab('linux')"
+                >
+                  Linux / macOS
+                </button>
+              </div>
             </div>
-            <!--ARCADE EMBED END-->
-          </div>
 
-          <!-- Step 1 -->
-          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
-            <div
-              style="
-                width: 27px;
-                height: 27px;
-                background: var(--primary);
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
-                font-size: 0.9rem;
-                flex-shrink: 0;
-              "
-            >
-              1
-            </div>
-            <div style="flex: 1">
-              <h3
-                style="
-                  margin: 0 0 0.5rem 0;
-                  font-size: 1.1rem;
-                  font-weight: 700;
-                "
-                data-i18n="install.step1.title"
-              >
-                Get Your Token
-              </h3>
-              <ol
-                style="
-                  margin: 0;
-                  padding-left: 1.25rem;
-                  color: var(--text-secondary);
-                "
-              >
-                <li>
-                  <span data-i18n="install.step1.1">Go to</span>
-                  <a
-                    href="https://app.licenseware.io/?utm_campaign=LGen&utm_source=licenseware%20collector&utm_medium=web"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >LICENSEWARE</a
-                  >
-                  <span data-i18n="install.step1.2"
-                    >and sign in or create a free account</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="install.step1.3"
-                    >Navigate to <strong>LC App</strong> and go to
-                    <strong>API Keys</strong> tab</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="install.step1.4"
-                    >Click <strong>Create Key</strong>, configure it, and copy
-                    the token</span
-                  >
-                </li>
-              </ol>
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
-            <div
-              style="
-                width: 27px;
-                height: 27px;
-                background: var(--primary);
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
-                font-size: 0.9rem;
-                flex-shrink: 0;
-              "
-            >
-              2
-            </div>
-            <div style="flex: 1">
-              <h3
-                style="
-                  margin: 0 0 0.5rem 0;
-                  font-size: 1.1rem;
-                  font-weight: 700;
-                "
-                data-i18n="install.step2.title"
-              >
-                Download and Install
-              </h3>
-              <p
-                style="margin: 0 0 0.75rem 0; color: var(--text-secondary)"
-                data-i18n="install.step2.desc"
-              >
-                Download the collector agent from the Collector app in
-                Licenseware. Run with elevated privileges.
-              </p>
-
-              <!-- Admin privileges warning -->
-              <div class="highlight-box warning" style="margin-bottom: 0.75rem">
+            <div id="windows-content">
+              <div class="highlight-box warning" style="margin-bottom: 1.5rem">
                 <strong style="color: var(--warning)"
                   >⚠️ Administrator Privileges Required</strong
                 ><br />
                 <span
-                  >Installation requires Root (Linux/macOS) or Administrator
-                  (Windows) privileges.</span
+                  >Installation requires Administrator privileges. Run
+                  PowerShell as Administrator.</span
                 >
               </div>
 
-              <div class="code-block" style="margin-bottom: 0.75rem">
+              <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
                 <div
                   style="
-                    color: var(--text-secondary);
-                    font-size: 0.75rem;
-                    margin-bottom: 0.5rem;
-                    font-weight: 700;
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
                   "
                 >
-                  Linux / macOS
+                  1
                 </div>
-                <code style="font-size: 0.875rem"
-                  >sudo ./licenseware-collector register --token
-                  YOUR_TOKEN</code
-                >
-                <button
-                  class="copy-btn"
-                  onclick="copyToClipboard(this)"
-                  aria-label="Copy command"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
                   >
-                    <rect
-                      x="9"
-                      y="9"
-                      width="13"
-                      height="13"
-                      rx="2"
-                      ry="2"
-                    ></rect>
-                    <path
-                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                    ></path>
-                  </svg>
-                </button>
+                    Sign Up & Get Token
+                  </h3>
+                  <ol
+                    style="
+                      margin: 0;
+                      padding-left: 1.25rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <li>
+                      <span>Go to</span>
+                      <a
+                        href="https://app.licenseware.io/?utm_campaign=LGen&utm_source=licenseware%20collector&utm_medium=web"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >app.licenseware.io</a
+                      >
+                      <span>and sign in or create a free account</span>
+                    </li>
+                    <li>
+                      <span
+                        >Navigate to <strong>Collector App</strong> and go to
+                        <strong>API Keys</strong> tab</span
+                      >
+                    </li>
+                    <li>
+                      <span
+                        >Click <strong>Create Key</strong>, configure it, and
+                        copy the token</span
+                      >
+                    </li>
+                  </ol>
+                </div>
               </div>
 
-              <div class="code-block">
+              <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
                 <div
                   style="
-                    color: var(--text-secondary);
-                    font-size: 0.75rem;
-                    margin-bottom: 0.5rem;
-                    font-weight: 700;
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
                   "
                 >
-                  Windows (Admin)
+                  2
                 </div>
-                <code style="font-size: 0.875rem"
-                  >.\licenseware-collector.exe register --token YOUR_TOKEN</code
-                >
-                <button
-                  class="copy-btn"
-                  onclick="copyToClipboard(this)"
-                  aria-label="Copy command"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
                   >
-                    <rect
-                      x="9"
-                      y="9"
-                      width="13"
-                      height="13"
-                      rx="2"
-                      ry="2"
-                    ></rect>
-                    <path
-                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                    ></path>
-                  </svg>
-                </button>
+                    Save Token to File
+                  </h3>
+                  <p
+                    style="margin: 0 0 0.75rem 0; color: var(--text-secondary)"
+                  >
+                    Create a file named <code>token.txt</code> in your desired
+                    installation folder and paste your token inside.
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                  "
+                >
+                  3
+                </div>
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
+                  >
+                    Open PowerShell as Administrator
+                  </h3>
+                  <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary)">
+                    Navigate to the folder where you saved
+                    <code>token.txt</code>, then right-click and select
+                    <strong>Open PowerShell as Administrator</strong>.
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                  "
+                >
+                  4
+                </div>
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
+                  >
+                    Load Token into Environment
+                  </h3>
+                  <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary)">
+                    In PowerShell, run:
+                  </p>
+                  <div class="code-block" style="margin-bottom: 0">
+                    <code style="font-size: 0.875rem"
+                      >$env:TOKEN = Get-Content token.txt -Raw</code
+                    >
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(this)"
+                      aria-label="Copy command"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                  "
+                >
+                  5
+                </div>
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
+                  >
+                    Download Collector
+                  </h3>
+                  <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary)">
+                    Download the installer:
+                  </p>
+                  <div class="code-block" style="margin-bottom: 0">
+                    <code style="font-size: 0.875rem"
+                      >Invoke-WebRequest -Uri
+                      https://cdn.licenseware-collector.com/LicensewareCollector.exe
+                      -OutFile LicensewareCollector.exe</code
+                    >
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(this)"
+                      aria-label="Copy command"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem">
+                <div
+                  style="
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                  "
+                >
+                  6
+                </div>
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
+                  >
+                    Run the Installer
+                  </h3>
+                  <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary)">
+                    Execute the installer in PowerShell:
+                  </p>
+                  <div class="code-block" style="margin-bottom: 0">
+                    <code style="font-size: 0.875rem"
+                      >.\LicensewareCollector.exe</code
+                    >
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(this)"
+                      aria-label="Copy command"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <p
+                    style="
+                      margin: 0.75rem 0 0 0;
+                      font-size: 0.875rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    The installer will register the collector automatically
+                    using the token from the environment.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div id="linux-content" style="display: none">
+              <div class="highlight-box warning" style="margin-bottom: 1.5rem">
+                <strong style="color: var(--warning)"
+                  >⚠️ Root Privileges Required</strong
+                ><br />
+                <span
+                  >Installation requires Root privileges. Use
+                  <code>sudo</code> or run as root.</span
+                >
+              </div>
+
+              <div style="display: flex; gap: 1rem">
+                <div
+                  style="
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                  "
+                >
+                  1
+                </div>
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
+                  >
+                    Sign Up & Get Token
+                  </h3>
+                  <ol
+                    style="
+                      margin: 0;
+                      padding-left: 1.25rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <li>
+                      <span>Go to</span>
+                      <a
+                        href="https://app.licenseware.io/?utm_campaign=LGen&utm_source=licenseware%20collector&utm_medium=web"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >app.licenseware.io</a
+                      >
+                      <span>and sign in or create a free account</span>
+                    </li>
+                    <li>
+                      <span
+                        >Navigate to <strong>Collector App</strong> and go to
+                        <strong>API Keys</strong> tab</span
+                      >
+                    </li>
+                    <li>
+                      <span
+                        >Click <strong>Create Key</strong>, configure it, and
+                        copy the token</span
+                      >
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; margin-top: 1.5rem">
+                <div
+                  style="
+                    width: 27px;
+                    height: 27px;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                  "
+                >
+                  2
+                </div>
+                <div style="flex: 1">
+                  <h3
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                    "
+                  >
+                    Run Installation Script
+                  </h3>
+                  <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary)">
+                    Replace <code>YOUR_TOKEN</code> with your API key and run:
+                  </p>
+                  <div class="code-block" style="margin-bottom: 0">
+                    <code style="font-size: 0.875rem"
+                      >curl -sSL
+                      https://cdn.licenseware-collector.com/install.sh | sudo
+                      bash -s -- -t YOUR_TOKEN</code
+                    >
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(this)"
+                      aria-label="Copy command"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <p
+                    style="
+                      margin: 0.75rem 0 0 0;
+                      font-size: 0.875rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    The script will download and install the collector, then
+                    register it with your token automatically.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -2927,7 +3245,7 @@
             "Navegue a <strong>LC App</strong> y vaya a la pestaña <strong>Claves API</strong>",
           "install.step1.4":
             "Haga clic en <strong>Crear Clave</strong>, configúrela y copie el token",
-          "install.step2.title": "Descargar e Instalar",
+          "install.step2.title": "Descargue e Instale",
           "install.step2.desc":
             "Descargue el agente recolector desde la aplicación Collector en Licenseware. Ejecute con privilegios elevados.",
           "quick.title": "Referencia Rápida",
@@ -3027,6 +3345,47 @@
 
       window.addEventListener("scroll", scrollSpy);
       window.addEventListener("load", scrollSpy); // Check on load
+
+      function switchTab(tab) {
+        var windowsContent = document.getElementById("windows-content");
+        var linuxContent = document.getElementById("linux-content");
+        var tabWindows = document.getElementById("tab-windows");
+        var tabLinux = document.getElementById("tab-linux");
+
+        if (tab === "windows") {
+          windowsContent.style.display = "block";
+          linuxContent.style.display = "none";
+          tabWindows.style.background = "var(--primary)";
+          tabWindows.style.color = "#fff";
+          tabWindows.style.borderColor = "var(--primary)";
+          tabLinux.style.background = "transparent";
+          tabLinux.style.color = "var(--text-secondary)";
+          tabLinux.style.borderColor = "var(--border)";
+        } else {
+          windowsContent.style.display = "none";
+          linuxContent.style.display = "block";
+          tabWindows.style.background = "transparent";
+          tabWindows.style.color = "var(--text-secondary)";
+          tabWindows.style.borderColor = "var(--border)";
+          tabLinux.style.background = "var(--primary)";
+          tabLinux.style.color = "#fff";
+          tabLinux.style.borderColor = "var(--primary)";
+        }
+      }
+
+      // on start, switch to the client tab
+      if (navigator) {
+        const platform = navigator.platform.toLowerCase();
+        if (platform.includes("win")) {
+          switchTab("windows");
+        } else {
+          switchTab("linux");
+        }
+      } else {
+        document.addEventListener("DOMContentLoaded", function () {
+          switchTab("linux");
+        });
+      }
     </script>
   </body>
 </html>
