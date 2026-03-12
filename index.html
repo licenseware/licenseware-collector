@@ -2159,6 +2159,8 @@
                 border: 1px solid var(--border);
                 border-radius: 8px;
                 padding: 1.25rem;
+                display: flex;
+                flex-direction: column;
               "
             >
               <div
@@ -2191,7 +2193,6 @@
                 style="
                   display: flex;
                   align-items: center;
-                  justify-content: center;
                   gap: 0.5rem;
                   padding: 0.75rem 1rem;
                   background: var(--primary);
@@ -2215,16 +2216,23 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  style="flex-shrink: 0"
                 >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                <span data-i18n="downloads.exe">Download .exe</span>
+                <span
+                  style="flex: 1; text-align: center"
+                  data-i18n="downloads.exe"
+                  >Download .exe</span
+                >
               </a>
               <p
                 style="
-                  margin: 0.75rem 0 0 0;
+                  margin-top: auto;
+                  padding-top: 0.75rem;
+                  margin-bottom: 0;
                   font-size: 0.75rem;
                   color: var(--text-secondary);
                   text-align: center;
@@ -2241,6 +2249,8 @@
                 border: 1px solid var(--border);
                 border-radius: 8px;
                 padding: 1.25rem;
+                display: flex;
+                flex-direction: column;
               "
             >
               <div
@@ -2274,7 +2284,6 @@
                   style="
                     display: flex;
                     align-items: center;
-                    justify-content: center;
                     gap: 0.5rem;
                     padding: 0.75rem 1rem;
                     background: var(--primary);
@@ -2298,19 +2307,19 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
+                    style="flex-shrink: 0"
                   >
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span>x64 (amd64)</span>
+                  <span style="flex: 1; text-align: center">x64 (amd64)</span>
                 </a>
                 <a
                   href="https://cdn.licenseware-collector.com/collector_linux_arm64.tar.gz"
                   style="
                     display: flex;
                     align-items: center;
-                    justify-content: center;
                     gap: 0.5rem;
                     padding: 0.75rem 1rem;
                     background: var(--primary);
@@ -2334,17 +2343,20 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
+                    style="flex-shrink: 0"
                   >
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span>ARM64</span>
+                  <span style="flex: 1; text-align: center">ARM64</span>
                 </a>
               </div>
               <p
                 style="
-                  margin: 0.75rem 0 0 0;
+                  margin-top: auto;
+                  padding-top: 0.75rem;
+                  margin-bottom: 0;
                   font-size: 0.75rem;
                   color: var(--text-secondary);
                   text-align: center;
@@ -2361,6 +2373,8 @@
                 border: 1px solid var(--border);
                 border-radius: 8px;
                 padding: 1.25rem;
+                display: flex;
+                flex-direction: column;
               "
             >
               <div
@@ -2393,7 +2407,6 @@
                 style="
                   display: flex;
                   align-items: center;
-                  justify-content: center;
                   gap: 0.5rem;
                   padding: 0.75rem 1rem;
                   background: var(--primary);
@@ -2417,16 +2430,23 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  style="flex-shrink: 0"
                 >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                <span data-i18n="downloads.zip">Download .zip</span>
+                <span
+                  style="flex: 1; text-align: center"
+                  data-i18n="downloads.zip"
+                  >Download .zip</span
+                >
               </a>
               <p
                 style="
-                  margin: 0.75rem 0 0 0;
+                  margin-top: auto;
+                  padding-top: 0.75rem;
+                  margin-bottom: 0;
                   font-size: 0.75rem;
                   color: var(--text-secondary);
                   text-align: center;
