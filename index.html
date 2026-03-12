@@ -1078,6 +1078,9 @@
                 >Installation Guide</a
               >
             </li>
+            <li>
+              <a href="#uninstall" data-i18n="nav.uninstall">Uninstall Guide</a>
+            </li>
             <li><a href="#commands" data-i18n="nav.commands">Commands</a></li>
           </ul>
         </nav>
@@ -2637,6 +2640,258 @@
           </div>
         </section>
 
+        <!-- Uninstall Guide -->
+        <section class="card" id="uninstall" aria-labelledby="uninstall-title">
+          <div class="card-header">
+            <div class="card-icon flow" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                ></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </div>
+            <h2 id="uninstall-title" data-i18n="uninstall.title">
+              Uninstall Guide
+            </h2>
+          </div>
+
+          <aside
+            class="highlight-box warning"
+            role="note"
+            aria-label="Uninstall privileges warning"
+          >
+            <strong style="color: var(--warning)">⚠️</strong>
+            <span data-i18n="uninstall.warning"
+              >Requires elevated privileges (sudo on Linux/macOS, Administrator
+              on Windows)</span
+            >
+          </aside>
+
+          <!-- Linux / macOS -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+              margin-top: 1rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              data-i18n="uninstall.linux.title"
+            >
+              Linux / macOS
+            </h3>
+            <ol style="margin: 0; padding-left: 1.25rem">
+              <li>
+                <strong style="color: var(--text-primary)"
+                  >Uninstall the service</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >sudo licenseware-collector uninstall --force</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="uninstall.linux.cleanup"
+                  >Remove the collector binary:</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >sudo rm /usr/local/bin/licenseware-collector</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Windows -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+              margin-top: 1rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              data-i18n="uninstall.win.title"
+            >
+              Windows (Administrator PowerShell)
+            </h3>
+            <ol style="margin: 0; padding-left: 1.25rem">
+              <li>
+                <strong style="color: var(--text-primary)"
+                  >Uninstall the service</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >licenseware-collector.exe uninstall --force</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="uninstall.win.cleanup"
+                  >Remove the collector binary:</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >del
+                    "%ProgramData%\Licenseware\LicensewareCollector.exe"</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <span
+            style="
+              font-size: 0.8rem;
+              color: var(--text-secondary);
+              display: block;
+              margin-top: 0.75rem;
+            "
+            data-i18n="uninstall.note"
+            >The --force flag stops the service if it is still running before
+            uninstalling.</span
+          >
+        </section>
+
         <!-- Quick Reference -->
         <section class="card" id="commands" aria-labelledby="commands-title">
           <div class="card-header">
@@ -3114,6 +3369,16 @@
           "install.win.step3": "Run the installer",
           "install.win.note":
             "The installer reads the token from the environment variable and registers automatically.",
+          "nav.uninstall": "Uninstall Guide",
+          "uninstall.title": "Uninstall Guide",
+          "uninstall.warning":
+            "Requires elevated privileges (sudo on Linux/macOS, Administrator on Windows)",
+          "uninstall.linux.title": "Linux / macOS",
+          "uninstall.linux.cleanup": "Remove the collector binary:",
+          "uninstall.win.title": "Windows (Administrator PowerShell)",
+          "uninstall.win.cleanup": "Remove the collector binary:",
+          "uninstall.note":
+            "The --force flag stops the service if it is still running before uninstalling.",
           "quick.title": "Quick Reference",
           "quick.intervals": "Agent Intervals",
           "quick.service": "Service Commands",
@@ -3233,6 +3498,16 @@
           "install.win.step3": "Ejecute el instalador",
           "install.win.note":
             "El instalador lee el token de la variable de entorno y se registra automáticamente.",
+          "nav.uninstall": "Guía de Desinstalación",
+          "uninstall.title": "Guía de Desinstalación",
+          "uninstall.warning":
+            "Requiere privilegios elevados (sudo en Linux/macOS, Administrador en Windows)",
+          "uninstall.linux.title": "Linux / macOS",
+          "uninstall.linux.cleanup": "Eliminar el binario del collector:",
+          "uninstall.win.title": "Windows (PowerShell de Administrador)",
+          "uninstall.win.cleanup": "Eliminar el binario del collector:",
+          "uninstall.note":
+            "La bandera --force detiene el servicio si aún está en ejecución antes de desinstalar.",
           "quick.title": "Referencia Rápida",
           "quick.intervals": "Intervalos del Agente",
           "quick.service": "Comandos del Servicio",
