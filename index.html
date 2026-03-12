@@ -707,6 +707,36 @@
         font-size: 0.75rem;
       }
 
+      /* OS Tab Styles */
+      .os-tabs {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .os-tab {
+        padding: 0.4rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+      }
+
+      .os-tab:hover {
+        border-color: var(--primary);
+        color: var(--text-primary);
+      }
+
+      .os-tab.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: var(--bg-main);
+        font-weight: 600;
+      }
+
       /* Copy Button Styles (Minimalist) */
       .copy-btn {
         position: absolute;
@@ -1082,6 +1112,9 @@
               <a href="#uninstall" data-i18n="nav.uninstall">Uninstall Guide</a>
             </li>
             <li><a href="#commands" data-i18n="nav.commands">Commands</a></li>
+            <li>
+              <a href="#removal" data-i18n="nav.removal">Stop & Remove</a>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -3194,6 +3227,405 @@
             </div>
           </div>
         </section>
+
+        <!-- Stop & Remove -->
+        <section class="card" id="removal" aria-labelledby="removal-title">
+          <div class="card-header">
+            <div class="card-icon api" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                ></path>
+              </svg>
+            </div>
+            <h2 id="removal-title" data-i18n="removal.title">
+              Stop & Remove
+            </h2>
+          </div>
+
+          <p
+            style="margin-bottom: 1rem; color: var(--text-secondary)"
+            data-i18n="removal.desc"
+          >
+            To stop the collector service, use the built-in stop command.
+            To fully remove it, follow the platform-specific steps below.
+          </p>
+
+          <!-- Stop -->
+          <div style="margin-bottom: 1.5rem">
+            <h3 class="section-title" data-i18n="removal.stop.title">
+              Stop the Service
+            </h3>
+            <p
+              style="
+                margin-bottom: 0.75rem;
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+              "
+              data-i18n="removal.stop.desc"
+            >
+              This stops the collector but keeps it installed. It will not
+              restart on reboot.
+            </p>
+            <ul class="req-list compact" role="list">
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                  </svg>
+                </span>
+                <div>
+                  <code>sudo licenseware-collector stop</code>
+                </div>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard(this)"
+                  aria-label="Copy command"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Full Removal -->
+          <div>
+            <h3 class="section-title" data-i18n="removal.full.title">
+              Full Removal
+            </h3>
+            <p
+              style="
+                margin-bottom: 0.75rem;
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+              "
+              data-i18n="removal.full.desc"
+            >
+              Requires the same privileges used during installation (root on
+              Linux/macOS, Administrator on Windows).
+            </p>
+
+            <!-- Tabs -->
+            <div class="os-tabs" role="tablist" style="margin-bottom: 1rem">
+              <button
+                class="os-tab active"
+                role="tab"
+                aria-selected="true"
+                onclick="switchRemovalTab(this, 'removal-linux')"
+              >
+                Linux
+              </button>
+              <button
+                class="os-tab"
+                role="tab"
+                aria-selected="false"
+                onclick="switchRemovalTab(this, 'removal-macos')"
+              >
+                macOS
+              </button>
+              <button
+                class="os-tab"
+                role="tab"
+                aria-selected="false"
+                onclick="switchRemovalTab(this, 'removal-windows')"
+              >
+                Windows
+              </button>
+            </div>
+
+            <!-- Linux -->
+            <div id="removal-linux" class="os-content active" role="tabpanel">
+              <ul class="req-list compact" role="list">
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.linux.step1"
+                      >Stop and disable the service</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sudo systemctl stop licenseware-collector.service && sudo systemctl disable licenseware-collector.service</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.linux.step2"
+                      >Remove the service file and reload systemd</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sudo rm /etc/systemd/system/licenseware-collector.service && sudo systemctl daemon-reload</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.linux.step3"
+                      >Remove the binary and configuration</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sudo rm /usr/local/bin/licenseware-collector /etc/default/licenseware-collector</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <!-- macOS -->
+            <div
+              id="removal-macos"
+              class="os-content"
+              role="tabpanel"
+              style="display: none"
+            >
+              <ul class="req-list compact" role="list">
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.macos.step1"
+                      >Unload the service</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sudo launchctl unload /Library/LaunchDaemons/io.licenseware.licenseware-collector.plist</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.macos.step2"
+                      >Remove the service plist</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sudo rm /Library/LaunchDaemons/io.licenseware.licenseware-collector.plist</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.macos.step3"
+                      >Remove the binary and configuration</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sudo rm /usr/local/bin/licenseware-collector /usr/local/etc/licenseware-collector</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.macos.step4"
+                      >Remove logs (optional)</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sudo rm /var/log/licenseware-collector.log</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Windows -->
+            <div
+              id="removal-windows"
+              class="os-content"
+              role="tabpanel"
+              style="display: none"
+            >
+              <p
+                style="
+                  margin-bottom: 0.75rem;
+                  color: var(--text-secondary);
+                  font-size: 0.85rem;
+                "
+                data-i18n="removal.win.note"
+              >
+                Run all commands in PowerShell as Administrator.
+              </p>
+              <ul class="req-list compact" role="list">
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.win.step1"
+                      >Stop the service</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >Stop-Service -Name "licenseware-collector"</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.win.step2"
+                      >Delete the service</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >sc.exe delete licenseware-collector</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                  </span>
+                  <div>
+                    <span
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                      "
+                      data-i18n="removal.win.step3"
+                      >Remove the binary and configuration</span
+                    >
+                    <code style="display: block; margin-top: 0.25rem"
+                      >Remove-Item "$env:ProgramData\Licenseware" -Recurse -Force</code
+                    >
+                  </div>
+                  <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -3385,6 +3817,29 @@
           "quick.config": "Config Refresh:",
           "quick.catalog": "Catalog Check:",
           "quick.cleanup": "Failed File Cleanup:",
+          "nav.removal": "Stop & Remove",
+          "removal.title": "Stop & Remove",
+          "removal.desc":
+            "To stop the collector service, use the built-in stop command. To fully remove it, follow the platform-specific steps below.",
+          "removal.stop.title": "Stop the Service",
+          "removal.stop.desc":
+            "This stops the collector but keeps it installed. It will not restart on reboot.",
+          "removal.full.title": "Full Removal",
+          "removal.full.desc":
+            "Requires the same privileges used during installation (root on Linux/macOS, Administrator on Windows).",
+          "removal.linux.step1": "Stop and disable the service",
+          "removal.linux.step2":
+            "Remove the service file and reload systemd",
+          "removal.linux.step3": "Remove the binary and configuration",
+          "removal.macos.step1": "Unload the service",
+          "removal.macos.step2": "Remove the service plist",
+          "removal.macos.step3": "Remove the binary and configuration",
+          "removal.macos.step4": "Remove logs (optional)",
+          "removal.win.note":
+            "Run all commands in PowerShell as Administrator.",
+          "removal.win.step1": "Stop the service",
+          "removal.win.step2": "Delete the service",
+          "removal.win.step3": "Remove the binary and configuration",
           "footer.copyright": "© 2025 LICENSEWARE ™. All rights reserved.",
         },
         es: {
@@ -3514,6 +3969,32 @@
           "quick.config": "Refrescar Config:",
           "quick.catalog": "Comprobar Catálogo:",
           "quick.cleanup": "Limpieza de Archivos:",
+          "nav.removal": "Detener y Eliminar",
+          "removal.title": "Detener y Eliminar",
+          "removal.desc":
+            "Para detener el servicio del collector, use el comando stop integrado. Para eliminarlo completamente, siga los pasos específicos de la plataforma a continuación.",
+          "removal.stop.title": "Detener el Servicio",
+          "removal.stop.desc":
+            "Esto detiene el collector pero lo mantiene instalado. No se reiniciará en el próximo arranque.",
+          "removal.full.title": "Eliminación Completa",
+          "removal.full.desc":
+            "Requiere los mismos privilegios utilizados durante la instalación (root en Linux/macOS, Administrador en Windows).",
+          "removal.linux.step1": "Detener y deshabilitar el servicio",
+          "removal.linux.step2":
+            "Eliminar el archivo de servicio y recargar systemd",
+          "removal.linux.step3":
+            "Eliminar el binario y la configuración",
+          "removal.macos.step1": "Descargar el servicio",
+          "removal.macos.step2": "Eliminar el plist del servicio",
+          "removal.macos.step3":
+            "Eliminar el binario y la configuración",
+          "removal.macos.step4": "Eliminar logs (opcional)",
+          "removal.win.note":
+            "Ejecute todos los comandos en PowerShell como Administrador.",
+          "removal.win.step1": "Detener el servicio",
+          "removal.win.step2": "Eliminar el servicio",
+          "removal.win.step3":
+            "Eliminar el binario y la configuración",
           "footer.copyright":
             "© 2025 LICENSEWARE ™. Todos los derechos reservados.",
         },
@@ -3535,6 +4016,23 @@
             el.innerHTML = translations[currentLang][key];
           }
         });
+      }
+
+      function switchRemovalTab(btn, panelId) {
+        const section = btn.closest("section");
+        section
+          .querySelectorAll(".os-tab")
+          .forEach((t) => {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+          });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+
+        section
+          .querySelectorAll(".os-content")
+          .forEach((p) => (p.style.display = "none"));
+        document.getElementById(panelId).style.display = "";
       }
 
       function copyToClipboard(btn) {
