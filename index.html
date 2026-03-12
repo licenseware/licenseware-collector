@@ -1074,9 +1074,15 @@
               Getting Started
             </li>
             <li>
+              <a href="#downloads" data-i18n="nav.downloads">Downloads</a>
+            </li>
+            <li>
               <a href="#installation" data-i18n="nav.install"
                 >Installation Guide</a
               >
+            </li>
+            <li>
+              <a href="#uninstall" data-i18n="nav.uninstall">Uninstall Guide</a>
             </li>
             <li><a href="#commands" data-i18n="nav.commands">Commands</a></li>
           </ul>
@@ -2352,6 +2358,394 @@
           </div>
         </section>
 
+        <!-- Direct Downloads -->
+        <section class="card" id="downloads" aria-labelledby="downloads-title">
+          <div class="card-header">
+            <div class="card-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <h2 id="downloads-title" data-i18n="downloads.title">
+              Direct Downloads
+            </h2>
+          </div>
+
+          <p
+            style="color: var(--text-secondary); margin-bottom: 1.5rem"
+            data-i18n="downloads.desc"
+          >
+            Download the collector binary directly for your operating system and
+            architecture.
+          </p>
+
+          <div class="os-grid">
+            <!-- Windows -->
+            <div
+              style="
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1.25rem;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  margin-bottom: 1rem;
+                  padding-bottom: 0.75rem;
+                  border-bottom: 2px solid var(--text-secondary);
+                "
+              >
+                <span style="font-size: 1.5rem; display: flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 88 88"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"
+                    />
+                  </svg>
+                </span>
+                <h3 style="margin: 0; font-size: 1rem">Windows</h3>
+              </div>
+              <a
+                href="https://cdn.licenseware-collector.com/LicensewareCollector.exe"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  padding: 0.75rem 1rem;
+                  background: var(--primary);
+                  color: #fff;
+                  border-radius: 6px;
+                  text-decoration: none;
+                  font-weight: 700;
+                  font-size: 0.875rem;
+                  transition: opacity 0.2s;
+                "
+                onmouseover="this.style.opacity = '0.9'"
+                onmouseout="this.style.opacity = '1'"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="flex-shrink: 0"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span
+                  style="flex: 1; text-align: center"
+                  data-i18n="downloads.exe"
+                  >Download .exe</span
+                >
+              </a>
+              <p
+                style="
+                  margin-top: auto;
+                  padding-top: 0.75rem;
+                  margin-bottom: 0;
+                  font-size: 0.75rem;
+                  color: var(--text-secondary);
+                  text-align: center;
+                "
+              >
+                x64 (64-bit)
+              </p>
+              <a
+                href="https://cdn.licenseware-collector.com/checksums-windows.txt"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                  display: block;
+                  font-size: 0.7rem;
+                  color: var(--text-secondary);
+                  text-align: center;
+                  margin-top: 0.25rem;
+                  text-decoration: underline;
+                  text-underline-offset: 2px;
+                "
+                data-i18n="downloads.checksum.verify"
+                >SHA256 checksum</a
+              >
+            </div>
+
+            <!-- Linux -->
+            <div
+              style="
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1.25rem;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  margin-bottom: 1rem;
+                  padding-bottom: 0.75rem;
+                  border-bottom: 2px solid var(--text-secondary);
+                "
+              >
+                <span style="font-size: 1.5rem; display: flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"
+                    />
+                  </svg>
+                </span>
+                <h3 style="margin: 0; font-size: 1rem">Linux</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem">
+                <a
+                  href="https://cdn.licenseware-collector.com/collector_linux_amd64.tar.gz"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.75rem 1rem;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 700;
+                    font-size: 0.875rem;
+                    transition: opacity 0.2s;
+                  "
+                  onmouseover="this.style.opacity = '0.9'"
+                  onmouseout="this.style.opacity = '1'"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="flex-shrink: 0"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span style="flex: 1; text-align: center">x64 (amd64)</span>
+                </a>
+                <a
+                  href="https://cdn.licenseware-collector.com/collector_linux_arm64.tar.gz"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.75rem 1rem;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 700;
+                    font-size: 0.875rem;
+                    transition: opacity 0.2s;
+                  "
+                  onmouseover="this.style.opacity = '0.9'"
+                  onmouseout="this.style.opacity = '1'"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="flex-shrink: 0"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span style="flex: 1; text-align: center">ARM64</span>
+                </a>
+              </div>
+              <p
+                style="
+                  margin-top: auto;
+                  padding-top: 0.75rem;
+                  margin-bottom: 0;
+                  font-size: 0.75rem;
+                  color: var(--text-secondary);
+                  text-align: center;
+                "
+              >
+                .tar.gz
+              </p>
+              <a
+                href="https://cdn.licenseware-collector.com/checksums-linux.txt"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                  display: block;
+                  font-size: 0.7rem;
+                  color: var(--text-secondary);
+                  text-align: center;
+                  margin-top: 0.25rem;
+                  text-decoration: underline;
+                  text-underline-offset: 2px;
+                "
+                data-i18n="downloads.checksum.verify"
+                >SHA256 checksum</a
+              >
+            </div>
+
+            <!-- macOS -->
+            <div
+              style="
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1.25rem;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  margin-bottom: 1rem;
+                  padding-bottom: 0.75rem;
+                  border-bottom: 2px solid var(--text-secondary);
+                "
+              >
+                <span style="font-size: 1.5rem; display: flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"
+                    />
+                  </svg>
+                </span>
+                <h3 style="margin: 0; font-size: 1rem">macOS</h3>
+              </div>
+              <a
+                href="https://cdn.licenseware-collector.com/LicensewareCollector-macOS.zip"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  padding: 0.75rem 1rem;
+                  background: var(--primary);
+                  color: #fff;
+                  border-radius: 6px;
+                  text-decoration: none;
+                  font-weight: 700;
+                  font-size: 0.875rem;
+                  transition: opacity 0.2s;
+                "
+                onmouseover="this.style.opacity = '0.9'"
+                onmouseout="this.style.opacity = '1'"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="flex-shrink: 0"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span
+                  style="flex: 1; text-align: center"
+                  data-i18n="downloads.zip"
+                  >Download .zip</span
+                >
+              </a>
+              <p
+                style="
+                  margin-top: auto;
+                  padding-top: 0.75rem;
+                  margin-bottom: 0;
+                  font-size: 0.75rem;
+                  color: var(--text-secondary);
+                  text-align: center;
+                "
+              >
+                Intel & Apple Silicon
+              </p>
+              <a
+                href="https://cdn.licenseware-collector.com/checksums-macos.txt"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                  display: block;
+                  font-size: 0.7rem;
+                  color: var(--text-secondary);
+                  text-align: center;
+                  margin-top: 0.25rem;
+                  text-decoration: underline;
+                  text-underline-offset: 2px;
+                "
+                data-i18n="downloads.checksum.verify"
+                >SHA256 checksum</a
+              >
+            </div>
+          </div>
+        </section>
+
         <!-- Installation Guide -->
         <section
           class="card"
@@ -2877,6 +3271,258 @@
           </div>
         </section>
 
+        <!-- Uninstall Guide -->
+        <section class="card" id="uninstall" aria-labelledby="uninstall-title">
+          <div class="card-header">
+            <div class="card-icon flow" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                ></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </div>
+            <h2 id="uninstall-title" data-i18n="uninstall.title">
+              Uninstall Guide
+            </h2>
+          </div>
+
+          <aside
+            class="highlight-box warning"
+            role="note"
+            aria-label="Uninstall privileges warning"
+          >
+            <strong style="color: var(--warning)">⚠️</strong>
+            <span data-i18n="uninstall.warning"
+              >Requires elevated privileges (sudo on Linux/macOS, Administrator
+              on Windows)</span
+            >
+          </aside>
+
+          <!-- Linux / macOS -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+              margin-top: 1rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              data-i18n="uninstall.linux.title"
+            >
+              Linux / macOS
+            </h3>
+            <ol style="margin: 0; padding-left: 1.25rem">
+              <li>
+                <strong style="color: var(--text-primary)"
+                  >Uninstall the service</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >sudo licenseware-collector uninstall --force</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="uninstall.linux.cleanup"
+                  >Remove the collector binary:</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >sudo rm /usr/local/bin/licenseware-collector</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Windows -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+              margin-top: 1rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              data-i18n="uninstall.win.title"
+            >
+              Windows (Administrator PowerShell)
+            </h3>
+            <ol style="margin: 0; padding-left: 1.25rem">
+              <li>
+                <strong style="color: var(--text-primary)"
+                  >Uninstall the service</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >licenseware-collector.exe uninstall --force</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="uninstall.win.cleanup"
+                  >Remove the collector binary:</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <code style="font-size: 0.85rem"
+                    >del
+                    "%ProgramData%\Licenseware\LicensewareCollector.exe"</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <span
+            style="
+              font-size: 0.8rem;
+              color: var(--text-secondary);
+              display: block;
+              margin-top: 0.75rem;
+            "
+            data-i18n="uninstall.note"
+            >The --force flag stops the service if it is still running before
+            uninstalling.</span
+          >
+        </section>
+
         <!-- Quick Reference -->
         <section class="card" id="commands" aria-labelledby="commands-title">
           <div class="card-header">
@@ -3257,6 +3903,7 @@
           "nav.catalogs": "Data Collection",
           "nav.paths": "Installation Paths",
           "nav.start": "Getting Started",
+          "nav.downloads": "Downloads",
           "nav.install": "Installation Guide",
           "nav.commands": "Commands",
           "overview.title": "What is LICENSEWARE Collector?",
@@ -3332,6 +3979,12 @@
           "catalogs.row.proc": "Running Processes & Active Users",
           "paths.title": "Installation Paths",
           "paths.binary": "Binary",
+          "downloads.title": "Direct Downloads",
+          "downloads.desc":
+            "Download the collector binary directly for your operating system and architecture.",
+          "downloads.exe": "Download .exe",
+          "downloads.zip": "Download .zip",
+          "downloads.checksum.verify": "SHA256 checksum",
           "install.title": "Installation Guide",
           "install.step1.title": "Get Your Token",
           "install.step1.1": "Go to",
@@ -3354,6 +4007,16 @@
           "install.win.step3": "Run the installer",
           "install.win.note":
             "The installer reads the token from the environment variable and registers automatically.",
+          "nav.uninstall": "Uninstall Guide",
+          "uninstall.title": "Uninstall Guide",
+          "uninstall.warning":
+            "Requires elevated privileges (sudo on Linux/macOS, Administrator on Windows)",
+          "uninstall.linux.title": "Linux / macOS",
+          "uninstall.linux.cleanup": "Remove the collector binary:",
+          "uninstall.win.title": "Windows (Administrator PowerShell)",
+          "uninstall.win.cleanup": "Remove the collector binary:",
+          "uninstall.note":
+            "The --force flag stops the service if it is still running before uninstalling.",
           "quick.title": "Quick Reference",
           "quick.intervals": "Agent Intervals",
           "quick.service": "Service Commands",
@@ -3376,6 +4039,7 @@
           "nav.catalogs": "Recopilación de datos",
           "nav.paths": "Rutas de instalación",
           "nav.start": "Empezando",
+          "nav.downloads": "Descargas",
           "nav.install": "Guía de instalación",
           "nav.commands": "Comandos",
           "overview.title": "¿Qué es LICENSEWARE Collector?",
@@ -3451,6 +4115,12 @@
           "catalogs.row.proc": "Procesos en Ejecución y Usuarios Activos",
           "paths.title": "Rutas de Instalación",
           "paths.binary": "Binario",
+          "downloads.title": "Descargas Directas",
+          "downloads.desc":
+            "Descargue el binario del collector directamente para su sistema operativo y arquitectura.",
+          "downloads.exe": "Descargar .exe",
+          "downloads.zip": "Descargar .zip",
+          "downloads.checksum.verify": "Checksum SHA256",
           "install.title": "Guía de Instalación",
           "install.step1.title": "Obtenga su Token",
           "install.step1.1": "Vaya a",
@@ -3473,6 +4143,16 @@
           "install.win.step3": "Ejecute el instalador",
           "install.win.note":
             "El instalador lee el token de la variable de entorno y se registra automáticamente.",
+          "nav.uninstall": "Guía de Desinstalación",
+          "uninstall.title": "Guía de Desinstalación",
+          "uninstall.warning":
+            "Requiere privilegios elevados (sudo en Linux/macOS, Administrador en Windows)",
+          "uninstall.linux.title": "Linux / macOS",
+          "uninstall.linux.cleanup": "Eliminar el binario del collector:",
+          "uninstall.win.title": "Windows (PowerShell de Administrador)",
+          "uninstall.win.cleanup": "Eliminar el binario del collector:",
+          "uninstall.note":
+            "La bandera --force detiene el servicio si aún está en ejecución antes de desinstalar.",
           "quick.title": "Referencia Rápida",
           "quick.intervals": "Intervalos del Agente",
           "quick.service": "Comandos del Servicio",
