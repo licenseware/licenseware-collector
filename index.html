@@ -1086,6 +1086,7 @@
               <a href="#uninstall" data-i18n="nav.uninstall">Uninstall Guide</a>
             </li>
             <li><a href="#commands" data-i18n="nav.commands">Commands</a></li>
+            <li><a href="#logs" data-i18n="nav.logs">Logs</a></li>
           </ul>
         </nav>
       </aside>
@@ -4050,6 +4051,341 @@
             </div>
           </div>
         </section>
+
+        <!-- Logs & Troubleshooting -->
+        <section class="card" id="logs" aria-labelledby="logs-title">
+          <div class="card-header">
+            <div class="card-icon security" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                ></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h2 id="logs-title" data-i18n="logs.title">
+              Logs &amp; Troubleshooting
+            </h2>
+          </div>
+
+          <p data-i18n="logs.desc">
+            The collector writes all logs to standard error. How you access them
+            depends on the operating system and service manager.
+          </p>
+
+          <h3
+            class="section-title"
+            style="margin-top: 1.5rem"
+            data-i18n="logs.level.title"
+          >
+            Log Level
+          </h3>
+
+          <p data-i18n="logs.level.desc">
+            The verbosity is controlled by the
+            <code>LOG_LEVEL</code> environment variable in the collector
+            environment file. The default is <code>error</code>.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="logs.table.level">Level</th>
+                <th data-i18n="logs.table.desc">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>debug</code></td>
+                <td data-i18n="logs.level.debug">
+                  Most verbose &mdash; all messages including internal state
+                </td>
+              </tr>
+              <tr>
+                <td><code>info</code></td>
+                <td data-i18n="logs.level.info">
+                  Operational messages (startup, config reload, ingestion
+                  cycles)
+                </td>
+              </tr>
+              <tr>
+                <td><code>warn</code></td>
+                <td data-i18n="logs.level.warn">
+                  Non-critical issues that may need attention
+                </td>
+              </tr>
+              <tr>
+                <td><code>error</code></td>
+                <td data-i18n="logs.level.error">Failures only (default)</td>
+              </tr>
+              <tr>
+                <td><code>critical</code></td>
+                <td data-i18n="logs.level.critical">
+                  Fatal errors that stop the service
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="section-title" style="margin-top: 1.5rem">Linux</h3>
+
+          <p data-i18n="logs.linux.desc">
+            On systemd-based systems, logs are captured by the journal
+            automatically.
+          </p>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.linux.follow"
+              >Follow logs in real time:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >journalctl -u licenseware-collector -f</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.linux.recent"
+              >View logs from the last hour:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >journalctl -u licenseware-collector --since "1 hour ago"</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <h3 class="section-title" style="margin-top: 1.5rem">macOS</h3>
+
+          <p data-i18n="logs.macos.desc">
+            The launchd service writes both stdout and stderr to a single log
+            file.
+          </p>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.macos.follow"
+              >Follow logs in real time:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >tail -f /var/log/licenseware-collector.log</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.macos.full"
+              >View full log file:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >cat /var/log/licenseware-collector.log</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <h3 class="section-title" style="margin-top: 1.5rem">Windows</h3>
+
+          <p data-i18n="logs.win.desc">
+            The Windows service does not write to a file or to Windows Event
+            Log. To check service health, use the <code>status</code> command.
+            For full log output, stop the service and run the collector
+            interactively in an Administrator terminal.
+          </p>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.status"
+              >Check service health:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >licenseware-collector status</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.interactive"
+              >Run interactively to see log output (stop the service
+              first):</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >licenseware-collector run-once --env-file
+                C:\ProgramData\Licenseware\collector.env</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <aside class="highlight-box" style="margin-top: 1.5rem" role="note">
+            <strong style="color: var(--info)" data-i18n="logs.debug.title"
+              >Debugging Tip</strong
+            ><br />
+            <span data-i18n="logs.debug.desc"
+              >Set <code>LOG_LEVEL=debug</code> in the environment file and
+              restart the service to get the most verbose output. Remember to
+              set it back to <code>error</code> once done.</span
+            >
+          </aside>
+        </section>
       </main>
     </div>
 
@@ -4274,6 +4610,38 @@
           "proxy.restart.title": "⚠️ Service Restart Required",
           "proxy.restart.desc":
             "After modifying the environment file, restart the collector service for changes to take effect: <code>licenseware-collector stop</code> then <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
+          "nav.logs": "Logs",
+          "logs.title": "Logs &amp; Troubleshooting",
+          "logs.desc":
+            "The collector writes all logs to standard error. How you access them depends on the operating system and service manager.",
+          "logs.level.title": "Log Level",
+          "logs.level.desc":
+            "The verbosity is controlled by the <code>LOG_LEVEL</code> environment variable in the collector environment file. The default is <code>error</code>.",
+          "logs.table.level": "Level",
+          "logs.table.desc": "Description",
+          "logs.level.debug":
+            "Most verbose — all messages including internal state",
+          "logs.level.info":
+            "Operational messages (startup, config reload, ingestion cycles)",
+          "logs.level.warn": "Non-critical issues that may need attention",
+          "logs.level.error": "Failures only (default)",
+          "logs.level.critical": "Fatal errors that stop the service",
+          "logs.linux.desc":
+            "On systemd-based systems, logs are captured by the journal automatically.",
+          "logs.linux.follow": "Follow logs in real time:",
+          "logs.linux.recent": "View logs from the last hour:",
+          "logs.macos.desc":
+            "The launchd service writes both stdout and stderr to a single log file.",
+          "logs.macos.follow": "Follow logs in real time:",
+          "logs.macos.full": "View full log file:",
+          "logs.win.desc":
+            "The Windows service does not write to a file or to Windows Event Log. To check service health, use the <code>status</code> command. For full log output, stop the service and run the collector interactively in an Administrator terminal.",
+          "logs.win.status": "Check service health:",
+          "logs.win.interactive":
+            "Run interactively to see log output (stop the service first):",
+          "logs.debug.title": "Debugging Tip",
+          "logs.debug.desc":
+            "Set <code>LOG_LEVEL=debug</code> in the environment file and restart the service to get the most verbose output. Remember to set it back to <code>error</code> once done.",
           "footer.copyright": "© 2025 LICENSEWARE ™. All rights reserved.",
         },
         es: {
@@ -4436,6 +4804,39 @@
           "proxy.restart.title": "⚠️ Reinicio del Servicio Requerido",
           "proxy.restart.desc":
             "Después de modificar el archivo de entorno, reinicie el servicio del collector para que los cambios surtan efecto: <code>licenseware-collector stop</code> y luego <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
+          "nav.logs": "Registros",
+          "logs.title": "Registros y Solución de Problemas",
+          "logs.desc":
+            "El collector escribe todos los registros en la salida de error estándar. Cómo acceder a ellos depende del sistema operativo y el gestor de servicios.",
+          "logs.level.title": "Nivel de Registro",
+          "logs.level.desc":
+            "La verbosidad se controla con la variable de entorno <code>LOG_LEVEL</code> en el archivo de entorno del collector. El valor predeterminado es <code>error</code>.",
+          "logs.table.level": "Nivel",
+          "logs.table.desc": "Descripción",
+          "logs.level.debug":
+            "Más detallado — todos los mensajes incluyendo estado interno",
+          "logs.level.info":
+            "Mensajes operativos (inicio, recarga de configuración, ciclos de ingestión)",
+          "logs.level.warn":
+            "Problemas no críticos que pueden necesitar atención",
+          "logs.level.error": "Solo errores (predeterminado)",
+          "logs.level.critical": "Errores fatales que detienen el servicio",
+          "logs.linux.desc":
+            "En sistemas basados en systemd, los registros son capturados automáticamente por el journal.",
+          "logs.linux.follow": "Seguir registros en tiempo real:",
+          "logs.linux.recent": "Ver registros de la última hora:",
+          "logs.macos.desc":
+            "El servicio launchd escribe tanto stdout como stderr en un único archivo de registro.",
+          "logs.macos.follow": "Seguir registros en tiempo real:",
+          "logs.macos.full": "Ver archivo de registro completo:",
+          "logs.win.desc":
+            "El servicio de Windows no escribe en un archivo ni en el Registro de Eventos de Windows. Para verificar el estado del servicio, use el comando <code>status</code>. Para ver la salida completa del registro, detenga el servicio y ejecute el collector de forma interactiva en un terminal de Administrador.",
+          "logs.win.status": "Verificar el estado del servicio:",
+          "logs.win.interactive":
+            "Ejecutar de forma interactiva para ver la salida del registro (detenga el servicio primero):",
+          "logs.debug.title": "Consejo de Depuración",
+          "logs.debug.desc":
+            "Establezca <code>LOG_LEVEL=debug</code> en el archivo de entorno y reinicie el servicio para obtener la salida más detallada. Recuerde volver a establecerlo en <code>error</code> cuando termine.",
           "footer.copyright":
             "© 2025 LICENSEWARE ™. Todos los derechos reservados.",
         },
