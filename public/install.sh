@@ -10,6 +10,7 @@ OS_TYPE=""
 ARCH_TYPE=""
 CLEANUP_ON_FAILURE=${CLEANUP_ON_FAILURE:-true}
 TOKEN="${TOKEN:-}"
+SHA256_CMD=""
 
 function parseArguments() {
   local i=1
@@ -101,7 +102,7 @@ function checkRequiredCommand() {
 
 function validateRequiredTools() {
   logMessage "Validating required tools..."
-  local required_tools=("curl" "tar" "sha256sum" "mkdir" "rm" "unzip")
+  local required_tools=("curl" "tar" "mkdir" "rm" "unzip")
 
   for tool in "${required_tools[@]}"; do
     checkRequiredCommand "$tool" || {
@@ -109,6 +110,18 @@ function validateRequiredTools() {
       exit 1
     }
   done
+
+  # sha256sum on Linux, shasum on macOS
+  if command -v sha256sum &> /dev/null; then
+    SHA256_CMD="sha256sum"
+  elif command -v shasum &> /dev/null; then
+    SHA256_CMD="shasum -a 256"
+  else
+    logError "Missing required tool: sha256sum or shasum"
+    exit 1
+  fi
+  logMessage "✓ Using checksum command: $SHA256_CMD"
+
   logMessage "✓ All required tools validated"
 }
 
@@ -199,7 +212,7 @@ function validateChecksum() {
   expected_checksum=$(grep "$filename" "$TEMP_DIR/checksums.txt" | awk '{print $1}')
 
   local actual_checksum
-  actual_checksum=$(sha256sum "$filepath" | awk '{print $1}')
+  actual_checksum=$($SHA256_CMD "$filepath" | awk '{print $1}')
 
   if [ "$expected_checksum" != "$actual_checksum" ]; then
     logError "Checksum validation failed for $filename"
