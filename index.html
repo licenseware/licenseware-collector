@@ -1055,6 +1055,7 @@
             </li>
             <li><a href="#network" data-i18n="nav.network">Network</a></li>
             <li><a href="#system" data-i18n="nav.system">System</a></li>
+            <li><a href="#proxy" data-i18n="nav.proxy">Proxy</a></li>
 
             <li class="sidebar-title" role="presentation" data-i18n="nav.tech">
               Technical Details
@@ -1457,6 +1458,230 @@
             </ul>
           </section>
         </div>
+
+        <!-- Proxy Configuration -->
+        <section class="card" id="proxy" aria-labelledby="proxy-title">
+          <div class="card-header">
+            <div class="card-icon network" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+            </div>
+            <h2 id="proxy-title" data-i18n="proxy.title">
+              Proxy Configuration
+            </h2>
+          </div>
+
+          <p data-i18n="proxy.desc">
+            If your network requires an HTTP proxy for outbound connections, the
+            collector natively supports standard proxy environment variables for
+            all egress traffic.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="proxy.table.variable">Variable</th>
+                <th data-i18n="proxy.table.desc">Description</th>
+                <th data-i18n="proxy.table.example">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>HTTPS_PROXY</code></td>
+                <td data-i18n="proxy.https_desc">
+                  Proxy for HTTPS traffic (used for all collector communication)
+                </td>
+                <td>
+                  <code>http://proxy.corp.com:8080</code>
+                </td>
+              </tr>
+              <tr>
+                <td><code>HTTP_PROXY</code></td>
+                <td data-i18n="proxy.http_desc">
+                  Proxy for plain HTTP traffic
+                </td>
+                <td>
+                  <code>http://proxy.corp.com:8080</code>
+                </td>
+              </tr>
+              <tr>
+                <td><code>NO_PROXY</code></td>
+                <td data-i18n="proxy.noproxy_desc">
+                  Comma-separated list of hosts to bypass the proxy
+                </td>
+                <td>
+                  <code>localhost,127.0.0.1,.internal.corp</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p
+            style="margin-top: 1rem; color: var(--text-secondary)"
+            data-i18n="proxy.auth_note"
+          >
+            Authenticated proxies are supported using the format
+            <code>http://user:password@proxy.corp.com:8080</code>.
+          </p>
+
+          <h3
+            class="section-title"
+            style="margin-top: 1.5rem"
+            data-i18n="proxy.setup.title"
+          >
+            Setup
+          </h3>
+
+          <p data-i18n="proxy.setup.desc">
+            Add the proxy variables to the collector environment file on the
+            target machine. Each line uses <code>KEY=value</code> format.
+          </p>
+
+          <div style="margin-top: 1rem">
+            <strong style="color: var(--text-primary)">Linux</strong>
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >HTTPS_PROXY=http://proxy.corp.com:8080
+                NO_PROXY=localhost,127.0.0.1</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="proxy.linux.path"
+              >File: <code>/etc/default/licenseware-collector</code></small
+            >
+          </div>
+
+          <div style="margin-top: 1rem">
+            <strong style="color: var(--text-primary)">macOS</strong>
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >HTTPS_PROXY=http://proxy.corp.com:8080
+                NO_PROXY=localhost,127.0.0.1</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="proxy.macos.path"
+              >File: <code>/usr/local/etc/licenseware-collector</code></small
+            >
+          </div>
+
+          <div style="margin-top: 1rem">
+            <strong style="color: var(--text-primary)">Windows</strong>
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >HTTPS_PROXY=http://proxy.corp.com:8080
+                NO_PROXY=localhost,127.0.0.1</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="proxy.win.path"
+              >File:
+              <code>C:\ProgramData\Licenseware\collector.env</code></small
+            >
+          </div>
+
+          <aside
+            class="highlight-box warning"
+            style="margin-top: 1.5rem"
+            role="note"
+          >
+            <strong
+              style="color: var(--warning)"
+              data-i18n="proxy.restart.title"
+              >⚠️ Service Restart Required</strong
+            ><br />
+            <span data-i18n="proxy.restart.desc"
+              >After modifying the environment file, restart the collector
+              service for changes to take effect:
+              <code>licenseware-collector stop</code> then
+              <code>licenseware-collector register --token &lt;TOKEN&gt;</code
+              >.</span
+            >
+          </aside>
+        </section>
 
         <!-- API Endpoints -->
         <section class="card" id="endpoints" aria-labelledby="endpoints-title">
@@ -4023,6 +4248,32 @@
           "quick.config": "Config Refresh:",
           "quick.catalog": "Catalog Check:",
           "quick.cleanup": "Failed File Cleanup:",
+          "nav.proxy": "Proxy",
+          "proxy.title": "Proxy Configuration",
+          "proxy.desc":
+            "If your network requires an HTTP proxy for outbound connections, the collector natively supports standard proxy environment variables for all egress traffic.",
+          "proxy.table.variable": "Variable",
+          "proxy.table.desc": "Description",
+          "proxy.table.example": "Example",
+          "proxy.https_desc":
+            "Proxy for HTTPS traffic (used for all collector communication)",
+          "proxy.http_desc": "Proxy for plain HTTP traffic",
+          "proxy.noproxy_desc":
+            "Comma-separated list of hosts to bypass the proxy",
+          "proxy.auth_note":
+            "Authenticated proxies are supported using the format <code>http://user:password@proxy.corp.com:8080</code>.",
+          "proxy.setup.title": "Setup",
+          "proxy.setup.desc":
+            "Add the proxy variables to the collector environment file on the target machine. Each line uses <code>KEY=value</code> format.",
+          "proxy.linux.path":
+            "File: <code>/etc/default/licenseware-collector</code>",
+          "proxy.macos.path":
+            "File: <code>/usr/local/etc/licenseware-collector</code>",
+          "proxy.win.path":
+            "File: <code>C:\\ProgramData\\Licenseware\\collector.env</code>",
+          "proxy.restart.title": "⚠️ Service Restart Required",
+          "proxy.restart.desc":
+            "After modifying the environment file, restart the collector service for changes to take effect: <code>licenseware-collector stop</code> then <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
           "footer.copyright": "© 2025 LICENSEWARE ™. All rights reserved.",
         },
         es: {
@@ -4159,6 +4410,32 @@
           "quick.config": "Refrescar Config:",
           "quick.catalog": "Comprobar Catálogo:",
           "quick.cleanup": "Limpieza de Archivos:",
+          "nav.proxy": "Proxy",
+          "proxy.title": "Configuración de Proxy",
+          "proxy.desc":
+            "Si su red requiere un proxy HTTP para conexiones salientes, el collector soporta nativamente las variables de entorno estándar de proxy para todo el tráfico de salida.",
+          "proxy.table.variable": "Variable",
+          "proxy.table.desc": "Descripción",
+          "proxy.table.example": "Ejemplo",
+          "proxy.https_desc":
+            "Proxy para tráfico HTTPS (utilizado para toda la comunicación del collector)",
+          "proxy.http_desc": "Proxy para tráfico HTTP plano",
+          "proxy.noproxy_desc":
+            "Lista de hosts separados por comas que deben evitar el proxy",
+          "proxy.auth_note":
+            "Los proxies con autenticación son compatibles usando el formato <code>http://usuario:contraseña@proxy.corp.com:8080</code>.",
+          "proxy.setup.title": "Configuración",
+          "proxy.setup.desc":
+            "Agregue las variables de proxy al archivo de entorno del collector en la máquina destino. Cada línea usa el formato <code>KEY=valor</code>.",
+          "proxy.linux.path":
+            "Archivo: <code>/etc/default/licenseware-collector</code>",
+          "proxy.macos.path":
+            "Archivo: <code>/usr/local/etc/licenseware-collector</code>",
+          "proxy.win.path":
+            "Archivo: <code>C:\\ProgramData\\Licenseware\\collector.env</code>",
+          "proxy.restart.title": "⚠️ Reinicio del Servicio Requerido",
+          "proxy.restart.desc":
+            "Después de modificar el archivo de entorno, reinicie el servicio del collector para que los cambios surtan efecto: <code>licenseware-collector stop</code> y luego <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
           "footer.copyright":
             "© 2025 LICENSEWARE ™. Todos los derechos reservados.",
         },
