@@ -1058,6 +1058,7 @@
             <li><a href="#network" data-i18n="nav.network">Network</a></li>
             <li><a href="#system" data-i18n="nav.system">System</a></li>
             <li><a href="#proxy" data-i18n="nav.proxy">Proxy</a></li>
+            <li><a href="#custom-ca" data-i18n="nav.customca">Custom CA</a></li>
 
             <li class="sidebar-title" role="presentation" data-i18n="nav.tech">
               Technical Details
@@ -1677,6 +1678,218 @@
               >⚠️ Service Restart Required</strong
             ><br />
             <span data-i18n="proxy.restart.desc"
+              >After modifying the environment file, restart the collector
+              service for changes to take effect:
+              <code>licenseware-collector stop</code> then
+              <code>licenseware-collector register --token &lt;TOKEN&gt;</code
+              >.</span
+            >
+          </aside>
+        </section>
+
+        <!-- Custom CA Certificates -->
+        <section class="card" id="custom-ca" aria-labelledby="custom-ca-title">
+          <div class="card-header">
+            <div class="card-icon network" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h2 id="custom-ca-title" data-i18n="customca.title">
+              Custom CA Certificates
+            </h2>
+          </div>
+
+          <p data-i18n="customca.desc">
+            Corporate proxies that perform TLS inspection inject their own CA
+            certificate into the chain. The collector must be configured to
+            trust these certificates, otherwise all HTTPS connections will fail.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="customca.table.option">Option</th>
+                <th data-i18n="customca.table.desc">Description</th>
+                <th data-i18n="customca.table.example">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>CA_CERT_PATH</code></td>
+                <td data-i18n="customca.env_desc">
+                  Environment variable pointing to a PEM file with additional CA
+                  certificates
+                </td>
+                <td>
+                  <code>/etc/ssl/corp-ca.pem</code>
+                </td>
+              </tr>
+              <tr>
+                <td><code>--ca-cert</code></td>
+                <td data-i18n="customca.flag_desc">
+                  CLI flag (overrides <code>CA_CERT_PATH</code> when set)
+                </td>
+                <td>
+                  <code>--ca-cert /etc/ssl/corp-ca.pem</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p
+            style="margin-top: 1rem; color: var(--text-secondary)"
+            data-i18n="customca.append_note"
+          >
+            Custom certificates are appended to the system certificate pool, not
+            replacing it. All standard system CAs remain trusted.
+          </p>
+
+          <h3
+            class="section-title"
+            style="margin-top: 1.5rem"
+            data-i18n="customca.setup.title"
+          >
+            Setup
+          </h3>
+
+          <p data-i18n="customca.setup.desc">
+            Add the <code>CA_CERT_PATH</code> variable to the collector
+            environment file, pointing to the PEM file containing your corporate
+            CA certificate(s).
+          </p>
+
+          <div style="margin-top: 1rem">
+            <strong style="color: var(--text-primary)">Linux</strong>
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >CA_CERT_PATH=/etc/ssl/certs/corp-ca.pem</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="customca.linux.path"
+              >File: <code>/etc/default/licenseware-collector</code></small
+            >
+          </div>
+
+          <div style="margin-top: 1rem">
+            <strong style="color: var(--text-primary)">macOS</strong>
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >CA_CERT_PATH=/usr/local/etc/ssl/corp-ca.pem</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="customca.macos.path"
+              >File: <code>/usr/local/etc/licenseware-collector</code></small
+            >
+          </div>
+
+          <div style="margin-top: 1rem">
+            <strong style="color: var(--text-primary)">Windows</strong>
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >CA_CERT_PATH=C:\ProgramData\Licenseware\corp-ca.pem</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="customca.win.path"
+              >File:
+              <code>C:\ProgramData\Licenseware\collector.env</code></small
+            >
+          </div>
+
+          <aside
+            class="highlight-box warning"
+            style="margin-top: 1.5rem"
+            role="note"
+          >
+            <strong
+              style="color: var(--warning)"
+              data-i18n="customca.restart.title"
+              >⚠️ Service Restart Required</strong
+            ><br />
+            <span data-i18n="customca.restart.desc"
               >After modifying the environment file, restart the collector
               service for changes to take effect:
               <code>licenseware-collector stop</code> then
@@ -4612,6 +4825,31 @@
           "proxy.restart.title": "⚠️ Service Restart Required",
           "proxy.restart.desc":
             "After modifying the environment file, restart the collector service for changes to take effect: <code>licenseware-collector stop</code> then <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
+          "nav.customca": "Custom CA",
+          "customca.title": "Custom CA Certificates",
+          "customca.desc":
+            "Corporate proxies that perform TLS inspection inject their own CA certificate into the chain. The collector must be configured to trust these certificates, otherwise all HTTPS connections will fail.",
+          "customca.table.option": "Option",
+          "customca.table.desc": "Description",
+          "customca.table.example": "Example",
+          "customca.env_desc":
+            "Environment variable pointing to a PEM file with additional CA certificates",
+          "customca.flag_desc":
+            "CLI flag (overrides <code>CA_CERT_PATH</code> when set)",
+          "customca.append_note":
+            "Custom certificates are appended to the system certificate pool, not replacing it. All standard system CAs remain trusted.",
+          "customca.setup.title": "Setup",
+          "customca.setup.desc":
+            "Add the <code>CA_CERT_PATH</code> variable to the collector environment file, pointing to the PEM file containing your corporate CA certificate(s).",
+          "customca.linux.path":
+            "File: <code>/etc/default/licenseware-collector</code>",
+          "customca.macos.path":
+            "File: <code>/usr/local/etc/licenseware-collector</code>",
+          "customca.win.path":
+            "File: <code>C:\\ProgramData\\Licenseware\\collector.env</code>",
+          "customca.restart.title": "⚠️ Service Restart Required",
+          "customca.restart.desc":
+            "After modifying the environment file, restart the collector service for changes to take effect: <code>licenseware-collector stop</code> then <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
           "nav.logs": "Logs",
           "logs.title": "Logs &amp; Troubleshooting",
           "logs.desc":
@@ -4805,6 +5043,31 @@
             "Archivo: <code>C:\\ProgramData\\Licenseware\\collector.env</code>",
           "proxy.restart.title": "⚠️ Reinicio del Servicio Requerido",
           "proxy.restart.desc":
+            "Después de modificar el archivo de entorno, reinicie el servicio del collector para que los cambios surtan efecto: <code>licenseware-collector stop</code> y luego <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
+          "nav.customca": "CA Personalizada",
+          "customca.title": "Certificados CA Personalizados",
+          "customca.desc":
+            "Los proxies corporativos que realizan inspección TLS inyectan su propio certificado CA en la cadena. El collector debe configurarse para confiar en estos certificados, de lo contrario todas las conexiones HTTPS fallarán.",
+          "customca.table.option": "Opción",
+          "customca.table.desc": "Descripción",
+          "customca.table.example": "Ejemplo",
+          "customca.env_desc":
+            "Variable de entorno que apunta a un archivo PEM con certificados CA adicionales",
+          "customca.flag_desc":
+            "Flag de CLI (anula <code>CA_CERT_PATH</code> cuando se establece)",
+          "customca.append_note":
+            "Los certificados personalizados se agregan al pool de certificados del sistema, no lo reemplazan. Todos los CAs estándar del sistema siguen siendo confiables.",
+          "customca.setup.title": "Configuración",
+          "customca.setup.desc":
+            "Agregue la variable <code>CA_CERT_PATH</code> al archivo de entorno del collector, apuntando al archivo PEM que contiene los certificados CA de su empresa.",
+          "customca.linux.path":
+            "Archivo: <code>/etc/default/licenseware-collector</code>",
+          "customca.macos.path":
+            "Archivo: <code>/usr/local/etc/licenseware-collector</code>",
+          "customca.win.path":
+            "Archivo: <code>C:\\ProgramData\\Licenseware\\collector.env</code>",
+          "customca.restart.title": "⚠️ Reinicio del Servicio Requerido",
+          "customca.restart.desc":
             "Después de modificar el archivo de entorno, reinicie el servicio del collector para que los cambios surtan efecto: <code>licenseware-collector stop</code> y luego <code>licenseware-collector register --token &lt;TOKEN&gt;</code>.",
           "nav.logs": "Registros",
           "logs.title": "Registros y Solución de Problemas",
