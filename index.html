@@ -705,6 +705,12 @@
         word-break: break-word;
       }
 
+      .code-block pre {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+      }
+
       #commands code {
         font-size: 0.75rem;
       }
@@ -2167,12 +2173,11 @@
                 variables before running the installer:
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
-                <code style="font-size: 0.85rem"
+                <pre><code style="font-size: 0.85rem"
                   >export LICENSEWARE_TOKEN="your-token-here"
 export HTTPS_PROXY="http://proxy.corp.com:8080" # optional
 export NO_PROXY="localhost,127.0.0.1" # optional
-curl -sSL https://licenseware-collector.com/install.sh | sudo bash</code
-                >
+curl -sSL https://licenseware-collector.com/install.sh | sudo bash</code></pre>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2215,12 +2220,11 @@ curl -sSL https://licenseware-collector.com/install.sh | sudo bash</code
                 Or if you downloaded the binary manually:
               </p>
               <div class="code-block">
-                <code style="font-size: 0.85rem"
+                <pre><code style="font-size: 0.85rem"
                   >export HTTPS_PROXY="http://proxy.corp.com:8080" # optional
 export NO_PROXY="localhost,127.0.0.1" # optional
 sudo ./licenseware-collector register --token "eyJhbG..." \
-  --ca-cert /etc/ssl/certs/corp-ca.pem</code
-                >
+  --ca-cert /etc/ssl/certs/corp-ca.pem</code></pre>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2521,10 +2525,9 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                   >Download the installer</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
+                  <pre><code style="font-size: 0.85rem"
                     >Invoke-WebRequest -Uri https://cdn.licenseware-collector.com/LicensewareCollector.exe `
-  -OutFile LicensewareCollector.exe</code
-                  >
+  -OutFile LicensewareCollector.exe</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -2640,10 +2643,9 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                 variables. The full syntax is:
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
-                <code style="font-size: 0.85rem"
+                <pre><code style="font-size: 0.85rem"
                   >.\LicensewareCollector.exe register --token &lt;TOKEN&gt; `
-  --ca-cert &lt;PATH&gt; --env-file &lt;PATH&gt;</code
-                >
+  --ca-cert &lt;PATH&gt; --env-file &lt;PATH&gt;</code></pre>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2815,12 +2817,11 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                 Full Example with Proxy and Custom CA
               </h4>
               <div class="code-block">
-                <code style="font-size: 0.85rem"
+                <pre><code style="font-size: 0.85rem"
                   >$env:HTTPS_PROXY = "http://proxy.corp.com:8080"
 $env:NO_PROXY = "localhost,127.0.0.1"
 .\LicensewareCollector.exe register `
-  --token "eyJhbG..." --ca-cert "C:\certs\internal-ca.pem"</code
-                >
+  --token "eyJhbG..." --ca-cert "C:\certs\internal-ca.pem"</code></pre>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2950,10 +2951,9 @@ $env:NO_PROXY = "localhost,127.0.0.1"
           <div style="margin-top: 1rem">
             <strong style="color: var(--text-primary)">Linux</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem"
+              <pre><code style="font-size: 0.85rem"
                 >HTTPS_PROXY=http://proxy.corp.com:8080
-NO_PROXY=localhost,127.0.0.1</code
-              >
+NO_PROXY=localhost,127.0.0.1</code></pre>
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -2987,10 +2987,9 @@ NO_PROXY=localhost,127.0.0.1</code
           <div style="margin-top: 1rem">
             <strong style="color: var(--text-primary)">macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem"
+              <pre><code style="font-size: 0.85rem"
                 >HTTPS_PROXY=http://proxy.corp.com:8080
-NO_PROXY=localhost,127.0.0.1</code
-              >
+NO_PROXY=localhost,127.0.0.1</code></pre>
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -3024,10 +3023,9 @@ NO_PROXY=localhost,127.0.0.1</code
           <div style="margin-top: 1rem">
             <strong style="color: var(--text-primary)">Windows</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem"
+              <pre><code style="font-size: 0.85rem"
                 >HTTPS_PROXY=http://proxy.corp.com:8080
-NO_PROXY=localhost,127.0.0.1</code
-              >
+NO_PROXY=localhost,127.0.0.1</code></pre>
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
