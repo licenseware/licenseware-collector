@@ -2518,10 +2518,7 @@ sudo ./licenseware-collector register \
                 variables. The full syntax is:
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
-                <code style="font-size: 0.85rem">.\LicensewareCollector.exe register `
-  --token &lt;TOKEN&gt; `
-  --ca-cert &lt;PATH&gt; `
-  --env-file &lt;PATH&gt;</code>
+                <code style="font-size: 0.85rem">.\LicensewareCollector.exe register --token &lt;TOKEN&gt; --ca-cert &lt;PATH&gt; --env-file &lt;PATH&gt;</code>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2625,9 +2622,7 @@ sudo ./licenseware-collector register \
               <div class="code-block">
                 <code style="font-size: 0.85rem">$env:HTTPS_PROXY = "http://proxy.corp.com:8080"
 $env:NO_PROXY = "localhost,127.0.0.1"
-.\LicensewareCollector.exe register `
-  --token "eyJhbG..." `
-  --ca-cert "C:\certs\internal-ca.pem"</code>
+.\LicensewareCollector.exe register --token "eyJhbG..." --ca-cert "C:\certs\internal-ca.pem"</code>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
