@@ -1060,16 +1060,18 @@
             <li><a href="#network" data-i18n="nav.network">Network</a></li>
             <li><a href="#system" data-i18n="nav.system">System</a></li>
 
-            <li class="sidebar-title" role="presentation" data-i18n="nav.installguide">
+            <li
+              class="sidebar-title"
+              role="presentation"
+              data-i18n="nav.installguide"
+            >
               Installation Guide
             </li>
             <li>
               <a href="#downloads" data-i18n="nav.downloads">Downloads</a>
             </li>
             <li>
-              <a href="#installation" data-i18n="nav.install"
-                >Installation</a
-              >
+              <a href="#installation" data-i18n="nav.install">Installation</a>
             </li>
             <li><a href="#proxy" data-i18n="nav.proxy">Proxy</a></li>
             <li><a href="#custom-ca" data-i18n="nav.customca">Custom CA</a></li>
@@ -1091,7 +1093,11 @@
               <a href="#paths" data-i18n="nav.paths">Installation Paths</a>
             </li>
 
-            <li class="sidebar-title" role="presentation" data-i18n="nav.reference">
+            <li
+              class="sidebar-title"
+              role="presentation"
+              data-i18n="nav.reference"
+            >
               Reference
             </li>
             <li><a href="#commands" data-i18n="nav.commands">Commands</a></li>
@@ -2095,8 +2101,10 @@
                   >Run the install script</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem">curl -sSL https://licenseware-collector.com/install.sh | \
-  sudo bash -s -- -t $LICENSEWARE_TOKEN</code>
+                  <code style="font-size: 0.85rem"
+                    >curl -sSL https://licenseware-collector.com/install.sh | \
+                    sudo bash -s -- -t $LICENSEWARE_TOKEN</code
+                  >
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -2139,7 +2147,11 @@
               "
             >
               <h4
-                style="margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 700"
+                style="
+                  margin: 0 0 0.5rem 0;
+                  font-size: 0.95rem;
+                  font-weight: 700;
+                "
                 data-i18n="install.unix.ref.title"
               >
                 Full Command Reference
@@ -2157,15 +2169,40 @@
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
                 <code style="font-size: 0.85rem"
-                  >export LICENSEWARE_TOKEN="your-token-here"
-export HTTPS_PROXY="http://proxy.corp.com:8080"    # optional
-export NO_PROXY="localhost,127.0.0.1"               # optional
-
-curl -sSL https://licenseware-collector.com/install.sh | \
-  sudo -E bash -s -- -t $LICENSEWARE_TOKEN</code
+                  >export LICENSEWARE_TOKEN="your-token-here" export
+                  HTTPS_PROXY="http://proxy.corp.com:8080" # optional export
+                  NO_PROXY="localhost,127.0.0.1" # optional curl -sSL
+                  https://licenseware-collector.com/install.sh | \ sudo -E bash
+                  -s -- -t $LICENSEWARE_TOKEN</code
                 >
-                <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard(this)"
+                  aria-label="Copy command"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
                 </button>
               </div>
 
@@ -2181,15 +2218,39 @@ curl -sSL https://licenseware-collector.com/install.sh | \
               </p>
               <div class="code-block">
                 <code style="font-size: 0.85rem"
-                  >export HTTPS_PROXY="http://proxy.corp.com:8080"    # optional
-export NO_PROXY="localhost,127.0.0.1"               # optional
-
-sudo ./licenseware-collector register \
-  --token "eyJhbG..." \
-  --ca-cert /etc/ssl/certs/corp-ca.pem</code
+                  >export HTTPS_PROXY="http://proxy.corp.com:8080" # optional
+                  export NO_PROXY="localhost,127.0.0.1" # optional sudo
+                  ./licenseware-collector register \ --token "eyJhbG..." \
+                  --ca-cert /etc/ssl/certs/corp-ca.pem</code
                 >
-                <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <button
+                  class="copy-btn"
+                  onclick="copyToClipboard(this)"
+                  aria-label="Copy command"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
                 </button>
               </div>
 
@@ -2202,43 +2263,99 @@ sudo ./licenseware-collector register \
                 "
               >
                 <thead>
-                  <tr style="text-align: left; border-bottom: 1px solid var(--border)">
+                  <tr
+                    style="
+                      text-align: left;
+                      border-bottom: 1px solid var(--border);
+                    "
+                  >
                     <th style="padding: 0.5rem 0.75rem">Flag / Variable</th>
-                    <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.required">Required</th>
-                    <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.flagdesc">Description</th>
+                    <th
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.required"
+                    >
+                      Required
+                    </th>
+                    <th
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.flagdesc"
+                    >
+                      Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody style="color: var(--text-secondary)">
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>--token</code> / <code>LICENSEWARE_TOKEN</code></td>
-                    <td style="padding: 0.5rem 0.75rem"><strong style="color: var(--warning)">Yes</strong></td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.token.desc">JWT token from the Licenseware platform</td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>--token</code> / <code>LICENSEWARE_TOKEN</code>
+                    </td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <strong style="color: var(--warning)">Yes</strong>
+                    </td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.token.desc"
+                    >
+                      JWT token from the Licenseware platform
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>--ca-cert</code> / <code>CA_CERT_PATH</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>--ca-cert</code> / <code>CA_CERT_PATH</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.cacert.desc">Path to PEM file with custom CA certificates (for on-prem / TLS inspection)</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.cacert.desc"
+                    >
+                      Path to PEM file with custom CA certificates (for on-prem
+                      / TLS inspection)
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>--env-file</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>--env-file</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.envfile.desc">Path to a file with environment variables to load</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.envfile.desc"
+                    >
+                      Path to a file with environment variables to load
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>HTTPS_PROXY</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>HTTPS_PROXY</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.proxy.desc">HTTP(S) proxy for outbound traffic. Automatically saved to the service config.</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.proxy.desc"
+                    >
+                      HTTP(S) proxy for outbound traffic. Automatically saved to
+                      the service config.
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>NO_PROXY</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>NO_PROXY</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.noproxy.desc">Comma-separated list of hosts to bypass the proxy</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.noproxy.desc"
+                    >
+                      Comma-separated list of hosts to bypass the proxy
+                    </td>
                   </tr>
                 </tbody>
               </table>
 
               <aside class="highlight-box" style="margin-top: 1rem" role="note">
-                <span style="font-size: 0.85rem" data-i18n="install.win.ref.note"
+                <span
+                  style="font-size: 0.85rem"
+                  data-i18n="install.win.ref.note"
                   >Proxy variables (<code>HTTPS_PROXY</code>,
                   <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) and
                   <code>CA_CERT_PATH</code> set during registration are
@@ -2406,7 +2523,11 @@ sudo ./licenseware-collector register \
                   >Download the installer</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem">Invoke-WebRequest -Uri https://cdn.licenseware-collector.com/LicensewareCollector.exe -OutFile LicensewareCollector.exe</code>
+                  <code style="font-size: 0.85rem"
+                    >Invoke-WebRequest -Uri
+                    https://cdn.licenseware-collector.com/LicensewareCollector.exe
+                    -OutFile LicensewareCollector.exe</code
+                  >
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -2501,7 +2622,11 @@ sudo ./licenseware-collector register \
               "
             >
               <h4
-                style="margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 700"
+                style="
+                  margin: 0 0 0.5rem 0;
+                  font-size: 0.95rem;
+                  font-weight: 700;
+                "
                 data-i18n="install.win.ref.title"
               >
                 Full Command Reference
@@ -2518,7 +2643,10 @@ sudo ./licenseware-collector register \
                 variables. The full syntax is:
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
-                <code style="font-size: 0.85rem">.\LicensewareCollector.exe register --token &lt;TOKEN&gt; --ca-cert &lt;PATH&gt; --env-file &lt;PATH&gt;</code>
+                <code style="font-size: 0.85rem"
+                  >.\LicensewareCollector.exe register --token &lt;TOKEN&gt;
+                  --ca-cert &lt;PATH&gt; --env-file &lt;PATH&gt;</code
+                >
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2535,7 +2663,14 @@ sudo ./licenseware-collector register \
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
                     <path
                       d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
                     ></path>
@@ -2557,51 +2692,110 @@ sudo ./licenseware-collector register \
                       border-bottom: 1px solid var(--border);
                     "
                   >
-                    <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.flag">Flag</th>
-                    <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.env">Env Variable</th>
-                    <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.required">Required</th>
-                    <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.flagdesc">Description</th>
+                    <th
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.flag"
+                    >
+                      Flag
+                    </th>
+                    <th
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.env"
+                    >
+                      Env Variable
+                    </th>
+                    <th
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.required"
+                    >
+                      Required
+                    </th>
+                    <th
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.flagdesc"
+                    >
+                      Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody style="color: var(--text-secondary)">
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>--token</code>, <code>-t</code></td>
-                    <td style="padding: 0.5rem 0.75rem"><code>LICENSEWARE_TOKEN</code></td>
-                    <td style="padding: 0.5rem 0.75rem"><strong style="color: var(--warning)">Yes</strong></td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.token.desc">JWT token from the Licenseware platform</td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>--token</code>, <code>-t</code>
+                    </td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>LICENSEWARE_TOKEN</code>
+                    </td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <strong style="color: var(--warning)">Yes</strong>
+                    </td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.token.desc"
+                    >
+                      JWT token from the Licenseware platform
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>--ca-cert</code></td>
-                    <td style="padding: 0.5rem 0.75rem"><code>CA_CERT_PATH</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>--ca-cert</code>
+                    </td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>CA_CERT_PATH</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.cacert.desc">Path to PEM file with custom CA certificates (for on-prem / TLS inspection)</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.cacert.desc"
+                    >
+                      Path to PEM file with custom CA certificates (for on-prem
+                      / TLS inspection)
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
-                    <td style="padding: 0.5rem 0.75rem"><code>--env-file</code>, <code>-e</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>--env-file</code>, <code>-e</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">—</td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.envfile.desc">Path to a file with environment variables to load</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.envfile.desc"
+                    >
+                      Path to a file with environment variables to load
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
                     <td style="padding: 0.5rem 0.75rem">—</td>
-                    <td style="padding: 0.5rem 0.75rem"><code>HTTPS_PROXY</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>HTTPS_PROXY</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.proxy.desc">HTTP(S) proxy for outbound traffic. Automatically saved to the service config.</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.proxy.desc"
+                    >
+                      HTTP(S) proxy for outbound traffic. Automatically saved to
+                      the service config.
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
                     <td style="padding: 0.5rem 0.75rem">—</td>
-                    <td style="padding: 0.5rem 0.75rem"><code>NO_PROXY</code></td>
+                    <td style="padding: 0.5rem 0.75rem">
+                      <code>NO_PROXY</code>
+                    </td>
                     <td style="padding: 0.5rem 0.75rem">No</td>
-                    <td style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.noproxy.desc">Comma-separated list of hosts to bypass the proxy</td>
+                    <td
+                      style="padding: 0.5rem 0.75rem"
+                      data-i18n="install.win.ref.noproxy.desc"
+                    >
+                      Comma-separated list of hosts to bypass the proxy
+                    </td>
                   </tr>
                 </tbody>
               </table>
 
-              <aside
-                class="highlight-box"
-                style="margin-top: 1rem"
-                role="note"
-              >
+              <aside class="highlight-box" style="margin-top: 1rem" role="note">
                 <span
                   style="font-size: 0.85rem"
                   data-i18n="install.win.ref.note"
@@ -2614,15 +2808,21 @@ sudo ./licenseware-collector register \
               </aside>
 
               <h4
-                style="margin: 1.25rem 0 0.5rem 0; font-size: 0.95rem; font-weight: 700"
+                style="
+                  margin: 1.25rem 0 0.5rem 0;
+                  font-size: 0.95rem;
+                  font-weight: 700;
+                "
                 data-i18n="install.win.ref.example.title"
               >
                 Full Example with Proxy and Custom CA
               </h4>
               <div class="code-block">
-                <code style="font-size: 0.85rem">$env:HTTPS_PROXY = "http://proxy.corp.com:8080"
-$env:NO_PROXY = "localhost,127.0.0.1"
-.\LicensewareCollector.exe register --token "eyJhbG..." --ca-cert "C:\certs\internal-ca.pem"</code>
+                <code style="font-size: 0.85rem"
+                  >$env:HTTPS_PROXY = "http://proxy.corp.com:8080" $env:NO_PROXY
+                  = "localhost,127.0.0.1" .\LicensewareCollector.exe register
+                  --token "eyJhbG..." --ca-cert "C:\certs\internal-ca.pem"</code
+                >
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2639,7 +2839,14 @@ $env:NO_PROXY = "localhost,127.0.0.1"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
                     <path
                       d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
                     ></path>
@@ -2745,8 +2952,10 @@ $env:NO_PROXY = "localhost,127.0.0.1"
           <div style="margin-top: 1rem">
             <strong style="color: var(--text-primary)">Linux</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">HTTPS_PROXY=http://proxy.corp.com:8080
-NO_PROXY=localhost,127.0.0.1</code>
+              <code style="font-size: 0.85rem"
+                >HTTPS_PROXY=http://proxy.corp.com:8080
+                NO_PROXY=localhost,127.0.0.1</code
+              >
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -2780,8 +2989,10 @@ NO_PROXY=localhost,127.0.0.1</code>
           <div style="margin-top: 1rem">
             <strong style="color: var(--text-primary)">macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">HTTPS_PROXY=http://proxy.corp.com:8080
-NO_PROXY=localhost,127.0.0.1</code>
+              <code style="font-size: 0.85rem"
+                >HTTPS_PROXY=http://proxy.corp.com:8080
+                NO_PROXY=localhost,127.0.0.1</code
+              >
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -2815,8 +3026,10 @@ NO_PROXY=localhost,127.0.0.1</code>
           <div style="margin-top: 1rem">
             <strong style="color: var(--text-primary)">Windows</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">HTTPS_PROXY=http://proxy.corp.com:8080
-NO_PROXY=localhost,127.0.0.1</code>
+              <code style="font-size: 0.85rem"
+                >HTTPS_PROXY=http://proxy.corp.com:8080
+                NO_PROXY=localhost,127.0.0.1</code
+              >
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -2867,9 +3080,30 @@ NO_PROXY=localhost,127.0.0.1</code>
           <div style="margin-top: 0.5rem">
             <strong style="color: var(--text-primary)">Linux</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">sudo systemctl restart licenseware-collector</code>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <code style="font-size: 0.85rem"
+                >sudo systemctl restart licenseware-collector</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -2877,19 +3111,64 @@ NO_PROXY=localhost,127.0.0.1</code>
           <div style="margin-top: 0.75rem">
             <strong style="color: var(--text-primary)">macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">sudo launchctl kickstart -k system/io.licenseware.collector</code>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <code style="font-size: 0.85rem"
+                >sudo launchctl kickstart -k
+                system/io.licenseware.collector</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
               </button>
             </div>
           </div>
 
           <div style="margin-top: 0.75rem">
-            <strong style="color: var(--text-primary)">Windows (Administrator PowerShell)</strong>
+            <strong style="color: var(--text-primary)"
+              >Windows (Administrator PowerShell)</strong
+            >
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">Restart-Service licenseware-collector</code>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <code style="font-size: 0.85rem"
+                >Restart-Service licenseware-collector</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -3106,9 +3385,30 @@ NO_PROXY=localhost,127.0.0.1</code>
           <div style="margin-top: 0.5rem">
             <strong style="color: var(--text-primary)">Linux</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">sudo systemctl restart licenseware-collector</code>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <code style="font-size: 0.85rem"
+                >sudo systemctl restart licenseware-collector</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -3116,19 +3416,64 @@ NO_PROXY=localhost,127.0.0.1</code>
           <div style="margin-top: 0.75rem">
             <strong style="color: var(--text-primary)">macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">sudo launchctl kickstart -k system/io.licenseware.collector</code>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <code style="font-size: 0.85rem"
+                >sudo launchctl kickstart -k
+                system/io.licenseware.collector</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
               </button>
             </div>
           </div>
 
           <div style="margin-top: 0.75rem">
-            <strong style="color: var(--text-primary)">Windows (Administrator PowerShell)</strong>
+            <strong style="color: var(--text-primary)"
+              >Windows (Administrator PowerShell)</strong
+            >
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">Restart-Service licenseware-collector</code>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <code style="font-size: 0.85rem"
+                >Restart-Service licenseware-collector</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -3335,7 +3680,10 @@ NO_PROXY=localhost,127.0.0.1</code>
                   >Remove the collector binary:</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem">del "%ProgramData%\Licenseware\LicensewareCollector.exe"</code>
+                  <code style="font-size: 0.85rem"
+                    >del
+                    "%ProgramData%\Licenseware\LicensewareCollector.exe"</code
+                  >
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -4402,7 +4750,10 @@ NO_PROXY=localhost,127.0.0.1</code>
                     </svg>
                   </span>
                   <div>
-                    <code>licenseware-collector register --token &lt;TOKEN&gt;</code>
+                    <code
+                      >licenseware-collector register --token
+                      &lt;TOKEN&gt;</code
+                    >
                   </div>
                   <button
                     class="copy-btn"
@@ -4877,7 +5228,10 @@ NO_PROXY=localhost,127.0.0.1</code>
               first):</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem">licenseware-collector run-once --env-file C:\ProgramData\Licenseware\collector.env</code>
+              <code style="font-size: 0.85rem"
+                >licenseware-collector run-once --env-file
+                C:\ProgramData\Licenseware\collector.env</code
+              >
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -5129,18 +5483,26 @@ NO_PROXY=localhost,127.0.0.1</code>
           "nav.installguide": "Installation Guide",
           "nav.reference": "Reference",
           "install.win.ref.title": "Full Command Reference",
-          "install.win.ref.desc": "All options can also be passed as flags instead of environment variables. The full syntax is:",
+          "install.win.ref.desc":
+            "All options can also be passed as flags instead of environment variables. The full syntax is:",
           "install.win.ref.flag": "Flag",
           "install.win.ref.env": "Env Variable",
           "install.win.ref.required": "Required",
           "install.win.ref.flagdesc": "Description",
-          "install.win.ref.token.desc": "JWT token from the Licenseware platform",
-          "install.win.ref.cacert.desc": "Path to PEM file with custom CA certificates (for on-prem / TLS inspection)",
-          "install.win.ref.envfile.desc": "Path to a file with environment variables to load",
-          "install.win.ref.proxy.desc": "HTTP(S) proxy for outbound traffic. Automatically saved to the service config.",
-          "install.win.ref.noproxy.desc": "Comma-separated list of hosts to bypass the proxy",
-          "install.win.ref.note": "Proxy variables (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) and <code>CA_CERT_PATH</code> set during registration are automatically persisted to the service environment file so the background service inherits them.",
-          "install.win.ref.example.title": "Full Example with Proxy and Custom CA",
+          "install.win.ref.token.desc":
+            "JWT token from the Licenseware platform",
+          "install.win.ref.cacert.desc":
+            "Path to PEM file with custom CA certificates (for on-prem / TLS inspection)",
+          "install.win.ref.envfile.desc":
+            "Path to a file with environment variables to load",
+          "install.win.ref.proxy.desc":
+            "HTTP(S) proxy for outbound traffic. Automatically saved to the service config.",
+          "install.win.ref.noproxy.desc":
+            "Comma-separated list of hosts to bypass the proxy",
+          "install.win.ref.note":
+            "Proxy variables (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) and <code>CA_CERT_PATH</code> set during registration are automatically persisted to the service environment file so the background service inherits them.",
+          "install.win.ref.example.title":
+            "Full Example with Proxy and Custom CA",
           "proxy.setup.title": "Setup",
           "proxy.setup.desc":
             "Add the proxy variables to the collector environment file on the target machine. Each line uses <code>KEY=value</code> format.",
@@ -5374,18 +5736,26 @@ NO_PROXY=localhost,127.0.0.1</code>
           "nav.installguide": "Guía de Instalación",
           "nav.reference": "Referencia",
           "install.win.ref.title": "Referencia Completa de Comandos",
-          "install.win.ref.desc": "Todas las opciones también se pueden pasar como flags en lugar de variables de entorno. La sintaxis completa es:",
+          "install.win.ref.desc":
+            "Todas las opciones también se pueden pasar como flags en lugar de variables de entorno. La sintaxis completa es:",
           "install.win.ref.flag": "Flag",
           "install.win.ref.env": "Variable de Entorno",
           "install.win.ref.required": "Requerido",
           "install.win.ref.flagdesc": "Descripción",
-          "install.win.ref.token.desc": "Token JWT de la plataforma Licenseware",
-          "install.win.ref.cacert.desc": "Ruta al archivo PEM con certificados CA personalizados (para on-prem / inspección TLS)",
-          "install.win.ref.envfile.desc": "Ruta a un archivo con variables de entorno para cargar",
-          "install.win.ref.proxy.desc": "Proxy HTTP(S) para tráfico saliente. Se guarda automáticamente en la configuración del servicio.",
-          "install.win.ref.noproxy.desc": "Lista de hosts separados por comas que deben evitar el proxy",
-          "install.win.ref.note": "Las variables de proxy (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) y <code>CA_CERT_PATH</code> configuradas durante el registro se guardan automáticamente en el archivo de entorno del servicio para que el servicio en segundo plano las herede.",
-          "install.win.ref.example.title": "Ejemplo Completo con Proxy y CA Personalizado",
+          "install.win.ref.token.desc":
+            "Token JWT de la plataforma Licenseware",
+          "install.win.ref.cacert.desc":
+            "Ruta al archivo PEM con certificados CA personalizados (para on-prem / inspección TLS)",
+          "install.win.ref.envfile.desc":
+            "Ruta a un archivo con variables de entorno para cargar",
+          "install.win.ref.proxy.desc":
+            "Proxy HTTP(S) para tráfico saliente. Se guarda automáticamente en la configuración del servicio.",
+          "install.win.ref.noproxy.desc":
+            "Lista de hosts separados por comas que deben evitar el proxy",
+          "install.win.ref.note":
+            "Las variables de proxy (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) y <code>CA_CERT_PATH</code> configuradas durante el registro se guardan automáticamente en el archivo de entorno del servicio para que el servicio en segundo plano las herede.",
+          "install.win.ref.example.title":
+            "Ejemplo Completo con Proxy y CA Personalizado",
           "proxy.setup.title": "Configuración",
           "proxy.setup.desc":
             "Agregue las variables de proxy al archivo de entorno del collector en la máquina destino. Cada línea usa el formato <code>KEY=valor</code>.",
@@ -5398,8 +5768,7 @@ NO_PROXY=localhost,127.0.0.1</code>
           "install.unix.ref.title": "Referencia Completa de Comandos",
           "install.unix.ref.desc":
             "Para entornos con proxy o certificado CA personalizado, configure las variables antes de ejecutar el instalador:",
-          "install.unix.ref.manual":
-            "O si descargó el binario manualmente:",
+          "install.unix.ref.manual": "O si descargó el binario manualmente:",
           "proxy.linux.path":
             "Archivo: <code>/etc/default/licenseware-collector</code>",
           "proxy.macos.path":
