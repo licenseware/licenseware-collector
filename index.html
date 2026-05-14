@@ -5172,17 +5172,19 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
           <h3 class="section-title" style="margin-top: 1.5rem">Windows</h3>
 
           <p data-i18n="logs.win.desc">
-            The Windows service does not write to a file or to Windows Event
-            Log. To check service health, use the <code>status</code> command.
-            For full log output, stop the service and run the collector
-            interactively in an Administrator terminal.
+            The Windows service itself does not write application logs to a
+            file or to the Windows Event Log. Use the commands below in an
+            Administrator PowerShell to investigate the service: check its
+            state, inspect service start/stop/crash records that Windows
+            itself emits, and capture full application output by running the
+            collector interactively.
           </p>
 
           <div style="margin-top: 0.75rem">
             <small
               style="color: var(--text-secondary)"
               data-i18n="logs.win.status"
-              >Check service health:</small
+              >1. Check the collector's own service health:</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
               <code style="font-size: 0.85rem"
@@ -5216,13 +5218,266 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
           <div style="margin-top: 0.75rem">
             <small
               style="color: var(--text-secondary)"
-              data-i18n="logs.win.interactive"
-              >Run interactively to see log output (stop the service
-              first):</small
+              data-i18n="logs.win.svc"
+              >2. Confirm the Windows service is registered and running:</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
               <code style="font-size: 0.85rem"
-                >licenseware-collector run-once --env-file C:\ProgramData\Licenseware\collector.env</code
+                >Get-Service licenseware-collector | Format-List Name, Status, StartType, DisplayName</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.scqc"
+              >3. Inspect the service binary path, account, and failure
+              recovery configuration:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >sc.exe qc licenseware-collector ; sc.exe qfailure licenseware-collector</code
+              >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.scm"
+              >4. Pull Service Control Manager events (start, stop, crash,
+              recovery) from the System Event Log for the last 24 hours:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <pre
+                style="
+                  margin: 0;
+                  font-size: 0.85rem;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              ><code>Get-WinEvent -FilterHashtable @{
+  LogName   = 'System'
+  StartTime = (Get-Date).AddDays(-1)
+  ProviderName = 'Service Control Manager'
+} | Where-Object { $_.Message -match 'licenseware-collector' } |
+  Format-List TimeCreated, Id, LevelDisplayName, Message</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.appcrash"
+              >5. Look for application crash records (Windows Error Reporting
+              / .NET runtime faults) tied to the binary:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <pre
+                style="
+                  margin: 0;
+                  font-size: 0.85rem;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              ><code>Get-WinEvent -FilterHashtable @{
+  LogName   = 'Application'
+  StartTime = (Get-Date).AddDays(-7)
+} | Where-Object { $_.Message -match 'LicensewareCollector' } |
+  Format-List TimeCreated, ProviderName, Id, LevelDisplayName, Message</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.eventvwr"
+              >6. Or browse interactively in Event Viewer (Windows Logs →
+              System / Application):</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem">eventvwr.msc</code>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.interactive"
+              >7. Capture the collector's full application output by stopping
+              the service and running a single collection cycle interactively
+              — all logs stream to the console:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <pre
+                style="
+                  margin: 0;
+                  font-size: 0.85rem;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              ><code>Stop-Service licenseware-collector
+$env:LOG_LEVEL = 'debug'
+licenseware-collector run-once --env-file C:\ProgramData\Licenseware\collector.env *&gt;&amp;1 |
+  Tee-Object -FilePath "$env:USERPROFILE\licenseware-collector-debug.log"
+Start-Service licenseware-collector</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <small
+              style="
+                color: var(--text-secondary);
+                display: block;
+                margin-top: 0.5rem;
+              "
+              data-i18n="logs.win.interactive.note"
+              >The <code>*&gt;&amp;1</code> redirection merges every PowerShell
+              stream (stdout, stderr, warnings, verbose, debug) so nothing the
+              collector writes is lost.</small
+            >
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.install"
+              >8. Review the install / registration log produced by the
+              installer:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <code style="font-size: 0.85rem"
+                >Get-Content "$env:USERPROFILE\.licenseware-collector\install.log" -Tail 200</code
               >
               <button
                 class="copy-btn"
@@ -5568,10 +5823,24 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
           "logs.macos.follow": "Follow logs in real time:",
           "logs.macos.full": "View full log file:",
           "logs.win.desc":
-            "The Windows service does not write to a file or to Windows Event Log. To check service health, use the <code>status</code> command. For full log output, stop the service and run the collector interactively in an Administrator terminal.",
-          "logs.win.status": "Check service health:",
+            "The Windows service itself does not write application logs to a file or to the Windows Event Log. Use the commands below in an Administrator PowerShell to investigate the service: check its state, inspect service start/stop/crash records that Windows itself emits, and capture full application output by running the collector interactively.",
+          "logs.win.status": "1. Check the collector's own service health:",
+          "logs.win.svc":
+            "2. Confirm the Windows service is registered and running:",
+          "logs.win.scqc":
+            "3. Inspect the service binary path, account, and failure recovery configuration:",
+          "logs.win.scm":
+            "4. Pull Service Control Manager events (start, stop, crash, recovery) from the System Event Log for the last 24 hours:",
+          "logs.win.appcrash":
+            "5. Look for application crash records (Windows Error Reporting / .NET runtime faults) tied to the binary:",
+          "logs.win.eventvwr":
+            "6. Or browse interactively in Event Viewer (Windows Logs → System / Application):",
           "logs.win.interactive":
-            "Run interactively to see log output (stop the service first):",
+            "7. Capture the collector's full application output by stopping the service and running a single collection cycle interactively — all logs stream to the console:",
+          "logs.win.interactive.note":
+            "The <code>*&gt;&amp;1</code> redirection merges every PowerShell stream (stdout, stderr, warnings, verbose, debug) so nothing the collector writes is lost.",
+          "logs.win.install":
+            "8. Review the install / registration log produced by the installer:",
           "logs.debug.title": "Debugging Tip",
           "logs.debug.desc":
             "Set <code>LOG_LEVEL=debug</code> in the environment file and restart the service to get the most verbose output. Remember to set it back to <code>error</code> once done.",
@@ -5821,10 +6090,25 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
           "logs.macos.follow": "Seguir registros en tiempo real:",
           "logs.macos.full": "Ver archivo de registro completo:",
           "logs.win.desc":
-            "El servicio de Windows no escribe en un archivo ni en el Registro de Eventos de Windows. Para verificar el estado del servicio, use el comando <code>status</code>. Para ver la salida completa del registro, detenga el servicio y ejecute el collector de forma interactiva en un terminal de Administrador.",
-          "logs.win.status": "Verificar el estado del servicio:",
+            "El servicio de Windows en sí no escribe registros de aplicación en un archivo ni en el Registro de Eventos de Windows. Use los comandos siguientes en PowerShell de Administrador para investigar el servicio: verificar su estado, inspeccionar los registros de inicio/parada/fallo que Windows emite por sí mismo y capturar la salida completa de la aplicación ejecutando el collector de forma interactiva.",
+          "logs.win.status":
+            "1. Verificar el estado del servicio del propio collector:",
+          "logs.win.svc":
+            "2. Confirmar que el servicio de Windows está registrado y en ejecución:",
+          "logs.win.scqc":
+            "3. Inspeccionar la ruta del binario del servicio, la cuenta y la configuración de recuperación ante fallos:",
+          "logs.win.scm":
+            "4. Obtener los eventos del Administrador de Control de Servicios (inicio, parada, fallo, recuperación) del Registro de Eventos del Sistema de las últimas 24 horas:",
+          "logs.win.appcrash":
+            "5. Buscar registros de fallos de la aplicación (Windows Error Reporting / fallos en tiempo de ejecución de .NET) asociados al binario:",
+          "logs.win.eventvwr":
+            "6. O explorar de forma interactiva en el Visor de Eventos (Registros de Windows → Sistema / Aplicación):",
           "logs.win.interactive":
-            "Ejecutar de forma interactiva para ver la salida del registro (detenga el servicio primero):",
+            "7. Capturar la salida completa de la aplicación deteniendo el servicio y ejecutando un único ciclo de recolección de forma interactiva — todos los registros se muestran en la consola:",
+          "logs.win.interactive.note":
+            "La redirección <code>*&gt;&amp;1</code> combina todos los flujos de PowerShell (stdout, stderr, advertencias, verbose, debug) para que no se pierda nada de lo que escribe el collector.",
+          "logs.win.install":
+            "8. Revisar el registro de instalación / registro producido por el instalador:",
           "logs.debug.title": "Consejo de Depuración",
           "logs.debug.desc":
             "Establezca <code>LOG_LEVEL=debug</code> en el archivo de entorno y reinicie el servicio para obtener la salida más detallada. Recuerde volver a establecerlo en <code>error</code> cuando termine.",
