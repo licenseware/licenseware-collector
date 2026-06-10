@@ -1098,6 +1098,11 @@
             <li>
               <a href="#paths" data-i18n="nav.paths">Installation Paths</a>
             </li>
+            <li>
+              <a href="#av-exclusions" data-i18n="nav.av"
+                >AV / EDR Exclusions</a
+              >
+            </li>
 
             <li
               class="sidebar-title"
@@ -1350,7 +1355,66 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.git_desc"
-                    >Downloads dependencies (installation only)</small
+                    >Downloads the osquery dependency and collector
+                    updates.<br />Paths:
+                    <code>/osquery/osquery/releases/download/*</code> and
+                    <code>/licenseware/collector/releases/download/*</code></small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>api.github.com</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.github_api_desc"
+                    >Checks for new collector releases.<br />Path:
+                    <code>/repos/licenseware/collector/releases</code></small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>objects.githubusercontent.com</strong>
+                  <strong>release-assets.githubusercontent.com</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.github_assets_desc"
+                    >Required. GitHub download links redirect here to serve the
+                    actual files — downloads fail if these hosts are
+                    blocked.</small
                   >
                 </div>
               </li>
@@ -4624,6 +4688,128 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
           </div>
         </section>
 
+        <!-- Antivirus / EDR Exclusions -->
+        <section class="card" id="av-exclusions" aria-labelledby="av-title">
+          <div class="card-header">
+            <div class="card-icon security" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                ></path>
+              </svg>
+            </div>
+            <h2 id="av-title" data-i18n="av.title">
+              Antivirus / EDR Exclusions
+            </h2>
+          </div>
+
+          <p
+            style="color: var(--text-secondary); margin-bottom: 1rem"
+            data-i18n="av.intro"
+          >
+            If your endpoint protection blocks or quarantines the collector, add
+            the following file and directory exclusions. osquery performs broad
+            system enumeration, which can trigger heuristic alerts.
+          </p>
+
+          <div class="os-grid">
+            <!-- Linux -->
+            <div
+              style="
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1.25rem;
+              "
+            >
+              <h3 style="margin: 0 0 1rem; font-size: 1rem">Linux</h3>
+              <ul
+                class="req-list"
+                role="list"
+                style="font-size: 0.8rem; line-height: 1.9"
+              >
+                <li><code>/usr/local/bin/licenseware-collector</code></li>
+                <li><code>/usr/local/bin/osqueryi</code></li>
+                <li><code>/tmp/licenseware-collector/</code></li>
+              </ul>
+            </div>
+
+            <!-- macOS -->
+            <div
+              style="
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1.25rem;
+              "
+            >
+              <h3 style="margin: 0 0 1rem; font-size: 1rem">macOS</h3>
+              <ul
+                class="req-list"
+                role="list"
+                style="font-size: 0.8rem; line-height: 1.9"
+              >
+                <li><code>/usr/local/bin/licenseware-collector</code></li>
+                <li><code>/usr/local/bin/osqueryi</code></li>
+                <li><code>$TMPDIR/licenseware-collector/</code></li>
+              </ul>
+            </div>
+
+            <!-- Windows -->
+            <div
+              style="
+                background: var(--bg-highlight);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1.25rem;
+              "
+            >
+              <h3 style="margin: 0 0 1rem; font-size: 1rem">Windows</h3>
+              <ul
+                class="req-list"
+                role="list"
+                style="font-size: 0.8rem; line-height: 1.9"
+              >
+                <li>
+                  <code
+                    >C:\ProgramData\Licenseware\LicensewareCollector.exe</code
+                  >
+                </li>
+                <li><code>C:\Program Files\osquery\osqueryi.exe</code></li>
+                <li><code>C:\Program Files\osquery\osqueryd.exe</code></li>
+                <li><code>C:\Windows\Temp\licenseware-collector\</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <aside
+            class="highlight-box warning"
+            style="margin-top: 1rem"
+            role="note"
+          >
+            <strong
+              style="color: var(--warning)"
+              data-i18n="av.process.title"
+              >⚠️ Behavioral / EDR scanning</strong
+            ><br />
+            <span data-i18n="av.process.desc"
+              >For behavioral or EDR engines, also exclude the processes
+              <code>licenseware-collector</code>, <code>osqueryi</code>, and
+              <code>osqueryd</code> from real-time scanning.</span
+            >
+          </aside>
+        </section>
+
         <!-- Quick Reference -->
         <section class="card" id="commands" aria-labelledby="commands-title">
           <div class="card-header">
@@ -5592,6 +5778,13 @@ Start-Service licenseware-collector</code></pre>
           "nav.process": "Process Flow",
           "nav.catalogs": "Data Collection",
           "nav.paths": "Installation Paths",
+          "nav.av": "AV / EDR Exclusions",
+          "av.title": "Antivirus / EDR Exclusions",
+          "av.intro":
+            "If your endpoint protection blocks or quarantines the collector, add the following file and directory exclusions. osquery performs broad system enumeration, which can trigger heuristic alerts.",
+          "av.process.title": "⚠️ Behavioral / EDR scanning",
+          "av.process.desc":
+            "For behavioral or EDR engines, also exclude the processes <code>licenseware-collector</code>, <code>osqueryi</code>, and <code>osqueryd</code> from real-time scanning.",
           "nav.start": "Getting Started",
           "nav.downloads": "Downloads",
           "nav.install": "Installation Guide",
@@ -5614,7 +5807,12 @@ Start-Service licenseware-collector</code></pre>
           "network.api_desc":
             "Primary API for data ingestion and configuration",
           "network.cdn_desc": "Fetches static assets and updates",
-          "network.git_desc": "Downloads dependencies (installation only)",
+          "network.git_desc":
+            "Downloads the osquery dependency and collector updates.<br />Paths: <code>/osquery/osquery/releases/download/*</code> and <code>/licenseware/collector/releases/download/*</code>",
+          "network.github_api_desc":
+            "Checks for new collector releases.<br />Path: <code>/repos/licenseware/collector/releases</code>",
+          "network.github_assets_desc":
+            "Required. GitHub download links redirect here to serve the actual files — downloads fail if these hosts are blocked.",
           "network.firewall.title": "⚠️ Firewall Configuration",
           "network.firewall.desc":
             "Ensure outbound HTTPS (port 443) is allowed to the domains listed above. No inbound ports required.",
@@ -5859,6 +6057,13 @@ Start-Service licenseware-collector</code></pre>
           "nav.process": "Flujo del proceso",
           "nav.catalogs": "Recopilación de datos",
           "nav.paths": "Rutas de instalación",
+          "nav.av": "Exclusiones AV / EDR",
+          "av.title": "Exclusiones de antivirus / EDR",
+          "av.intro":
+            "Si su protección de endpoints bloquea o pone en cuarentena el colector, añada las siguientes exclusiones de archivos y directorios. osquery realiza una enumeración amplia del sistema, lo que puede activar alertas heurísticas.",
+          "av.process.title": "⚠️ Análisis de comportamiento / EDR",
+          "av.process.desc":
+            "Para motores de comportamiento o EDR, excluya también los procesos <code>licenseware-collector</code>, <code>osqueryi</code> y <code>osqueryd</code> del análisis en tiempo real.",
           "nav.start": "Empezando",
           "nav.downloads": "Descargas",
           "nav.install": "Guía de instalación",
@@ -5881,7 +6086,12 @@ Start-Service licenseware-collector</code></pre>
           "network.api_desc":
             "API principal para la ingestión de datos y configuración",
           "network.cdn_desc": "Obtiene recursos estáticos y actualizaciones",
-          "network.git_desc": "Descarga de dependencias (solo instalación)",
+          "network.git_desc":
+            "Descarga la dependencia osquery y las actualizaciones del colector.<br />Rutas: <code>/osquery/osquery/releases/download/*</code> y <code>/licenseware/collector/releases/download/*</code>",
+          "network.github_api_desc":
+            "Comprueba si hay nuevas versiones del colector.<br />Ruta: <code>/repos/licenseware/collector/releases</code>",
+          "network.github_assets_desc":
+            "Obligatorio. Los enlaces de descarga de GitHub redirigen aquí para servir los archivos — las descargas fallan si se bloquean estos hosts.",
           "network.firewall.title": "⚠️ Configuración del Firewall",
           "network.firewall.desc":
             "Asegúrese de que se permita HTTPS saliente (puerto 443) a los dominios enumerados anteriormente. No se requieren puertos de entrada.",
