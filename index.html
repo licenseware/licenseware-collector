@@ -2690,7 +2690,7 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
                   <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
-                    >msiexec /i LicensewareCollector.msi ENROLLTOKEN=&lt;enrollment-token&gt; /qn</code></pre>
+                    >msiexec /i LicensewareCollector.msi ENROLLTOKEN=&lt;enrollment-token&gt;</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -3853,7 +3853,7 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
                   <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
-                    >msiexec /x LicensewareCollector.msi /qn</code></pre>
+                    >msiexec /x LicensewareCollector.msi</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -5743,8 +5743,52 @@ Start-Service licenseware-collector</code></pre>
                   white-space: pre-wrap;
                   word-break: break-word;
                 "
-              ><code>msiexec /i LicensewareCollector.msi /qn /l*v install.log
+              ><code>msiexec /i LicensewareCollector.msi /l*v install.log
 Get-Content install.log -Tail 200</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.setuplog"
+              >10. If the installer finishes but no service appears, read the
+              installer's own log. It records what the setup helper and
+              <code>register</code> printed, including the reason enrollment
+              failed, and it survives the rollback that removes everything else.
+              The enrollment token is never written to it:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <pre
+                style="
+                  margin: 0;
+                  font-size: 0.85rem;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              ><code>Get-Content C:\ProgramData\Licenseware\setup.log</code></pre>
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -6125,6 +6169,8 @@ Get-Content install.log -Tail 200</code></pre>
             "8. Read the collector's own service log. It writes to the Windows Event Log under the <code>licenseware-collector</code> provider — stderr is not captured for services, so this is the primary source once the service is running:",
           "logs.win.msilog":
             "9. To debug the installation itself, re-run the MSI with verbose logging and inspect the resulting file. The enrollment token is a secure property and is never written to this log:",
+          "logs.win.setuplog":
+            "10. If the installer finishes but no service appears, read the installer's own log. It records what the setup helper and <code>register</code> printed, including the reason enrollment failed, and it survives the rollback that removes everything else. The enrollment token is never written to it:",
           "logs.debug.title": "Debugging Tip",
           "logs.debug.desc":
             "Set <code>LOG_LEVEL=debug</code> in the environment file and restart the service to get the most verbose output. Remember to set it back to <code>error</code> once done.",
@@ -6412,6 +6458,8 @@ Get-Content install.log -Tail 200</code></pre>
             "8. Consulte el registro propio del servicio del collector. Escribe en el Visor de eventos de Windows bajo el proveedor <code>licenseware-collector</code>; stderr no se captura para los servicios, por lo que esta es la fuente principal una vez que el servicio está en marcha:",
           "logs.win.msilog":
             "9. Para depurar la instalación en sí, vuelva a ejecutar el MSI con registro detallado e inspeccione el archivo resultante. El token de inscripción es una propiedad segura y nunca se escribe en este registro:",
+          "logs.win.setuplog":
+            "10. Si el instalador termina pero no aparece ningún servicio, consulte el registro del propio instalador. Recoge lo que imprimieron el asistente de instalación y <code>register</code>, incluido el motivo del fallo de inscripción, y sobrevive a la reversión que elimina todo lo demás. El token de inscripción nunca se escribe en él:",
           "logs.debug.title": "Consejo de Depuración",
           "logs.debug.desc":
             "Establezca <code>LOG_LEVEL=debug</code> en el archivo de entorno y reinicie el servicio para obtener la salida más detallada. Recuerde volver a establecerlo en <code>error</code> cuando termine.",
