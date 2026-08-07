@@ -2690,7 +2690,7 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
                   <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
-                    >msiexec /i LicensewareCollector.msi ENROLLTOKEN=&lt;enrollment-token&gt;</code></pre>
+                    >msiexec /i LicensewareCollector.msi TOKEN=&lt;enrollment-token&gt;</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -2739,7 +2739,7 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
             <aside class="highlight-box" style="margin-top: 1rem" role="note">
               <span style="font-size: 0.85rem" data-i18n="install.win.tokenless"
                 >To stage the files now and enroll later, omit
-                <code>ENROLLTOKEN</code>. No service is created until you run:
+                <code>TOKEN</code>. No service is created until you run:
                 <code
                   >set TOKEN=&lt;enrollment-token&gt;</code
                 >
@@ -2860,7 +2860,7 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                 <tbody style="color: var(--text-secondary)">
                   <tr style="border-bottom: 1px solid var(--border)">
                     <td style="padding: 0.5rem 0.75rem">
-                      <code>ENROLLTOKEN=</code> (MSI property)
+                      <code>TOKEN=</code> (MSI property)
                     </td>
                     <td style="padding: 0.5rem 0.75rem">
                       <code>TOKEN</code>
@@ -2873,9 +2873,10 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                       data-i18n="install.win.ref.token.desc"
                     >
                       Enrollment token from the Licenseware platform. Pass
-                      <code>ENROLLTOKEN=</code> to <code>msiexec</code>, or set
+                      <code>TOKEN=</code> to <code>msiexec</code>, or set
                       <code>TOKEN</code> before running
-                      <code>register</code> manually.
+                      <code>register</code> manually. The older
+                      <code>ENROLLTOKEN=</code> property is still accepted.
                     </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
@@ -6013,7 +6014,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.note":
             "The token is marked as a secure property, so it is never written to the MSI log. Run the same command with a newer <code>.msi</code> to upgrade in place.",
           "install.win.tokenless":
-            "To stage the files now and enroll later, omit <code>ENROLLTOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
+            "To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Uninstall Guide",
           "uninstall.title": "Uninstall Guide",
           "uninstall.warning":
@@ -6061,7 +6062,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.ref.required": "Required",
           "install.win.ref.flagdesc": "Description",
           "install.win.ref.token.desc":
-            "Enrollment token from the Licenseware platform. Pass <code>ENROLLTOKEN=</code> to <code>msiexec</code>, or set <code>TOKEN</code> before running <code>register</code> manually.",
+            "Enrollment token from the Licenseware platform. Pass <code>TOKEN=</code> to <code>msiexec</code>, or set <code>TOKEN</code> before running <code>register</code> manually. The older <code>ENROLLTOKEN=</code> property is still accepted.",
           "install.unix.ref.token.desc":
             "Enrollment token from the Licenseware platform, passed on the <code>register</code> command line. The aliases <code>LICENSEWARE_ENROLL_TOKEN</code> and <code>ENROLL_TOKEN</code> are also accepted.",
           "install.win.ref.cacert.desc":
@@ -6300,7 +6301,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.note":
             "El token está marcado como propiedad segura, por lo que nunca se escribe en el registro del MSI. Ejecute el mismo comando con un <code>.msi</code> más reciente para actualizar in situ.",
           "install.win.tokenless":
-            "Para preparar los archivos ahora e inscribir más tarde, omita <code>ENROLLTOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
+            "Para preparar los archivos ahora e inscribir más tarde, omita <code>TOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Guía de Desinstalación",
           "uninstall.title": "Guía de Desinstalación",
           "uninstall.warning":
@@ -6348,7 +6349,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.ref.required": "Requerido",
           "install.win.ref.flagdesc": "Descripción",
           "install.win.ref.token.desc":
-            "Token de inscripción de la plataforma Licenseware. Pase <code>ENROLLTOKEN=</code> a <code>msiexec</code>, o defina <code>TOKEN</code> antes de ejecutar <code>register</code> manualmente.",
+            "Token de inscripción de la plataforma Licenseware. Pase <code>TOKEN=</code> a <code>msiexec</code>, o defina <code>TOKEN</code> antes de ejecutar <code>register</code> manualmente. La antigua propiedad <code>ENROLLTOKEN=</code> sigue siendo aceptada.",
           "install.unix.ref.token.desc":
             "Token de inscripción de la plataforma Licenseware, pasado en la línea de comandos de <code>register</code>. También se aceptan los alias <code>LICENSEWARE_ENROLL_TOKEN</code> y <code>ENROLL_TOKEN</code>.",
           "install.win.ref.cacert.desc":
