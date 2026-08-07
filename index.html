@@ -1510,8 +1510,9 @@
             style="color: var(--text-secondary); margin-bottom: 1.5rem"
             data-i18n="downloads.desc"
           >
-            Download the collector binary directly for your operating system and
-            architecture.
+            Download the installer package for your operating system and
+            architecture. Packages never contain an enrollment token &mdash; you
+            supply it at install time.
           </p>
 
           <div class="os-grid">
@@ -1552,7 +1553,7 @@
                 <h3 style="margin: 0; font-size: 1rem">Windows</h3>
               </div>
               <a
-                href="https://cdn.licenseware-collector.com/LicensewareCollector.exe"
+                href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.msi"
                 style="
                   display: flex;
                   align-items: center;
@@ -1587,8 +1588,8 @@
                 </svg>
                 <span
                   style="flex: 1; text-align: center"
-                  data-i18n="downloads.exe"
-                  >Download .exe</span
+                  data-i18n="downloads.msi"
+                  >Download .msi</span
                 >
               </a>
               <p
@@ -1603,22 +1604,6 @@
               >
                 x64 (64-bit)
               </p>
-              <a
-                href="https://cdn.licenseware-collector.com/checksums-windows.txt"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="
-                  display: block;
-                  font-size: 0.7rem;
-                  color: var(--text-secondary);
-                  text-align: center;
-                  margin-top: 0.25rem;
-                  text-decoration: underline;
-                  text-underline-offset: 2px;
-                "
-                data-i18n="downloads.checksum.verify"
-                >SHA256 checksum</a
-              >
             </div>
 
             <!-- Linux -->
@@ -1659,7 +1644,7 @@
               </div>
               <div style="display: flex; flex-direction: column; gap: 0.5rem">
                 <a
-                  href="https://cdn.licenseware-collector.com/collector_linux_amd64.tar.gz"
+                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.deb"
                   style="
                     display: flex;
                     align-items: center;
@@ -1692,10 +1677,12 @@
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span style="flex: 1; text-align: center">x64 (amd64)</span>
+                  <span style="flex: 1; text-align: center"
+                    >.deb &middot; x64 (amd64)</span
+                  >
                 </a>
                 <a
-                  href="https://cdn.licenseware-collector.com/collector_linux_arm64.tar.gz"
+                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_arm64.deb"
                   style="
                     display: flex;
                     align-items: center;
@@ -1728,7 +1715,85 @@
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span style="flex: 1; text-align: center">ARM64</span>
+                  <span style="flex: 1; text-align: center"
+                    >.deb &middot; ARM64</span
+                  >
+                </a>
+                <a
+                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.rpm"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.75rem 1rem;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 700;
+                    font-size: 0.875rem;
+                    transition: opacity 0.2s;
+                  "
+                  onmouseover="this.style.opacity = '0.9'"
+                  onmouseout="this.style.opacity = '1'"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="flex-shrink: 0"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span style="flex: 1; text-align: center"
+                    >.rpm &middot; x64 (amd64)</span
+                  >
+                </a>
+                <a
+                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_arm64.rpm"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.75rem 1rem;
+                    background: var(--primary);
+                    color: #fff;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 700;
+                    font-size: 0.875rem;
+                    transition: opacity 0.2s;
+                  "
+                  onmouseover="this.style.opacity = '0.9'"
+                  onmouseout="this.style.opacity = '1'"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="flex-shrink: 0"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span style="flex: 1; text-align: center"
+                    >.rpm &middot; ARM64</span
+                  >
                 </a>
               </div>
               <p
@@ -1741,24 +1806,8 @@
                   text-align: center;
                 "
               >
-                .tar.gz
+                Debian / Ubuntu &middot; RHEL / Fedora / SUSE
               </p>
-              <a
-                href="https://cdn.licenseware-collector.com/checksums-linux.txt"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="
-                  display: block;
-                  font-size: 0.7rem;
-                  color: var(--text-secondary);
-                  text-align: center;
-                  margin-top: 0.25rem;
-                  text-decoration: underline;
-                  text-underline-offset: 2px;
-                "
-                data-i18n="downloads.checksum.verify"
-                >SHA256 checksum</a
-              >
             </div>
 
             <!-- macOS -->
@@ -1798,7 +1847,7 @@
                 <h3 style="margin: 0; font-size: 1rem">macOS</h3>
               </div>
               <a
-                href="https://cdn.licenseware-collector.com/LicensewareCollector-macOS.zip"
+                href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"
                 style="
                   display: flex;
                   align-items: center;
@@ -1833,8 +1882,8 @@
                 </svg>
                 <span
                   style="flex: 1; text-align: center"
-                  data-i18n="downloads.zip"
-                  >Download .zip</span
+                  data-i18n="downloads.pkg"
+                  >Download .pkg</span
                 >
               </a>
               <p
@@ -1850,9 +1899,7 @@
                 Intel & Apple Silicon
               </p>
               <a
-                href="https://cdn.licenseware-collector.com/checksums-macos.txt"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="https://cdn.licenseware-collector.com/d/latest/uninstall.command"
                 style="
                   display: block;
                   font-size: 0.7rem;
@@ -1862,11 +1909,26 @@
                   text-decoration: underline;
                   text-underline-offset: 2px;
                 "
-                data-i18n="downloads.checksum.verify"
-                >SHA256 checksum</a
+                data-i18n="downloads.uninstallcmd"
+                >uninstall.command</a
               >
             </div>
           </div>
+
+          <p
+            style="
+              color: var(--text-secondary);
+              font-size: 0.85rem;
+              margin-top: 1.5rem;
+              margin-bottom: 0;
+            "
+            data-i18n="downloads.pinned"
+          >
+            The <code>/d/latest/</code> links above always resolve to the current
+            release. To pin a specific version, replace <code>latest</code> with
+            the release tag, e.g.
+            <code>https://cdn.licenseware-collector.com/d/v1.2.3/…</code>
+          </p>
         </section>
 
         <!-- Installation Guide -->
@@ -2038,7 +2100,7 @@
             <h3
               style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
             >
-              Linux / macOS
+              Linux (.deb / .rpm)
             </h3>
             <p
               style="
@@ -2062,13 +2124,12 @@
               <li style="margin-bottom: 0.75rem">
                 <strong
                   style="color: var(--text-primary)"
-                  data-i18n="install.unix.step1"
-                  >Set your token as an environment variable</strong
+                  data-i18n="install.linux.step1"
+                  >Download the package for your architecture</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
-                    >export LICENSEWARE_TOKEN="your-token-here"</code
-                  >
+                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                    >curl -fsSLO https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.deb</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -2100,16 +2161,69 @@
                   </button>
                 </div>
               </li>
-              <li>
+              <li style="margin-bottom: 0.75rem">
                 <strong
                   style="color: var(--text-primary)"
-                  data-i18n="install.unix.step2"
-                  >Run the install script</strong
+                  data-i18n="install.linux.step2"
+                  >Install the package</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
                   <code style="font-size: 0.85rem"
-                    >curl -sSL https://licenseware-collector.com/install.sh | sudo bash</code
+                    >sudo apt install ./licenseware-collector_amd64.deb</code
                   >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <p
+                  style="
+                    margin: 0.5rem 0 0 0;
+                    font-size: 0.8rem;
+                    color: var(--text-secondary);
+                  "
+                  data-i18n="install.linux.step2.note"
+                >
+                  On RHEL / Fedora / SUSE use
+                  <code>sudo dnf install ./licenseware-collector_amd64.rpm</code
+                  >. Installing stages the service but does not start it &mdash;
+                  the next step does.
+                </p>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.linux.step3"
+                  >Enroll the machine and start the service</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                    >sudo TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -2169,15 +2283,16 @@
                 "
                 data-i18n="install.unix.ref.desc"
               >
-                For environments with a proxy or custom CA certificate, set the
-                variables before running the installer:
+                For environments with a proxy or custom CA certificate, export
+                the variables and pass them through to <code>register</code>
+                with <code>sudo -E</code>:
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
-                <pre><code style="font-size: 0.85rem"
-                  >export LICENSEWARE_TOKEN="your-token-here"
-export HTTPS_PROXY="http://proxy.corp.com:8080" # optional
+                <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                  >export HTTPS_PROXY="http://proxy.corp.com:8080" # optional
 export NO_PROXY="localhost,127.0.0.1" # optional
-curl -sSL https://licenseware-collector.com/install.sh | sudo bash</code></pre>
+export CA_CERT_PATH=/etc/ssl/certs/corp-ca.pem # optional
+sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pre>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -2217,13 +2332,11 @@ curl -sSL https://licenseware-collector.com/install.sh | sudo bash</code></pre>
                 "
                 data-i18n="install.unix.ref.manual"
               >
-                Or if you downloaded the binary manually:
+                Or pass the CA certificate as an explicit flag:
               </p>
               <div class="code-block">
-                <pre><code style="font-size: 0.85rem"
-                  >export HTTPS_PROXY="http://proxy.corp.com:8080" # optional
-export NO_PROXY="localhost,127.0.0.1" # optional
-sudo ./licenseware-collector register --token "eyJhbG..." \
+                <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                  >sudo TOKEN=&lt;enrollment-token&gt; licenseware-collector register \
   --ca-cert /etc/ssl/certs/corp-ca.pem</code></pre>
                 <button
                   class="copy-btn"
@@ -2289,16 +2402,19 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                 <tbody style="color: var(--text-secondary)">
                   <tr style="border-bottom: 1px solid var(--border)">
                     <td style="padding: 0.5rem 0.75rem">
-                      <code>--token</code> / <code>LICENSEWARE_TOKEN</code>
+                      <code>TOKEN</code>
                     </td>
                     <td style="padding: 0.5rem 0.75rem">
                       <strong style="color: var(--warning)">Yes</strong>
                     </td>
                     <td
                       style="padding: 0.5rem 0.75rem"
-                      data-i18n="install.win.ref.token.desc"
+                      data-i18n="install.unix.ref.token.desc"
                     >
-                      JWT token from the Licenseware platform
+                      Enrollment token from the Licenseware platform, passed on
+                      the <code>register</code> command line. The aliases
+                      <code>LICENSEWARE_ENROLL_TOKEN</code> and
+                      <code>ENROLL_TOKEN</code> are also accepted.
                     </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
@@ -2368,6 +2484,131 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
             </div>
           </div>
 
+          <!-- macOS Installation -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+            >
+              macOS (.pkg)
+            </h3>
+            <p
+              style="
+                margin: 0 0 1rem 0;
+                color: var(--warning);
+                font-size: 0.85rem;
+              "
+              data-i18n="install.macos.root"
+            >
+              ⚠️ Requires root privileges
+            </p>
+
+            <ol
+              style="
+                margin: 0;
+                padding-left: 1.25rem;
+                color: var(--text-secondary);
+                line-height: 1.7;
+              "
+            >
+              <li style="margin-bottom: 0.75rem">
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.macos.step1"
+                  >Install the package</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                    >sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="install.macos.step2"
+                  >Enroll the machine and start the service</strong
+                >
+                <div class="code-block" style="margin-top: 0.5rem">
+                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                    >sudo TOKEN=&lt;enrollment-token&gt; \
+  /usr/local/licenseware-collector/seed/licenseware-collector register</code></pre>
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy command"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            </ol>
+
+            <aside class="highlight-box" style="margin-top: 1rem" role="note">
+              <span style="font-size: 0.85rem" data-i18n="install.macos.note"
+                >Upgrading an already-enrolled Mac needs only the
+                <code>installer</code> step &mdash; the package restarts the
+                service and re-registration is not required.</span
+              >
+            </aside>
+          </div>
+
           <!-- Windows Installation -->
           <div
             style="
@@ -2404,171 +2645,52 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                 <strong
                   style="color: var(--text-primary)"
                   data-i18n="install.win.step1"
-                  >Load token into environment variable</strong
-                >
-                <div
-                  style="
-                    background: var(--surface);
-                    padding: 0.75rem;
-                    border-radius: 6px;
-                    margin: 0.5rem 0;
-                  "
-                >
-                  <strong
-                    style="
-                      font-size: 0.85rem;
-                      color: var(--text-primary);
-                      display: block;
-                      margin-bottom: 0.25rem;
-                    "
-                    data-i18n="install.win.optionA"
-                    >Option A: From file (recommended)</strong
-                  >
-                  <span
-                    style="font-size: 0.8rem; color: var(--text-secondary)"
-                    data-i18n="install.win.optionA.desc"
-                    >Create <code>token.txt</code> with your token pasted in the
-                    file, then run:</span
-                  >
-                  <div class="code-block" style="margin-top: 0.5rem">
-                    <code style="font-size: 0.85rem"
-                      >$env:LICENSEWARE_TOKEN = Get-Content token.txt -Raw</code
-                    >
-                    <button
-                      class="copy-btn"
-                      onclick="copyToClipboard(this)"
-                      aria-label="Copy command"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <rect
-                          x="9"
-                          y="9"
-                          width="13"
-                          height="13"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <path
-                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                        ></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div
-                  style="
-                    background: var(--surface);
-                    padding: 0.75rem;
-                    border-radius: 6px;
-                  "
-                >
-                  <strong
-                    style="
-                      font-size: 0.85rem;
-                      color: var(--text-primary);
-                      display: block;
-                      margin-bottom: 0.25rem;
-                    "
-                    data-i18n="install.win.optionB"
-                    >Option B: Directly paste token</strong
-                  >
-                  <div class="code-block" style="margin-top: 0.5rem">
-                    <code style="font-size: 0.85rem"
-                      >$env:LICENSEWARE_TOKEN = "your-token-here"</code
-                    >
-                    <button
-                      class="copy-btn"
-                      onclick="copyToClipboard(this)"
-                      aria-label="Copy command"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <rect
-                          x="9"
-                          y="9"
-                          width="13"
-                          height="13"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <path
-                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                        ></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </li>
-              <li style="margin-bottom: 0.75rem">
-                <strong
-                  style="color: var(--text-primary)"
-                  data-i18n="install.win.step2"
                   >Download the installer</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <pre><code style="font-size: 0.85rem"
-                    >Invoke-WebRequest -Uri https://cdn.licenseware-collector.com/LicensewareCollector.exe `
-  -OutFile LicensewareCollector.exe</code></pre>
-                  <button
-                    class="copy-btn"
-                    onclick="copyToClipboard(this)"
-                    aria-label="Copy command"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                    >Invoke-WebRequest -Uri https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.msi `
+  -OutFile LicensewareCollector.msi</code></pre>
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(this)"
+                      aria-label="Copy command"
                     >
-                      <rect
-                        x="9"
-                        y="9"
-                        width="13"
-                        height="13"
-                        rx="2"
-                        ry="2"
-                      ></rect>
-                      <path
-                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                      ></path>
-                    </svg>
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </button>
                 </div>
               </li>
               <li>
                 <strong
                   style="color: var(--text-primary)"
-                  data-i18n="install.win.step3"
-                  >Run the installer</strong
+                  data-i18n="install.win.step2"
+                  >Install, passing the enrollment token</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
-                    >.\LicensewareCollector.exe</code
-                  >
+                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                    >msiexec /i LicensewareCollector.msi TOKEN=&lt;enrollment-token&gt;</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -2607,11 +2729,27 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                     margin-top: 0.25rem;
                   "
                   data-i18n="install.win.note"
-                  >The installer reads the token from the environment variable
-                  and registers automatically.</span
+                  >The token is marked as a secure property, so it is never
+                  written to the MSI log. Run the same command with a newer
+                  <code>.msi</code> to upgrade in place.</span
                 >
               </li>
             </ol>
+
+            <aside class="highlight-box" style="margin-top: 1rem" role="note">
+              <span style="font-size: 0.85rem" data-i18n="install.win.tokenless"
+                >To stage the files now and enroll later, omit
+                <code>TOKEN</code>. No service is created until you run:
+                <code
+                  >set TOKEN=&lt;enrollment-token&gt;</code
+                >
+                then
+                <code
+                  >"%ProgramFiles%\Licenseware\LicensewareCollector.exe"
+                  register</code
+                >.</span
+              >
+            </aside>
 
             <!-- Full Command Reference -->
             <div
@@ -2639,12 +2777,14 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                 "
                 data-i18n="install.win.ref.desc"
               >
-                All options can also be passed as flags instead of environment
-                variables. The full syntax is:
+                When enrolling manually (a tokenless MSI install), the token is
+                supplied through the environment and the remaining options as
+                flags:
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
-                <pre><code style="font-size: 0.85rem"
-                  >.\LicensewareCollector.exe register --token &lt;TOKEN&gt; `
+                <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                  >$env:TOKEN = "&lt;enrollment-token&gt;"
+&amp; "$env:ProgramFiles\Licenseware\LicensewareCollector.exe" register `
   --ca-cert &lt;PATH&gt; --env-file &lt;PATH&gt;</code></pre>
                 <button
                   class="copy-btn"
@@ -2720,10 +2860,10 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                 <tbody style="color: var(--text-secondary)">
                   <tr style="border-bottom: 1px solid var(--border)">
                     <td style="padding: 0.5rem 0.75rem">
-                      <code>--token</code>, <code>-t</code>
+                      <code>TOKEN=</code> (MSI property)
                     </td>
                     <td style="padding: 0.5rem 0.75rem">
-                      <code>LICENSEWARE_TOKEN</code>
+                      <code>TOKEN</code>
                     </td>
                     <td style="padding: 0.5rem 0.75rem">
                       <strong style="color: var(--warning)">Yes</strong>
@@ -2732,7 +2872,11 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                       style="padding: 0.5rem 0.75rem"
                       data-i18n="install.win.ref.token.desc"
                     >
-                      JWT token from the Licenseware platform
+                      Enrollment token from the Licenseware platform. Pass
+                      <code>TOKEN=</code> to <code>msiexec</code>, or set
+                      <code>TOKEN</code> before running
+                      <code>register</code> manually. The older
+                      <code>ENROLLTOKEN=</code> property is still accepted.
                     </td>
                   </tr>
                   <tr style="border-bottom: 1px solid var(--border)">
@@ -2817,11 +2961,12 @@ sudo ./licenseware-collector register --token "eyJhbG..." \
                 Full Example with Proxy and Custom CA
               </h4>
               <div class="code-block">
-                <pre><code style="font-size: 0.85rem"
+                <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
                   >$env:HTTPS_PROXY = "http://proxy.corp.com:8080"
 $env:NO_PROXY = "localhost,127.0.0.1"
-.\LicensewareCollector.exe register `
-  --token "eyJhbG..." --ca-cert "C:\certs\internal-ca.pem"</code></pre>
+$env:TOKEN = "&lt;enrollment-token&gt;"
+&amp; "$env:ProgramFiles\Licenseware\LicensewareCollector.exe" register `
+  --ca-cert "C:\certs\internal-ca.pem"</code></pre>
                 <button
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
@@ -3108,7 +3253,7 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
             <strong style="color: var(--text-primary)">macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <code style="font-size: 0.85rem"
-                >sudo launchctl kickstart -k system/io.licenseware.collector</code
+                >sudo launchctl kickstart -k system/io.licenseware.licenseware-collector</code
               >
               <button
                 class="copy-btn"
@@ -3412,7 +3557,7 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
             <strong style="color: var(--text-primary)">macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <code style="font-size: 0.85rem"
-                >sudo launchctl kickstart -k system/io.licenseware.collector</code
+                >sudo launchctl kickstart -k system/io.licenseware.licenseware-collector</code
               >
               <button
                 class="copy-btn"
@@ -3526,16 +3671,18 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
               style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
               data-i18n="uninstall.linux.title"
             >
-              Linux / macOS
+              Linux
             </h3>
             <ol style="margin: 0; padding-left: 1.25rem">
               <li>
-                <strong style="color: var(--text-primary)"
-                  >Uninstall the service</strong
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="uninstall.linux.deb"
+                  >Debian / Ubuntu</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
                   <code style="font-size: 0.85rem"
-                    >sudo licenseware-collector uninstall --force</code
+                    >sudo apt remove licenseware-collector</code
                   >
                   <button
                     class="copy-btn"
@@ -3572,11 +3719,11 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                 <strong
                   style="color: var(--text-primary)"
                   data-i18n="uninstall.linux.cleanup"
-                  >Remove the collector binary:</strong
+                  >RHEL / Fedora / SUSE</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
                   <code style="font-size: 0.85rem"
-                    >sudo rm /usr/local/bin/licenseware-collector</code
+                    >sudo dnf remove licenseware-collector</code
                   >
                   <button
                     class="copy-btn"
@@ -3610,6 +3757,77 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                 </div>
               </li>
             </ol>
+            <p
+              style="
+                margin: 0.75rem 0 0 0;
+                font-size: 0.8rem;
+                color: var(--text-secondary);
+              "
+              data-i18n="uninstall.linux.note"
+            >
+              Removing the package stops the service and runs the uninstaller
+              for you. Do not call
+              <code>licenseware-collector uninstall</code> directly on a
+              package-managed host &mdash; it refuses and points you back at the
+              package manager.
+            </p>
+          </div>
+
+          <!-- macOS -->
+          <div
+            style="
+              border: 1px solid var(--border);
+              border-radius: 12px;
+              padding: 1.25rem;
+              margin-top: 1rem;
+            "
+          >
+            <h3
+              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              data-i18n="uninstall.macos.title"
+            >
+              macOS
+            </h3>
+            <p
+              style="
+                margin: 0 0 0.5rem 0;
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+              "
+              data-i18n="uninstall.macos.desc"
+            >
+              Download <code>uninstall.command</code> from the Downloads section
+              and double-click it, or run it from Terminal:
+            </p>
+            <div class="code-block" style="margin-top: 0.5rem">
+              <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                >sudo LICENSEWARE_UNINSTALL_FROM_PACKAGE=1 \
+  /usr/local/libexec/licenseware-collector/licenseware-collector uninstall --force
+sudo rm -rf /usr/local/licenseware-collector
+sudo pkgutil --forget io.licenseware.collector</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
           </div>
 
           <!-- Windows -->
@@ -3629,13 +3847,14 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
             </h3>
             <ol style="margin: 0; padding-left: 1.25rem">
               <li>
-                <strong style="color: var(--text-primary)"
-                  >Uninstall the service</strong
+                <strong
+                  style="color: var(--text-primary)"
+                  data-i18n="uninstall.win.msi"
+                  >Uninstall the package</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
-                    >licenseware-collector.exe uninstall --force</code
-                  >
+                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                    >msiexec /x LicensewareCollector.msi</code></pre>
                   <button
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
@@ -3671,11 +3890,11 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                 <strong
                   style="color: var(--text-primary)"
                   data-i18n="uninstall.win.cleanup"
-                  >Remove the collector binary:</strong
+                  >Or remove it from the UI:</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
                   <code style="font-size: 0.85rem"
-                    >del "%ProgramData%\Licenseware\LicensewareCollector.exe"</code
+                    >Settings &gt; Apps &gt; Installed apps</code
                   >
                   <button
                     class="copy-btn"
@@ -3719,8 +3938,11 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
               margin-top: 0.75rem;
             "
             data-i18n="uninstall.note"
-            >The --force flag stops the service if it is still running before
-            uninstalling.</span
+            >Uninstalling stops the service, removes it, and deletes the
+            collector's runtime files and enrollment token from the machine. To
+            keep collected state on disk, add
+            <code>--preserve-state</code>; to also remove the bundled osquery,
+            add <code>--remove-osquery</code>.</span
           >
         </section>
 
@@ -4172,7 +4394,7 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                       word-break: break-all;
                       color: var(--text-primary);
                     "
-                    >/usr/local/bin/licenseware-collector</code
+                    >/usr/libexec/licenseware-collector/licenseware-collector</code
                   >
                   <!-- SVG Copy Icon -->
                   <button
@@ -4356,7 +4578,7 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                       word-break: break-all;
                       color: var(--text-primary);
                     "
-                    >C:\ProgramData\Licenseware\LicensewareCollector.exe</code
+                    >C:\ProgramData\Licenseware\bin\LicensewareCollector.exe</code
                   >
                   <button
                     class="copy-btn"
@@ -4491,7 +4713,7 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                       word-break: break-all;
                       color: var(--text-primary);
                     "
-                    >/usr/local/bin/licenseware-collector</code
+                    >/usr/local/libexec/licenseware-collector/licenseware-collector</code
                   >
                   <button
                     class="copy-btn"
@@ -4539,7 +4761,7 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                       word-break: break-all;
                       color: var(--text-primary);
                     "
-                    >/Library/LaunchDaemons/io.licenseware.collector.plist</code
+                    >/Library/LaunchDaemons/io.licenseware.licenseware-collector.plist</code
                   >
                   <button
                     class="copy-btn"
@@ -4587,7 +4809,7 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                       word-break: break-all;
                       color: var(--text-primary);
                     "
-                    >/etc/licenseware-collector.env</code
+                    >/usr/local/etc/licenseware-collector</code
                   >
                   <button
                     class="copy-btn"
@@ -4744,8 +4966,8 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
                   </span>
                   <div>
                     <code
-                      >licenseware-collector register --token
-                      &lt;TOKEN&gt;</code
+                      >TOKEN=&lt;enrollment-token&gt; licenseware-collector
+                      register</code
                     >
                   </div>
                   <button
@@ -5472,13 +5694,102 @@ Start-Service licenseware-collector</code></pre>
             <small
               style="color: var(--text-secondary)"
               data-i18n="logs.win.install"
-              >8. Review the install / registration log produced by the
-              installer:</small
+              >8. Read the collector's own service log. It writes to the Windows
+              Event Log under the <code>licenseware-collector</code> provider —
+              stderr is not captured for services, so this is the primary source
+              once the service is running:</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
               <code style="font-size: 0.85rem"
-                >Get-Content "$env:USERPROFILE\.licenseware-collector\install.log" -Tail 200</code
+                >Get-WinEvent -ProviderName "licenseware-collector" -MaxEvents 50</code
               >
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.msilog"
+              >9. To debug the installation itself, re-run the MSI with verbose
+              logging and inspect the resulting file. The enrollment token is a
+              secure property and is never written to this log:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <pre
+                style="
+                  margin: 0;
+                  font-size: 0.85rem;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              ><code>msiexec /i LicensewareCollector.msi /l*v install.log
+Get-Content install.log -Tail 200</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.75rem">
+            <small
+              style="color: var(--text-secondary)"
+              data-i18n="logs.win.setuplog"
+              >10. If the installer finishes but no service appears, read the
+              installer's own log. It records what the setup helper and
+              <code>register</code> printed, including the reason enrollment
+              failed, and it survives the rollback that removes everything else.
+              The enrollment token is never written to it:</small
+            >
+            <div class="code-block" style="margin-top: 0.5rem">
+              <pre
+                style="
+                  margin: 0;
+                  font-size: 0.85rem;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              ><code>Get-Content C:\ProgramData\Licenseware\setup.log</code></pre>
               <button
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
@@ -5671,10 +5982,12 @@ Start-Service licenseware-collector</code></pre>
           "paths.binary": "Binary",
           "downloads.title": "Direct Downloads",
           "downloads.desc":
-            "Download the collector binary directly for your operating system and architecture.",
-          "downloads.exe": "Download .exe",
-          "downloads.zip": "Download .zip",
-          "downloads.checksum.verify": "SHA256 checksum",
+            "Download the installer package for your operating system and architecture. Packages never contain an enrollment token &mdash; you supply it at install time.",
+          "downloads.msi": "Download .msi",
+          "downloads.pkg": "Download .pkg",
+          "downloads.uninstallcmd": "uninstall.command",
+          "downloads.pinned":
+            "The <code>/d/latest/</code> links above always resolve to the current release. To pin a specific version, replace <code>latest</code> with the release tag, e.g. <code>https://cdn.licenseware-collector.com/d/v1.2.3/…</code>",
           "install.title": "Installation Guide",
           "install.step1.title": "Get Your Token",
           "install.step1.1": "Go to",
@@ -5685,28 +5998,40 @@ Start-Service licenseware-collector</code></pre>
             "Click <strong>Create Key</strong>, configure it, and copy the token",
           "install.step2.title": "Download and Install",
           "install.unix.root": "⚠️ Requires root privileges",
-          "install.unix.step1": "Set your token as an environment variable",
-          "install.unix.step2": "Run the install script",
+          "install.linux.step1": "Download the package for your architecture",
+          "install.linux.step2": "Install the package",
+          "install.linux.step2.note":
+            "On RHEL / Fedora / SUSE use <code>sudo dnf install ./licenseware-collector_amd64.rpm</code>. Installing stages the service but does not start it &mdash; the next step does.",
+          "install.linux.step3": "Enroll the machine and start the service",
+          "install.macos.root": "⚠️ Requires root privileges",
+          "install.macos.step1": "Install the package",
+          "install.macos.step2": "Enroll the machine and start the service",
+          "install.macos.note":
+            "Upgrading an already-enrolled Mac needs only the <code>installer</code> step &mdash; the package restarts the service and re-registration is not required.",
           "install.win.admin": "⚠️ Requires Administrator privileges",
-          "install.win.step1": "Load token into environment variable",
-          "install.win.optionA": "Option A: From file (recommended)",
-          "install.win.optionA.desc":
-            "Create <code>token.txt</code> with your token pasted in the file, then run:",
-          "install.win.optionB": "Option B: Directly paste token",
-          "install.win.step2": "Download the installer",
-          "install.win.step3": "Run the installer",
+          "install.win.step1": "Download the installer",
+          "install.win.step2": "Install, passing the enrollment token",
           "install.win.note":
-            "The installer reads the token from the environment variable and registers automatically.",
+            "The token is marked as a secure property, so it is never written to the MSI log. Run the same command with a newer <code>.msi</code> to upgrade in place.",
+          "install.win.tokenless":
+            "To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Uninstall Guide",
           "uninstall.title": "Uninstall Guide",
           "uninstall.warning":
             "Requires elevated privileges (sudo on Linux/macOS, Administrator on Windows)",
-          "uninstall.linux.title": "Linux / macOS",
-          "uninstall.linux.cleanup": "Remove the collector binary:",
+          "uninstall.linux.title": "Linux",
+          "uninstall.linux.deb": "Debian / Ubuntu",
+          "uninstall.linux.cleanup": "RHEL / Fedora / SUSE",
+          "uninstall.linux.note":
+            "Removing the package stops the service and runs the uninstaller for you. Do not call <code>licenseware-collector uninstall</code> directly on a package-managed host &mdash; it refuses and points you back at the package manager.",
+          "uninstall.macos.title": "macOS",
+          "uninstall.macos.desc":
+            "Download <code>uninstall.command</code> from the Downloads section and double-click it, or run it from Terminal:",
           "uninstall.win.title": "Windows (Administrator PowerShell)",
-          "uninstall.win.cleanup": "Remove the collector binary:",
+          "uninstall.win.msi": "Uninstall the package",
+          "uninstall.win.cleanup": "Or remove it from the UI:",
           "uninstall.note":
-            "The --force flag stops the service if it is still running before uninstalling.",
+            "Uninstalling stops the service, removes it, and deletes the collector's runtime files and enrollment token from the machine. To keep collected state on disk, add <code>--preserve-state</code>; to also remove the bundled osquery, add <code>--remove-osquery</code>.",
           "quick.title": "Quick Reference",
           "quick.intervals": "Agent Intervals",
           "quick.service": "Service Commands",
@@ -5731,13 +6056,15 @@ Start-Service licenseware-collector</code></pre>
           "nav.reference": "Reference",
           "install.win.ref.title": "Full Command Reference",
           "install.win.ref.desc":
-            "All options can also be passed as flags instead of environment variables. The full syntax is:",
+            "When enrolling manually (a tokenless MSI install), the token is supplied through the environment and the remaining options as flags:",
           "install.win.ref.flag": "Flag",
           "install.win.ref.env": "Env Variable",
           "install.win.ref.required": "Required",
           "install.win.ref.flagdesc": "Description",
           "install.win.ref.token.desc":
-            "JWT token from the Licenseware platform",
+            "Enrollment token from the Licenseware platform. Pass <code>TOKEN=</code> to <code>msiexec</code>, or set <code>TOKEN</code> before running <code>register</code> manually. The older <code>ENROLLTOKEN=</code> property is still accepted.",
+          "install.unix.ref.token.desc":
+            "Enrollment token from the Licenseware platform, passed on the <code>register</code> command line. The aliases <code>LICENSEWARE_ENROLL_TOKEN</code> and <code>ENROLL_TOKEN</code> are also accepted.",
           "install.win.ref.cacert.desc":
             "Path to PEM file with custom CA certificates (for on-prem / TLS inspection)",
           "install.win.ref.envfile.desc":
@@ -5761,9 +6088,9 @@ Start-Service licenseware-collector</code></pre>
             "After modifying the environment file, restart the collector service for changes to take effect:",
           "install.unix.ref.title": "Full Command Reference",
           "install.unix.ref.desc":
-            "For environments with a proxy or custom CA certificate, set the variables before running the installer:",
+            "For environments with a proxy or custom CA certificate, export the variables and pass them through to <code>register</code> with <code>sudo -E</code>:",
           "install.unix.ref.manual":
-            "Or if you downloaded the binary manually:",
+            "Or pass the CA certificate as an explicit flag:",
           "proxy.linux.path":
             "File: <code>/etc/default/licenseware-collector</code>",
           "proxy.macos.path":
@@ -5840,7 +6167,11 @@ Start-Service licenseware-collector</code></pre>
           "logs.win.interactive.note":
             "The <code>*&gt;&amp;1</code> redirection merges every PowerShell stream (stdout, stderr, warnings, verbose, debug) so nothing the collector writes is lost.",
           "logs.win.install":
-            "8. Review the install / registration log produced by the installer:",
+            "8. Read the collector's own service log. It writes to the Windows Event Log under the <code>licenseware-collector</code> provider — stderr is not captured for services, so this is the primary source once the service is running:",
+          "logs.win.msilog":
+            "9. To debug the installation itself, re-run the MSI with verbose logging and inspect the resulting file. The enrollment token is a secure property and is never written to this log:",
+          "logs.win.setuplog":
+            "10. If the installer finishes but no service appears, read the installer's own log. It records what the setup helper and <code>register</code> printed, including the reason enrollment failed, and it survives the rollback that removes everything else. The enrollment token is never written to it:",
           "logs.debug.title": "Debugging Tip",
           "logs.debug.desc":
             "Set <code>LOG_LEVEL=debug</code> in the environment file and restart the service to get the most verbose output. Remember to set it back to <code>error</code> once done.",
@@ -5938,10 +6269,12 @@ Start-Service licenseware-collector</code></pre>
           "paths.binary": "Binario",
           "downloads.title": "Descargas Directas",
           "downloads.desc":
-            "Descargue el binario del collector directamente para su sistema operativo y arquitectura.",
-          "downloads.exe": "Descargar .exe",
-          "downloads.zip": "Descargar .zip",
-          "downloads.checksum.verify": "Checksum SHA256",
+            "Descargue el paquete de instalación para su sistema operativo y arquitectura. Los paquetes nunca contienen un token de inscripción &mdash; usted lo proporciona en el momento de la instalación.",
+          "downloads.msi": "Descargar .msi",
+          "downloads.pkg": "Descargar .pkg",
+          "downloads.uninstallcmd": "uninstall.command",
+          "downloads.pinned":
+            "Los enlaces <code>/d/latest/</code> anteriores siempre apuntan a la versión actual. Para fijar una versión específica, reemplace <code>latest</code> por la etiqueta de la versión, p. ej. <code>https://cdn.licenseware-collector.com/d/v1.2.3/…</code>",
           "install.title": "Guía de Instalación",
           "install.step1.title": "Obtenga su Token",
           "install.step1.1": "Vaya a",
@@ -5952,28 +6285,40 @@ Start-Service licenseware-collector</code></pre>
             "Haga clic en <strong>Crear Clave</strong>, configúrela y copie el token",
           "install.step2.title": "Descargue e Instale",
           "install.unix.root": "⚠️ Requiere privilegios de root",
-          "install.unix.step1": "Configure su token como variable de entorno",
-          "install.unix.step2": "Ejecute el script de instalación",
+          "install.linux.step1": "Descargue el paquete para su arquitectura",
+          "install.linux.step2": "Instale el paquete",
+          "install.linux.step2.note":
+            "En RHEL / Fedora / SUSE use <code>sudo dnf install ./licenseware-collector_amd64.rpm</code>. La instalación prepara el servicio pero no lo inicia &mdash; eso lo hace el siguiente paso.",
+          "install.linux.step3": "Inscriba la máquina e inicie el servicio",
+          "install.macos.root": "⚠️ Requiere privilegios de root",
+          "install.macos.step1": "Instale el paquete",
+          "install.macos.step2": "Inscriba la máquina e inicie el servicio",
+          "install.macos.note":
+            "Actualizar un Mac ya inscrito solo requiere el paso de <code>installer</code> &mdash; el paquete reinicia el servicio y no es necesario volver a registrarlo.",
           "install.win.admin": "⚠️ Requiere privilegios de Administrador",
-          "install.win.step1": "Cargue el token en una variable de entorno",
-          "install.win.optionA": "Opción A: Desde archivo (recomendado)",
-          "install.win.optionA.desc":
-            "Cree <code>token.txt</code> con su token pegado en el archivo, luego ejecute:",
-          "install.win.optionB": "Opción B: Pegar token directamente",
-          "install.win.step2": "Descargue el instalador",
-          "install.win.step3": "Ejecute el instalador",
+          "install.win.step1": "Descargue el instalador",
+          "install.win.step2": "Instale, pasando el token de inscripción",
           "install.win.note":
-            "El instalador lee el token de la variable de entorno y se registra automáticamente.",
+            "El token está marcado como propiedad segura, por lo que nunca se escribe en el registro del MSI. Ejecute el mismo comando con un <code>.msi</code> más reciente para actualizar in situ.",
+          "install.win.tokenless":
+            "Para preparar los archivos ahora e inscribir más tarde, omita <code>TOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Guía de Desinstalación",
           "uninstall.title": "Guía de Desinstalación",
           "uninstall.warning":
             "Requiere privilegios elevados (sudo en Linux/macOS, Administrador en Windows)",
-          "uninstall.linux.title": "Linux / macOS",
-          "uninstall.linux.cleanup": "Eliminar el binario del collector:",
+          "uninstall.linux.title": "Linux",
+          "uninstall.linux.deb": "Debian / Ubuntu",
+          "uninstall.linux.cleanup": "RHEL / Fedora / SUSE",
+          "uninstall.linux.note":
+            "Eliminar el paquete detiene el servicio y ejecuta el desinstalador por usted. No invoque <code>licenseware-collector uninstall</code> directamente en un host gestionado por paquetes &mdash; se negará y le remitirá al gestor de paquetes.",
+          "uninstall.macos.title": "macOS",
+          "uninstall.macos.desc":
+            "Descargue <code>uninstall.command</code> desde la sección Descargas y haga doble clic en él, o ejecútelo desde el Terminal:",
           "uninstall.win.title": "Windows (PowerShell de Administrador)",
-          "uninstall.win.cleanup": "Eliminar el binario del collector:",
+          "uninstall.win.msi": "Desinstale el paquete",
+          "uninstall.win.cleanup": "O elimínelo desde la interfaz:",
           "uninstall.note":
-            "La bandera --force detiene el servicio si aún está en ejecución antes de desinstalar.",
+            "La desinstalación detiene el servicio, lo elimina y borra de la máquina los archivos de ejecución del collector y el token de inscripción. Para conservar el estado recopilado en disco, añada <code>--preserve-state</code>; para eliminar también el osquery incluido, añada <code>--remove-osquery</code>.",
           "quick.title": "Referencia Rápida",
           "quick.intervals": "Intervalos del Agente",
           "quick.service": "Comandos del Servicio",
@@ -5998,13 +6343,15 @@ Start-Service licenseware-collector</code></pre>
           "nav.reference": "Referencia",
           "install.win.ref.title": "Referencia Completa de Comandos",
           "install.win.ref.desc":
-            "Todas las opciones también se pueden pasar como flags en lugar de variables de entorno. La sintaxis completa es:",
+            "Al inscribir manualmente (una instalación MSI sin token), el token se proporciona a través del entorno y el resto de opciones como flags:",
           "install.win.ref.flag": "Flag",
           "install.win.ref.env": "Variable de Entorno",
           "install.win.ref.required": "Requerido",
           "install.win.ref.flagdesc": "Descripción",
           "install.win.ref.token.desc":
-            "Token JWT de la plataforma Licenseware",
+            "Token de inscripción de la plataforma Licenseware. Pase <code>TOKEN=</code> a <code>msiexec</code>, o defina <code>TOKEN</code> antes de ejecutar <code>register</code> manualmente. La antigua propiedad <code>ENROLLTOKEN=</code> sigue siendo aceptada.",
+          "install.unix.ref.token.desc":
+            "Token de inscripción de la plataforma Licenseware, pasado en la línea de comandos de <code>register</code>. También se aceptan los alias <code>LICENSEWARE_ENROLL_TOKEN</code> y <code>ENROLL_TOKEN</code>.",
           "install.win.ref.cacert.desc":
             "Ruta al archivo PEM con certificados CA personalizados (para on-prem / inspección TLS)",
           "install.win.ref.envfile.desc":
@@ -6028,8 +6375,9 @@ Start-Service licenseware-collector</code></pre>
             "Después de modificar el archivo de entorno, reinicie el servicio del collector para que los cambios surtan efecto:",
           "install.unix.ref.title": "Referencia Completa de Comandos",
           "install.unix.ref.desc":
-            "Para entornos con proxy o certificado CA personalizado, configure las variables antes de ejecutar el instalador:",
-          "install.unix.ref.manual": "O si descargó el binario manualmente:",
+            "Para entornos con proxy o certificado CA personalizado, exporte las variables y páselas a <code>register</code> con <code>sudo -E</code>:",
+          "install.unix.ref.manual":
+            "O pase el certificado CA como un flag explícito:",
           "proxy.linux.path":
             "Archivo: <code>/etc/default/licenseware-collector</code>",
           "proxy.macos.path":
@@ -6108,7 +6456,11 @@ Start-Service licenseware-collector</code></pre>
           "logs.win.interactive.note":
             "La redirección <code>*&gt;&amp;1</code> combina todos los flujos de PowerShell (stdout, stderr, advertencias, verbose, debug) para que no se pierda nada de lo que escribe el collector.",
           "logs.win.install":
-            "8. Revisar el registro de instalación / registro producido por el instalador:",
+            "8. Consulte el registro propio del servicio del collector. Escribe en el Visor de eventos de Windows bajo el proveedor <code>licenseware-collector</code>; stderr no se captura para los servicios, por lo que esta es la fuente principal una vez que el servicio está en marcha:",
+          "logs.win.msilog":
+            "9. Para depurar la instalación en sí, vuelva a ejecutar el MSI con registro detallado e inspeccione el archivo resultante. El token de inscripción es una propiedad segura y nunca se escribe en este registro:",
+          "logs.win.setuplog":
+            "10. Si el instalador termina pero no aparece ningún servicio, consulte el registro del propio instalador. Recoge lo que imprimieron el asistente de instalación y <code>register</code>, incluido el motivo del fallo de inscripción, y sobrevive a la reversión que elimina todo lo demás. El token de inscripción nunca se escribe en él:",
           "logs.debug.title": "Consejo de Depuración",
           "logs.debug.desc":
             "Establezca <code>LOG_LEVEL=debug</code> en el archivo de entorno y reinicie el servicio para obtener la salida más detallada. Recuerde volver a establecerlo en <code>error</code> cuando termine.",
