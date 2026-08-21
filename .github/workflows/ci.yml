@@ -35,6 +35,30 @@ jobs:
             echo "No changes to commit"
           fi
 
+  security:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Setup bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: latest
+      - name: Install bun deps
+        run: bun install
+      - name: bun audit (JS deps)
+        run: bun audit --audit-level=critical
+      - name: bun pm licenses (runtime deps)
+        run: |
+          {
+            echo '## Runtime dependency licenses'
+            echo '```'
+            bun pm licenses --prod
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
   preview:
     if: github.event_name == 'pull_request'
     permissions:
