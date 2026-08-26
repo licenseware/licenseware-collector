@@ -1079,6 +1079,9 @@
             <li>
               <a href="#installation" data-i18n="nav.install">Installation</a>
             </li>
+            <li>
+              <a href="#mdm-title" data-i18n="nav.mdm">MDM Deployment</a>
+            </li>
             <li><a href="#proxy" data-i18n="nav.proxy">Proxy</a></li>
             <li><a href="#custom-ca" data-i18n="nav.customca">Custom CA</a></li>
             <li>
@@ -2828,6 +2831,143 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                 >.</span
               >
             </aside>
+
+            <h3 id="mdm-title" data-i18n="mdm.title" style="margin-top: 2rem">
+              Unattended / MDM deployment (Intune, SCCM)
+            </h3>
+
+            <p data-i18n="mdm.intro">
+              The install runs as SYSTEM and is fully unattended:
+              <code
+                >msiexec /i LicensewareCollector.msi TOKEN=&lt;enrollment-token&gt;
+                /qn /norestart</code
+              >. Enrolment happens synchronously inside the installer — nothing
+              is deferred to a background task.
+            </p>
+
+            <h4 data-i18n="mdm.codes.title" style="margin-top: 1.5rem">
+              Exit codes
+            </h4>
+
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="mdm.codes.col_code">Code</th>
+                    <th data-i18n="mdm.codes.col_meaning">Meaning</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>0</code></td>
+                    <td data-i18n="mdm.codes.row0">
+                      Installer succeeded — see the caveat below
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>3010</code></td>
+                    <td data-i18n="mdm.codes.row3010">
+                      Success, reboot pending (files in use; the package itself
+                      schedules no reboot)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>1603</code></td>
+                    <td data-i18n="mdm.codes.row1603">
+                      Install action failed, or a downgrade was blocked. The
+                      reason is in
+                      <code>%ProgramData%\Licenseware\setup.log</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>1618</code></td>
+                    <td data-i18n="mdm.codes.row1618">
+                      Another installation is already in progress
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>1619</code> / <code>1620</code></td>
+                    <td data-i18n="mdm.codes.row1619">
+                      Package path unreachable, or not a valid installer package
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p data-i18n="mdm.codes.note">
+              These are standard Windows Installer codes. There are no
+              vendor-specific values.
+            </p>
+
+            <aside
+              class="highlight-box warning"
+              style="margin-top: 1rem"
+              role="note"
+            >
+              <strong style="color: var(--warning)" data-i18n="mdm.zero.title"
+                >⚠️ Exit code 0 is not proof of enrolment</strong
+              ><br />
+              <span data-i18n="mdm.zero.desc"
+                >The installer reports success once the files are in place, so a
+                backend failure during enrolment does not fail the install —
+                that is deliberate, because failing it would roll back the files
+                while leaving the Windows service behind. Key your detection
+                rule on installed state, not on the exit code.</span
+              >
+            </aside>
+
+            <h4 data-i18n="mdm.detect.title" style="margin-top: 1.5rem">
+              Detection rule
+            </h4>
+
+            <p data-i18n="mdm.detect.desc">
+              Use a PowerShell detection script. Do not use a file-version rule:
+              agents released before the 2026-08 build carry no version resource
+              at all, so the comparison can never match. A product-code rule
+              reports success even when enrolment did not complete.
+            </p>
+
+            <div class="code-block">
+              <pre><code style="font-size: 0.85rem"
+>$svc = Get-Service licenseware-collector -ErrorAction SilentlyContinue
+$env = "$env:ProgramData\Licenseware\collector.env"
+if ($svc -and (Test-Path $env) -and (Select-String -Path $env -Pattern '^TOKEN=..*' -Quiet)) {
+    Write-Output "Installed"
+    exit 0
+}
+exit 1</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <p data-i18n="mdm.detect.why">
+              The <code>TOKEN=</code> line is written only by a completed
+              enrolment, and the Windows service is created only by
+              <code>register</code>. Together they mean the agent is genuinely
+              reporting in.
+            </p>
+
 
             <!-- Full Command Reference -->
             <div
@@ -6046,6 +6186,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.start": "Getting Started",
           "nav.downloads": "Downloads",
           "nav.install": "Installation Guide",
+          "nav.mdm": "MDM Deployment",
           "nav.commands": "Commands",
           "overview.title": "What is LICENSEWARE Collector?",
           "overview.desc":
@@ -6164,6 +6305,30 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.step2": "Install, passing the enrollment token",
           "install.win.note":
             "The token is marked as a secure property, so it is never written to the MSI log. Run the same command with a newer <code>.msi</code> to upgrade in place.",
+          "mdm.title": "Unattended / MDM deployment (Intune, SCCM)",
+          "mdm.intro":
+            "The install runs as SYSTEM and is fully unattended: <code>msiexec /i LicensewareCollector.msi TOKEN=&lt;enrollment-token&gt; /qn /norestart</code>. Enrolment happens synchronously inside the installer — nothing is deferred to a background task.",
+          "mdm.codes.title": "Exit codes",
+          "mdm.codes.col_code": "Code",
+          "mdm.codes.col_meaning": "Meaning",
+          "mdm.codes.row0": "Installer succeeded — see the caveat below",
+          "mdm.codes.row3010":
+            "Success, reboot pending (files in use; the package itself schedules no reboot)",
+          "mdm.codes.row1603":
+            "Install action failed, or a downgrade was blocked. The reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>",
+          "mdm.codes.row1618": "Another installation is already in progress",
+          "mdm.codes.row1619":
+            "Package path unreachable, or not a valid installer package",
+          "mdm.codes.note":
+            "These are standard Windows Installer codes. There are no vendor-specific values.",
+          "mdm.zero.title": "⚠️ Exit code 0 is not proof of enrolment",
+          "mdm.zero.desc":
+            "The installer reports success once the files are in place, so a backend failure during enrolment does not fail the install — that is deliberate, because failing it would roll back the files while leaving the Windows service behind. Key your detection rule on installed state, not on the exit code.",
+          "mdm.detect.title": "Detection rule",
+          "mdm.detect.desc":
+            "Use a PowerShell detection script. Do not use a file-version rule: agents released before the 2026-08 build carry no version resource at all, so the comparison can never match. A product-code rule reports success even when enrolment did not complete.",
+          "mdm.detect.why":
+            "The <code>TOKEN=</code> line is written only by a completed enrolment, and the Windows service is created only by <code>register</code>. Together they mean the agent is genuinely reporting in.",
           "install.win.tokenless":
             "To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Uninstall Guide",
@@ -6344,6 +6509,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.start": "Empezando",
           "nav.downloads": "Descargas",
           "nav.install": "Guía de instalación",
+          "nav.mdm": "Despliegue MDM",
           "nav.commands": "Comandos",
           "overview.title": "¿Qué es LICENSEWARE Collector?",
           "overview.desc":
@@ -6463,6 +6629,31 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.step2": "Instale, pasando el token de inscripción",
           "install.win.note":
             "El token está marcado como propiedad segura, por lo que nunca se escribe en el registro del MSI. Ejecute el mismo comando con un <code>.msi</code> más reciente para actualizar in situ.",
+          "mdm.title": "Despliegue desatendido / MDM (Intune, SCCM)",
+          "mdm.intro":
+            "La instalación se ejecuta como SYSTEM y es totalmente desatendida: <code>msiexec /i LicensewareCollector.msi TOKEN=&lt;token-de-inscripción&gt; /qn /norestart</code>. La inscripción ocurre de forma síncrona dentro del instalador — nada se difiere a una tarea en segundo plano.",
+          "mdm.codes.title": "Códigos de salida",
+          "mdm.codes.col_code": "Código",
+          "mdm.codes.col_meaning": "Significado",
+          "mdm.codes.row0":
+            "El instalador terminó correctamente — vea la advertencia siguiente",
+          "mdm.codes.row3010":
+            "Correcto, reinicio pendiente (archivos en uso; el paquete no programa ningún reinicio)",
+          "mdm.codes.row1603":
+            "Falló la acción de instalación, o se bloqueó una versión anterior. El motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>",
+          "mdm.codes.row1618": "Ya hay otra instalación en curso",
+          "mdm.codes.row1619":
+            "Ruta del paquete inaccesible, o no es un paquete de instalación válido",
+          "mdm.codes.note":
+            "Son códigos estándar de Windows Installer. No hay valores específicos del proveedor.",
+          "mdm.zero.title": "⚠️ El código de salida 0 no prueba la inscripción",
+          "mdm.zero.desc":
+            "El instalador informa éxito una vez que los archivos están en su sitio, por lo que un fallo del backend durante la inscripción no hace fallar la instalación — es deliberado, porque hacerla fallar revertiría los archivos dejando atrás el servicio de Windows. Base su regla de detección en el estado instalado, no en el código de salida.",
+          "mdm.detect.title": "Regla de detección",
+          "mdm.detect.desc":
+            "Use un script de detección de PowerShell. No use una regla por versión de archivo: los agentes anteriores a la compilación de 2026-08 no llevan ningún recurso de versión, por lo que la comparación nunca puede coincidir. Una regla por código de producto informa éxito incluso cuando la inscripción no se completó.",
+          "mdm.detect.why":
+            "La línea <code>TOKEN=</code> solo la escribe una inscripción completada, y el servicio de Windows solo lo crea <code>register</code>. Juntos significan que el agente está realmente reportando.",
           "install.win.tokenless":
             "Para preparar los archivos ahora e inscribir más tarde, omita <code>TOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Guía de Desinstalación",
