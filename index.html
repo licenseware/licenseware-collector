@@ -1298,7 +1298,33 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.api_desc"
-                    >Primary API for data ingestion and configuration</small
+                    >Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.</small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>pushlogs.licenseware.io</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.logs_desc"
+                    >Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.</small
                   >
                 </div>
               </li>
@@ -1324,7 +1350,59 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.cdn_desc"
-                    >Fetches static assets and updates</small
+                    >Installer downloads only</small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>api.github.com</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.ghapi_desc"
+                    >Auto-update: the agent checks for a new release every 24 hours. Required continuously, not just at install time.</small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>release-assets.githubusercontent.com</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.ghassets_desc"
+                    >Auto-update asset download — GitHub redirects here from the API. Also allow the legacy host <code>objects.githubusercontent.com</code>.</small
                   >
                 </div>
               </li>
@@ -1350,7 +1428,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.git_desc"
-                    >Downloads dependencies (installation only)</small
+                    >osquery fallback download. Not used by an MSI or package install, which bundle osquery already.</small
                   >
                 </div>
               </li>
@@ -5923,9 +6001,16 @@ Get-Content install.log -Tail 200</code></pre>
             "Windows 7 SP1 and Windows Server 2012 R2 are supported but have reached Microsoft end-of-life. We recommend upgrading to supported operating systems.",
           "network.title": "Network Requirements",
           "network.api_desc":
-            "Primary API for data ingestion and configuration",
-          "network.cdn_desc": "Fetches static assets and updates",
-          "network.git_desc": "Downloads dependencies (installation only)",
+            "Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.",
+          "network.logs_desc":
+            "Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.",
+          "network.cdn_desc": "Installer downloads only",
+          "network.ghapi_desc":
+            "Auto-update: the agent checks for a new release every 24 hours. Required continuously, not just at install time.",
+          "network.ghassets_desc":
+            "Auto-update asset download — GitHub redirects here from the API. Also allow the legacy host <code>objects.githubusercontent.com</code>.",
+          "network.git_desc":
+            "osquery fallback download. Not used by an MSI or package install, which bundle osquery already.",
           "network.firewall.title": "⚠️ Firewall Configuration",
           "network.firewall.desc":
             "Ensure outbound HTTPS (port 443) is allowed to the domains listed above. No inbound ports required.",
@@ -6210,9 +6295,16 @@ Get-Content install.log -Tail 200</code></pre>
             "Windows 7 SP1 y Windows Server 2012 R2 son compatibles pero han llegado al final de su vida útil de Microsoft. Recomendamos actualizar a sistemas operativos compatibles.",
           "network.title": "Requisitos de Red",
           "network.api_desc":
-            "API principal para la ingestión de datos y configuración",
-          "network.cdn_desc": "Obtiene recursos estáticos y actualizaciones",
-          "network.git_desc": "Descarga de dependencias (solo instalación)",
+            "API principal para ingesta de datos, inscripción y configuración. Los tenants regionales usan <code>api.us.licenseware.io</code> o <code>api.au.licenseware.io</code> — el agente sigue el emisor de su token de inscripción.",
+          "network.logs_desc":
+            "Envío de logs del agente, activado por defecto (<code>LOG_SHIP_ENABLED</code>). Los tenants regionales usan <code>pushlogs.us.licenseware.io</code> o <code>pushlogs.au.licenseware.io</code>.",
+          "network.cdn_desc": "Solo descargas del instalador",
+          "network.ghapi_desc":
+            "Actualización automática: el agente comprueba si hay una nueva versión cada 24 horas. Necesario de forma continua, no solo durante la instalación.",
+          "network.ghassets_desc":
+            "Descarga del artefacto de actualización — GitHub redirige aquí desde la API. Permita también el host antiguo <code>objects.githubusercontent.com</code>.",
+          "network.git_desc":
+            "Descarga alternativa de osquery. No se usa en una instalación por MSI o paquete, que ya incluyen osquery.",
           "network.firewall.title": "⚠️ Configuración del Firewall",
           "network.firewall.desc":
             "Asegúrese de que se permita HTTPS saliente (puerto 443) a los dominios enumerados anteriormente. No se requieren puertos de entrada.",
