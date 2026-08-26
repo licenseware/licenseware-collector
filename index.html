@@ -4646,9 +4646,58 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                       font-weight: 700;
                       margin-bottom: 0.25rem;
                     "
-                    data-i18n="paths.binary"
+                    data-i18n="paths.win.seed"
                   >
-                    Binary
+                    Seed binary (installer-owned)
+                  </div>
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
+                    >%ProgramFiles%\Licenseware\LicensewareCollector.exe</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="path-container" style="margin-top: 1rem">
+                  <div
+                    style="
+                      color: var(--text-secondary);
+                      font-weight: 700;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="paths.win.runtime"
+                  >
+                    Runtime binary (service + self-update)
                   </div>
                   <code
                     style="
@@ -4736,6 +4785,19 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                     </svg>
                   </button>
                 </div>
+                <aside
+                  class="highlight-box warning"
+                  style="margin-top: 1rem"
+                  role="note"
+                >
+                  <span data-i18n="paths.win.note"
+                    >The seed binary is written by the installer and is always
+                    present. The runtime binary is created by
+                    <code>register</code> and therefore appears only after a
+                    successful enrolment — it is the path the Windows service
+                    runs and the path self-update replaces.</span
+                  >
+                </aside>
               </div>
             </div>
 
@@ -6065,6 +6127,10 @@ Get-Content install.log -Tail 200</code></pre>
           "catalogs.row.proc": "Running Processes & Active Users",
           "paths.title": "Installation Paths",
           "paths.binary": "Binary",
+          "paths.win.seed": "Seed binary (installer-owned)",
+          "paths.win.runtime": "Runtime binary (service + self-update)",
+          "paths.win.note":
+            "The seed binary is written by the installer and is always present. The runtime binary is created by <code>register</code> and therefore appears only after a successful enrolment — it is the path the Windows service runs and the path self-update replaces.",
           "downloads.title": "Direct Downloads",
           "downloads.desc":
             "Download the installer package for your operating system and architecture. Packages never contain an enrollment token &mdash; you supply it at install time.",
@@ -6359,6 +6425,11 @@ Get-Content install.log -Tail 200</code></pre>
           "catalogs.row.proc": "Procesos en Ejecución y Usuarios Activos",
           "paths.title": "Rutas de Instalación",
           "paths.binary": "Binario",
+          "paths.win.seed": "Binario base (propiedad del instalador)",
+          "paths.win.runtime":
+            "Binario en ejecución (servicio + autoactualización)",
+          "paths.win.note":
+            "El binario base lo escribe el instalador y siempre está presente. El binario en ejecución lo crea <code>register</code>, por lo que solo aparece tras una inscripción correcta — es la ruta que ejecuta el servicio de Windows y la que reemplaza la autoactualización.",
           "downloads.title": "Descargas Directas",
           "downloads.desc":
             "Descargue el paquete de instalación para su sistema operativo y arquitectura. Los paquetes nunca contienen un token de inscripción &mdash; usted lo proporciona en el momento de la instalación.",
