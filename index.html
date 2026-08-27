@@ -1079,6 +1079,9 @@
             <li>
               <a href="#installation" data-i18n="nav.install">Installation</a>
             </li>
+            <li>
+              <a href="#mdm-title" data-i18n="nav.mdm">MDM Deployment</a>
+            </li>
             <li><a href="#proxy" data-i18n="nav.proxy">Proxy</a></li>
             <li><a href="#custom-ca" data-i18n="nav.customca">Custom CA</a></li>
             <li>
@@ -1298,7 +1301,33 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.api_desc"
-                    >Primary API for data ingestion and configuration</small
+                    >Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.</small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>pushlogs.licenseware.io</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.logs_desc"
+                    >Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.</small
                   >
                 </div>
               </li>
@@ -1324,7 +1353,59 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.cdn_desc"
-                    >Fetches static assets and updates</small
+                    >Installer downloads only</small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>api.github.com</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.ghapi_desc"
+                    >Auto-update: the agent checks for a new release every 24 hours. Required continuously, not just at install time.</small
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <strong>release-assets.githubusercontent.com</strong
+                  ><span class="port-badge">HTTPS 443</span><br />
+                  <small
+                    style="color: var(--text-secondary)"
+                    data-i18n="network.ghassets_desc"
+                    >Auto-update asset download — GitHub redirects here from the API. Also allow the legacy host <code>objects.githubusercontent.com</code>.</small
                   >
                 </div>
               </li>
@@ -1350,7 +1431,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.git_desc"
-                    >Downloads dependencies (installation only)</small
+                    >osquery fallback download. Not used by an MSI or package install, which bundle osquery already.</small
                   >
                 </div>
               </li>
@@ -1592,6 +1673,19 @@
                   >Download .msi</span
                 >
               </a>
+              <small
+                style="
+                  display: block;
+                  margin-top: 0.75rem;
+                  color: var(--text-secondary);
+                  font-size: 0.75rem;
+                "
+                data-i18n="downloads.win.exe_note"
+                >The standalone <code>.exe</code> is deprecated and no longer
+                published here. Use the <code>.msi</code>: it bundles osquery,
+                installs the Windows service, and upgrades in place. Existing
+                <code>.exe</code> installs keep updating themselves.</small
+              >
               <p
                 style="
                   margin-top: auto;
@@ -2750,6 +2844,143 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                 >.</span
               >
             </aside>
+
+            <h3 id="mdm-title" data-i18n="mdm.title" style="margin-top: 2rem">
+              Unattended / MDM deployment (Intune, SCCM)
+            </h3>
+
+            <p data-i18n="mdm.intro">
+              The install runs as SYSTEM and is fully unattended:
+              <code
+                >msiexec /i LicensewareCollector.msi TOKEN=&lt;enrollment-token&gt;
+                /qn /norestart</code
+              >. Enrolment happens synchronously inside the installer — nothing
+              is deferred to a background task.
+            </p>
+
+            <h4 data-i18n="mdm.codes.title" style="margin-top: 1.5rem">
+              Exit codes
+            </h4>
+
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="mdm.codes.col_code">Code</th>
+                    <th data-i18n="mdm.codes.col_meaning">Meaning</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>0</code></td>
+                    <td data-i18n="mdm.codes.row0">
+                      Installer succeeded — see the caveat below
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>3010</code></td>
+                    <td data-i18n="mdm.codes.row3010">
+                      Success, reboot pending (files in use; the package itself
+                      schedules no reboot)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>1603</code></td>
+                    <td data-i18n="mdm.codes.row1603">
+                      Install action failed, or a downgrade was blocked. The
+                      reason is in
+                      <code>%ProgramData%\Licenseware\setup.log</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>1618</code></td>
+                    <td data-i18n="mdm.codes.row1618">
+                      Another installation is already in progress
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>1619</code> / <code>1620</code></td>
+                    <td data-i18n="mdm.codes.row1619">
+                      Package path unreachable, or not a valid installer package
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p data-i18n="mdm.codes.note">
+              These are standard Windows Installer codes. There are no
+              vendor-specific values.
+            </p>
+
+            <aside
+              class="highlight-box warning"
+              style="margin-top: 1rem"
+              role="note"
+            >
+              <strong style="color: var(--warning)" data-i18n="mdm.zero.title"
+                >⚠️ Exit code 0 is not proof of enrolment</strong
+              ><br />
+              <span data-i18n="mdm.zero.desc"
+                >The installer reports success once the files are in place, so a
+                backend failure during enrolment does not fail the install —
+                that is deliberate, because failing it would roll back the files
+                while leaving the Windows service behind. Key your detection
+                rule on installed state, not on the exit code.</span
+              >
+            </aside>
+
+            <h4 data-i18n="mdm.detect.title" style="margin-top: 1.5rem">
+              Detection rule
+            </h4>
+
+            <p data-i18n="mdm.detect.desc">
+              Use a PowerShell detection script. Do not use a file-version rule:
+              agents released before the 2026-08 build carry no version resource
+              at all, so the comparison can never match. A product-code rule
+              reports success even when enrolment did not complete.
+            </p>
+
+            <div class="code-block">
+              <pre><code style="font-size: 0.85rem"
+>$svc = Get-Service licenseware-collector -ErrorAction SilentlyContinue
+$env = "$env:ProgramData\Licenseware\collector.env"
+if ($svc -and (Test-Path $env) -and (Select-String -Path $env -Pattern '^TOKEN=..*' -Quiet)) {
+    Write-Output "Installed"
+    exit 0
+}
+exit 1</code></pre>
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard(this)"
+                aria-label="Copy command"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <p data-i18n="mdm.detect.why">
+              The <code>TOKEN=</code> line is written only by a completed
+              enrolment, and the Windows service is created only by
+              <code>register</code>. Together they mean the agent is genuinely
+              reporting in.
+            </p>
+
 
             <!-- Full Command Reference -->
             <div
@@ -4568,9 +4799,58 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                       font-weight: 700;
                       margin-bottom: 0.25rem;
                     "
-                    data-i18n="paths.binary"
+                    data-i18n="paths.win.seed"
                   >
-                    Binary
+                    Seed binary (installer-owned)
+                  </div>
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
+                    >%ProgramFiles%\Licenseware\LicensewareCollector.exe</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="path-container" style="margin-top: 1rem">
+                  <div
+                    style="
+                      color: var(--text-secondary);
+                      font-weight: 700;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="paths.win.runtime"
+                  >
+                    Runtime binary (service + self-update)
                   </div>
                   <code
                     style="
@@ -4658,6 +4938,19 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                     </svg>
                   </button>
                 </div>
+                <aside
+                  class="highlight-box warning"
+                  style="margin-top: 1rem"
+                  role="note"
+                >
+                  <span data-i18n="paths.win.note"
+                    >The seed binary is written by the installer and is always
+                    present. The runtime binary is created by
+                    <code>register</code> and therefore appears only after a
+                    successful enrolment — it is the path the Windows service
+                    runs and the path self-update replaces.</span
+                  >
+                </aside>
               </div>
             </div>
 
@@ -5906,6 +6199,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.start": "Getting Started",
           "nav.downloads": "Downloads",
           "nav.install": "Installation Guide",
+          "nav.mdm": "MDM Deployment",
           "nav.commands": "Commands",
           "overview.title": "What is LICENSEWARE Collector?",
           "overview.desc":
@@ -5923,9 +6217,16 @@ Get-Content install.log -Tail 200</code></pre>
             "Windows 7 SP1 and Windows Server 2012 R2 are supported but have reached Microsoft end-of-life. We recommend upgrading to supported operating systems.",
           "network.title": "Network Requirements",
           "network.api_desc":
-            "Primary API for data ingestion and configuration",
-          "network.cdn_desc": "Fetches static assets and updates",
-          "network.git_desc": "Downloads dependencies (installation only)",
+            "Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.",
+          "network.logs_desc":
+            "Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.",
+          "network.cdn_desc": "Installer downloads only",
+          "network.ghapi_desc":
+            "Auto-update: the agent checks for a new release every 24 hours. Required continuously, not just at install time.",
+          "network.ghassets_desc":
+            "Auto-update asset download — GitHub redirects here from the API. Also allow the legacy host <code>objects.githubusercontent.com</code>.",
+          "network.git_desc":
+            "osquery fallback download. Not used by an MSI or package install, which bundle osquery already.",
           "network.firewall.title": "⚠️ Firewall Configuration",
           "network.firewall.desc":
             "Ensure outbound HTTPS (port 443) is allowed to the domains listed above. No inbound ports required.",
@@ -5980,10 +6281,16 @@ Get-Content install.log -Tail 200</code></pre>
           "catalogs.row.proc": "Running Processes & Active Users",
           "paths.title": "Installation Paths",
           "paths.binary": "Binary",
+          "paths.win.seed": "Seed binary (installer-owned)",
+          "paths.win.runtime": "Runtime binary (service + self-update)",
+          "paths.win.note":
+            "The seed binary is written by the installer and is always present. The runtime binary is created by <code>register</code> and therefore appears only after a successful enrolment — it is the path the Windows service runs and the path self-update replaces.",
           "downloads.title": "Direct Downloads",
           "downloads.desc":
             "Download the installer package for your operating system and architecture. Packages never contain an enrollment token &mdash; you supply it at install time.",
           "downloads.msi": "Download .msi",
+          "downloads.win.exe_note":
+            "The standalone <code>.exe</code> is deprecated and no longer published here. Use the <code>.msi</code>: it bundles osquery, installs the Windows service, and upgrades in place. Existing <code>.exe</code> installs keep updating themselves.",
           "downloads.pkg": "Download .pkg",
           "downloads.uninstallcmd": "uninstall.command",
           "downloads.pinned":
@@ -6013,6 +6320,30 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.step2": "Install, passing the enrollment token",
           "install.win.note":
             "The token is marked as a secure property, so it is never written to the MSI log. Run the same command with a newer <code>.msi</code> to upgrade in place.",
+          "mdm.title": "Unattended / MDM deployment (Intune, SCCM)",
+          "mdm.intro":
+            "The install runs as SYSTEM and is fully unattended: <code>msiexec /i LicensewareCollector.msi TOKEN=&lt;enrollment-token&gt; /qn /norestart</code>. Enrolment happens synchronously inside the installer — nothing is deferred to a background task.",
+          "mdm.codes.title": "Exit codes",
+          "mdm.codes.col_code": "Code",
+          "mdm.codes.col_meaning": "Meaning",
+          "mdm.codes.row0": "Installer succeeded — see the caveat below",
+          "mdm.codes.row3010":
+            "Success, reboot pending (files in use; the package itself schedules no reboot)",
+          "mdm.codes.row1603":
+            "Install action failed, or a downgrade was blocked. The reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>",
+          "mdm.codes.row1618": "Another installation is already in progress",
+          "mdm.codes.row1619":
+            "Package path unreachable, or not a valid installer package",
+          "mdm.codes.note":
+            "These are standard Windows Installer codes. There are no vendor-specific values.",
+          "mdm.zero.title": "⚠️ Exit code 0 is not proof of enrolment",
+          "mdm.zero.desc":
+            "The installer reports success once the files are in place, so a backend failure during enrolment does not fail the install — that is deliberate, because failing it would roll back the files while leaving the Windows service behind. Key your detection rule on installed state, not on the exit code.",
+          "mdm.detect.title": "Detection rule",
+          "mdm.detect.desc":
+            "Use a PowerShell detection script. Do not use a file-version rule: agents released before the 2026-08 build carry no version resource at all, so the comparison can never match. A product-code rule reports success even when enrolment did not complete.",
+          "mdm.detect.why":
+            "The <code>TOKEN=</code> line is written only by a completed enrolment, and the Windows service is created only by <code>register</code>. Together they mean the agent is genuinely reporting in.",
           "install.win.tokenless":
             "To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Uninstall Guide",
@@ -6193,6 +6524,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.start": "Empezando",
           "nav.downloads": "Descargas",
           "nav.install": "Guía de instalación",
+          "nav.mdm": "Despliegue MDM",
           "nav.commands": "Comandos",
           "overview.title": "¿Qué es LICENSEWARE Collector?",
           "overview.desc":
@@ -6210,9 +6542,16 @@ Get-Content install.log -Tail 200</code></pre>
             "Windows 7 SP1 y Windows Server 2012 R2 son compatibles pero han llegado al final de su vida útil de Microsoft. Recomendamos actualizar a sistemas operativos compatibles.",
           "network.title": "Requisitos de Red",
           "network.api_desc":
-            "API principal para la ingestión de datos y configuración",
-          "network.cdn_desc": "Obtiene recursos estáticos y actualizaciones",
-          "network.git_desc": "Descarga de dependencias (solo instalación)",
+            "API principal para ingesta de datos, inscripción y configuración. Los tenants regionales usan <code>api.us.licenseware.io</code> o <code>api.au.licenseware.io</code> — el agente sigue el emisor de su token de inscripción.",
+          "network.logs_desc":
+            "Envío de logs del agente, activado por defecto (<code>LOG_SHIP_ENABLED</code>). Los tenants regionales usan <code>pushlogs.us.licenseware.io</code> o <code>pushlogs.au.licenseware.io</code>.",
+          "network.cdn_desc": "Solo descargas del instalador",
+          "network.ghapi_desc":
+            "Actualización automática: el agente comprueba si hay una nueva versión cada 24 horas. Necesario de forma continua, no solo durante la instalación.",
+          "network.ghassets_desc":
+            "Descarga del artefacto de actualización — GitHub redirige aquí desde la API. Permita también el host antiguo <code>objects.githubusercontent.com</code>.",
+          "network.git_desc":
+            "Descarga alternativa de osquery. No se usa en una instalación por MSI o paquete, que ya incluyen osquery.",
           "network.firewall.title": "⚠️ Configuración del Firewall",
           "network.firewall.desc":
             "Asegúrese de que se permita HTTPS saliente (puerto 443) a los dominios enumerados anteriormente. No se requieren puertos de entrada.",
@@ -6267,10 +6606,17 @@ Get-Content install.log -Tail 200</code></pre>
           "catalogs.row.proc": "Procesos en Ejecución y Usuarios Activos",
           "paths.title": "Rutas de Instalación",
           "paths.binary": "Binario",
+          "paths.win.seed": "Binario base (propiedad del instalador)",
+          "paths.win.runtime":
+            "Binario en ejecución (servicio + autoactualización)",
+          "paths.win.note":
+            "El binario base lo escribe el instalador y siempre está presente. El binario en ejecución lo crea <code>register</code>, por lo que solo aparece tras una inscripción correcta — es la ruta que ejecuta el servicio de Windows y la que reemplaza la autoactualización.",
           "downloads.title": "Descargas Directas",
           "downloads.desc":
             "Descargue el paquete de instalación para su sistema operativo y arquitectura. Los paquetes nunca contienen un token de inscripción &mdash; usted lo proporciona en el momento de la instalación.",
           "downloads.msi": "Descargar .msi",
+          "downloads.win.exe_note":
+            "El <code>.exe</code> independiente está obsoleto y ya no se publica aquí. Use el <code>.msi</code>: incluye osquery, instala el servicio de Windows y se actualiza in situ. Las instalaciones existentes con <code>.exe</code> siguen actualizándose solas.",
           "downloads.pkg": "Descargar .pkg",
           "downloads.uninstallcmd": "uninstall.command",
           "downloads.pinned":
@@ -6300,6 +6646,31 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.step2": "Instale, pasando el token de inscripción",
           "install.win.note":
             "El token está marcado como propiedad segura, por lo que nunca se escribe en el registro del MSI. Ejecute el mismo comando con un <code>.msi</code> más reciente para actualizar in situ.",
+          "mdm.title": "Despliegue desatendido / MDM (Intune, SCCM)",
+          "mdm.intro":
+            "La instalación se ejecuta como SYSTEM y es totalmente desatendida: <code>msiexec /i LicensewareCollector.msi TOKEN=&lt;token-de-inscripción&gt; /qn /norestart</code>. La inscripción ocurre de forma síncrona dentro del instalador — nada se difiere a una tarea en segundo plano.",
+          "mdm.codes.title": "Códigos de salida",
+          "mdm.codes.col_code": "Código",
+          "mdm.codes.col_meaning": "Significado",
+          "mdm.codes.row0":
+            "El instalador terminó correctamente — vea la advertencia siguiente",
+          "mdm.codes.row3010":
+            "Correcto, reinicio pendiente (archivos en uso; el paquete no programa ningún reinicio)",
+          "mdm.codes.row1603":
+            "Falló la acción de instalación, o se bloqueó una versión anterior. El motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>",
+          "mdm.codes.row1618": "Ya hay otra instalación en curso",
+          "mdm.codes.row1619":
+            "Ruta del paquete inaccesible, o no es un paquete de instalación válido",
+          "mdm.codes.note":
+            "Son códigos estándar de Windows Installer. No hay valores específicos del proveedor.",
+          "mdm.zero.title": "⚠️ El código de salida 0 no prueba la inscripción",
+          "mdm.zero.desc":
+            "El instalador informa éxito una vez que los archivos están en su sitio, por lo que un fallo del backend durante la inscripción no hace fallar la instalación — es deliberado, porque hacerla fallar revertiría los archivos dejando atrás el servicio de Windows. Base su regla de detección en el estado instalado, no en el código de salida.",
+          "mdm.detect.title": "Regla de detección",
+          "mdm.detect.desc":
+            "Use un script de detección de PowerShell. No use una regla por versión de archivo: los agentes anteriores a la compilación de 2026-08 no llevan ningún recurso de versión, por lo que la comparación nunca puede coincidir. Una regla por código de producto informa éxito incluso cuando la inscripción no se completó.",
+          "mdm.detect.why":
+            "La línea <code>TOKEN=</code> solo la escribe una inscripción completada, y el servicio de Windows solo lo crea <code>register</code>. Juntos significan que el agente está realmente reportando.",
           "install.win.tokenless":
             "Para preparar los archivos ahora e inscribir más tarde, omita <code>TOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Guía de Desinstalación",
