@@ -666,6 +666,54 @@
         );
       }
 
+      /* Licence agreement: long legal text, collapsed by default so it does
+         not dominate the page. Opened automatically when a link points at it,
+         otherwise a reader following "read the agreement" lands on nothing. */
+      .licence-details {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg-highlight);
+        margin-top: 1rem;
+      }
+
+      .licence-details > summary {
+        cursor: pointer;
+        padding: 0.85rem 1.25rem;
+        font-weight: 600;
+        list-style: revert;
+      }
+
+      .licence-details[open] > summary {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .licence-body {
+        padding: 0.5rem 1.25rem 1.25rem;
+        max-height: 32rem;
+        overflow-y: auto;
+      }
+
+      .licence-body h3 {
+        margin-top: 1.75rem;
+        font-size: 1.05rem;
+      }
+
+      .licence-body h4 {
+        margin-top: 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .licence-body p {
+        margin: 0.75rem 0;
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+
+      .licence-body td,
+      .licence-body th {
+        font-size: 0.85rem;
+      }
+
       .highlight-box.warning {
         background: linear-gradient(
           135deg,
@@ -1111,6 +1159,11 @@
             </li>
             <li><a href="#commands" data-i18n="nav.commands">Commands</a></li>
             <li><a href="#logs" data-i18n="nav.logs">Logs</a></li>
+            <li>
+              <a href="#licence-agreement" data-i18n="nav.licence"
+                >Licence Agreement</a
+              >
+            </li>
           </ul>
         </nav>
       </aside>
@@ -1596,6 +1649,19 @@
             supply it at install time.
           </p>
 
+          <aside class="highlight-box" style="margin-bottom: 1.5rem" role="note">
+            <strong data-i18n="downloads.licence.title">Licence agreement</strong
+            ><br />
+            <span data-i18n="downloads.licence.body"
+              >The LICENSEWARE Collector is licensed under the
+              <a href="#licence-agreement">Licenseware Collector Licence
+              Agreement</a>. A copy is included in every installation package. By
+              downloading, installing or using the Collector, or by generating an
+              enrolment token, you accept its terms. If you do not agree, do not
+              download or use the Collector.</span
+            >
+          </aside>
+
           <div class="os-grid">
             <!-- Windows -->
             <div
@@ -2008,6 +2074,19 @@
               >
             </div>
           </div>
+
+          <p
+            style="
+              color: var(--text-secondary);
+              font-size: 0.85rem;
+              margin-top: 1.25rem;
+              margin-bottom: 0;
+            "
+            data-i18n="downloads.licence.short"
+          >
+            By downloading you accept the
+            <a href="#licence-agreement">Collector Licence Agreement</a>.
+          </p>
 
           <p
             style="
@@ -2856,6 +2935,13 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                 /qn /norestart</code
               >. Enrolment happens synchronously inside the installer — nothing
               is deferred to a background task.
+            </p>
+
+            <p data-i18n="mdm.licence">
+              Deployment of the Collector through automated tools such as Intune
+              or SCCM constitutes acceptance of the
+              <a href="#licence-agreement">Collector Licence Agreement</a> by the
+              deploying organisation.
             </p>
 
             <h4 data-i18n="mdm.codes.title" style="margin-top: 1.5rem">
@@ -4351,6 +4437,16 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
               Data Collection Catalogs
             </h2>
           </div>
+
+          <p data-i18n="catalogs.dpa">
+            Data transmitted by the Collector is processed under the
+            <a
+              href="https://licenseware.io/legal/#data-protection-agreement"
+              target="_blank"
+              rel="noopener"
+              >Licenseware Data Processing Addendum</a
+            >.
+          </p>
 
           <!-- Daily Catalog -->
           <div
@@ -6119,6 +6215,716 @@ Get-Content install.log -Tail 200</code></pre>
             >
           </aside>
         </section>
+
+        <!-- Licence Agreement -->
+        <section
+          class="card"
+          id="licence-agreement"
+          aria-labelledby="licence-title"
+        >
+          <div class="card-header">
+            <div class="card-icon flow" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                ></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+            </div>
+            <h2 id="licence-title" data-i18n="licence.title">
+              Licence Agreement
+            </h2>
+          </div>
+
+          <p data-i18n="licence.intro">
+            The LICENSEWARE Collector is licensed under the Licenseware Collector
+            Licence Agreement, reproduced in full below. A copy is included in
+            every installation package and is printed by
+            <code>licenseware-collector licence</code>. The version published on
+            this page is the current version and prevails over any copy
+            distributed with an earlier release.
+          </p>
+
+          <p
+            style="color: var(--text-secondary); font-size: 0.85rem"
+            data-i18n="licence.lang"
+          >
+            The agreement is published in English. The English text is the
+            operative version regardless of the language selected for this site.
+          </p>
+
+          <details class="licence-details">
+            <summary data-i18n="licence.summary">
+              Read the full Licenseware Collector Licence Agreement
+            </summary>
+
+            <div class="licence-body">
+              <p>
+                <em>Last updated: August 2026</em>
+              </p>
+
+              <p>
+                <strong>Licenseware Technology Services S.R.L.</strong><br />
+                B2B Agreement — Governed by the Laws of Romania (EU Member State)
+              </p>
+
+              <p>
+                <strong
+                  >PLEASE READ THIS LICENCE CAREFULLY. BY GENERATING AN ENROLMENT
+                  TOKEN FOR THE AGENT, OR BY DOWNLOADING, COPYING, INSTALLING OR
+                  USING ALL OR ANY PORTION OF THE AGENT, INCLUDING WHERE
+                  INSTALLATION IS PERFORMED THROUGH AUTOMATED DEPLOYMENT TOOLS OR
+                  BY A THIRD PARTY ON YOUR BEHALF, YOU ACCEPT ALL THE TERMS AND
+                  CONDITIONS OF THIS LICENCE. IF YOU DO NOT AGREE TO THE TERMS OF
+                  THIS LICENCE, YOU MAY NOT USE THE AGENT.</strong
+                >
+              </p>
+
+              <p>
+                This Licence Agreement (<strong>Agreement</strong>) is a legal
+                agreement between you (<strong>Licensee</strong>) and
+                <strong>Licenseware Technology Services S.R.L.</strong>,
+                incorporated and registered in Romania with company number
+                J21/238/2021, VAT no RO42866470, whose registered office is at
+                Independentei 1, Slobozia, Ialomita, 920095, Romania
+                (<strong>Licensor</strong>) for the Licenseware Collector agent
+                software (<strong>Agent</strong>) and associated Documentation.
+              </p>
+
+              <p>
+                The Agent is provided free of charge as a companion to the
+                Licenseware platform. Your access to and use of the platform
+                itself, including the generation of Enrolment Tokens, is governed
+                by the Licenseware End User Licence Agreement available at
+                <a
+                  href="https://licenseware.io/legal/"
+                  target="_blank"
+                  rel="noopener"
+                  >https://licenseware.io/legal/</a
+                >, together with any applicable Order Form or partner agreement
+                (together, the <strong>Platform Agreement</strong>).
+              </p>
+
+              <p>
+                This Agreement is a B2B agreement entered into between entities
+                acting in the course of their business. This is not a consumer
+                contract. You acknowledge that we may update the terms and
+                conditions of this Agreement from time to time and that it is
+                your responsibility to check any updates.
+              </p>
+
+              <h3>Agreed Terms</h3>
+
+              <h4>1. Provision of the Agent</h4>
+
+              <p>
+                <strong>1.1</strong> Licensor makes the Agent available for
+                download at
+                <a
+                  href="https://licenseware-collector.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >https://licenseware-collector.com/</a
+                >
+                and through the Platform, and will provide the Agent materially
+                in accordance with this Agreement and the Documentation.
+              </p>
+
+              <p>
+                <strong>1.2</strong> A copy of this Agreement is included in
+                every installation package for the Agent. The version published
+                at
+                <a
+                  href="https://licenseware-collector.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >https://licenseware-collector.com/</a
+                >
+                is the current version and prevails over any copy distributed
+                with an earlier release.
+              </p>
+
+              <h4>2. Grant and Scope of Licence</h4>
+
+              <p>
+                <strong>2.1</strong> Subject to the Licensee's continuous
+                compliance with this Agreement, Licensor grants the Licensee a
+                non-exclusive, non-transferable, revocable and limited licence,
+                free of charge, during the Term to: (a) download, reproduce and
+                distribute the Agent within its own environment and those of its
+                Managed Clients, including through automated deployment and
+                device management tools, solely for the purpose of installation
+                on Managed Systems; and (b) install and run the Agent on Managed
+                Systems solely to collect and transmit Collected Data to the
+                Licensee's tenant on the Platform, for the Licensee's internal
+                business purposes or, where the Licensee is an authorised partner
+                of Licensor, for the provision of services to its Managed
+                Clients.
+              </p>
+
+              <p>
+                <strong>2.2</strong> Installation and operation of the Agent on
+                the systems of a Managed Client constitutes use of the Agent by
+                the Licensee. No licence rights are granted to Managed Clients
+                under this Agreement and nothing in this clause constitutes a
+                sublicence.
+              </p>
+
+              <p>
+                <strong>2.3</strong> The Licensee shall take all necessary steps
+                to ensure that its employees, agents and subcontractors abide by
+                the terms of this Agreement and shall comply with the
+                Documentation.
+              </p>
+
+              <p>
+                <strong>2.4</strong> The licence granted under clause 2.1 applies
+                without altitude restriction. Where the Licensee operates the
+                Agent on a Managed System at or above the Kármán Line (100
+                kilometres above mean sea level) and notifies Licensor at
+                <a href="mailto:contact@licenseware.io">contact@licenseware.io</a>
+                with reasonable evidence of the deployment, such as mission
+                documentation, launch records or orbital tracking data: (a)
+                Licensor will designate that Managed System as an orbital asset
+                in the Licensee's tenant; and (b) that Managed System shall not
+                count towards any per-device limit, allowance or charge under any
+                commercial Platform plan, in each case applied under the Platform
+                Agreement. Clause 10.3 applies to any such deployment.
+              </p>
+
+              <h4>3. Restrictions</h4>
+
+              <p>
+                <strong>3.1</strong> Except as expressly set out in this
+                Agreement or as permitted by any local law, the Licensee
+                undertakes not to: (a) sell, rent, lease, sublicense, assign or
+                transfer its rights in the Agent, or make the Agent available to
+                any third party other than by deployment on Managed Systems as
+                permitted under clause 2; (b) disassemble, decompile,
+                reverse-engineer or create derivative works based on the Agent,
+                except to the extent essential for interoperability or in respect
+                of Open Source Components; (c) modify, adapt or translate the
+                Agent, or remove or alter any proprietary notices; (d)
+                circumvent, disable or interfere with the Agent's enrolment,
+                security or update mechanisms, or use an Enrolment Token other
+                than in connection with the Licensee's own tenant; (e) use the
+                Agent other than in connection with the Platform; or (f) fail to
+                comply with all applicable technology control or export laws and
+                regulations.
+              </p>
+
+              <h4>4. Relationship with the Platform Agreement</h4>
+
+              <p>
+                <strong>4.1</strong> This Agreement governs the Agent. The
+                Platform Agreement governs the Licensee's access to and use of
+                the Platform, including the generation and management of
+                Enrolment Tokens. Nothing in this Agreement grants any right to
+                access or use the Platform.
+              </p>
+
+              <p>
+                <strong>4.2</strong> The Agent is licensed exclusively under this
+                Agreement. For the purposes of the Platform Agreement, the Agent
+                does not constitute an App and no licence to the Agent is granted
+                under the Platform Agreement. In the event of any conflict
+                between this Agreement and the Platform Agreement in relation to
+                the Agent, this Agreement prevails; in relation to the Platform,
+                the Platform Agreement prevails.
+              </p>
+
+              <p>
+                <strong>4.3</strong> Collected Data received by the Platform is
+                processed under the Platform Agreement and the DPA. In relation
+                to the processing of personal data, the DPA prevails over this
+                Agreement to the extent of any conflict.
+              </p>
+
+              <p>
+                <strong>4.4</strong> Except as stated in clause 11.2, no
+                warranty, indemnity, support or service level commitment in the
+                Platform Agreement applies to the Agent, including, for the
+                avoidance of doubt, the intellectual property indemnity in the
+                Platform Agreement.
+              </p>
+
+              <h4>5. Enrolment Tokens and Security</h4>
+
+              <p>
+                <strong>5.1</strong> Enrolment Tokens are access credentials. The
+                Licensee shall keep Enrolment Tokens confidential, use them only
+                to enrol Managed Systems to its own tenant, and may rotate or
+                revoke them through the Platform at any time.
+              </p>
+
+              <p>
+                <strong>5.2</strong> The Licensee is responsible for all Agent
+                instances enrolled using its Enrolment Tokens and for all
+                Collected Data transmitted by those instances.
+              </p>
+
+              <p>
+                <strong>5.3</strong> Licensor may suspend or revoke Enrolment
+                Tokens, or suspend an Agent instance's access to the Platform,
+                where reasonably required for security reasons or in the event of
+                suspected breach of this Agreement.
+              </p>
+
+              <h4>6. Data Collection and Processing</h4>
+
+              <p>
+                <strong>6.1</strong> The Agent collects Collected Data from
+                Managed Systems and transmits it over encrypted connections to
+                the Regional Instance associated with the Enrolment Token, as
+                described in the Documentation. The categories of data collected,
+                and the collection intervals, are set out in the Documentation.
+              </p>
+
+              <p>
+                <strong>6.2</strong> As between the parties, the Licensee (or its
+                Managed Client, as applicable) is the controller of any personal
+                data within Collected Data, and Licensor processes such personal
+                data as processor or sub-processor in accordance with the DPA,
+                which is incorporated into this Agreement by reference.
+              </p>
+
+              <p>
+                <strong>6.3</strong> The Licensee is responsible for ensuring
+                that it has a lawful basis for the collection of Collected Data
+                from each Managed System, for providing any notices required by
+                applicable law to its personnel and to the personnel of Managed
+                Clients, including in relation to software usage, execution
+                history and user session data, and for completing any
+                consultations required by applicable law prior to deployment.
+              </p>
+
+              <p>
+                <strong>6.4</strong> The Agent transmits operational logs to
+                Licensor by default for troubleshooting, security and service
+                improvement purposes. Log shipping may be disabled as described
+                in the Documentation. To the extent such logs contain personal
+                data, they are processed in accordance with the DPA.
+              </p>
+
+              <h4>7. Updates</h4>
+
+              <p>
+                <strong>7.1</strong> The Agent checks for and installs Updates
+                automatically, retrieving them from Licensor's release
+                infrastructure, which may include third-party hosting services
+                identified in the Documentation. The Licensee consents to the
+                automatic download and installation of Updates without further
+                notice.
+              </p>
+
+              <p>
+                <strong>7.2</strong> Licensor reserves the right at any time to
+                make any improvement, substitution or modification in the design
+                or configuration of the Agent, provided that such change shall
+                not result in any material reduction in the core functionality of
+                the Agent.
+              </p>
+
+              <p>
+                <strong>7.3</strong> Restricting the Agent's network access to
+                the endpoints listed in the Documentation may prevent Updates
+                from being applied or cause the Agent to stop functioning. The
+                Licensee deploys the Agent in restricted network environments at
+                its own risk.
+              </p>
+
+              <h4>8. Open Source Components</h4>
+
+              <p>
+                <strong>8.1</strong> The Agent includes, or may retrieve, Open
+                Source Components that are licensed under their own terms. Those
+                terms apply to the relevant components in place of clauses 2 and
+                3 of this Agreement to the extent of any conflict, and nothing in
+                this Agreement restricts any rights granted to the Licensee under
+                them.
+              </p>
+
+              <p>
+                <strong>8.2</strong> Applicable open source licence texts and
+                attribution notices are included in the installation packages or
+                identified in the Documentation.
+              </p>
+
+              <h4>9. Intellectual Property Rights</h4>
+
+              <p>
+                <strong>9.1</strong> All Intellectual Property Rights in the
+                Agent and the Documentation, other than in Open Source
+                Components, belong to Licensor or its licensors. The Agent is
+                licensed, not sold. The Licensee has no Intellectual Property
+                Rights in the Agent other than the right to use it in accordance
+                with this Agreement.
+              </p>
+
+              <p>
+                <strong>9.2</strong> The Licensee acknowledges that it has no
+                right to access the Agent in source code form, except in respect
+                of Open Source Components to the extent provided under their own
+                licence terms.
+              </p>
+
+              <p>
+                <strong>9.3</strong> Licensor may use any feedback or suggestions
+                relating to the Agent without restriction or obligation.
+              </p>
+
+              <h4>10. Warranty Disclaimer</h4>
+
+              <p>
+                <strong>10.1</strong> Licensor warrants that it has the rights
+                and authority necessary to make the Agent available under this
+                Agreement.
+              </p>
+
+              <p>
+                <strong>10.2</strong> Except as expressly provided in clause
+                10.1, the Agent is provided free of charge, "as is" and as
+                available. To the maximum extent permitted by applicable law,
+                Licensor disclaims all other warranties, express or implied,
+                including any implied warranties of non-infringement,
+                merchantability or fitness for a particular purpose, and does not
+                warrant that the Agent will operate uninterrupted or error-free
+                or that it is compatible with every environment.
+              </p>
+
+              <p>
+                <strong>10.3</strong> The Agent is not designed or intended for
+                high-risk use scenarios where failure could reasonably lead to
+                death, serious bodily injury, or severe damage to property or the
+                environment.
+              </p>
+
+              <h4>11. Support</h4>
+
+              <p>
+                <strong>11.1</strong> The Agent is provided free of charge and no
+                standalone support or service level commitment applies to it.
+              </p>
+
+              <p>
+                <strong>11.2</strong> Where the Licensee holds a paid
+                subscription to the Platform, support for the Agent is provided
+                in accordance with the support terms of the Platform Agreement,
+                provided that such support covers the Agent software only and
+                excludes the Managed Systems on which it runs, their operating
+                systems, and the Licensee's network and deployment tooling.
+              </p>
+
+              <h4>12. Limitation of Liability</h4>
+
+              <p>
+                <strong>12.1</strong> Nothing in this Agreement excludes or
+                limits either party's liability for death or personal injury
+                caused by negligence, for fraud or fraudulent misrepresentation,
+                or for any liability that cannot be excluded or limited under
+                applicable mandatory law.
+              </p>
+
+              <p>
+                <strong>12.2</strong> Subject to clause 12.1, neither party shall
+                be liable to the other for any indirect or consequential damages,
+                including lost revenues, lost profits, business interruption, or
+                loss of business information or data, and neither party shall be
+                liable for any delay or default caused by conditions beyond its
+                reasonable control, including any Force Majeure event.
+              </p>
+
+              <p>
+                <strong>12.3</strong> Subject to clause 12.1 and reflecting that
+                the Agent is provided free of charge: (a) where a Platform
+                Agreement is in force between the parties, Licensor's total
+                aggregate liability under or in connection with this Agreement
+                shall count towards, and shall in no event exceed, the aggregate
+                liability cap set out in the Platform Agreement; and (b) in all
+                other cases, Licensor shall have no liability whatsoever under or
+                in connection with this Agreement, howsoever arising.
+              </p>
+
+              <p>
+                <strong>12.4</strong> No indemnity is granted by Licensor under
+                this Agreement.
+              </p>
+
+              <h4>13. Term and Termination</h4>
+
+              <p>
+                <strong>13.1</strong> This Agreement takes effect on the earlier
+                of the Licensee's acceptance as described above and the first
+                installation of the Agent, and continues until terminated (the
+                <strong>Term</strong>).
+              </p>
+
+              <p>
+                <strong>13.2</strong> This Agreement terminates automatically if
+                the Licensee ceases to hold an active account on the Platform or
+                if the Platform Agreement terminates or expires.
+              </p>
+
+              <p>
+                <strong>13.3</strong> Either party may terminate this Agreement
+                on thirty (30) days' written notice. Licensor may suspend or
+                terminate this Agreement with immediate effect where reasonably
+                required for security reasons or where the Licensee is in
+                material breach. Licensor may discontinue the Agent, in whole or
+                in part, on reasonable notice.
+              </p>
+
+              <p>
+                <strong>13.4</strong> On termination, the Licensee shall cease
+                all use of the Agent and uninstall it from all Managed Systems.
+                Clauses 3, 4, 6.2, 8, 9, 10, 12, 14 and 15 survive termination.
+              </p>
+
+              <h4>14. Compliance</h4>
+
+              <p>
+                <strong>14.1</strong> The Licensee warrants that it has, and will
+                maintain for the duration of each deployment, all rights,
+                consents and authority necessary to install and operate the Agent
+                on each Managed System, including systems belonging to Managed
+                Clients.
+              </p>
+
+              <p>
+                <strong>14.2</strong> The Licensee shall comply with all
+                applicable laws in connection with its deployment and use of the
+                Agent, including all applicable technology control, sanctions and
+                export laws and regulations.
+              </p>
+
+              <h4>15. General</h4>
+
+              <p>
+                <strong>15.1 Notices.</strong> All notices shall be in writing.
+                Email is agreed as a valid means of formal notice. Notices to
+                Licensor:
+                <a href="mailto:contact@licenseware.io">contact@licenseware.io</a
+                >.
+              </p>
+
+              <p>
+                <strong>15.2 Confidentiality.</strong> Any Confidential
+                Information exchanged between the parties in connection with the
+                Agent is governed by the confidentiality provisions of the
+                Platform Agreement.
+              </p>
+
+              <p>
+                <strong>15.3 Amendments.</strong> Licensor may update this
+                Agreement from time to time by publishing the updated version at
+                <a
+                  href="https://licenseware-collector.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >https://licenseware-collector.com/</a
+                >
+                and including it with subsequent releases of the Agent. Continued
+                use of the Agent following the effective date of an update
+                constitutes acceptance of the updated Agreement.
+              </p>
+
+              <p>
+                <strong>15.4 Assignment.</strong> The Licensee may not assign or
+                transfer this Agreement without Licensor's prior written consent.
+                Licensor may assign this Agreement to an affiliate or in
+                connection with a merger, acquisition or sale of assets.
+              </p>
+
+              <p>
+                <strong>15.5 Severability.</strong> If any provision of this
+                Agreement is held invalid or unenforceable, the remainder shall
+                continue in full force and effect to the fullest extent allowed
+                by law.
+              </p>
+
+              <p>
+                <strong>15.6 Entire agreement.</strong> This Agreement
+                constitutes the entire agreement between the parties in relation
+                to the Agent and supersedes any prior agreements relating to the
+                Agent, without affecting the Platform Agreement.
+              </p>
+
+              <p>
+                <strong>15.7 Governing law and jurisdiction.</strong> This
+                Agreement and any dispute or claim arising out of or in
+                connection with it shall be governed by the laws of Romania, as
+                an EU member state. Each party irrevocably submits to the
+                exclusive jurisdiction of the Romanian courts. The parties
+                confirm that they are each acting in the course of their business
+                and that this Agreement is not a consumer contract.
+              </p>
+
+              <h3>Definitions and Interpretation</h3>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Term</th>
+                    <th>Definition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Agent</strong></td>
+                    <td>
+                      The Licenseware Collector agent software made available at
+                      <a
+                        href="https://licenseware-collector.com/"
+                        target="_blank"
+                        rel="noopener"
+                        >https://licenseware-collector.com/</a
+                      >
+                      or through the Platform, including bundled components and
+                      all Updates.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>App</strong></td>
+                    <td>Has the meaning given in the Platform Agreement.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Collected Data</strong></td>
+                    <td>
+                      System, hardware and software inventory data, software
+                      usage and execution history, running process and user
+                      session data, and related metadata collected by the Agent
+                      from Managed Systems and transmitted to the Platform,
+                      together with the Agent's operational logs.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Documentation</strong></td>
+                    <td>
+                      The Agent documentation published at
+                      <a
+                        href="https://licenseware-collector.com/"
+                        target="_blank"
+                        rel="noopener"
+                        >https://licenseware-collector.com/</a
+                      >
+                      and
+                      <a
+                        href="https://help.licenseware.io/"
+                        target="_blank"
+                        rel="noopener"
+                        >https://help.licenseware.io/</a
+                      >, as updated from time to time.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>DPA</strong></td>
+                    <td>
+                      The Licenseware Data Processing Addendum available at
+                      <a
+                        href="https://licenseware.io/legal/#data-protection-agreement"
+                        target="_blank"
+                        rel="noopener"
+                        >https://licenseware.io/legal/#data-protection-agreement</a
+                      >.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Enrolment Token</strong></td>
+                    <td>
+                      An API key or enrolment token generated through the
+                      Platform that registers an Agent instance to the Licensee's
+                      tenant.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Force Majeure</strong></td>
+                    <td>
+                      Any cause beyond the reasonable control of the affected
+                      party including acts of God, war, terrorism, fire, flood,
+                      epidemic, pandemic, and communication failures.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Intellectual Property Rights</strong></td>
+                    <td>
+                      All patents, rights to inventions, copyright, moral rights,
+                      trade-marks, business names, domain names, rights in
+                      designs, rights in computer software, database rights, and
+                      all other intellectual property rights, whether registered
+                      or unregistered, throughout the world.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Managed Client</strong></td>
+                    <td>
+                      A third party to whom the Licensee provides IT, software
+                      asset management or managed services under a written
+                      agreement, where the Licensee is an authorised partner of
+                      Licensor.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Managed System</strong></td>
+                    <td>
+                      A system owned or controlled by the Licensee, or a system
+                      of a Managed Client that the Licensee is authorised to
+                      manage and on which the Licensee is authorised to install
+                      software.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Open Source Components</strong></td>
+                    <td>
+                      Third-party components included with, or retrieved by, the
+                      Agent that are licensed under open source licence terms,
+                      including osquery, as identified in the Documentation or in
+                      the notices accompanying the Agent.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Platform</strong></td>
+                    <td>
+                      The Licenseware SaaS platform, including its Regional
+                      Instances as described in the DPA.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Platform Agreement</strong></td>
+                    <td>
+                      The agreement or agreements governing the Licensee's access
+                      to and use of the Platform, including the Licenseware End
+                      User Licence Agreement, any Order Form, and any applicable
+                      partner or reseller agreement, together with the DPA.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Term</strong></td>
+                    <td>Has the meaning given in clause 13.1.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Updates</strong></td>
+                    <td>
+                      All updates, upgrades, bug fixes, error corrections,
+                      enhancements and other modifications to the Agent.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </section>
       </main>
     </div>
 
@@ -6133,7 +6939,20 @@ Get-Content install.log -Tail 200</code></pre>
       >
         <div style="text-align: left">
           <p data-i18n="footer.copyright">
-            © 2025 LICENSEWARE ™. All rights reserved.
+            © 2026 LICENSEWARE®. All rights reserved.
+          </p>
+          <p style="font-size: 0.85rem; margin-top: 0.25rem">
+            <a href="#licence-agreement" data-i18n="footer.licence"
+              >Licence Agreement</a
+            >
+            &middot;
+            <a
+              href="https://licenseware.io/legal/"
+              target="_blank"
+              rel="noopener"
+              data-i18n="footer.legal"
+              >Legal</a
+            >
           </p>
         </div>
         <!-- Simple link to homepage via logo -->
@@ -6506,7 +7325,26 @@ Get-Content install.log -Tail 200</code></pre>
           "logs.debug.title": "Debugging Tip",
           "logs.debug.desc":
             "Set <code>LOG_LEVEL=debug</code> in the environment file and restart the service to get the most verbose output. Remember to set it back to <code>error</code> once done.",
-          "footer.copyright": "© 2025 LICENSEWARE ™. All rights reserved.",
+          "nav.licence": "Licence Agreement",
+          "licence.title": "Licence Agreement",
+          "licence.intro":
+            "The LICENSEWARE Collector is licensed under the Licenseware Collector Licence Agreement, reproduced in full below. A copy is included in every installation package and is printed by <code>licenseware-collector licence</code>. The version published on this page is the current version and prevails over any copy distributed with an earlier release.",
+          "licence.lang":
+            "The agreement is published in English. The English text is the operative version regardless of the language selected for this site.",
+          "licence.summary":
+            "Read the full Licenseware Collector Licence Agreement",
+          "downloads.licence.title": "Licence agreement",
+          "downloads.licence.body":
+            'The LICENSEWARE Collector is licensed under the <a href="#licence-agreement">Licenseware Collector Licence Agreement</a>. A copy is included in every installation package. By downloading, installing or using the Collector, or by generating an enrolment token, you accept its terms. If you do not agree, do not download or use the Collector.',
+          "downloads.licence.short":
+            'By downloading you accept the <a href="#licence-agreement">Collector Licence Agreement</a>.',
+          "mdm.licence":
+            'Deployment of the Collector through automated tools such as Intune or SCCM constitutes acceptance of the <a href="#licence-agreement">Collector Licence Agreement</a> by the deploying organisation.',
+          "catalogs.dpa":
+            'Data transmitted by the Collector is processed under the <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Licenseware Data Processing Addendum</a>.',
+          "footer.copyright": "© 2026 LICENSEWARE®. All rights reserved.",
+          "footer.licence": "Licence Agreement",
+          "footer.legal": "Legal",
         },
         es: {
           "app.title": "LICENSEWARE Collector",
@@ -6835,8 +7673,27 @@ Get-Content install.log -Tail 200</code></pre>
           "logs.debug.title": "Consejo de Depuración",
           "logs.debug.desc":
             "Establezca <code>LOG_LEVEL=debug</code> en el archivo de entorno y reinicie el servicio para obtener la salida más detallada. Recuerde volver a establecerlo en <code>error</code> cuando termine.",
+          "nav.licence": "Acuerdo de Licencia",
+          "licence.title": "Acuerdo de Licencia",
+          "licence.intro":
+            "El Collector de LICENSEWARE se licencia conforme al Acuerdo de Licencia del Collector de Licenseware, reproducido íntegramente a continuación. Se incluye una copia en cada paquete de instalación y se imprime con <code>licenseware-collector licence</code>. La versión publicada en esta página es la versión vigente y prevalece sobre cualquier copia distribuida con una versión anterior.",
+          "licence.lang":
+            "El acuerdo se publica en inglés. El texto en inglés es la versión vinculante, con independencia del idioma seleccionado para este sitio.",
+          "licence.summary":
+            "Leer el Acuerdo de Licencia completo del Collector de Licenseware (en inglés)",
+          "downloads.licence.title": "Acuerdo de licencia",
+          "downloads.licence.body":
+            'El Collector de LICENSEWARE se licencia conforme al <a href="#licence-agreement">Acuerdo de Licencia del Collector de Licenseware</a>. Se incluye una copia en cada paquete de instalación. Al descargar, instalar o usar el Collector, o al generar un token de inscripción, usted acepta sus términos. Si no está de acuerdo, no descargue ni utilice el Collector.',
+          "downloads.licence.short":
+            'Al descargar, usted acepta el <a href="#licence-agreement">Acuerdo de Licencia del Collector</a>.',
+          "mdm.licence":
+            'El despliegue del Collector mediante herramientas automatizadas como Intune o SCCM constituye la aceptación del <a href="#licence-agreement">Acuerdo de Licencia del Collector</a> por parte de la organización que lo despliega.',
+          "catalogs.dpa":
+            'Los datos transmitidos por el Collector se tratan conforme al <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Anexo de Tratamiento de Datos de Licenseware</a>.',
           "footer.copyright":
-            "© 2025 LICENSEWARE ™. Todos los derechos reservados.",
+            "© 2026 LICENSEWARE®. Todos los derechos reservados.",
+          "footer.licence": "Acuerdo de Licencia",
+          "footer.legal": "Legal",
         },
       };
 
@@ -6847,6 +7704,19 @@ Get-Content install.log -Tail 200</code></pre>
         currentLang = select.value;
         updateContent();
       }
+
+      // The agreement is collapsed by default so it does not dominate the page,
+      // but every link to it (sidebar, downloads, MDM, footer) is a request to
+      // read it — landing on a collapsed box would look broken.
+      function openLicenceOnAnchor() {
+        if (window.location.hash !== "#licence-agreement") return;
+        const details = document.querySelector(
+          "#licence-agreement .licence-details",
+        );
+        if (details) details.open = true;
+      }
+
+      window.addEventListener("hashchange", openLicenceOnAnchor);
 
       function updateContent() {
         const elements = document.querySelectorAll("[data-i18n]");
@@ -6926,6 +7796,7 @@ Get-Content install.log -Tail 200</code></pre>
 
       window.addEventListener("scroll", scrollSpy);
       window.addEventListener("load", scrollSpy); // Check on load
+      window.addEventListener("load", openLicenceOnAnchor); // Deep link to the agreement
     </script>
   </body>
 </html>
