@@ -724,6 +724,117 @@
         border-left-color: var(--warning);
       }
 
+      /* Data collection specification: 25 queries described across five
+         columns of legal-grade detail. Narrowing the field lists to fit a
+         phone would make them unreadable, so each table keeps a usable width
+         and scrolls sideways inside its own wrapper instead. */
+      .spec-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-top: 1rem;
+      }
+
+      /* Fixed layout: under auto layout the nowrap field chips drive the
+         column widths, so the percentages below are ignored and the table
+         grows past its wrapper. */
+      table.spec {
+        margin: 0;
+        min-width: 56rem;
+        table-layout: fixed;
+      }
+
+      table.spec th,
+      table.spec td {
+        padding: 0.6rem 0.75rem;
+        vertical-align: top;
+        font-size: 0.85rem;
+      }
+
+      table.spec tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      table.spec th:nth-child(1) {
+        width: 13%;
+      }
+
+      table.spec th:nth-child(2) {
+        width: 9%;
+      }
+
+      table.spec th:nth-child(3) {
+        width: 32%;
+      }
+
+      table.spec th:nth-child(4) {
+        width: 20%;
+      }
+
+      table.spec th:nth-child(5) {
+        width: 26%;
+      }
+
+      .spec-q {
+        font-weight: 700;
+        color: var(--code-text);
+        overflow-wrap: anywhere;
+      }
+
+      .spec-fields {
+        line-height: 1.8;
+      }
+
+      .spec-fields code {
+        background: var(--code-bg);
+        border-radius: 3px;
+        padding: 0.05rem 0.3rem;
+        white-space: nowrap;
+      }
+
+      .spec-scope {
+        display: inline-block;
+        margin-top: 0.4rem;
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
+      .spec-none {
+        color: var(--text-secondary);
+      }
+
+      .os-badge {
+        display: inline-block;
+        padding: 0.1rem 0.4rem;
+        margin: 0 0.25rem 0.25rem 0;
+        border: 1px solid var(--border);
+        border-left-width: 3px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        white-space: nowrap;
+      }
+
+      .os-linux {
+        border-left-color: var(--palette-yellow);
+      }
+
+      .os-windows {
+        border-left-color: var(--palette-blue);
+      }
+
+      .os-macos {
+        border-left-color: var(--palette-purple);
+      }
+
+      table.spec-history td:first-child {
+        width: 9rem;
+        white-space: nowrap;
+        color: var(--text-secondary);
+      }
+
       footer {
         padding: 2rem 0;
         color: var(--text-secondary);
@@ -4413,7 +4524,7 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
           </div>
         </section>
 
-        <!-- Data Collection Catalogs -->
+        <!-- Data Collection Specification -->
         <section class="card" id="catalogs" aria-labelledby="catalogs-title">
           <div class="card-header">
             <div class="card-icon api" aria-hidden="true">
@@ -4434,214 +4545,549 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
               </svg>
             </div>
             <h2 id="catalogs-title" data-i18n="catalogs.title">
-              Data Collection Catalogs
+              Data Collection Specification
             </h2>
           </div>
 
-          <p data-i18n="catalogs.dpa">
-            Data transmitted by the Collector is processed under the
+          <p data-i18n="catalogs.lead">
+            This section lists every query the Collector runs, the operating
+            systems it runs on, how often, the exact fields collected and why.
+            It is the same specification published as Schedule 3 of the
             <a
               href="https://licenseware.io/legal/#data-protection-agreement"
               target="_blank"
               rel="noopener"
               >Licenseware Data Processing Addendum</a
-            >.
+            >, which governs all data transmitted by the Collector. Nothing
+            outside this list is collected.
           </p>
 
-          <!-- Daily Catalog -->
-          <div
+          <p style="margin-top: 0.75rem" data-i18n="catalogs.mechanics">
+            The Collector runs two fixed catalogues. Catalogue definitions are
+            fetched from the platform every 30 minutes and results are sent over
+            TLS to the regional instance encoded in your enrolment token. Field
+            names are the column names of the underlying osquery tables.
+          </p>
+
+          <p
             style="
-              margin-top: 1.5rem;
-              padding: 1.25rem;
-              background: var(--bg-highlight);
-              border-radius: 8px;
-              border: 1px solid var(--border);
+              color: var(--text-secondary);
+              font-size: 0.85rem;
+              margin-top: 0.75rem;
             "
+            data-i18n="catalogs.lang"
           >
+            The query, field and purpose tables below are published in English.
+            The English text is the operative version regardless of the language
+            selected for this site.
+          </p>
+
+          <aside class="highlight-box" role="note">
+            <h3
+              style="font-size: 1rem; margin: 0 0 0.5rem; font-weight: 700"
+              data-i18n="catalogs.not.title"
+            >
+              What the Collector does not collect
+            </h3>
+            <ul style="margin: 0; padding-left: 1.25rem">
+              <li data-i18n="catalogs.not.1">
+                File contents, documents, email or messaging content
+              </li>
+              <li data-i18n="catalogs.not.2">
+                Browser history, keystrokes, screen content or network traffic
+              </li>
+              <li data-i18n="catalogs.not.3">
+                Process command-line arguments or program argument strings
+                (removed from all queries on 3 September 2026)
+              </li>
+              <li data-i18n="catalogs.not.4">
+                Anything outside the queries listed below. Where a query is
+                restricted to named directories or registry keys, the
+                restriction is shown in the field list.
+              </li>
+            </ul>
+          </aside>
+
+          <aside class="highlight-box warning" role="note">
+            <h3
+              style="font-size: 1rem; margin: 0 0 0.5rem; font-weight: 700"
+              data-i18n="catalogs.pd.title"
+            >
+              Personal data
+            </h3>
+            <p style="margin: 0" data-i18n="catalogs.pd.body">
+              Several queries return personal data about the people who use the
+              system: local usernames and home paths, logged-in sessions,
+              per-user program execution history and process ownership. These
+              are flagged in the right-hand column. If you deploy the Collector
+              you are the controller of that data and should cover it in
+              employee privacy notices and, where required, works council
+              consultation before rollout. Our
+              <a href="https://licenseware.io/legal/" target="_blank" rel="noopener"
+                >DPIA Support Document (Processor Information)</a
+              >
+              walks through each item.
+            </p>
+          </aside>
+
+          <!-- Catalogue A -->
+          <div style="margin-top: 1.5rem">
             <div
               style="
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin-bottom: 0.75rem;
+                gap: 1rem;
+                flex-wrap: wrap;
               "
             >
               <h3
                 style="font-size: 1.1rem; margin: 0; font-weight: 700"
-                data-i18n="catalogs.sys.title"
+                data-i18n="catalogs.a.title"
               >
-                System Inventory
+                Catalogue A: Inventory and processes
               </h3>
               <span
                 class="port-badge"
-                style="background: var(--success)"
-                data-i18n="time.24h"
-                >Every 24 hours</span
+                style="background: var(--success); margin-left: 0"
+                data-i18n="time.60m"
+                >Every 60 minutes</span
               >
             </div>
             <p
               style="
                 font-size: 0.9rem;
                 color: var(--text-secondary);
-                margin-bottom: 1rem;
+                margin: 0.75rem 0 0;
               "
-              data-i18n="catalogs.sys.desc"
+              data-i18n="catalogs.a.desc"
             >
-              Comprehensive system, hardware, and software inventory collection
+              System, hardware, operating system and installed-software
+              inventory, plus a point-in-time view of running processes,
+              services and logged-in users.
             </p>
-            <table style="margin: 0">
-              <thead>
+            <div class="spec-wrap">
+              <table class="spec">
+                <caption class="visually-hidden">
+                  Catalogue A: inventory and processes, collected every 60
+                  minutes
+                </caption>
+                <thead>
+                  <tr>
+                    <th data-i18n="table.query">Query</th>
+                    <th data-i18n="table.os">OS</th>
+                    <th data-i18n="table.fields">Fields collected</th>
+                    <th data-i18n="table.purpose">Purpose</th>
+                    <th data-i18n="table.pd">Personal data relevance</th>
+                  </tr>
+                </thead>
+                <tbody>
                 <tr>
-                  <th data-i18n="table.data">Data Collected</th>
-                  <th style="text-align: center">Linux</th>
-                  <th style="text-align: center">Windows</th>
-                  <th style="text-align: center">macOS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-i18n="catalogs.row.sysinfo">
-                    System Info (hostname, CPU, RAM)
+                  <td><code class="spec-q">system_info</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
                   </td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
+                  <td class="spec-fields">
+                    <code>hostname</code>, <code>uuid</code>, <code>computer_name</code>, <code>local_hostname</code>, <code>cpu_type</code>, <code>cpu_subtype</code>, <code>cpu_brand</code>, <code>cpu_physical_cores</code>, <code>cpu_logical_cores</code>, <code>cpu_sockets</code>, <code>cpu_microcode</code>, <code>physical_memory</code>, <code>hardware_vendor</code>, <code>hardware_model</code>, <code>hardware_version</code>, <code>hardware_serial</code>, <code>board_vendor</code>, <code>board_model</code>, <code>board_version</code>, <code>board_serial</code>
+                  </td>
+                  <td>Device identity and hardware spec for asset matching and per-device licensing</td>
+                  <td>Durable device identifiers (UUID, hardware serial, board serial). No user data.</td>
                 </tr>
                 <tr>
-                  <td data-i18n="catalogs.row.programs">Installed Programs</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
+                  <td><code class="spec-q">os_version</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>version</code>, <code>major</code>, <code>minor</code>, <code>patch</code>, <code>build</code>, <code>platform</code>, <code>platform_like</code>, <code>codename</code>, <code>arch</code>, <code>install_date</code>, <code>revision</code>
+                  </td>
+                  <td>OS edition and version for OS licensing and support-lifecycle reporting</td>
+                  <td class="spec-none">None.</td>
                 </tr>
-              </tbody>
-            </table>
+                <tr>
+                  <td><code class="spec-q">kernel_info</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>version</code>, <code>arguments</code>, <code>path</code>, <code>device</code>
+                  </td>
+                  <td>Kernel version for platform reporting</td>
+                  <td>Kernel boot arguments may reveal host configuration. No user data.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">users</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>uid</code>, <code>gid</code>, <code>uid_signed</code>, <code>gid_signed</code>, <code>username</code>, <code>directory</code>, <code>shell</code>, <code>uuid</code>, <code>type</code>
+                  </td>
+                  <td>Local account enumeration for per-user licence attribution and user counts</td>
+                  <td>Usernames, UIDs and home directory paths of all local accounts, including service accounts. Personal data.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">programs</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-windows">Windows</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>version</code>, <code>install_location</code>, <code>install_source</code>, <code>language</code>, <code>publisher</code>, <code>uninstall_string</code>, <code>install_date</code>, <code>identifying_number</code>
+                  </td>
+                  <td>Primary Windows installed-software inventory</td>
+                  <td>Install paths and product identifiers only. No user data.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">deb_packages</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>version</code>, <code>source</code>, <code>size</code>, <code>arch</code>, <code>revision</code>, <code>status</code>, <code>maintainer</code>, <code>section</code>, <code>priority</code>
+                  </td>
+                  <td>Debian/Ubuntu installed-package inventory</td>
+                  <td class="spec-none">None.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">rpm_packages</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>version</code>, <code>release</code>, <code>source</code>, <code>size</code>, <code>sha1</code>, <code>arch</code>, <code>epoch</code>, <code>install_time</code>, <code>vendor</code>, <code>package_group</code>
+                  </td>
+                  <td>RHEL/SUSE installed-package inventory</td>
+                  <td class="spec-none">None.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">startup_items</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>path</code>, <code>type</code>, <code>source</code>, <code>status</code>, <code>username</code>
+                  </td>
+                  <td>Detect software configured to auto-start</td>
+                  <td>Username associated with each startup item; file paths. Command-line arguments are not collected.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">npm_packages</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>version</code>, <code>description</code>, <code>author</code>, <code>license</code>, <code>homepage</code>, <code>path</code>, <code>directory</code>
+                  </td>
+                  <td>OSS dependency inventory for licence compliance</td>
+                  <td>Package path and directory may reveal internal project and repository names on developer machines.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">python_packages</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>version</code>, <code>summary</code>, <code>author</code>, <code>license</code>, <code>path</code>, <code>directory</code>
+                  </td>
+                  <td>OSS dependency inventory for licence compliance</td>
+                  <td>Package path and directory may reveal internal project and repository names on developer machines.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">chocolatey_packages</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-windows">Windows</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>version</code>, <code>summary</code>, <code>author</code>, <code>license</code>, <code>path</code>
+                  </td>
+                  <td>Windows package-manager inventory</td>
+                  <td class="spec-none">None.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">homebrew_packages</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>path</code>, <code>version</code>
+                  </td>
+                  <td>macOS package-manager inventory</td>
+                  <td class="spec-none">None.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">darwin_apps</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>path</code>, <code>bundle_executable</code>, <code>bundle_identifier</code>, <code>bundle_name</code>, <code>bundle_short_version</code>, <code>bundle_version</code>, <code>bundle_package_type</code>, <code>compiler</code>, <code>development_region</code>, <code>display_name</code>, <code>info_string</code>, <code>minimum_system_version</code>, <code>category</code>, <code>applescript_enabled</code>, <code>copyright</code>, <code>last_opened_time</code>
+                  </td>
+                  <td>Primary macOS installed-software inventory</td>
+                  <td>last_opened_time is a per-application usage signal, not attributed to a user.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">darwin_plist</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>app name</code>, <code>app path</code>, <code>plist key</code>, <code>plist value</code>
+                    <span class="spec-scope">restricted to CFBundleGetInfoString NSHumanReadableCopyright CFBundleIdentifier under /Applications only</span>
+                  </td>
+                  <td>Publisher and edition resolution for macOS apps</td>
+                  <td class="spec-none">None. Restricted to three named keys for apps under /Applications.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">running_processes_windows</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-windows">Windows</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>pid</code>, <code>name</code>, <code>path</code>, <code>state</code>, <code>cwd</code>, <code>root</code>, <code>uid</code>, <code>gid</code>, <code>euid</code>, <code>egid</code>, <code>suid</code>, <code>sgid</code>, <code>on_disk</code>, <code>wired_size</code>, <code>resident_size</code>, <code>total_size</code>, <code>user_time</code>, <code>system_time</code>, <code>disk_bytes_read</code>, <code>disk_bytes_written</code>, <code>start_time</code>, <code>parent</code>, <code>pgroup</code>, <code>threads</code>, <code>nice</code>, <code>elevated_token</code>, <code>secure_process</code>, <code>protection_type</code>, <code>virtual_process</code>, <code>elapsed_time</code>, <code>handle_count</code>
+                  </td>
+                  <td>Join running processes to installed software for last-used inference</td>
+                  <td>Process owner identifiers (uid, euid) and working and root directory paths, which may include user home and project directories. An hourly process list is an activity signal. Command-line arguments are not collected.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">running_processes_posix</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>pid</code>, <code>name</code>, <code>path</code>, <code>state</code>, <code>cwd</code>, <code>root</code>, <code>uid</code>, <code>gid</code>, <code>euid</code>, <code>egid</code>, <code>suid</code>, <code>sgid</code>, <code>on_disk</code>, <code>wired_size</code>, <code>resident_size</code>, <code>total_size</code>, <code>user_time</code>, <code>system_time</code>, <code>disk_bytes_read</code>, <code>disk_bytes_written</code>, <code>start_time</code>, <code>parent</code>, <code>pgroup</code>, <code>threads</code>, <code>nice</code>
+                  </td>
+                  <td>Join running processes to installed software for last-used inference</td>
+                  <td>Process owner identifiers (uid, euid) and working and root directory paths, which may include user home and project directories. An hourly process list is an activity signal. Command-line arguments are not collected.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">windows_services_running</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-windows">Windows</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>name</code>, <code>service_type</code>, <code>display_name</code>, <code>status</code>, <code>pid</code>, <code>path</code>, <code>module_path</code>, <code>description</code>, <code>user_account</code>, <code>start_type</code>, <code>win32_exit_code</code>, <code>service_exit_code</code>
+                  </td>
+                  <td>Detect server software running as a service</td>
+                  <td>Service account names.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">systemd_units_running</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>id</code>, <code>description</code>, <code>load_state</code>, <code>active_state</code>, <code>sub_state</code>, <code>following</code>, <code>object_path</code>, <code>job_id</code>, <code>job_type</code>, <code>job_path</code>, <code>fragment_path</code>, <code>user</code>, <code>source_path</code>
+                  </td>
+                  <td>Detect Linux server software running as a unit</td>
+                  <td>Unit user. Paths only; no command lines.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">launchd_services</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>path</code>, <code>name</code>, <code>label</code>, <code>program</code>, <code>run_at_load</code>, <code>keep_alive</code>, <code>on_demand</code>, <code>disabled</code>, <code>username</code>, <code>groupname</code>, <code>stdout_path</code>, <code>stderr_path</code>, <code>start_interval</code>, <code>watch_paths</code>, <code>queue_directories</code>, <code>inetd_compatibility</code>, <code>start_on_mount</code>, <code>root_directory</code>, <code>working_directory</code>, <code>process_type</code>
+                  </td>
+                  <td>Detect macOS software running as a daemon or agent</td>
+                  <td>Username and group under which the daemon runs; file paths. Command-line arguments (program_arguments) are not collected.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">logged_in_users</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                    <span class="os-badge os-windows">Windows</span>
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>type</code>, <code>user</code>, <code>tty</code>, <code>host</code>, <code>time</code>, <code>pid</code>, <code>sid</code>, <code>registry_hive</code>
+                  </td>
+                  <td>Attribute device usage to a named user</td>
+                  <td>Identifies which user accounts are logged in to a device, and when. Personal data.</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <!-- 4-Hour Catalog -->
-          <div
-            style="
-              margin-top: 1.5rem;
-              padding: 1.25rem;
-              background: var(--bg-highlight);
-              border-radius: 8px;
-              border: 1px solid var(--border);
-            "
-          >
+          <!-- Catalogue B -->
+          <div style="margin-top: 2rem">
             <div
               style="
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin-bottom: 0.75rem;
+                gap: 1rem;
+                flex-wrap: wrap;
               "
             >
               <h3
                 style="font-size: 1.1rem; margin: 0; font-weight: 700"
-                data-i18n="catalogs.usage.title"
+                data-i18n="catalogs.b.title"
               >
-                Software Usage
+                Catalogue B: Software usage
               </h3>
               <span
                 class="port-badge"
-                style="background: var(--success)"
-                data-i18n="time.4h"
-                >Every 4 hours</span
+                style="background: var(--success); margin-left: 0"
+                data-i18n="time.240m"
+                >Every 240 minutes</span
               >
             </div>
             <p
               style="
                 font-size: 0.9rem;
                 color: var(--text-secondary);
-                margin-bottom: 1rem;
+                margin: 0.75rem 0 0;
               "
-              data-i18n="catalogs.usage.desc"
+              data-i18n="catalogs.b.desc"
             >
-              Software usage patterns and execution history
+              Execution history used to work out when software was last used,
+              for licence reclamation and audit evidence.
             </p>
-            <table style="margin: 0">
-              <thead>
+            <div class="spec-wrap">
+              <table class="spec">
+                <caption class="visually-hidden">
+                  Catalogue B: software usage, collected every 240 minutes
+                </caption>
+                <thead>
+                  <tr>
+                    <th data-i18n="table.query">Query</th>
+                    <th data-i18n="table.os">OS</th>
+                    <th data-i18n="table.fields">Fields collected</th>
+                    <th data-i18n="table.purpose">Purpose</th>
+                    <th data-i18n="table.pd">Personal data relevance</th>
+                  </tr>
+                </thead>
+                <tbody>
                 <tr>
-                  <th data-i18n="table.data">Data Collected</th>
-                  <th style="text-align: center">Linux</th>
-                  <th style="text-align: center">Windows</th>
-                  <th style="text-align: center">macOS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-i18n="catalogs.row.exec">
-                    Execution History (Prefetch, BAM, Access Times)
+                  <td><code class="spec-q">prefetch_metadata</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-windows">Windows</span>
                   </td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
+                  <td class="spec-fields">
+                    <code>path</code>, <code>filename</code>, <code>hash</code>, <code>last_run_time</code>, <code>other_run_times</code>, <code>run_count</code>, <code>size</code>, <code>volume_serial</code>, <code>volume_creation</code>, <code>accessed_files_count</code>, <code>accessed_directories_count</code>
+                  </td>
+                  <td>Last-used and run-count evidence for licence reclaim</td>
+                  <td>Per-binary execution history (last run time, other run times, run count). Not attributed to a user. Accessed files and directories are counts only; no filenames.</td>
                 </tr>
-              </tbody>
-            </table>
+                <tr>
+                  <td><code class="spec-q">userassist_registry</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-windows">Windows</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>path</code>, <code>last_execution_time</code>, <code>sid</code>
+                  </td>
+                  <td>Per-user last-used evidence for licence reclaim</td>
+                  <td>Per-user program execution history keyed to the Windows user SID. Direct evidence of which user account ran which program and when.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">bam_registry</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-windows">Windows</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>path</code>, <code>last_execution_time</code>, <code>sid</code>
+                  </td>
+                  <td>Per-user last-used evidence for licence reclaim</td>
+                  <td>Per-user program execution history keyed to the Windows user SID, as UserAssist.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">darwin_app_file_times</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-macos">macOS</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>path</code>, <code>filename</code>, <code>atime</code>, <code>mtime</code>
+                    <span class="spec-scope">restricted to /Applications</span>
+                  </td>
+                  <td>Last-used inference for macOS apps</td>
+                  <td>File metadata only (access and modification times), restricted to /Applications. Not attributed to a user.</td>
+                </tr>
+                <tr>
+                  <td><code class="spec-q">linux_binary_file_times</code></td>
+                  <td class="spec-os">
+                    <span class="os-badge os-linux">Linux</span>
+                  </td>
+                  <td class="spec-fields">
+                    <code>path</code>, <code>filename</code>, <code>atime</code>, <code>mtime</code>
+                    <span class="spec-scope">restricted to /usr/bin /usr/sbin /usr/local/bin /opt /opt/*/bin</span>
+                  </td>
+                  <td>Last-used inference for Linux binaries</td>
+                  <td>File metadata only (access and modification times), restricted to named binary directories. Not attributed to a user.</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <!-- 30-Minute Catalog -->
-          <div
-            style="
-              margin-top: 1.5rem;
-              padding: 1.25rem;
-              background: var(--bg-highlight);
-              border-radius: 8px;
-              border: 1px solid var(--border);
-            "
+          <!-- Operational logs -->
+          <h3
+            style="font-size: 1.1rem; margin: 2rem 0 0.5rem; font-weight: 700"
+            data-i18n="catalogs.logs.title"
           >
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 0.75rem;
-              "
-            >
-              <h3
-                style="font-size: 1.1rem; margin: 0; font-weight: 700"
-                data-i18n="catalogs.state.title"
-              >
-                Runtime State
-              </h3>
-              <span
-                class="port-badge"
-                style="background: var(--success)"
-                data-i18n="time.30m"
-                >Every 30 minutes</span
-              >
-            </div>
-            <p
-              style="
-                font-size: 0.9rem;
-                color: var(--text-secondary);
-                margin-bottom: 1rem;
-              "
-              data-i18n="catalogs.state.desc"
-            >
-              Running processes, services, and active sessions
-            </p>
-            <table style="margin: 0">
-              <thead>
-                <tr>
-                  <th data-i18n="table.data">Data Collected</th>
-                  <th style="text-align: center">Linux</th>
-                  <th style="text-align: center">Windows</th>
-                  <th style="text-align: center">macOS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-i18n="catalogs.row.proc">
-                    Running Processes & Active Users
-                  </td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                  <td style="text-align: center">✓</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            Operational logs
+          </h3>
+          <p data-i18n="catalogs.logs.body">
+            The agent ships its own operational logs (status, errors, ingestion
+            cycle information) to <code>pushlogs.licenseware.io</code> or the
+            regional equivalent by default. They may incidentally contain
+            hostnames or file paths. Set <code>LOG_SHIP_ENABLED=false</code> in
+            the environment file and restart the service to disable log
+            shipping. Logs are processed under the DPA.
+          </p>
+
+          <!-- Change history -->
+          <h3
+            style="font-size: 1.1rem; margin: 2rem 0 0.5rem; font-weight: 700"
+            data-i18n="catalogs.history.title"
+          >
+            Change history
+          </h3>
+          <table class="spec-history">
+            <tbody>
+              <tr>
+                <td>3 Sep 2026</td>
+                <td>
+                  Command-line argument fields (<code>startup_items.args</code>,
+                  <code>launchd_services.program_arguments</code>) removed. No
+                  process query collects command-line arguments.
+                </td>
+              </tr>
+              <tr>
+                <td>Sep 2026</td>
+                <td>
+                  Specification first published at field level. Intervals: 60
+                  minutes (inventory and processes), 240 minutes (software
+                  usage).
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p
+            style="color: var(--text-secondary); font-size: 0.85rem"
+            data-i18n="catalogs.notify"
+          >
+            Additions to this specification are notified to registered customer
+            contacts at least 30 days in advance under DPA clause 13.3.
+            Reductions in scope take effect immediately and are recorded here.
+          </p>
         </section>
 
         <!-- Installation Paths -->
@@ -7079,25 +7525,44 @@ Get-Content install.log -Tail 200</code></pre>
           "process.step3": "Fetch Query<br />Catalogs",
           "process.step4": "Execute<br />Queries",
           "process.step5": "Upload to<br />LICENSEWARE ™",
-          "catalogs.title": "Data Collection Catalogs",
-          "catalogs.sys.title": "System Inventory",
-          "time.24h": "Every 24 hours",
-          "catalogs.sys.desc":
-            "Comprehensive system, hardware, and software inventory collection",
-          "table.data": "Data Collected",
-          "catalogs.row.sysinfo": "System Info (hostname, CPU, RAM)",
-          "catalogs.row.programs": "Installed Programs",
-          "catalogs.usage.title": "Software Usage",
-          "time.4h": "Every 4 hours",
-          "catalogs.usage.desc":
-            "Software usage patterns and execution history",
-          "catalogs.row.exec":
-            "Execution History (Prefetch, BAM, Access Times)",
-          "catalogs.state.title": "Runtime State",
-          "catalogs.state.desc":
-            "Running processes, services, and active sessions",
+          "catalogs.title": "Data Collection Specification",
+          "catalogs.lead":
+            'This section lists every query the Collector runs, the operating systems it runs on, how often, the exact fields collected and why. It is the same specification published as Schedule 3 of the <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Licenseware Data Processing Addendum</a>, which governs all data transmitted by the Collector. Nothing outside this list is collected.',
+          "catalogs.mechanics":
+            "The Collector runs two fixed catalogues. Catalogue definitions are fetched from the platform every 30 minutes and results are sent over TLS to the regional instance encoded in your enrolment token. Field names are the column names of the underlying osquery tables.",
+          "catalogs.lang":
+            "The query, field and purpose tables below are published in English. The English text is the operative version regardless of the language selected for this site.",
+          "catalogs.not.title": "What the Collector does not collect",
+          "catalogs.not.1":
+            "File contents, documents, email or messaging content",
+          "catalogs.not.2":
+            "Browser history, keystrokes, screen content or network traffic",
+          "catalogs.not.3":
+            "Process command-line arguments or program argument strings (removed from all queries on 3 September 2026)",
+          "catalogs.not.4":
+            "Anything outside the queries listed below. Where a query is restricted to named directories or registry keys, the restriction is shown in the field list.",
+          "catalogs.pd.title": "Personal data",
+          "catalogs.pd.body":
+            'Several queries return personal data about the people who use the system: local usernames and home paths, logged-in sessions, per-user program execution history and process ownership. These are flagged in the right-hand column. If you deploy the Collector you are the controller of that data and should cover it in employee privacy notices and, where required, works council consultation before rollout. Our <a href="https://licenseware.io/legal/" target="_blank" rel="noopener">DPIA Support Document (Processor Information)</a> walks through each item.',
+          "catalogs.a.title": "Catalogue A: Inventory and processes",
+          "time.60m": "Every 60 minutes",
+          "catalogs.a.desc":
+            "System, hardware, operating system and installed-software inventory, plus a point-in-time view of running processes, services and logged-in users.",
+          "catalogs.b.title": "Catalogue B: Software usage",
+          "time.240m": "Every 240 minutes",
+          "catalogs.b.desc":
+            "Execution history used to work out when software was last used, for licence reclamation and audit evidence.",
+          "table.query": "Query",
+          "table.os": "OS",
+          "table.fields": "Fields collected",
+          "table.pd": "Personal data relevance",
           "table.all_os": "All OS",
-          "catalogs.row.proc": "Running Processes & Active Users",
+          "catalogs.logs.title": "Operational logs",
+          "catalogs.logs.body":
+            "The agent ships its own operational logs (status, errors, ingestion cycle information) to <code>pushlogs.licenseware.io</code> or the regional equivalent by default. They may incidentally contain hostnames or file paths. Set <code>LOG_SHIP_ENABLED=false</code> in the environment file and restart the service to disable log shipping. Logs are processed under the DPA.",
+          "catalogs.history.title": "Change history",
+          "catalogs.notify":
+            "Additions to this specification are notified to registered customer contacts at least 30 days in advance under DPA clause 13.3. Reductions in scope take effect immediately and are recorded here.",
           "paths.title": "Installation Paths",
           "paths.binary": "Binary",
           "paths.win.seed": "Seed binary (installer-owned)",
@@ -7340,8 +7805,6 @@ Get-Content install.log -Tail 200</code></pre>
             'By downloading you accept the <a href="#licence-agreement">Collector Licence Agreement</a>.',
           "mdm.licence":
             'Deployment of the Collector through automated tools such as Intune or SCCM constitutes acceptance of the <a href="#licence-agreement">Collector Licence Agreement</a> by the deploying organisation.',
-          "catalogs.dpa":
-            'Data transmitted by the Collector is processed under the <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Licenseware Data Processing Addendum</a>.',
           "footer.copyright": "© 2026 LICENSEWARE®. All rights reserved.",
           "footer.licence": "Licence Agreement",
           "footer.legal": "Legal",
@@ -7423,25 +7886,44 @@ Get-Content install.log -Tail 200</code></pre>
           "process.step3": "Obtener catálogos<br />de consultas",
           "process.step4": "Ejecutar<br />Consultas",
           "process.step5": "Subir a<br />LICENSEWARE ™",
-          "catalogs.title": "Catálogos de Recopilación de Datos",
-          "catalogs.sys.title": "Inventario del Sistema",
-          "time.24h": "Cada 24 horas",
-          "catalogs.sys.desc":
-            "Recopilación exhaustiva de inventario de sistema, hardware y software",
-          "table.data": "Datos Recopilados",
-          "catalogs.row.sysinfo": "Info del Sistema (hostname, CPU, RAM)",
-          "catalogs.row.programs": "Programas Instalados",
-          "catalogs.usage.title": "Uso de Software",
-          "time.4h": "Cada 4 horas",
-          "catalogs.usage.desc":
-            "Patrones de uso de software e historial de ejecución",
-          "catalogs.row.exec":
-            "Historial de Ejecución (Prefetch, BAM, tiempos de acceso)",
-          "catalogs.state.title": "Estado de Ejecución",
-          "catalogs.state.desc":
-            "Procesos en ejecución, servicios y sesiones activas",
+          "catalogs.title": "Especificación de Recopilación de Datos",
+          "catalogs.lead":
+            'Esta sección enumera todas las consultas que ejecuta el Collector, los sistemas operativos en los que se ejecutan, con qué frecuencia, los campos exactos que se recopilan y con qué finalidad. Es la misma especificación publicada como Anexo 3 del <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Anexo de Tratamiento de Datos de Licenseware</a>, que rige todos los datos transmitidos por el Collector. No se recopila nada fuera de esta lista.',
+          "catalogs.mechanics":
+            "El Collector ejecuta dos catálogos fijos. Las definiciones de los catálogos se obtienen de la plataforma cada 30 minutos y los resultados se envían por TLS a la instancia regional codificada en su token de inscripción. Los nombres de los campos son los nombres de columna de las tablas de osquery subyacentes.",
+          "catalogs.lang":
+            "Las tablas de consultas, campos y finalidades que figuran a continuación se publican en inglés. El texto en inglés es la versión vinculante, con independencia del idioma seleccionado para este sitio.",
+          "catalogs.not.title": "Lo que el Collector no recopila",
+          "catalogs.not.1":
+            "Contenido de archivos, documentos, correo electrónico o mensajería",
+          "catalogs.not.2":
+            "Historial de navegación, pulsaciones de teclado, contenido de pantalla o tráfico de red",
+          "catalogs.not.3":
+            "Argumentos de línea de comandos de procesos ni cadenas de argumentos de programas (eliminados de todas las consultas el 3 de septiembre de 2026)",
+          "catalogs.not.4":
+            "Nada fuera de las consultas enumeradas a continuación. Cuando una consulta se restringe a directorios o claves de registro concretos, la restricción se indica en la lista de campos.",
+          "catalogs.pd.title": "Datos personales",
+          "catalogs.pd.body":
+            'Varias consultas devuelven datos personales de las personas que utilizan el sistema: nombres de usuario locales y rutas de carpetas personales, sesiones iniciadas, historial de ejecución de programas por usuario y propiedad de procesos. Estos casos se señalan en la columna de la derecha. Si despliega el Collector, usted es el responsable del tratamiento de esos datos y debe cubrirlos en los avisos de privacidad para empleados y, cuando proceda, en la consulta al comité de empresa antes del despliegue. Nuestro <a href="https://licenseware.io/legal/" target="_blank" rel="noopener">Documento de Apoyo a la EIPD (Información del Encargado)</a> repasa cada elemento.',
+          "catalogs.a.title": "Catálogo A: Inventario y procesos",
+          "time.60m": "Cada 60 minutos",
+          "catalogs.a.desc":
+            "Inventario de sistema, hardware, sistema operativo y software instalado, más una vista puntual de los procesos en ejecución, los servicios y los usuarios con sesión iniciada.",
+          "catalogs.b.title": "Catálogo B: Uso de software",
+          "time.240m": "Cada 240 minutos",
+          "catalogs.b.desc":
+            "Historial de ejecución utilizado para determinar cuándo se usó el software por última vez, para la recuperación de licencias y como evidencia de auditoría.",
+          "table.query": "Consulta",
+          "table.os": "SO",
+          "table.fields": "Campos recopilados",
+          "table.pd": "Relevancia para datos personales",
           "table.all_os": "Todos los SO",
-          "catalogs.row.proc": "Procesos en Ejecución y Usuarios Activos",
+          "catalogs.logs.title": "Logs operativos",
+          "catalogs.logs.body":
+            "El agente envía por defecto sus propios logs operativos (estado, errores, información del ciclo de ingesta) a <code>pushlogs.licenseware.io</code> o al equivalente regional. Pueden contener incidentalmente nombres de host o rutas de archivo. Establezca <code>LOG_SHIP_ENABLED=false</code> en el archivo de entorno y reinicie el servicio para desactivar el envío de logs. Los logs se tratan conforme al DPA.",
+          "catalogs.history.title": "Historial de cambios",
+          "catalogs.notify":
+            "Las ampliaciones de esta especificación se notifican a los contactos registrados del cliente con al menos 30 días de antelación conforme a la cláusula 13.3 del DPA. Las reducciones de alcance surten efecto de inmediato y se registran aquí.",
           "paths.title": "Rutas de Instalación",
           "paths.binary": "Binario",
           "paths.win.seed": "Binario base (propiedad del instalador)",
@@ -7688,8 +8170,6 @@ Get-Content install.log -Tail 200</code></pre>
             'Al descargar, usted acepta el <a href="#licence-agreement">Acuerdo de Licencia del Collector</a>.',
           "mdm.licence":
             'El despliegue del Collector mediante herramientas automatizadas como Intune o SCCM constituye la aceptación del <a href="#licence-agreement">Acuerdo de Licencia del Collector</a> por parte de la organización que lo despliega.',
-          "catalogs.dpa":
-            'Los datos transmitidos por el Collector se tratan conforme al <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Anexo de Tratamiento de Datos de Licenseware</a>.',
           "footer.copyright":
             "© 2026 LICENSEWARE®. Todos los derechos reservados.",
           "footer.licence": "Acuerdo de Licencia",
