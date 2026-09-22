@@ -3128,14 +3128,103 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
             </aside>
 
             <h4 data-i18n="mdm.detect.title" style="margin-top: 1.5rem">
-              Detection rule
+              Detecting a registered agent
             </h4>
 
             <p data-i18n="mdm.detect.desc">
-              Use a PowerShell detection script. Do not use a file-version rule:
-              agents released before the 2026-08 build carry no version resource
-              at all, so the comparison can never match. A product-code rule
-              reports success even when enrolment did not complete.
+              From Collector 0.16.0 the agent records whether the Licenseware
+              backend has acknowledged it. On Windows that state is mirrored
+              into the registry, so Intune and SCCM can use a built-in registry
+              rule — no script. Do not use a file-version or product-code rule:
+              both report success even when enrolment did not complete.
+            </p>
+
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="mdm.detect.reg.col_setting">Setting</th>
+                    <th data-i18n="mdm.detect.reg.col_value">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-i18n="mdm.detect.reg.type">Rule type</td>
+                    <td data-i18n="mdm.detect.reg.type_v">Registry</td>
+                  </tr>
+                  <tr>
+                    <td data-i18n="mdm.detect.reg.path">Key path</td>
+                    <td><code>HKEY_LOCAL_MACHINE\SOFTWARE\Licenseware\Collector</code></td>
+                  </tr>
+                  <tr>
+                    <td data-i18n="mdm.detect.reg.name">Value name</td>
+                    <td><code>Registered</code></td>
+                  </tr>
+                  <tr>
+                    <td data-i18n="mdm.detect.reg.method">Detection method</td>
+                    <td data-i18n="mdm.detect.reg.method_v">Integer comparison, Equals, <code>1</code></td>
+                  </tr>
+                  <tr>
+                    <td data-i18n="mdm.detect.reg.bits">Associated with a 32-bit app on 64-bit clients</td>
+                    <td data-i18n="mdm.detect.reg.bits_v">No</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p data-i18n="mdm.detect.sccm">
+              SCCM uses the same key and value for an application detection
+              method and for a compliance configuration item. The key also
+              carries <code>Status</code>, <code>AgentId</code>,
+              <code>DeviceUuid</code>, <code>Version</code>,
+              <code>RegisteredAt</code> and <code>LastContactAt</code> as
+              strings for hardware inventory.
+            </p>
+
+            <p data-i18n="mdm.detect.file">
+              On every platform the same information is in a world-readable
+              file with no secrets: <code>registration.json</code> in the
+              agent's state directory (see Installation Paths). Its
+              <code>status</code> is <code>enrolled</code> until the backend
+              acknowledges the agent, then <code>registered</code>. The
+              <code>status</code> command reads it and exits <code>0</code>
+              only when registered (<code>2</code> enrolled only,
+              <code>3</code> no state file, <code>4</code> no service);
+              <code>status --json</code> prints the file.
+            </p>
+
+            <div class="code-block">
+              <pre><code style="font-size: 0.85rem"
+>licenseware-collector status --json
+jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json</code></pre>
+              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+
+            <aside class="highlight-box warning" style="margin-top: 1rem" role="note">
+              <strong style="color: var(--warning)" data-i18n="mdm.detect.caveat.title"
+                >⚠️ Switch detection rules after the fleet is on 0.16.0</strong
+              ><br />
+              <span data-i18n="mdm.detect.caveat.desc"
+                >Devices installed before 0.16.0 gain the key and the file only
+                after they self-update and complete one check-in, about a
+                minute after the restart. A required assignment whose detection
+                rule already expects the key would treat those devices as not
+                installed and re-run the installer on them. Keep the script
+                below until the console shows the fleet on 0.16.0 or later.</span
+              >
+            </aside>
+
+            <p data-i18n="mdm.detect.legacy">
+              Agents older than 0.16.0: use this PowerShell detection script.
+              The <code>TOKEN=</code> line is written only by a completed
+              enrolment and the Windows service is created only by
+              <code>register</code>; together they mean the agent has enrolled,
+              though not that the backend has acknowledged it.
             </p>
 
             <div class="code-block">
@@ -3170,13 +3259,6 @@ exit 1</code></pre>
                 </svg>
               </button>
             </div>
-
-            <p data-i18n="mdm.detect.why">
-              The <code>TOKEN=</code> line is written only by a completed
-              enrolment, and the Windows service is created only by
-              <code>register</code>. Together they mean the agent is genuinely
-              reporting in.
-            </p>
 
 
             <!-- Full Command Reference -->
@@ -5296,6 +5378,55 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                     </svg>
                   </button>
                 </div>
+                <div class="path-container" style="margin-top: 1rem">
+                  <div
+                    style="
+                      color: var(--text-secondary);
+                      font-weight: 700;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="paths.state"
+                  >
+                    Registration state (no secrets, world-readable)
+                  </div>
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
+                    >/var/lib/licenseware-collector/registration.json</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -5449,6 +5580,104 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                       color: var(--text-primary);
                     "
                     >C:\ProgramData\Licenseware\collector.env</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="path-container" style="margin-top: 1rem">
+                  <div
+                    style="
+                      color: var(--text-secondary);
+                      font-weight: 700;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="paths.state"
+                  >
+                    Registration state (no secrets, world-readable)
+                  </div>
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
+                    >C:\ProgramData\Licenseware\registration.json</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="path-container" style="margin-top: 1rem">
+                  <div
+                    style="
+                      color: var(--text-secondary);
+                      font-weight: 700;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="paths.win.registry"
+                  >
+                    Registry mirror
+                  </div>
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
+                    >HKLM\SOFTWARE\Licenseware\Collector</code
                   >
                   <button
                     class="copy-btn"
@@ -5645,6 +5874,55 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                       color: var(--text-primary);
                     "
                     >/usr/local/etc/licenseware-collector</code
+                  >
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard(this)"
+                    aria-label="Copy path"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="path-container" style="margin-top: 1rem">
+                  <div
+                    style="
+                      color: var(--text-secondary);
+                      font-weight: 700;
+                      margin-bottom: 0.25rem;
+                    "
+                    data-i18n="paths.state"
+                  >
+                    Registration state (no secrets, world-readable)
+                  </div>
+                  <code
+                    style="
+                      font-size: 0.75rem;
+                      word-break: break-all;
+                      color: var(--text-primary);
+                    "
+                    >/usr/local/libexec/licenseware-collector/registration.json</code
                   >
                   <button
                     class="copy-btn"
@@ -7569,6 +7847,8 @@ Get-Content install.log -Tail 200</code></pre>
           "paths.win.runtime": "Runtime binary (service + self-update)",
           "paths.win.note":
             "The seed binary is written by the installer and is always present. The runtime binary is created by <code>register</code> and therefore appears only after a successful enrolment — it is the path the Windows service runs and the path self-update replaces.",
+          "paths.state": "Registration state (no secrets, world-readable)",
+          "paths.win.registry": "Registry mirror",
           "downloads.title": "Direct Downloads",
           "downloads.desc":
             "Download the installer package for your operating system and architecture. Packages never contain an enrollment token &mdash; you supply it at install time.",
@@ -7623,11 +7903,28 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.zero.title": "⚠️ Exit code 0 is not proof of enrolment",
           "mdm.zero.desc":
             "The installer reports success once the files are in place, so a backend failure during enrolment does not fail the install — that is deliberate, because failing it would roll back the files while leaving the Windows service behind. Key your detection rule on installed state, not on the exit code.",
-          "mdm.detect.title": "Detection rule",
+          "mdm.detect.title": "Detecting a registered agent",
           "mdm.detect.desc":
-            "Use a PowerShell detection script. Do not use a file-version rule: agents released before the 2026-08 build carry no version resource at all, so the comparison can never match. A product-code rule reports success even when enrolment did not complete.",
-          "mdm.detect.why":
-            "The <code>TOKEN=</code> line is written only by a completed enrolment, and the Windows service is created only by <code>register</code>. Together they mean the agent is genuinely reporting in.",
+            "From Collector 0.16.0 the agent records whether the Licenseware backend has acknowledged it. On Windows that state is mirrored into the registry, so Intune and SCCM can use a built-in registry rule — no script. Do not use a file-version or product-code rule: both report success even when enrolment did not complete.",
+          "mdm.detect.reg.col_setting": "Setting",
+          "mdm.detect.reg.col_value": "Value",
+          "mdm.detect.reg.type": "Rule type",
+          "mdm.detect.reg.type_v": "Registry",
+          "mdm.detect.reg.path": "Key path",
+          "mdm.detect.reg.name": "Value name",
+          "mdm.detect.reg.method": "Detection method",
+          "mdm.detect.reg.method_v": "Integer comparison, Equals, <code>1</code>",
+          "mdm.detect.reg.bits": "Associated with a 32-bit app on 64-bit clients",
+          "mdm.detect.reg.bits_v": "No",
+          "mdm.detect.sccm":
+            "SCCM uses the same key and value for an application detection method and for a compliance configuration item. The key also carries <code>Status</code>, <code>AgentId</code>, <code>DeviceUuid</code>, <code>Version</code>, <code>RegisteredAt</code> and <code>LastContactAt</code> as strings for hardware inventory.",
+          "mdm.detect.file":
+            "On every platform the same information is in a world-readable file with no secrets: <code>registration.json</code> in the agent's state directory (see Installation Paths). Its <code>status</code> is <code>enrolled</code> until the backend acknowledges the agent, then <code>registered</code>. The <code>status</code> command reads it and exits <code>0</code> only when registered (<code>2</code> enrolled only, <code>3</code> no state file, <code>4</code> no service); <code>status --json</code> prints the file.",
+          "mdm.detect.caveat.title": "⚠️ Switch detection rules after the fleet is on 0.16.0",
+          "mdm.detect.caveat.desc":
+            "Devices installed before 0.16.0 gain the key and the file only after they self-update and complete one check-in, about a minute after the restart. A required assignment whose detection rule already expects the key would treat those devices as not installed and re-run the installer on them. Keep the script below until the console shows the fleet on 0.16.0 or later.",
+          "mdm.detect.legacy":
+            "Agents older than 0.16.0: use this PowerShell detection script. The <code>TOKEN=</code> line is written only by a completed enrolment and the Windows service is created only by <code>register</code>; together they mean the agent has enrolled, though not that the backend has acknowledged it.",
           "install.win.tokenless":
             "To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Uninstall Guide",
@@ -7931,6 +8228,8 @@ Get-Content install.log -Tail 200</code></pre>
             "Binario en ejecución (servicio + autoactualización)",
           "paths.win.note":
             "El binario base lo escribe el instalador y siempre está presente. El binario en ejecución lo crea <code>register</code>, por lo que solo aparece tras una inscripción correcta — es la ruta que ejecuta el servicio de Windows y la que reemplaza la autoactualización.",
+          "paths.state": "Estado de registro (sin secretos, legible por todos)",
+          "paths.win.registry": "Réplica en el registro",
           "downloads.title": "Descargas Directas",
           "downloads.desc":
             "Descargue el paquete de instalación para su sistema operativo y arquitectura. Los paquetes nunca contienen un token de inscripción &mdash; usted lo proporciona en el momento de la instalación.",
@@ -7986,11 +8285,28 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.zero.title": "⚠️ El código de salida 0 no prueba la inscripción",
           "mdm.zero.desc":
             "El instalador informa éxito una vez que los archivos están en su sitio, por lo que un fallo del backend durante la inscripción no hace fallar la instalación — es deliberado, porque hacerla fallar revertiría los archivos dejando atrás el servicio de Windows. Base su regla de detección en el estado instalado, no en el código de salida.",
-          "mdm.detect.title": "Regla de detección",
+          "mdm.detect.title": "Detectar un agente registrado",
           "mdm.detect.desc":
-            "Use un script de detección de PowerShell. No use una regla por versión de archivo: los agentes anteriores a la compilación de 2026-08 no llevan ningún recurso de versión, por lo que la comparación nunca puede coincidir. Una regla por código de producto informa éxito incluso cuando la inscripción no se completó.",
-          "mdm.detect.why":
-            "La línea <code>TOKEN=</code> solo la escribe una inscripción completada, y el servicio de Windows solo lo crea <code>register</code>. Juntos significan que el agente está realmente reportando.",
+            "Desde Collector 0.16.0 el agente registra si el backend de Licenseware lo ha reconocido. En Windows ese estado se replica en el registro, de modo que Intune y SCCM pueden usar una regla de registro integrada, sin script. No use una regla por versión de archivo ni por código de producto: ambas informan éxito incluso cuando la inscripción no se completó.",
+          "mdm.detect.reg.col_setting": "Ajuste",
+          "mdm.detect.reg.col_value": "Valor",
+          "mdm.detect.reg.type": "Tipo de regla",
+          "mdm.detect.reg.type_v": "Registro",
+          "mdm.detect.reg.path": "Ruta de la clave",
+          "mdm.detect.reg.name": "Nombre del valor",
+          "mdm.detect.reg.method": "Método de detección",
+          "mdm.detect.reg.method_v": "Comparación de enteros, Igual a, <code>1</code>",
+          "mdm.detect.reg.bits": "Asociado a una aplicación de 32 bits en clientes de 64 bits",
+          "mdm.detect.reg.bits_v": "No",
+          "mdm.detect.sccm":
+            "SCCM usa la misma clave y el mismo valor para un método de detección de aplicación y para un elemento de configuración de cumplimiento. La clave también lleva <code>Status</code>, <code>AgentId</code>, <code>DeviceUuid</code>, <code>Version</code>, <code>RegisteredAt</code> y <code>LastContactAt</code> como cadenas para el inventario de hardware.",
+          "mdm.detect.file":
+            "En todas las plataformas la misma información está en un archivo legible por todos y sin secretos: <code>registration.json</code> en el directorio de estado del agente (vea Rutas de instalación). Su <code>status</code> es <code>enrolled</code> hasta que el backend reconoce al agente, y después <code>registered</code>. El comando <code>status</code> lo lee y devuelve <code>0</code> solo cuando está registrado (<code>2</code> solo inscrito, <code>3</code> sin archivo de estado, <code>4</code> sin servicio); <code>status --json</code> imprime el archivo.",
+          "mdm.detect.caveat.title": "⚠️ Cambie las reglas de detección cuando la flota esté en 0.16.0",
+          "mdm.detect.caveat.desc":
+            "Los dispositivos instalados antes de 0.16.0 obtienen la clave y el archivo solo tras autoactualizarse y completar una comunicación, aproximadamente un minuto después del reinicio. Una asignación obligatoria cuya regla de detección ya espere la clave trataría esos dispositivos como no instalados y volvería a ejecutar el instalador en ellos. Mantenga el script siguiente hasta que la consola muestre la flota en 0.16.0 o posterior.",
+          "mdm.detect.legacy":
+            "Agentes anteriores a 0.16.0: use este script de detección de PowerShell. La línea <code>TOKEN=</code> solo la escribe una inscripción completada y el servicio de Windows solo lo crea <code>register</code>; juntos significan que el agente se ha inscrito, aunque no que el backend lo haya reconocido.",
           "install.win.tokenless":
             "Para preparar los archivos ahora e inscribir más tarde, omita <code>TOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Guía de Desinstalación",
