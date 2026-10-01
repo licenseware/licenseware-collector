@@ -2823,6 +2823,9 @@ sudo TOKEN=&lt;enrolment-token&gt; ENROLL_ON_START=1 apt install ./licenseware-c
           </ul>
           <h4 data-i18n="image.clone.title">Cloned machines</h4>
           <p data-i18n="image.clone">Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start the fingerprint no longer matches: <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>, <code>registration.json</code> gets <code>clone_suspected: true</code> (on Windows, <code>CloneSuspected</code> = 1 under <code>HKLM\SOFTWARE\Licenseware\Collector</code>) and the log has <code>reason=lc_clone_suspected</code>. The identity is never changed automatically: uninstall the collector on the clone, then install and enrol it again.</p>
+          <aside class="highlight-box warning" role="note">
+            <p data-i18n="image.uuid">Clones that share one hardware (SMBIOS) UUID are not yet supported: they would replace each other's credential. Support arrives with a backend identity change; until then give each clone a distinct UUID (full clones do, instant/linked clones may not).</p>
+          </aside>
           <aside class="highlight-box" role="note">
             <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
             <p data-i18n="image.old">Image mode needs 0.17.0. On 0.16.0 and earlier, install without a token on the image (Windows: the MSI without <code>TOKEN</code>; Linux and macOS: the package only), then run <code>register</code> with the token on each machine after it is created.</p>
@@ -6303,6 +6306,8 @@ Get-Content install.log -Tail 200</code></pre>
             "From 0.17.0 the file is rotated at 10 MB and 7 compressed copies are kept. Package install failures (exit codes 20–23) are in <code>/var/log/install.log</code>:",
           "logs.more":
             'For more detail, set <code>LOG_LEVEL=debug</code> (<a href="#settings">Settings</a>) and set it back to <code>info</code> when done. From 0.17.0, <code>diagnose</code> collects these logs into a redacted support bundle (<a href="#day2">Day-2 operations</a>).',
+          "image.uuid":
+            "Clones that share one hardware (SMBIOS) UUID are not yet supported: they would replace each other's credential. Support arrives with a backend identity change; until then give each clone a distinct UUID (full clones do, instant/linked clones may not).",
         },
         es: {
           "app.title": "LICENSEWARE Collector",
@@ -6798,6 +6803,8 @@ Get-Content install.log -Tail 200</code></pre>
             "Desde 0.17.0 el archivo rota a los 10 MB y se conservan 7 copias comprimidas. Los fallos de instalación del paquete (códigos de salida 20–23) están en <code>/var/log/install.log</code>:",
           "logs.more":
             'Para más detalle, defina <code>LOG_LEVEL=debug</code> (<a href="#settings">Ajustes</a>) y vuelva a <code>info</code> al terminar. Desde 0.17.0, <code>diagnose</code> reúne estos logs en un paquete de soporte con los datos sensibles ocultos (<a href="#day2">Operaciones del día 2</a>).',
+          "image.uuid":
+            "Los clones que comparten un mismo UUID de hardware (SMBIOS) aún no son compatibles: se sustituirían la credencial unos a otros. La compatibilidad llegará con un cambio de identidad en el backend; hasta entonces, dé a cada clon un UUID distinto (los clones completos lo tienen; los clones instantáneos o vinculados pueden no tenerlo).",
         },
       };
 
