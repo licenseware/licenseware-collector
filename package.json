@@ -14,7 +14,8 @@
   },
   "private": true,
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "bun run check:i18n && tsc && vite build",
+    "check:i18n": "bun scripts/check-i18n.js",
     "preview": "vite preview",
     "start": "vite"
   },
