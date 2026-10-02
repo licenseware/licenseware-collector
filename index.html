@@ -1346,7 +1346,7 @@
               </div>
               <h3>Linux</h3>
               <ul>
-                <li data-i18n="compat.linux.1">x86_64 (64-bit) only</li>
+                <li data-i18n="compat.linux.1">x86_64 and arm64 (64-bit)</li>
                 <li data-i18n="compat.linux.2">systemd required</li>
                 <li>RHEL, Ubuntu, Debian, etc.</li>
               </ul>
@@ -1369,8 +1369,8 @@
               <h3>Windows</h3>
               <ul>
                 <li data-i18n="compat.win.1">x86_64 (64-bit) only</li>
-                <li data-i18n="compat.win.2">Windows 7 SP1+ (Desktop)</li>
-                <li data-i18n="compat.win.3">Windows Server 2012 R2+</li>
+                <li data-i18n="compat.win.2">Windows 10+ (Desktop)</li>
+                <li data-i18n="compat.win.3">Windows Server 2016+</li>
               </ul>
             </article>
             <article class="os-card" role="listitem">
@@ -1391,7 +1391,7 @@
               <h3>macOS</h3>
               <ul>
                 <li data-i18n="compat.mac.1">Intel & Apple Silicon</li>
-                <li>macOS 10.15+</li>
+                <li>macOS 12+</li>
                 <li data-i18n="compat.mac.2">launchd service</li>
               </ul>
             </article>
@@ -1400,17 +1400,17 @@
           <aside
             class="highlight-box warning"
             role="note"
-            aria-label="Legacy Windows Support Warning"
+            aria-label="Unsupported Windows versions"
           >
             <strong
               style="color: var(--warning)"
               data-i18n="compat.legacy.title"
-              >⚠️ Legacy Windows Support</strong
+              >⚠️ Older Windows versions</strong
             ><br />
             <span data-i18n="compat.legacy.desc"
-              >Windows 7 SP1 and Windows Server 2012 R2 are supported but have
-              reached Microsoft end-of-life. We recommend upgrading to supported
-              operating systems.</span
+              >Windows 7, Windows 8.1, Windows Server 2012 R2 and earlier are
+              not supported. The agent requires Windows 10 or Windows Server
+              2016 or later.</span
             >
           </aside>
         </section>
@@ -1517,7 +1517,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.cdn_desc"
-                    >Installer downloads only</small
+                    >Installer downloads, and osquery updates (manifest and binaries), which the agent checks continuously. From 0.17.0 agent updates come from here too. Required continuously, not just at install time.</small
                   >
                 </div>
               </li>
@@ -1543,7 +1543,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.ghapi_desc"
-                    >Auto-update: the agent checks for a new release every 24 hours. Required continuously, not just at install time.</small
+                    >Agent self-update on 0.16.0 and earlier: Windows and Linux agents check for a new release every 24 hours (macOS agents on those versions never self-update). From 0.17.0 agents update from <code>cdn.licenseware-collector.com</code> and no longer need this host.</small
                   >
                 </div>
               </li>
@@ -1569,7 +1569,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.ghassets_desc"
-                    >Auto-update asset download — GitHub redirects here from the API. Also allow the legacy host <code>objects.githubusercontent.com</code>.</small
+                    >Self-update and osquery fallback downloads on 0.16.0 and earlier — GitHub redirects here. Also allow the legacy host <code>objects.githubusercontent.com</code>. Not needed from 0.17.0.</small
                   >
                 </div>
               </li>
@@ -1595,7 +1595,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.git_desc"
-                    >osquery fallback download. Not used by an MSI or package install, which bundle osquery already.</small
+                    >osquery fallback download on 0.16.0 and earlier. Not used by an MSI or package install, which bundle osquery already. Not needed from 0.17.0.</small
                   >
                 </div>
               </li>
@@ -2569,7 +2569,10 @@
               >
                 For environments with a proxy or custom CA certificate, export
                 the variables and pass them through to <code>register</code>
-                with <code>sudo -E</code>:
+                with <code>sudo -E</code> (on macOS, call the binary by its full
+                path,
+                <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>;
+                it is not on the <code>PATH</code>):
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
                 <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
@@ -2761,8 +2764,12 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                   >Proxy variables (<code>HTTPS_PROXY</code>,
                   <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) and
                   <code>CA_CERT_PATH</code> set during registration are
-                  automatically persisted to the service environment file so the
-                  background service inherits them.</span
+                  persisted to the service environment file. The service
+                  inherits the proxy variables on every OS. On 0.16.0 and
+                  earlier only the Linux service honours
+                  <code>CA_CERT_PATH</code> from that file; the Windows and
+                  macOS services ignore it until 0.17.0 (see
+                  <a href="#custom-ca">Custom CA Certificates</a>).</span
                 >
               </aside>
             </div>
@@ -2888,7 +2895,10 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
               <span style="font-size: 0.85rem" data-i18n="install.macos.note"
                 >Upgrading an already-enrolled Mac needs only the
                 <code>installer</code> step &mdash; the package restarts the
-                service and re-registration is not required.</span
+                service and re-registration is not required. macOS agents on
+                0.16.0 and earlier never update themselves, so push the new
+                package to upgrade them; from 0.17.0 they update from the CDN
+                like Windows and Linux.</span
               >
             </aside>
           </div>
@@ -3084,8 +3094,10 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
                   <tr>
                     <td><code>1603</code></td>
                     <td data-i18n="mdm.codes.row1603">
-                      Install action failed, or a downgrade was blocked. The
-                      reason is in
+                      Install action failed, or a downgrade was blocked. On a
+                      fresh install this includes an enrolment token the backend
+                      rejected: enrolment runs before the service is created, so
+                      the install rolls back. The reason is in
                       <code>%ProgramData%\Licenseware\setup.log</code>
                     </td>
                   </tr>
@@ -3118,12 +3130,16 @@ sudo -E TOKEN=&lt;enrollment-token&gt; licenseware-collector register</code></pr
               <strong style="color: var(--warning)" data-i18n="mdm.zero.title"
                 >⚠️ Exit code 0 is not proof of enrolment</strong
               ><br />
-              <span data-i18n="mdm.zero.desc"
-                >The installer reports success once the files are in place, so a
-                backend failure during enrolment does not fail the install —
-                that is deliberate, because failing it would roll back the files
-                while leaving the Windows service behind. Key your detection
-                rule on installed state, not on the exit code.</span
+              <span data-i18n="mdm.zero.body"
+                >A fresh install whose enrolment token is rejected fails with
+                <code>1603</code>. The installer still exits <code>0</code>
+                without a registered agent in two cases: no <code>TOKEN</code>
+                was given (the files are staged and no service is created), or
+                registration failed after enrolment succeeded. Key your
+                detection rule on the agent's state, not on the exit code: use
+                the detection rule below, or run the
+                <a href="#commands"><code>status</code></a> command on the
+                device.</span
               >
             </aside>
 
@@ -3455,8 +3471,12 @@ exit 1</code></pre>
                   >Proxy variables (<code>HTTPS_PROXY</code>,
                   <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) and
                   <code>CA_CERT_PATH</code> set during registration are
-                  automatically persisted to the service environment file so the
-                  background service inherits them.</span
+                  persisted to the service environment file. The service
+                  inherits the proxy variables on every OS. On 0.16.0 and
+                  earlier only the Linux service honours
+                  <code>CA_CERT_PATH</code> from that file; the Windows and
+                  macOS services ignore it until 0.17.0 (see
+                  <a href="#custom-ca">Custom CA Certificates</a>).</span
                 >
               </aside>
 
@@ -3906,6 +3926,25 @@ NO_PROXY=localhost,127.0.0.1</code></pre>
             environment file, pointing to the PEM file containing your corporate
             CA certificate(s).
           </p>
+
+          <aside class="highlight-box warning" style="margin-top: 1rem" role="note">
+            <strong
+              style="color: var(--warning)"
+              data-i18n="customca.winmac.title"
+              >⚠️ Windows and macOS on 0.16.0 and earlier</strong
+            ><br />
+            <span data-i18n="customca.winmac.desc"
+              >Only the Linux service reads <code>CA_CERT_PATH</code> from the
+              environment file. The Windows and macOS services of 0.16.0 and
+              earlier ignore it, so the setting below has no effect there. On
+              those versions, add your CA certificate to the operating system
+              trust store instead (Windows: <em>Trusted Root Certification
+              Authorities</em> of the local computer; macOS: the System
+              keychain), which the collector always trusts. From 0.17.0 the
+              service reads the setting on every OS, as <code>CA_CERT</code> or
+              the older name <code>CA_CERT_PATH</code>.</span
+            >
+          </aside>
 
           <div style="margin-top: 1rem">
             <strong style="color: var(--text-primary)">Linux</strong>
@@ -4449,10 +4488,14 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
             "
             data-i18n="uninstall.note"
             >Uninstalling stops the service, removes it, and deletes the
-            collector's runtime files and enrollment token from the machine. To
-            keep collected state on disk, add
-            <code>--preserve-state</code>; to also remove the bundled osquery,
-            add <code>--remove-osquery</code>.</span
+            collector's runtime files and enrollment token from the machine.
+            The package removals above (<code>msiexec /x</code>,
+            <code>apt remove</code> / <code>dnf remove</code> and
+            <code>uninstall.command</code>) run with fixed arguments and take no
+            extra options: <code>--preserve-state</code> and
+            <code>--remove-osquery</code> are options of the
+            <code>licenseware-collector uninstall</code> command, not of
+            <code>msiexec</code>.</span
           >
         </section>
 
@@ -6258,6 +6301,22 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                   </button>
                 </li>
               </ul>
+              <p
+                style="
+                  margin: 0.75rem 0 0 0;
+                  font-size: 0.8rem;
+                  color: var(--text-secondary);
+                "
+                data-i18n="quick.path_note"
+              >
+                On Linux <code>licenseware-collector</code> is on the
+                <code>PATH</code> (<code>/usr/bin/licenseware-collector</code>).
+                On Windows and macOS it is not: call the binary by its full path,
+                <code>%ProgramData%\Licenseware\bin\LicensewareCollector.exe</code>
+                on Windows and
+                <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code>
+                on macOS.
+              </p>
             </div>
           </div>
         </section>
@@ -6292,7 +6351,8 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
           </div>
 
           <p data-i18n="logs.desc">
-            The collector writes all logs to standard error. How you access them
+            The collector writes its logs to standard error; the Windows service
+            writes them to the Windows Event Log instead. How you access them
             depends on the operating system and service manager.
           </p>
 
@@ -6307,7 +6367,7 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
           <p data-i18n="logs.level.desc">
             The verbosity is controlled by the
             <code>LOG_LEVEL</code> environment variable in the collector
-            environment file. The default is <code>error</code>.
+            environment file. The default is <code>info</code>.
           </p>
 
           <table>
@@ -6507,12 +6567,13 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
           <h3 class="section-title" style="margin-top: 1.5rem">Windows</h3>
 
           <p data-i18n="logs.win.desc">
-            The Windows service itself does not write application logs to a
-            file or to the Windows Event Log. Use the commands below in an
+            The Windows service writes the collector's own log to the Windows
+            Event Log under the <code>licenseware-collector</code> provider
+            (step 8); it writes no log file. Use the commands below in an
             Administrator PowerShell to investigate the service: check its
             state, inspect service start/stop/crash records that Windows
-            itself emits, and capture full application output by running the
-            collector interactively.
+            itself emits, read the collector's log, and capture full
+            application output by running the collector interactively.
           </p>
 
           <div style="margin-top: 0.75rem">
@@ -6523,7 +6584,7 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
             >
             <div class="code-block" style="margin-top: 0.5rem">
               <code style="font-size: 0.85rem"
-                >licenseware-collector status</code
+                >&amp; "$env:ProgramData\Licenseware\bin\LicensewareCollector.exe" status</code
               >
               <button
                 class="copy-btn"
@@ -6764,7 +6825,7 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
                 "
               ><code>Stop-Service licenseware-collector
 $env:LOG_LEVEL = 'debug'
-licenseware-collector run-once --env-file C:\ProgramData\Licenseware\collector.env *&gt;&amp;1 |
+&amp; "$env:ProgramData\Licenseware\bin\LicensewareCollector.exe" run-once --env-file C:\ProgramData\Licenseware\collector.env *&gt;&amp;1 |
   Tee-Object -FilePath "$env:USERPROFILE\licenseware-collector-debug.log"
 Start-Service licenseware-collector</code></pre>
               <button
@@ -6935,7 +6996,7 @@ Get-Content install.log -Tail 200</code></pre>
             <span data-i18n="logs.debug.desc"
               >Set <code>LOG_LEVEL=debug</code> in the environment file and
               restart the service to get the most verbose output. Remember to
-              set it back to <code>error</code> once done.</span
+              set it back to <code>info</code> once done.</span
             >
           </aside>
         </section>
@@ -7748,28 +7809,29 @@ Get-Content install.log -Tail 200</code></pre>
           "overview.desc":
             "A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE ™ platform for software license compliance analysis.",
           "compat.title": "Operating System Compatibility",
-          "compat.linux.1": "x86_64 (64-bit) only",
+          "compat.linux.1": "x86_64 and arm64 (64-bit)",
           "compat.linux.2": "systemd required",
           "compat.win.1": "x86_64 (64-bit) only",
-          "compat.win.2": "Windows 7 SP1+ (Desktop)",
-          "compat.win.3": "Windows Server 2012 R2+",
+          "compat.win.2": "Windows 10+ (Desktop)",
+          "compat.win.3": "Windows Server 2016+",
           "compat.mac.1": "Intel & Apple Silicon",
           "compat.mac.2": "launchd service",
-          "compat.legacy.title": "⚠️ Legacy Windows Support",
+          "compat.legacy.title": "⚠️ Older Windows versions",
           "compat.legacy.desc":
-            "Windows 7 SP1 and Windows Server 2012 R2 are supported but have reached Microsoft end-of-life. We recommend upgrading to supported operating systems.",
+            "Windows 7, Windows 8.1, Windows Server 2012 R2 and earlier are not supported. The agent requires Windows 10 or Windows Server 2016 or later.",
           "network.title": "Network Requirements",
           "network.api_desc":
             "Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.",
           "network.logs_desc":
             "Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.",
-          "network.cdn_desc": "Installer downloads only",
+          "network.cdn_desc":
+            "Installer downloads, and osquery updates (manifest and binaries), which the agent checks continuously. From 0.17.0 agent updates come from here too. Required continuously, not just at install time.",
           "network.ghapi_desc":
-            "Auto-update: the agent checks for a new release every 24 hours. Required continuously, not just at install time.",
+            "Agent self-update on 0.16.0 and earlier: Windows and Linux agents check for a new release every 24 hours (macOS agents on those versions never self-update). From 0.17.0 agents update from <code>cdn.licenseware-collector.com</code> and no longer need this host.",
           "network.ghassets_desc":
-            "Auto-update asset download — GitHub redirects here from the API. Also allow the legacy host <code>objects.githubusercontent.com</code>.",
+            "Self-update and osquery fallback downloads on 0.16.0 and earlier — GitHub redirects here. Also allow the legacy host <code>objects.githubusercontent.com</code>. Not needed from 0.17.0.",
           "network.git_desc":
-            "osquery fallback download. Not used by an MSI or package install, which bundle osquery already.",
+            "osquery fallback download on 0.16.0 and earlier. Not used by an MSI or package install, which bundle osquery already. Not needed from 0.17.0.",
           "network.firewall.title": "⚠️ Firewall Configuration",
           "network.firewall.desc":
             "Ensure outbound HTTPS (port 443) is allowed to the domains listed above. No inbound ports required.",
@@ -7878,7 +7940,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.macos.step1": "Install the package",
           "install.macos.step2": "Enroll the machine and start the service",
           "install.macos.note":
-            "Upgrading an already-enrolled Mac needs only the <code>installer</code> step &mdash; the package restarts the service and re-registration is not required.",
+            "Upgrading an already-enrolled Mac needs only the <code>installer</code> step &mdash; the package restarts the service and re-registration is not required. macOS agents on 0.16.0 and earlier never update themselves, so push the new package to upgrade them; from 0.17.0 they update from the CDN like Windows and Linux.",
           "install.win.admin": "⚠️ Requires Administrator privileges",
           "install.win.step1": "Download the installer",
           "install.win.step2": "Install, passing the enrollment token",
@@ -7894,12 +7956,14 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.codes.row3010":
             "Success, reboot pending (files in use; the package itself schedules no reboot)",
           "mdm.codes.row1603":
-            "Install action failed, or a downgrade was blocked. The reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>",
+            "Install action failed, or a downgrade was blocked. On a fresh install this includes an enrolment token the backend rejected: enrolment runs before the service is created, so the install rolls back. The reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>",
           "mdm.codes.row1618": "Another installation is already in progress",
           "mdm.codes.row1619":
             "Package path unreachable, or not a valid installer package",
           "mdm.codes.note":
             "These are standard Windows Installer codes. There are no vendor-specific values.",
+          "mdm.zero.body":
+            'A fresh install whose enrolment token is rejected fails with <code>1603</code>. The installer still exits <code>0</code> without a registered agent in two cases: no <code>TOKEN</code> was given (the files are staged and no service is created), or registration failed after enrolment succeeded. Key your detection rule on the agent\'s state, not on the exit code: use the detection rule below, or run the <a href="#commands"><code>status</code></a> command on the device.',
           "mdm.zero.title": "⚠️ Exit code 0 is not proof of enrolment",
           "mdm.zero.desc":
             "The installer reports success once the files are in place, so a backend failure during enrolment does not fail the install — that is deliberate, because failing it would roll back the files while leaving the Windows service behind. Key your detection rule on installed state, not on the exit code.",
@@ -7943,13 +8007,15 @@ Get-Content install.log -Tail 200</code></pre>
           "uninstall.win.msi": "Uninstall the package",
           "uninstall.win.cleanup": "Or remove it from the UI:",
           "uninstall.note":
-            "Uninstalling stops the service, removes it, and deletes the collector's runtime files and enrollment token from the machine. To keep collected state on disk, add <code>--preserve-state</code>; to also remove the bundled osquery, add <code>--remove-osquery</code>.",
+            "Uninstalling stops the service, removes it, and deletes the collector's runtime files and enrollment token from the machine. The package removals above (<code>msiexec /x</code>, <code>apt remove</code> / <code>dnf remove</code> and <code>uninstall.command</code>) run with fixed arguments and take no extra options: <code>--preserve-state</code> and <code>--remove-osquery</code> are options of the <code>licenseware-collector uninstall</code> command, not of <code>msiexec</code>.",
           "quick.title": "Quick Reference",
           "quick.intervals": "Agent Intervals",
           "quick.service": "Service Commands",
           "quick.config": "Config Refresh:",
           "quick.catalog": "Catalog Check:",
           "quick.cleanup": "Failed File Cleanup:",
+          "quick.path_note":
+            "On Linux <code>licenseware-collector</code> is on the <code>PATH</code> (<code>/usr/bin/licenseware-collector</code>). On Windows and macOS it is not: call the binary by its full path, <code>%ProgramData%\\Licenseware\\bin\\LicensewareCollector.exe</code> on Windows and <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code> on macOS.",
           "nav.proxy": "Proxy",
           "proxy.title": "Proxy Configuration",
           "proxy.desc":
@@ -7986,7 +8052,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.ref.noproxy.desc":
             "Comma-separated list of hosts to bypass the proxy",
           "install.win.ref.note":
-            "Proxy variables (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) and <code>CA_CERT_PATH</code> set during registration are automatically persisted to the service environment file so the background service inherits them.",
+            'Proxy variables (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) and <code>CA_CERT_PATH</code> set during registration are persisted to the service environment file. The service inherits the proxy variables on every OS. On 0.16.0 and earlier only the Linux service honours <code>CA_CERT_PATH</code> from that file; the Windows and macOS services ignore it until 0.17.0 (see <a href="#custom-ca">Custom CA Certificates</a>).',
           "install.win.ref.example.title":
             "Full Example with Proxy and Custom CA",
           "proxy.setup.title": "Setup",
@@ -8000,7 +8066,7 @@ Get-Content install.log -Tail 200</code></pre>
             "After modifying the environment file, restart the collector service for changes to take effect:",
           "install.unix.ref.title": "Full Command Reference",
           "install.unix.ref.desc":
-            "For environments with a proxy or custom CA certificate, export the variables and pass them through to <code>register</code> with <code>sudo -E</code>:",
+            "For environments with a proxy or custom CA certificate, export the variables and pass them through to <code>register</code> with <code>sudo -E</code> (on macOS, call the binary by its full path, <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>; it is not on the <code>PATH</code>):",
           "install.unix.ref.manual":
             "Or pass the CA certificate as an explicit flag:",
           "proxy.linux.path":
@@ -8028,6 +8094,9 @@ Get-Content install.log -Tail 200</code></pre>
           "customca.setup.title": "Setup",
           "customca.setup.desc":
             "Add the <code>CA_CERT_PATH</code> variable to the collector environment file, pointing to the PEM file containing your corporate CA certificate(s).",
+          "customca.winmac.title": "⚠️ Windows and macOS on 0.16.0 and earlier",
+          "customca.winmac.desc":
+            "Only the Linux service reads <code>CA_CERT_PATH</code> from the environment file. The Windows and macOS services of 0.16.0 and earlier ignore it, so the setting below has no effect there. On those versions, add your CA certificate to the operating system trust store instead (Windows: <em>Trusted Root Certification Authorities</em> of the local computer; macOS: the System keychain), which the collector always trusts. From 0.17.0 the service reads the setting on every OS, as <code>CA_CERT</code> or the older name <code>CA_CERT_PATH</code>.",
           "customca.linux.path":
             "File: <code>/etc/default/licenseware-collector</code>",
           "customca.macos.path":
@@ -8040,10 +8109,10 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.logs": "Logs",
           "logs.title": "Logs &amp; Troubleshooting",
           "logs.desc":
-            "The collector writes all logs to standard error. How you access them depends on the operating system and service manager.",
+            "The collector writes its logs to standard error; the Windows service writes them to the Windows Event Log instead. How you access them depends on the operating system and service manager.",
           "logs.level.title": "Log Level",
           "logs.level.desc":
-            "The verbosity is controlled by the <code>LOG_LEVEL</code> environment variable in the collector environment file. The default is <code>error</code>.",
+            "The verbosity is controlled by the <code>LOG_LEVEL</code> environment variable in the collector environment file. The default is <code>info</code>.",
           "logs.table.level": "Level",
           "logs.table.desc": "Description",
           "logs.level.debug":
@@ -8062,7 +8131,7 @@ Get-Content install.log -Tail 200</code></pre>
           "logs.macos.follow": "Follow logs in real time:",
           "logs.macos.full": "View full log file:",
           "logs.win.desc":
-            "The Windows service itself does not write application logs to a file or to the Windows Event Log. Use the commands below in an Administrator PowerShell to investigate the service: check its state, inspect service start/stop/crash records that Windows itself emits, and capture full application output by running the collector interactively.",
+            "The Windows service writes the collector's own log to the Windows Event Log under the <code>licenseware-collector</code> provider (step 8); it writes no log file. Use the commands below in an Administrator PowerShell to investigate the service: check its state, inspect service start/stop/crash records that Windows itself emits, read the collector's log, and capture full application output by running the collector interactively.",
           "logs.win.status": "1. Check the collector's own service health:",
           "logs.win.svc":
             "2. Confirm the Windows service is registered and running:",
@@ -8086,7 +8155,7 @@ Get-Content install.log -Tail 200</code></pre>
             "10. If the installer finishes but no service appears, read the installer's own log. It records what the setup helper and <code>register</code> printed, including the reason enrollment failed, and it survives the rollback that removes everything else. The enrollment token is never written to it:",
           "logs.debug.title": "Debugging Tip",
           "logs.debug.desc":
-            "Set <code>LOG_LEVEL=debug</code> in the environment file and restart the service to get the most verbose output. Remember to set it back to <code>error</code> once done.",
+            "Set <code>LOG_LEVEL=debug</code> in the environment file and restart the service to get the most verbose output. Remember to set it back to <code>info</code> once done.",
           "nav.licence": "Licence Agreement",
           "licence.title": "Licence Agreement",
           "licence.intro":
@@ -8128,28 +8197,29 @@ Get-Content install.log -Tail 200</code></pre>
           "overview.desc":
             "Un agente <strong>gratuito</strong> y ligero que recopila datos de inventario de software y sistemas de sus servidores y los transmite de forma segura a la plataforma LICENSEWARE ™ para el análisis de cumplimiento de licencias.",
           "compat.title": "Compatibilidad del Sistema Operativo",
-          "compat.linux.1": "x86_64 (64-bit) solamente",
+          "compat.linux.1": "x86_64 y arm64 (64-bit)",
           "compat.linux.2": "systemd requerido",
           "compat.win.1": "x86_64 (64-bit) solamente",
-          "compat.win.2": "Windows 7 SP1+ (Escritorio)",
-          "compat.win.3": "Windows Server 2012 R2+",
+          "compat.win.2": "Windows 10+ (Escritorio)",
+          "compat.win.3": "Windows Server 2016+",
           "compat.mac.1": "Intel y Apple Silicon",
           "compat.mac.2": "servicio launchd",
-          "compat.legacy.title": "⚠️ Soporte Legacy Windows",
+          "compat.legacy.title": "⚠️ Versiones antiguas de Windows",
           "compat.legacy.desc":
-            "Windows 7 SP1 y Windows Server 2012 R2 son compatibles pero han llegado al final de su vida útil de Microsoft. Recomendamos actualizar a sistemas operativos compatibles.",
+            "Windows 7, Windows 8.1, Windows Server 2012 R2 y versiones anteriores no son compatibles. El agente requiere Windows 10 o Windows Server 2016 o posterior.",
           "network.title": "Requisitos de Red",
           "network.api_desc":
             "API principal para ingesta de datos, inscripción y configuración. Los tenants regionales usan <code>api.us.licenseware.io</code> o <code>api.au.licenseware.io</code> — el agente sigue el emisor de su token de inscripción.",
           "network.logs_desc":
             "Envío de logs del agente, activado por defecto (<code>LOG_SHIP_ENABLED</code>). Los tenants regionales usan <code>pushlogs.us.licenseware.io</code> o <code>pushlogs.au.licenseware.io</code>.",
-          "network.cdn_desc": "Solo descargas del instalador",
+          "network.cdn_desc":
+            "Descargas del instalador y actualizaciones de osquery (manifiesto y binarios), que el agente comprueba de forma continua. Desde 0.17.0 también las actualizaciones del agente. Necesario de forma continua, no solo durante la instalación.",
           "network.ghapi_desc":
-            "Actualización automática: el agente comprueba si hay una nueva versión cada 24 horas. Necesario de forma continua, no solo durante la instalación.",
+            "Autoactualización del agente en 0.16.0 y anteriores: los agentes de Windows y Linux comprueban si hay una nueva versión cada 24 horas (los agentes de macOS de esas versiones nunca se autoactualizan). Desde 0.17.0 los agentes se actualizan desde <code>cdn.licenseware-collector.com</code> y ya no necesitan este host.",
           "network.ghassets_desc":
-            "Descarga del artefacto de actualización — GitHub redirige aquí desde la API. Permita también el host antiguo <code>objects.githubusercontent.com</code>.",
+            "Descargas de la autoactualización y de la alternativa de osquery en 0.16.0 y anteriores — GitHub redirige aquí. Permita también el host antiguo <code>objects.githubusercontent.com</code>. No es necesario desde 0.17.0.",
           "network.git_desc":
-            "Descarga alternativa de osquery. No se usa en una instalación por MSI o paquete, que ya incluyen osquery.",
+            "Descarga alternativa de osquery en 0.16.0 y anteriores. No se usa en una instalación por MSI o paquete, que ya incluyen osquery. No es necesario desde 0.17.0.",
           "network.firewall.title": "⚠️ Configuración del Firewall",
           "network.firewall.desc":
             "Asegúrese de que se permita HTTPS saliente (puerto 443) a los dominios enumerados anteriormente. No se requieren puertos de entrada.",
@@ -8259,7 +8329,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.macos.step1": "Instale el paquete",
           "install.macos.step2": "Inscriba la máquina e inicie el servicio",
           "install.macos.note":
-            "Actualizar un Mac ya inscrito solo requiere el paso de <code>installer</code> &mdash; el paquete reinicia el servicio y no es necesario volver a registrarlo.",
+            "Actualizar un Mac ya inscrito solo requiere el paso de <code>installer</code> &mdash; el paquete reinicia el servicio y no es necesario volver a registrarlo. Los agentes de macOS en 0.16.0 y anteriores nunca se actualizan solos, así que distribuya el nuevo paquete para actualizarlos; desde 0.17.0 se actualizan desde la CDN, igual que en Windows y Linux.",
           "install.win.admin": "⚠️ Requiere privilegios de Administrador",
           "install.win.step1": "Descargue el instalador",
           "install.win.step2": "Instale, pasando el token de inscripción",
@@ -8276,12 +8346,14 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.codes.row3010":
             "Correcto, reinicio pendiente (archivos en uso; el paquete no programa ningún reinicio)",
           "mdm.codes.row1603":
-            "Falló la acción de instalación, o se bloqueó una versión anterior. El motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>",
+            "Falló la acción de instalación, o se bloqueó una versión anterior. En una instalación nueva esto incluye un token de inscripción rechazado por el backend: la inscripción se ejecuta antes de crear el servicio, por lo que la instalación se revierte. El motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>",
           "mdm.codes.row1618": "Ya hay otra instalación en curso",
           "mdm.codes.row1619":
             "Ruta del paquete inaccesible, o no es un paquete de instalación válido",
           "mdm.codes.note":
             "Son códigos estándar de Windows Installer. No hay valores específicos del proveedor.",
+          "mdm.zero.body":
+            'Una instalación nueva cuyo token de inscripción es rechazado falla con <code>1603</code>. El instalador sigue devolviendo <code>0</code> sin un agente registrado en dos casos: no se indicó <code>TOKEN</code> (los archivos quedan preparados y no se crea ningún servicio), o el registro falló después de que la inscripción se completara. Base su regla de detección en el estado del agente, no en el código de salida: use la regla de detección siguiente o ejecute el comando <a href="#commands"><code>status</code></a> en el dispositivo.',
           "mdm.zero.title": "⚠️ El código de salida 0 no prueba la inscripción",
           "mdm.zero.desc":
             "El instalador informa éxito una vez que los archivos están en su sitio, por lo que un fallo del backend durante la inscripción no hace fallar la instalación — es deliberado, porque hacerla fallar revertiría los archivos dejando atrás el servicio de Windows. Base su regla de detección en el estado instalado, no en el código de salida.",
@@ -8325,13 +8397,15 @@ Get-Content install.log -Tail 200</code></pre>
           "uninstall.win.msi": "Desinstale el paquete",
           "uninstall.win.cleanup": "O elimínelo desde la interfaz:",
           "uninstall.note":
-            "La desinstalación detiene el servicio, lo elimina y borra de la máquina los archivos de ejecución del collector y el token de inscripción. Para conservar el estado recopilado en disco, añada <code>--preserve-state</code>; para eliminar también el osquery incluido, añada <code>--remove-osquery</code>.",
+            "La desinstalación detiene el servicio, lo elimina y borra de la máquina los archivos de ejecución del collector y el token de inscripción. Las desinstalaciones de paquete anteriores (<code>msiexec /x</code>, <code>apt remove</code> / <code>dnf remove</code> y <code>uninstall.command</code>) se ejecutan con argumentos fijos y no admiten opciones adicionales: <code>--preserve-state</code> y <code>--remove-osquery</code> son opciones del comando <code>licenseware-collector uninstall</code>, no de <code>msiexec</code>.",
           "quick.title": "Referencia Rápida",
           "quick.intervals": "Intervalos del Agente",
           "quick.service": "Comandos del Servicio",
           "quick.config": "Refrescar Config:",
           "quick.catalog": "Comprobar Catálogo:",
           "quick.cleanup": "Limpieza de Archivos:",
+          "quick.path_note":
+            "En Linux <code>licenseware-collector</code> está en el <code>PATH</code> (<code>/usr/bin/licenseware-collector</code>). En Windows y macOS no lo está: invoque el binario por su ruta completa, <code>%ProgramData%\\Licenseware\\bin\\LicensewareCollector.exe</code> en Windows y <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code> en macOS.",
           "nav.proxy": "Proxy",
           "proxy.title": "Configuración de Proxy",
           "proxy.desc":
@@ -8368,7 +8442,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.win.ref.noproxy.desc":
             "Lista de hosts separados por comas que deben evitar el proxy",
           "install.win.ref.note":
-            "Las variables de proxy (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) y <code>CA_CERT_PATH</code> configuradas durante el registro se guardan automáticamente en el archivo de entorno del servicio para que el servicio en segundo plano las herede.",
+            'Las variables de proxy (<code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code>) y <code>CA_CERT_PATH</code> configuradas durante el registro se guardan en el archivo de entorno del servicio. El servicio hereda las variables de proxy en todos los sistemas operativos. En 0.16.0 y anteriores solo el servicio de Linux aplica <code>CA_CERT_PATH</code> de ese archivo; los servicios de Windows y macOS lo ignoran hasta 0.17.0 (vea <a href="#custom-ca">Certificados CA Personalizados</a>).',
           "install.win.ref.example.title":
             "Ejemplo Completo con Proxy y CA Personalizado",
           "proxy.setup.title": "Configuración",
@@ -8382,7 +8456,7 @@ Get-Content install.log -Tail 200</code></pre>
             "Después de modificar el archivo de entorno, reinicie el servicio del collector para que los cambios surtan efecto:",
           "install.unix.ref.title": "Referencia Completa de Comandos",
           "install.unix.ref.desc":
-            "Para entornos con proxy o certificado CA personalizado, exporte las variables y páselas a <code>register</code> con <code>sudo -E</code>:",
+            "Para entornos con proxy o certificado CA personalizado, exporte las variables y páselas a <code>register</code> con <code>sudo -E</code> (en macOS, invoque el binario por su ruta completa, <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>; no está en el <code>PATH</code>):",
           "install.unix.ref.manual":
             "O pase el certificado CA como un flag explícito:",
           "proxy.linux.path":
@@ -8410,6 +8484,9 @@ Get-Content install.log -Tail 200</code></pre>
           "customca.setup.title": "Configuración",
           "customca.setup.desc":
             "Agregue la variable <code>CA_CERT_PATH</code> al archivo de entorno del collector, apuntando al archivo PEM que contiene los certificados CA de su empresa.",
+          "customca.winmac.title": "⚠️ Windows y macOS en 0.16.0 y anteriores",
+          "customca.winmac.desc":
+            "Solo el servicio de Linux lee <code>CA_CERT_PATH</code> del archivo de entorno. Los servicios de Windows y macOS de 0.16.0 y anteriores lo ignoran, por lo que el ajuste siguiente no tiene efecto en ellos. En esas versiones, agregue su certificado CA al almacén de confianza del sistema operativo (Windows: <em>Entidades de certificación raíz de confianza</em> del equipo local; macOS: el llavero del Sistema), en el que el collector siempre confía. Desde 0.17.0 el servicio lee el ajuste en todos los sistemas operativos, como <code>CA_CERT</code> o con el nombre anterior <code>CA_CERT_PATH</code>.",
           "customca.linux.path":
             "Archivo: <code>/etc/default/licenseware-collector</code>",
           "customca.macos.path":
@@ -8422,10 +8499,10 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.logs": "Registros",
           "logs.title": "Registros y Solución de Problemas",
           "logs.desc":
-            "El collector escribe todos los registros en la salida de error estándar. Cómo acceder a ellos depende del sistema operativo y el gestor de servicios.",
+            "El collector escribe sus registros en la salida de error estándar; el servicio de Windows los escribe en el Registro de Eventos de Windows. Cómo acceder a ellos depende del sistema operativo y el gestor de servicios.",
           "logs.level.title": "Nivel de Registro",
           "logs.level.desc":
-            "La verbosidad se controla con la variable de entorno <code>LOG_LEVEL</code> en el archivo de entorno del collector. El valor predeterminado es <code>error</code>.",
+            "La verbosidad se controla con la variable de entorno <code>LOG_LEVEL</code> en el archivo de entorno del collector. El valor predeterminado es <code>info</code>.",
           "logs.table.level": "Nivel",
           "logs.table.desc": "Descripción",
           "logs.level.debug":
@@ -8445,7 +8522,7 @@ Get-Content install.log -Tail 200</code></pre>
           "logs.macos.follow": "Seguir registros en tiempo real:",
           "logs.macos.full": "Ver archivo de registro completo:",
           "logs.win.desc":
-            "El servicio de Windows en sí no escribe registros de aplicación en un archivo ni en el Registro de Eventos de Windows. Use los comandos siguientes en PowerShell de Administrador para investigar el servicio: verificar su estado, inspeccionar los registros de inicio/parada/fallo que Windows emite por sí mismo y capturar la salida completa de la aplicación ejecutando el collector de forma interactiva.",
+            "El servicio de Windows escribe el registro propio del collector en el Registro de Eventos de Windows con el proveedor <code>licenseware-collector</code> (paso 8); no escribe ningún archivo de registro. Use los comandos siguientes en PowerShell de Administrador para investigar el servicio: verificar su estado, inspeccionar los registros de inicio/parada/fallo que Windows emite por sí mismo, leer el registro del collector y capturar la salida completa de la aplicación ejecutando el collector de forma interactiva.",
           "logs.win.status":
             "1. Verificar el estado del servicio del propio collector:",
           "logs.win.svc":
@@ -8470,7 +8547,7 @@ Get-Content install.log -Tail 200</code></pre>
             "10. Si el instalador termina pero no aparece ningún servicio, consulte el registro del propio instalador. Recoge lo que imprimieron el asistente de instalación y <code>register</code>, incluido el motivo del fallo de inscripción, y sobrevive a la reversión que elimina todo lo demás. El token de inscripción nunca se escribe en él:",
           "logs.debug.title": "Consejo de Depuración",
           "logs.debug.desc":
-            "Establezca <code>LOG_LEVEL=debug</code> en el archivo de entorno y reinicie el servicio para obtener la salida más detallada. Recuerde volver a establecerlo en <code>error</code> cuando termine.",
+            "Establezca <code>LOG_LEVEL=debug</code> en el archivo de entorno y reinicie el servicio para obtener la salida más detallada. Recuerde volver a establecerlo en <code>info</code> cuando termine.",
           "nav.licence": "Acuerdo de Licencia",
           "licence.title": "Acuerdo de Licencia",
           "licence.intro":
