@@ -9,6 +9,10 @@ repos:
     hooks:
       - id: check-added-large-files
         args: ["--maxkb=5000"]
+        exclude: |
+          (?x)^(
+            public/install.exe
+          )$
       - id: check-ast
       - id: check-executables-have-shebangs
       - id: check-json
