@@ -2757,7 +2757,7 @@ sudo TOKEN=&lt;enrolment-token&gt; dnf install ./licenseware-collector_amd64.rpm
           <h4 data-i18n="linux.pre.title">What the package checks first</h4>
           <ul>
             <li data-i18n="linux.pre.bad">A malformed or expired token, or one not issued by Licenseware, stops the install before any file is written: <code>apt</code> exits <code>100</code>, <code>dnf</code> reports "Transaction failed", the package stays not installed and the next install works. The message gives the reason and where the token came from, never the token.</li>
-            <li data-i18n="linux.pre.none">No token: the package installs, leaves the service stopped and prints the <code>register</code> command to enrol the machine later.</li>
+            <li data-i18n="linux.pre.none">No token: a fresh install is refused the same way, before any file is written, so a run that forgot the token (or put <code>TOKEN=</code> before <code>sudo</code>, which drops it) fails instead of reporting success. For an offline image, set <code>LICENSEWARE_ALLOW_TOKENLESS=1</code>: the package installs, leaves the service stopped and prints the <code>register</code> command to enrol the machine later.</li>
             <li data-i18n="linux.pre.enrolled">An enrolled machine keeps its own credential: a <code>TOKEN</code> given to an upgrade is ignored, so upgrades never re-enrol.</li>
           </ul>
           <h4 data-i18n="linux.status.title">Checking the result</h4>
@@ -6179,7 +6179,7 @@ Get-Content install.log -Tail 200</code></pre>
           "linux.pre.bad":
             'A malformed or expired token, or one not issued by Licenseware, stops the install before any file is written: <code>apt</code> exits <code>100</code>, <code>dnf</code> reports "Transaction failed", the package stays not installed and the next install works. The message gives the reason and where the token came from, never the token.',
           "linux.pre.none":
-            "No token: the package installs, leaves the service stopped and prints the <code>register</code> command to enrol the machine later.",
+            "No token: a fresh install is refused the same way, before any file is written, so a run that forgot the token (or put <code>TOKEN=</code> before <code>sudo</code>, which drops it) fails instead of reporting success. For an offline image, set <code>LICENSEWARE_ALLOW_TOKENLESS=1</code>: the package installs, leaves the service stopped and prints the <code>register</code> command to enrol the machine later.",
           "linux.pre.enrolled":
             "An enrolled machine keeps its own credential: a <code>TOKEN</code> given to an upgrade is ignored, so upgrades never re-enrol.",
           "linux.status.title": "Checking the result",
@@ -6675,7 +6675,7 @@ Get-Content install.log -Tail 200</code></pre>
           "linux.pre.bad":
             "Un token mal formado o caducado, o no emitido por Licenseware, detiene la instalación antes de escribir ningún archivo: <code>apt</code> devuelve <code>100</code>, <code>dnf</code> indica «Transaction failed», el paquete queda sin instalar y la siguiente instalación funciona. El mensaje indica el motivo y de dónde vino el token, nunca el token.",
           "linux.pre.none":
-            "Sin token: el paquete se instala, deja el servicio detenido e imprime el comando <code>register</code> para inscribir la máquina más tarde.",
+            "Sin token: una instalación nueva se rechaza de la misma forma, antes de escribir ningún archivo, así que una ejecución que olvidó el token (o puso <code>TOKEN=</code> antes de <code>sudo</code>, que lo descarta) falla en lugar de informar éxito. Para una imagen sin conexión, defina <code>LICENSEWARE_ALLOW_TOKENLESS=1</code>: el paquete se instala, deja el servicio detenido e imprime el comando <code>register</code> para inscribir la máquina más tarde.",
           "linux.pre.enrolled":
             "Una máquina inscrita conserva su propia credencial: un <code>TOKEN</code> pasado en una actualización se ignora, así que las actualizaciones nunca vuelven a inscribir.",
           "linux.status.title": "Comprobar el resultado",
