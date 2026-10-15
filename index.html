@@ -905,6 +905,17 @@
         white-space: nowrap;
       }
 
+      @media (max-width: 600px) {
+        .guide td:first-child code {
+          white-space: normal;
+          overflow-wrap: anywhere;
+        }
+
+        .guide table:has(th:nth-child(3)) {
+          min-width: 560px;
+        }
+      }
+
       .guide .highlight-box > strong {
         color: var(--primary);
       }
