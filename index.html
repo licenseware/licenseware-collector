@@ -2622,8 +2622,11 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
             <h2 id="golden-images-title" data-i18n="image.title">Golden images and VDI</h2>
-            <span class="badge badge-version" data-i18n="ver.017">From 0.17.0</span>
           </div>
+          <aside class="highlight-box warning" role="note">
+            <strong style="color: var(--warning)" data-i18n="image.uuid.title">⚠️ Every clone needs its own SMBIOS UUID</strong><br />
+            <span data-i18n="image.uuid">Clones that share one SMBIOS UUID take each other's credential: only the last one to start reports, and the others show <code>Credential: REJECTED</code> in <code>status</code>. Before you roll out, run <code>status</code> on two clones and compare their <code>Device UUID</code> lines. A Licenseware update will remove this requirement.</span>
+          </aside>
           <p data-i18n="image.intro">For an image (VDI, Autopilot, a VM template) from which every machine enrols as itself. Install in image mode: the token is stored and the service is set to start at boot, but nothing is enrolled on the image.</p>
           <h4 data-i18n="image.install.title">Install in image mode</h4>
           <p><strong>Windows</strong></p>
@@ -2631,13 +2634,17 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
             <pre><code style="font-size: 0.85rem">msiexec /i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt; ENROLL_ON_START=1 /qn /norestart</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p><strong>Linux</strong></p>
+          <p data-i18n="image.unix.label">Linux and macOS:</p>
           <div class="code-block">
-            <pre><code style="font-size: 0.85rem">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh -s -- --no-enroll
-sudo TOKEN=&lt;enrolment-token&gt; ENROLL_ON_START=1 apt install ./licenseware-collector_amd64.deb</code></pre>
+            <pre><code style="font-size: 0.85rem">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh -s -- --no-enroll</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p><strong>macOS</strong></p>
+          <p data-i18n="image.deb.label">Or with the package (Debian and Ubuntu):</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo TOKEN=&lt;enrolment-token&gt; ENROLL_ON_START=1 apt install ./licenseware-collector_amd64.deb</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p><strong data-i18n="image.mac.label">macOS with an MDM</strong></p>
           <p data-i18n="image.mac">Set <code>ENROLL_ON_START</code> to true in the configuration profile, or add the line <code>ENROLL_ON_START=1</code> to <code>/usr/local/etc/licenseware-collector</code>, before the package installs.</p>
           <p data-i18n="image.installed">An agent that is already installed (any OS; on Windows <code>set TOKEN=…</code>, then <code>LicensewareCollector.exe register --enroll-on-start</code>):</p>
           <div class="code-block">
@@ -2648,19 +2655,12 @@ sudo TOKEN=&lt;enrolment-token&gt; ENROLL_ON_START=1 apt install ./licenseware-c
           <p data-i18n="image.first">At the first start of each machine, the service enrols it with the stored token (retrying from 30 seconds up to hourly while Licenseware is unreachable), registers it, replaces the token with the machine's own credential and starts collecting. A revoked or expired token is retried hourly: put a new <code>TOKEN</code> in the env file, or run <code>register</code> with one.</p>
           <h4 data-i18n="image.hygiene.title">Image hygiene</h4>
           <ul>
-            <li data-i18n="image.h1">Never start the service on the image before you capture it. The first start stores that machine's identity, and every clone taken afterwards shares it.</li>
+            <li data-i18n="image.h1">Install the collector as the last step before you capture the image, and do not start its service or reboot the build machine afterwards: the first start enrols that machine, and every clone taken afterwards shares its identity.</li>
             <li data-i18n="image.h2">Generalise the image the way the platform expects: sysprep on Windows, an empty <code>/etc/machine-id</code> on Linux.</li>
             <li data-i18n="image.h3">Do not wait for registration while you build the image: in image mode the installers return at once and <code>status</code> exits <code>3</code>.</li>
           </ul>
           <h4 data-i18n="image.clone.title">Cloned machines</h4>
-          <p data-i18n="image.clone">Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start the fingerprint no longer matches: <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>, <code>registration.json</code> gets <code>clone_suspected: true</code> (on Windows, <code>CloneSuspected</code> = 1 under <code>HKLM\SOFTWARE\Licenseware\Collector</code>) and the log has <code>reason=lc_clone_suspected</code>. The identity is never changed automatically: uninstall the collector on the clone, then install and enrol it again.</p>
-          <aside class="highlight-box warning" role="note">
-            <p data-i18n="image.uuid">Clones that share one hardware (SMBIOS) UUID are not yet supported: they would replace each other's credential. Support arrives with a backend identity change; until then give each clone a distinct UUID (full clones do, instant/linked clones may not).</p>
-          </aside>
-          <aside class="highlight-box" role="note">
-            <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
-            <p data-i18n="image.old">Image mode needs 0.17.0. On 0.16.0 and earlier, install without a token on the image (Windows: the MSI without <code>TOKEN</code>; Linux and macOS: the package only), then run <code>register</code> with the token on each machine after it is created.</p>
-          </aside>
+          <p data-i18n="image.clone">Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start, <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>; nothing changes by itself. Fix it in this order: give the clone its own SMBIOS UUID, then uninstall the collector on it and install and enrol it again. Never register a clone that still shares its twin's UUID: it takes the twin's credential. A clone that changes neither its serial nor its machine ID is not detected.</p>
         </section>
 
         <!-- Settings -->
@@ -6034,9 +6034,13 @@ Get-Content install.log -Tail 200</code></pre>
           "linux.status.title": "Checking the result",
           "linux.status.desc": "<code>licenseware-collector status</code> needs no root and exits <code>0</code> once the machine is registered (every exit code is in <a href=\"#day2\">Commands</a>). This task waits up to 3 minutes for it:",
           "image.title": "Golden images and VDI",
+          "image.uuid.title": "⚠️ Every clone needs its own SMBIOS UUID",
           "image.intro":
             "For an image (VDI, Autopilot, a VM template) from which every machine enrols as itself. Install in image mode: the token is stored and the service is set to start at boot, but nothing is enrolled on the image.",
           "image.install.title": "Install in image mode",
+          "image.unix.label": "Linux and macOS:",
+          "image.deb.label": "Or with the package (Debian and Ubuntu):",
+          "image.mac.label": "macOS with an MDM",
           "image.mac":
             "Set <code>ENROLL_ON_START</code> to true in the configuration profile, or add the line <code>ENROLL_ON_START=1</code> to <code>/usr/local/etc/licenseware-collector</code>, before the package installs.",
           "image.installed":
@@ -6046,17 +6050,13 @@ Get-Content install.log -Tail 200</code></pre>
           "image.first":
             "At the first start of each machine, the service enrols it with the stored token (retrying from 30 seconds up to hourly while Licenseware is unreachable), registers it, replaces the token with the machine's own credential and starts collecting. A revoked or expired token is retried hourly: put a new <code>TOKEN</code> in the env file, or run <code>register</code> with one.",
           "image.hygiene.title": "Image hygiene",
-          "image.h1":
-            "Never start the service on the image before you capture it. The first start stores that machine's identity, and every clone taken afterwards shares it.",
+          "image.h1": "Install the collector as the last step before you capture the image, and do not start its service or reboot the build machine afterwards: the first start enrols that machine, and every clone taken afterwards shares its identity.",
           "image.h2":
             "Generalise the image the way the platform expects: sysprep on Windows, an empty <code>/etc/machine-id</code> on Linux.",
           "image.h3":
             "Do not wait for registration while you build the image: in image mode the installers return at once and <code>status</code> exits <code>3</code>.",
           "image.clone.title": "Cloned machines",
-          "image.clone":
-            "Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start the fingerprint no longer matches: <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>, <code>registration.json</code> gets <code>clone_suspected: true</code> (on Windows, <code>CloneSuspected</code> = 1 under <code>HKLM\\SOFTWARE\\Licenseware\\Collector</code>) and the log has <code>reason=lc_clone_suspected</code>. The identity is never changed automatically: uninstall the collector on the clone, then install and enrol it again.",
-          "image.old":
-            "Image mode needs 0.17.0. On 0.16.0 and earlier, install without a token on the image (Windows: the MSI without <code>TOKEN</code>; Linux and macOS: the package only), then run <code>register</code> with the token on each machine after it is created.",
+          "image.clone": "Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start, <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>; nothing changes by itself. Fix it in this order: give the clone its own SMBIOS UUID, then uninstall the collector on it and install and enrol it again. Never register a clone that still shares its twin's UUID: it takes the twin's credential. A clone that changes neither its serial nor its machine ID is not detected.",
           "settings.title": "Settings",
           "settings.intro":
             "One set of names works everywhere: as an MSI property, a key in the env file, an environment variable for <code>register</code>, <code>apt</code>, <code>dnf</code> or <code>install.sh</code>, a key in the macOS configuration profile, and a <code>set</code> key. A setting given at install time is stored in the machine's env file and wins over what the Licenseware control plane sends.",
@@ -6152,8 +6152,7 @@ Get-Content install.log -Tail 200</code></pre>
             "From 0.17.0 the file is rotated at 10 MB and 7 compressed copies are kept. Package install failures (exit codes 20–23) are in <code>/var/log/install.log</code>:",
           "logs.more":
             'For more detail, set <code>LOG_LEVEL=debug</code> (<a href="#settings">Settings</a>) and set it back to <code>info</code> when done. From 0.17.0, <code>diagnose</code> collects these logs into a redacted support bundle (<a href="#day2">Day-2 operations</a>).',
-          "image.uuid":
-            "Clones that share one hardware (SMBIOS) UUID are not yet supported: they would replace each other's credential. Support arrives with a backend identity change; until then give each clone a distinct UUID (full clones do, instant/linked clones may not).",
+          "image.uuid": "Clones that share one SMBIOS UUID take each other's credential: only the last one to start reports, and the others show <code>Credential: REJECTED</code> in <code>status</code>. Before you roll out, run <code>status</code> on two clones and compare their <code>Device UUID</code> lines. A Licenseware update will remove this requirement.",
         },
         es: {
           "app.title": "LICENSEWARE Collector",
@@ -6541,9 +6540,13 @@ Get-Content install.log -Tail 200</code></pre>
           "linux.status.title": "Comprobar el resultado",
           "linux.status.desc": "<code>licenseware-collector status</code> no necesita root y sale con <code>0</code> cuando la máquina está registrada (todos los códigos de salida están en <a href=\"#day2\">Comandos</a>). Esta tarea espera hasta 3 minutos:",
           "image.title": "Imágenes maestras y VDI",
+          "image.uuid.title": "⚠️ Cada clon necesita su propio UUID SMBIOS",
           "image.intro":
             "Para una imagen (VDI, Autopilot, una plantilla de VM) desde la que cada máquina se inscribe como ella misma. Instale en modo imagen: el token se guarda y el servicio queda configurado para iniciarse al arrancar, pero en la imagen no se inscribe nada.",
           "image.install.title": "Instalar en modo imagen",
+          "image.unix.label": "Linux y macOS:",
+          "image.deb.label": "O con el paquete (Debian y Ubuntu):",
+          "image.mac.label": "macOS con un MDM",
           "image.mac":
             "Ponga <code>ENROLL_ON_START</code> a true en el perfil de configuración, o añada la línea <code>ENROLL_ON_START=1</code> a <code>/usr/local/etc/licenseware-collector</code>, antes de que se instale el paquete.",
           "image.installed":
@@ -6553,17 +6556,13 @@ Get-Content install.log -Tail 200</code></pre>
           "image.first":
             "En el primer arranque de cada máquina, el servicio la inscribe con el token guardado (reintentando desde cada 30 segundos hasta cada hora mientras Licenseware no esté accesible), la registra, sustituye el token por la credencial propia de la máquina y empieza a recopilar. Un token revocado o caducado se reintenta cada hora: ponga un <code>TOKEN</code> nuevo en el archivo de entorno, o ejecute <code>register</code> con uno.",
           "image.hygiene.title": "Higiene de la imagen",
-          "image.h1":
-            "Nunca inicie el servicio en la imagen antes de capturarla. El primer arranque guarda la identidad de esa máquina, y todos los clones posteriores la comparten.",
+          "image.h1": "Instale el Collector como último paso antes de capturar la imagen, y no inicie su servicio ni reinicie la máquina de compilación después: el primer arranque inscribe esa máquina, y todos los clones tomados después comparten su identidad.",
           "image.h2":
             "Generalice la imagen como espera la plataforma: sysprep en Windows, un <code>/etc/machine-id</code> vacío en Linux.",
           "image.h3":
             "No espere al registro mientras construye la imagen: en modo imagen los instaladores terminan de inmediato y <code>status</code> devuelve <code>3</code>.",
           "image.clone.title": "Máquinas clonadas",
-          "image.clone":
-            "Cada agente registra una huella de la máquina en la que se inscribió (número de serie del hardware e ID de máquina del SO). En una máquina clonada después del primer arranque la huella ya no coincide: <code>status</code> imprime <code>CLONED IMAGE SUSPECTED</code>, <code>registration.json</code> obtiene <code>clone_suspected: true</code> (en Windows, <code>CloneSuspected</code> = 1 bajo <code>HKLM\\SOFTWARE\\Licenseware\\Collector</code>) y el log contiene <code>reason=lc_clone_suspected</code>. La identidad nunca se cambia automáticamente: desinstale el collector en el clon y después vuelva a instalarlo e inscribirlo.",
-          "image.old":
-            "El modo imagen requiere 0.17.0. En 0.16.0 y anteriores, instale sin token en la imagen (Windows: el MSI sin <code>TOKEN</code>; Linux y macOS: solo el paquete) y después ejecute <code>register</code> con el token en cada máquina una vez creada.",
+          "image.clone": "Cada agente registra una huella de la máquina en la que se inscribió (número de serie del hardware e ID de máquina del sistema). En una máquina clonada después del primer arranque, <code>status</code> muestra <code>CLONED IMAGE SUSPECTED</code>; nada cambia por sí solo. Corríjalo en este orden: dé al clon su propio UUID SMBIOS y luego desinstale el Collector en él e instálelo e inscríbalo de nuevo. Nunca registre un clon que aún comparte el UUID de su gemelo: le quita la credencial al gemelo. Un clon que no cambia ni su número de serie ni su ID de máquina no se detecta.",
           "settings.title": "Ajustes",
           "settings.intro":
             "Un mismo conjunto de nombres sirve en todas partes: como propiedad del MSI, clave del archivo de entorno, variable de entorno para <code>register</code>, <code>apt</code>, <code>dnf</code> o <code>install.sh</code>, clave del perfil de configuración de macOS y clave de <code>set</code>. Un ajuste indicado al instalar se guarda en el archivo de entorno de la máquina y prevalece sobre lo que envía el plano de control de Licenseware.",
@@ -6660,8 +6659,7 @@ Get-Content install.log -Tail 200</code></pre>
             "Desde 0.17.0 el archivo rota a los 10 MB y se conservan 7 copias comprimidas. Los fallos de instalación del paquete (códigos de salida 20–23) están en <code>/var/log/install.log</code>:",
           "logs.more":
             'Para más detalle, defina <code>LOG_LEVEL=debug</code> (<a href="#settings">Ajustes</a>) y vuelva a <code>info</code> al terminar. Desde 0.17.0, <code>diagnose</code> reúne estos logs en un paquete de soporte con los datos sensibles ocultos (<a href="#day2">Operaciones del día 2</a>).',
-          "image.uuid":
-            "Los clones que comparten un mismo UUID de hardware (SMBIOS) aún no son compatibles: se sustituirían la credencial unos a otros. La compatibilidad llegará con un cambio de identidad en el backend; hasta entonces, dé a cada clon un UUID distinto (los clones completos lo tienen; los clones instantáneos o vinculados pueden no tenerlo).",
+          "image.uuid": "Los clones que comparten un UUID SMBIOS se quitan la credencial unos a otros: solo informa el último en arrancar, y los demás muestran <code>Credential: REJECTED</code> en <code>status</code>. Antes del despliegue, ejecute <code>status</code> en dos clones y compare sus líneas <code>Device UUID</code>. Una actualización de Licenseware eliminará este requisito.",
         },
       };
 
