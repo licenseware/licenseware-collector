@@ -1276,6 +1276,7 @@
             <li><a href="#proxy" data-i18n="nav.proxy">Proxy</a></li>
             <li><a href="#custom-ca" data-i18n="nav.customca">Custom CA</a></li>
             <li><a href="#day2" data-i18n="nav.day2">Commands</a></li>
+            <li><a href="#troubleshooting" data-i18n="nav.troubleshooting">Troubleshooting</a></li>
             <li><a href="#uninstall" data-i18n="nav.uninstall">Uninstall</a></li>
 
             <li class="sidebar-title" role="presentation" data-i18n="nav.reference">Reference</li>
@@ -2403,6 +2404,7 @@ Registration:     registered
 Healthy:          yes [window 24h]</code></pre>
           </div>
           <p data-i18n="single.check.app"><code>status</code> exits <code>0</code>, and the machine appears under <strong>Agents</strong> in the Licenseware Collector app. Every exit code is in <a href="#day2">Commands</a>.</p>
+          <p data-i18n="single.fail">If it fails, see Troubleshooting for <a href="#ts-windows">Windows</a>, <a href="#ts-macos">macOS</a> or <a href="#ts-linux">Linux</a>.</p>
         </section>
 
         <!-- Intune / SCCM (Windows) -->
@@ -2481,7 +2483,7 @@ Healthy:          yes [window 24h]</code></pre>
             <li data-i18n="mdm.1603.rollback">A fresh install whose token is rejected, that cannot reach Licenseware, or that is not registered within 3 minutes rolls back completely. It leaves only <code>%ProgramData%\Licenseware\setup.log</code>, which says why: <code>register</code> exit <code>10</code> means not acknowledged in time, <code>11</code> the service stopped, <code>12</code> the token was rejected.</li>
             <li data-i18n="mdm.1603.upgrade">An upgrade or a repair fails when it leaves no service, or leaves the service stopped and unable to start; Windows Installer then restores the previous version. On a device that is already enrolled, a <code>TOKENFILE</code> or <code>CA_CERT</code> path that no longer exists is ignored and noted in <code>setup.log</code>.</li>
           </ul>
-          <p data-i18n="mdm.1603.note">An offline device therefore fails with <code>1603</code> instead of installing an agent that never reports, and Intune retries it. During the wait of up to 3 minutes, other installs on the device get <code>1618</code>.</p>
+          <p data-i18n="mdm.1603.note">An offline device therefore fails with <code>1603</code> instead of installing an agent that never reports, and Intune retries it. During the wait of up to 3 minutes, other installs on the device get <code>1618</code>. How to read the logs: <a href="#ts-windows">Troubleshooting</a>.</p>
           <h4 data-i18n="mdm.upgrade.title">Upgrades</h4>
           <p data-i18n="mdm.upgrade.desc">Assign the newer MSI with the same command (Intune supersedence, or a new SCCM deployment type). It never downgrades: an older MSI keeps a newer, self-updated agent and osquery. Run without a token, it repairs and leaves a running service alone. Run with <code>TOKEN</code>, it re-enrols the device: a new credential for the same agent, or a move to the token's project. Devices enrolled without the MSI are upgraded by it without a token.</p>
           <p data-i18n="mdm.upgrade.auto">Agents also update themselves from <code>cdn.licenseware-collector.com</code>. To leave upgrades to your MDM only, install with <code>AUTOUPDATE=0</code>.</p>
@@ -2504,7 +2506,7 @@ Healthy:          yes [window 24h]</code></pre>
             </li>
             <li>
               <strong data-i18n="mac.s2.title">Deploy the package</strong>
-              <p data-i18n="mac.s2.desc">Deploy <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired, revoked or disabled), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes.</p>
+              <p data-i18n="mac.s2.desc">Deploy <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired, revoked or disabled), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes. What to do for each code: <a href="#ts-macos">Troubleshooting</a>.</p>
               <p data-i18n="mac.s2.more">The package is universal (Apple silicon and Intel) and needs no Rosetta. An older package never downgrades a newer agent. Agents update themselves from the CDN; set <code>AUTOUPDATE</code> to false in the profile to leave upgrades to your MDM.</p>
             </li>
             <li>
@@ -2615,6 +2617,7 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
   delay: 10</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
+          <p data-i18n="linux.fail">If it fails, see <a href="#ts-linux">Troubleshooting</a>.</p>
         </section>
 
         <!-- Golden images and VDI -->
@@ -2774,6 +2777,127 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
           </aside>
           <h4 data-i18n="day2.update.title">Updates</h4>
           <p data-i18n="day2.update.desc">The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns updates off (<a href="#settings">Settings</a>).</p>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section class="card guide" id="troubleshooting" aria-labelledby="troubleshooting-title">
+          <div class="card-header">
+            <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
+            <h2 id="troubleshooting-title" data-i18n="ts.title">Troubleshooting</h2>
+          </div>
+          <p data-i18n="ts.intro">Start with <code>status</code> on the machine (<a href="#day2">Commands</a>). If you contact Licenseware support, run <code>diagnose</code> and send the zip it writes: it leaves out tokens, passwords and keys.</p>
+          <p data-i18n="single.check.unix">macOS and Linux:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo licenseware-collector diagnose</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.diag.win">Windows, in a Command Prompt as administrator:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">LicensewareCollector.exe diagnose</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <h3 id="ts-status" data-i18n="ts.status.title">What status says</h3>
+          <div style="overflow-x: auto">
+            <table>
+              <thead><tr><th data-i18n="ts.col.says">You see</th><th data-i18n="ts.col.means">It means</th><th data-i18n="ts.col.do">What to do</th></tr></thead>
+              <tbody>
+                <tr><td data-i18n="ts.s4.k">Exit code <code>4</code></td><td data-i18n="ts.s4.m">The service is not installed</td><td data-i18n="ts.s4.d">Run the installer again (<a href="#single-machine">Single machine</a>)</td></tr>
+                <tr><td data-i18n="ts.s3.k">Exit code <code>3</code></td><td data-i18n="ts.s3.m">Not enrolled yet: no token, a rejected token, no network, or a golden image waiting for its first start</td><td data-i18n="ts.s3.d">Check the token, the network and the proxy. With a rejected token, enrol with a new one: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. On a golden image, start the clone</td></tr>
+                <tr><td data-i18n="ts.s2.k">Exit code <code>2</code> for more than a few minutes</td><td data-i18n="ts.s2.m">Enrolled, but Licenseware has not acknowledged the device</td><td data-i18n="ts.s2.d">Check that the <code>api</code> host of your region is reachable (<a href="#network">Network</a>)</td></tr>
+                <tr><td><code>Credential: REJECTED</code></td><td data-i18n="ts.rej.m">The token was revoked or disabled, or another clone shares this device's SMBIOS UUID</td><td data-i18n="ts.rej.d">Enrol with a new token, or see <a href="#golden-images">Golden images and VDI</a></td></tr>
+                <tr><td><code>CLONED IMAGE SUSPECTED</code></td><td data-i18n="ts.clone.m">The machine looks like a copy of another one</td><td data-i18n="ts.clone.d">See <a href="#golden-images">Golden images and VDI</a></td></tr>
+                <tr><td><code>Healthy: no (...)</code></td><td data-i18n="ts.unhealthy.m">Registered, but something keeps failing</td><td data-i18n="ts.unhealthy.d">The reason in brackets names it; the <a href="#logs">logs</a> say more</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3 id="ts-windows" data-i18n="ts.win.title">Windows</h3>
+          <p data-i18n="ts.win.1603">The MSI exited <code>1603</code>: the reason is in the installer's own log, which survives the rollback and never contains the token.</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">Get-Content C:\ProgramData\Licenseware\setup.log -Tail 50</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.win.refused">Refused before anything was installed (no token, or <code>TOKEN</code> and <code>TOKENFILE</code> together): the reason is only in a verbose MSI log.</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">msiexec /i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt; /l*v install.log</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.win.service">The service does not start, or stops. In PowerShell as administrator:</p>
+          <p data-i18n="ts.win.s1">1. The service's state:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">Get-Service licenseware-collector | Format-List Name, Status, StartType</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.win.s2">2. Its program path, account and recovery settings:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sc.exe qc licenseware-collector; sc.exe qfailure licenseware-collector</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.win.s3">3. The collector's own log in the Event Log:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">Get-WinEvent -ProviderName "licenseware-collector" -MaxEvents 50</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.win.s4">4. Service Control Manager events of the last 24 hours:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">Get-WinEvent -FilterHashtable @{ LogName = 'System'; StartTime = (Get-Date).AddDays(-1); ProviderName = 'Service Control Manager' } |
+  Where-Object { $_.Message -match 'licenseware-collector' } |
+  Format-List TimeCreated, Id, LevelDisplayName, Message</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.win.s5">5. Application crash records of the last 7 days:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">Get-WinEvent -FilterHashtable @{ LogName = 'Application'; StartTime = (Get-Date).AddDays(-7) } |
+  Where-Object { $_.Message -match 'LicensewareCollector' } |
+  Format-List TimeCreated, ProviderName, Id, LevelDisplayName, Message</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="ts.win.s6">6. One collection run in the console, with debug logging, saved to a file:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">Stop-Service licenseware-collector
+$env:LOG_LEVEL = 'debug'
+&amp; "$env:ProgramData\Licenseware\bin\LicensewareCollector.exe" run-once *&gt;&amp;1 |
+  Tee-Object -FilePath "$env:USERPROFILE\licenseware-collector-debug.log"
+Start-Service licenseware-collector</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <h3 id="ts-macos" data-i18n="ts.mac.title">macOS</h3>
+          <p data-i18n="ts.mac.desc">A package that does not finish exits with one of these codes; the reason is in <code>/var/log/install.log</code>.</p>
+          <div style="overflow-x: auto">
+            <table>
+              <thead><tr><th data-i18n="mdm.codes.col_code">Code</th><th data-i18n="ts.col.means">It means</th><th data-i18n="ts.col.do">What to do</th></tr></thead>
+              <tbody>
+                <tr><td><code>20</code></td><td data-i18n="ts.m20.m">No token yet</td><td data-i18n="ts.m20.d">Deploy the configuration profile; your MDM retries the package</td></tr>
+                <tr><td><code>21</code></td><td data-i18n="ts.m21.m">The token was rejected (expired, revoked or disabled)</td><td data-i18n="ts.m21.d">Put a valid token in the profile</td></tr>
+                <tr><td><code>22</code></td><td data-i18n="ts.m22.m">Enrolment failed: network, proxy or TLS</td><td data-i18n="ts.m22.d">See <a href="#ts-network">Network and TLS</a> below</td></tr>
+                <tr><td><code>23</code></td><td data-i18n="ts.m23.m">Not registered within 3 minutes</td><td data-i18n="ts.m23.d">Check that the <code>api</code> host of your region is reachable; the MDM retries</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p data-i18n="ts.mac.log">The agent's own log:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">tail -n 100 /var/log/licenseware-collector.log</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <h3 id="ts-linux" data-i18n="ts.linux.title">Linux</h3>
+          <ul>
+            <li data-i18n="ts.l.notoken"><code>apt</code> exits <code>100</code>, or <code>dnf</code> reports "Transaction failed", with "no enrolment token was given": put <code>TOKEN=</code> after <code>sudo</code>, or pre-seed the token file (<a href="#linux-fleets">Ansible / Linux fleets</a>).</li>
+            <li data-i18n="ts.l.badtoken">"The token is not a valid enrolment token", "was not issued by a Licenseware service this package trusts" or "has expired": create a new token.</li>
+            <li data-i18n="ts.l.pending">The package finished but <code>status</code> exits <code>3</code>: the token was rejected or the network is blocked.</li>
+          </ul>
+          <p data-i18n="ts.l.log">The agent's own log:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">journalctl -u licenseware-collector -n 100 --no-pager</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <h3 id="ts-network" data-i18n="ts.net.title">Network and TLS</h3>
+          <ul>
+            <li data-i18n="ts.net.tls">Certificate errors (<code>x509</code>, "certificate signed by unknown authority") in the logs: a proxy inspects TLS. Set <code>CA_CERT</code> (<a href="#custom-ca">Custom CA</a>).</li>
+            <li data-i18n="ts.net.timeout">Timeouts or refused connections: allow the hosts in <a href="#network">Network</a>, or set <code>PROXY</code> (<a href="#proxy">Proxy</a>).</li>
+            <li data-i18n="ts.net.which">At start, the agent logs which proxy it uses: look for the line that begins with <code>network proxy</code>.</li>
+          </ul>
+          <h3 id="ts-app" data-i18n="ts.app.title">The device is not in the app</h3>
+          <p data-i18n="ts.app.desc">A registered device (<code>status</code> exits <code>0</code>) appears under <strong>Agents</strong> in the Licenseware Collector app of the project its token belongs to; check that you are looking at that project. The software and hardware it collects appear after the next processing run, within 6 hours.</p>
+          <p data-i18n="ts.logs">Where every log lives: <a href="#logs">Logs</a>.</p>
         </section>
 
         <!-- Uninstall Guide -->
@@ -5886,6 +6010,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.proxy": "Proxy",
           "nav.customca": "Custom CA",
           "nav.day2": "Commands",
+          "nav.troubleshooting": "Troubleshooting",
           "downloads.next": "Next: <a href=\"#installation\">pick the guide for how you deploy</a>.",
           "start.pick.single":
             '<a href="#single-machine">Single machine</a>: one Windows, Mac or Linux machine, by hand.',
@@ -5937,6 +6062,7 @@ Get-Content install.log -Tail 200</code></pre>
           "single.check.win": "Windows, in a new Command Prompt:",
           "single.check.sample": "A registered machine shows, among other lines:",
           "single.check.app": "<code>status</code> exits <code>0</code>, and the machine appears under <strong>Agents</strong> in the Licenseware Collector app. Every exit code is in <a href=\"#day2\">Commands</a>.",
+          "single.fail": "If it fails, see Troubleshooting for <a href=\"#ts-windows\">Windows</a>, <a href=\"#ts-macos\">macOS</a> or <a href=\"#ts-linux\">Linux</a>.",
           "mdm.install.tokenfile": "A <code>TOKEN=</code> value is visible wherever command lines are logged (MDM logs, process-creation auditing). To keep it off every command line, put the token in a file that SYSTEM can read (ASCII or UTF-8, the token on the first line), stage the file with your tool before the install, and pass its absolute path instead. The installer never deletes that file. Passing both <code>TOKEN</code> and <code>TOKENFILE</code> is refused.",
           "mdm.props.title": "More settings",
           "mdm.install.props": "Proxy, CA certificate, update and log settings are MSI properties with the same names: <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code> and <code>LOG_LEVEL</code> (<a href=\"#settings\">Settings</a>). Requirements: 64-bit Windows 10, or Windows Server 2016 and later (<a href=\"#compatibility\">OS Compatibility</a>).",
@@ -5945,7 +6071,7 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.1603.refused": "A fresh install without <code>TOKEN</code> or <code>TOKENFILE</code>, or with both, is refused before anything is written. The reason is in the <code>msiexec /l*v</code> log.",
           "mdm.1603.rollback": "A fresh install whose token is rejected, that cannot reach Licenseware, or that is not registered within 3 minutes rolls back completely. It leaves only <code>%ProgramData%\\Licenseware\\setup.log</code>, which says why: <code>register</code> exit <code>10</code> means not acknowledged in time, <code>11</code> the service stopped, <code>12</code> the token was rejected.",
           "mdm.1603.upgrade": "An upgrade or a repair fails when it leaves no service, or leaves the service stopped and unable to start; Windows Installer then restores the previous version. On a device that is already enrolled, a <code>TOKENFILE</code> or <code>CA_CERT</code> path that no longer exists is ignored and noted in <code>setup.log</code>.",
-          "mdm.1603.note": "An offline device therefore fails with <code>1603</code> instead of installing an agent that never reports, and Intune retries it. During the wait of up to 3 minutes, other installs on the device get <code>1618</code>.",
+          "mdm.1603.note": "An offline device therefore fails with <code>1603</code> instead of installing an agent that never reports, and Intune retries it. During the wait of up to 3 minutes, other installs on the device get <code>1618</code>. How to read the logs: <a href=\"#ts-windows\">Troubleshooting</a>.",
           "mdm.upgrade.title": "Upgrades",
           "mdm.upgrade.desc": "Assign the newer MSI with the same command (Intune supersedence, or a new SCCM deployment type). It never downgrades: an older MSI keeps a newer, self-updated agent and osquery. Run without a token, it repairs and leaves a running service alone. Run with <code>TOKEN</code>, it re-enrols the device: a new credential for the same agent, or a move to the token's project. Devices enrolled without the MSI are upgraded by it without a token.",
           "mdm.upgrade.auto": "Agents also update themselves from <code>cdn.licenseware-collector.com</code>. To leave upgrades to your MDM only, install with <code>AUTOUPDATE=0</code>.",
@@ -5959,7 +6085,7 @@ Get-Content install.log -Tail 200</code></pre>
           "mac.s1.more":
             "The settings live in the managed preferences domain <code>io.licenseware.collector</code>. The profile's second payload approves the collector's background service (Team ID <code>8MD7XA4CF3</code>), so macOS 13 and later show no \"Background Items Added\" notice. A changed profile reaches a registered Mac at its next package run.",
           "mac.s2.title": "Deploy the package",
-          "mac.s2.desc": "Deploy <a href=\"https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg\"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired, revoked or disabled), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes.",
+          "mac.s2.desc": "Deploy <a href=\"https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg\"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired, revoked or disabled), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes. What to do for each code: <a href=\"#ts-macos\">Troubleshooting</a>.",
           "mac.s2.more":
             "The package is universal (Apple silicon and Intel) and needs no Rosetta. An older package never downgrades a newer agent. Agents update themselves from the CDN; set <code>AUTOUPDATE</code> to false in the profile to leave upgrades to your MDM.",
           "mac.s3.title": "Report registration with an extension attribute",
@@ -6007,6 +6133,7 @@ Get-Content install.log -Tail 200</code></pre>
             "An enrolled machine keeps its own credential: a <code>TOKEN</code> given to an upgrade is ignored, so upgrades never re-enrol.",
           "linux.status.title": "Checking the result",
           "linux.status.desc": "<code>licenseware-collector status</code> needs no root and exits <code>0</code> once the machine is registered (every exit code is in <a href=\"#day2\">Commands</a>). This task waits up to 3 minutes for it:",
+          "linux.fail": "If it fails, see <a href=\"#ts-linux\">Troubleshooting</a>.",
           "image.title": "Golden images and VDI",
           "image.uuid.title": "⚠️ Every clone needs its own SMBIOS UUID",
           "image.intro":
@@ -6103,6 +6230,61 @@ Get-Content install.log -Tail 200</code></pre>
           "logs.more":
             'For more detail, set <code>LOG_LEVEL=debug</code> (<a href="#settings">Settings</a>) and set it back to <code>info</code> when done. From 0.17.0, <code>diagnose</code> collects these logs into a redacted support bundle (<a href="#day2">Day-2 operations</a>).',
           "image.uuid": "Clones that share one SMBIOS UUID take each other's credential: only the last one to start reports, and the others show <code>Credential: REJECTED</code> in <code>status</code>. Before you roll out, run <code>status</code> on two clones and compare their <code>Device UUID</code> lines. A Licenseware update will remove this requirement.",
+          "ts.title": "Troubleshooting",
+          "ts.intro": "Start with <code>status</code> on the machine (<a href=\"#day2\">Commands</a>). If you contact Licenseware support, run <code>diagnose</code> and send the zip it writes: it leaves out tokens, passwords and keys.",
+          "ts.diag.win": "Windows, in a Command Prompt as administrator:",
+          "ts.status.title": "What status says",
+          "ts.col.says": "You see",
+          "ts.col.means": "It means",
+          "ts.col.do": "What to do",
+          "ts.s4.k": "Exit code <code>4</code>",
+          "ts.s4.m": "The service is not installed",
+          "ts.s4.d": "Run the installer again (<a href=\"#single-machine\">Single machine</a>)",
+          "ts.s3.k": "Exit code <code>3</code>",
+          "ts.s3.m": "Not enrolled yet: no token, a rejected token, no network, or a golden image waiting for its first start",
+          "ts.s3.d": "Check the token, the network and the proxy. With a rejected token, enrol with a new one: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. On a golden image, start the clone",
+          "ts.s2.k": "Exit code <code>2</code> for more than a few minutes",
+          "ts.s2.m": "Enrolled, but Licenseware has not acknowledged the device",
+          "ts.s2.d": "Check that the <code>api</code> host of your region is reachable (<a href=\"#network\">Network</a>)",
+          "ts.rej.m": "The token was revoked or disabled, or another clone shares this device's SMBIOS UUID",
+          "ts.rej.d": "Enrol with a new token, or see <a href=\"#golden-images\">Golden images and VDI</a>",
+          "ts.clone.m": "The machine looks like a copy of another one",
+          "ts.clone.d": "See <a href=\"#golden-images\">Golden images and VDI</a>",
+          "ts.unhealthy.m": "Registered, but something keeps failing",
+          "ts.unhealthy.d": "The reason in brackets names it; the <a href=\"#logs\">logs</a> say more",
+          "ts.win.title": "Windows",
+          "ts.win.1603": "The MSI exited <code>1603</code>: the reason is in the installer's own log, which survives the rollback and never contains the token.",
+          "ts.win.refused": "Refused before anything was installed (no token, or <code>TOKEN</code> and <code>TOKENFILE</code> together): the reason is only in a verbose MSI log.",
+          "ts.win.service": "The service does not start, or stops. In PowerShell as administrator:",
+          "ts.win.s1": "1. The service's state:",
+          "ts.win.s2": "2. Its program path, account and recovery settings:",
+          "ts.win.s3": "3. The collector's own log in the Event Log:",
+          "ts.win.s4": "4. Service Control Manager events of the last 24 hours:",
+          "ts.win.s5": "5. Application crash records of the last 7 days:",
+          "ts.win.s6": "6. One collection run in the console, with debug logging, saved to a file:",
+          "ts.mac.title": "macOS",
+          "ts.mac.desc": "A package that does not finish exits with one of these codes; the reason is in <code>/var/log/install.log</code>.",
+          "ts.m20.m": "No token yet",
+          "ts.m20.d": "Deploy the configuration profile; your MDM retries the package",
+          "ts.m21.m": "The token was rejected (expired, revoked or disabled)",
+          "ts.m21.d": "Put a valid token in the profile",
+          "ts.m22.m": "Enrolment failed: network, proxy or TLS",
+          "ts.m22.d": "See <a href=\"#ts-network\">Network and TLS</a> below",
+          "ts.m23.m": "Not registered within 3 minutes",
+          "ts.m23.d": "Check that the <code>api</code> host of your region is reachable; the MDM retries",
+          "ts.mac.log": "The agent's own log:",
+          "ts.linux.title": "Linux",
+          "ts.l.notoken": "<code>apt</code> exits <code>100</code>, or <code>dnf</code> reports \"Transaction failed\", with \"no enrolment token was given\": put <code>TOKEN=</code> after <code>sudo</code>, or pre-seed the token file (<a href=\"#linux-fleets\">Ansible / Linux fleets</a>).",
+          "ts.l.badtoken": "\"The token is not a valid enrolment token\", \"was not issued by a Licenseware service this package trusts\" or \"has expired\": create a new token.",
+          "ts.l.pending": "The package finished but <code>status</code> exits <code>3</code>: the token was rejected or the network is blocked.",
+          "ts.l.log": "The agent's own log:",
+          "ts.net.title": "Network and TLS",
+          "ts.net.tls": "Certificate errors (<code>x509</code>, \"certificate signed by unknown authority\") in the logs: a proxy inspects TLS. Set <code>CA_CERT</code> (<a href=\"#custom-ca\">Custom CA</a>).",
+          "ts.net.timeout": "Timeouts or refused connections: allow the hosts in <a href=\"#network\">Network</a>, or set <code>PROXY</code> (<a href=\"#proxy\">Proxy</a>).",
+          "ts.net.which": "At start, the agent logs which proxy it uses: look for the line that begins with <code>network proxy</code>.",
+          "ts.app.title": "The device is not in the app",
+          "ts.app.desc": "A registered device (<code>status</code> exits <code>0</code>) appears under <strong>Agents</strong> in the Licenseware Collector app of the project its token belongs to; check that you are looking at that project. The software and hardware it collects appear after the next processing run, within 6 hours.",
+          "ts.logs": "Where every log lives: <a href=\"#logs\">Logs</a>.",
         },
         es: {
           "app.title": "LICENSEWARE Collector",
@@ -6361,6 +6543,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.proxy": "Proxy",
           "nav.customca": "CA personalizada",
           "nav.day2": "Comandos",
+          "nav.troubleshooting": "Solución de problemas",
           "downloads.next": "Siguiente: <a href=\"#installation\">elija la guía según cómo despliega</a>.",
           "start.pick.single":
             '<a href="#single-machine">Una sola máquina</a>: una máquina Windows, Mac o Linux, a mano.',
@@ -6412,6 +6595,7 @@ Get-Content install.log -Tail 200</code></pre>
           "single.check.win": "Windows, en un Símbolo del sistema nuevo:",
           "single.check.sample": "Una máquina registrada muestra, entre otras líneas:",
           "single.check.app": "<code>status</code> sale con <code>0</code> y la máquina aparece en <strong>Agents</strong> en la aplicación Licenseware Collector. Todos los códigos de salida están en <a href=\"#day2\">Comandos</a>.",
+          "single.fail": "Si falla, vea Solución de problemas para <a href=\"#ts-windows\">Windows</a>, <a href=\"#ts-macos\">macOS</a> o <a href=\"#ts-linux\">Linux</a>.",
           "mdm.install.tokenfile": "Un valor <code>TOKEN=</code> es visible allí donde se registran las líneas de comandos (registros del MDM, auditoría de creación de procesos). Para mantenerlo fuera de toda línea de comandos, ponga el token en un archivo que SYSTEM pueda leer (ASCII o UTF-8, el token en la primera línea), colóquelo con su herramienta antes de la instalación y pase su ruta absoluta. El instalador nunca borra ese archivo. Pasar <code>TOKEN</code> y <code>TOKENFILE</code> a la vez se rechaza.",
           "mdm.props.title": "Más ajustes",
           "mdm.install.props": "Los ajustes de proxy, certificado de CA, actualizaciones y log son propiedades del MSI con los mismos nombres: <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code> y <code>LOG_LEVEL</code> (<a href=\"#settings\">Ajustes</a>). Requisitos: Windows 10 de 64 bits, o Windows Server 2016 y posteriores (<a href=\"#compatibility\">Compatibilidad</a>).",
@@ -6420,7 +6604,7 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.1603.refused": "Una instalación nueva sin <code>TOKEN</code> ni <code>TOKENFILE</code>, o con ambos, se rechaza antes de escribir nada. El motivo está en el registro de <code>msiexec /l*v</code>.",
           "mdm.1603.rollback": "Una instalación nueva cuyo token se rechaza, que no puede llegar a Licenseware o que no queda registrada en 3 minutos se revierte por completo. Solo deja <code>%ProgramData%\\Licenseware\\setup.log</code>, que explica el motivo: la salida <code>10</code> de <code>register</code> significa sin confirmación a tiempo, <code>11</code> el servicio se detuvo, <code>12</code> el token fue rechazado.",
           "mdm.1603.upgrade": "Una actualización o una reparación falla cuando no deja ningún servicio, o deja el servicio detenido y sin poder iniciarse; Windows Installer restaura entonces la versión anterior. En un dispositivo ya inscrito, una ruta <code>TOKENFILE</code> o <code>CA_CERT</code> que ya no existe se ignora y se anota en <code>setup.log</code>.",
-          "mdm.1603.note": "Por tanto, un dispositivo sin conexión falla con <code>1603</code> en lugar de instalar un agente que nunca informa, e Intune lo reintenta. Durante la espera de hasta 3 minutos, otras instalaciones en el dispositivo reciben <code>1618</code>.",
+          "mdm.1603.note": "Por tanto, un dispositivo sin conexión falla con <code>1603</code> en lugar de instalar un agente que nunca informa, e Intune lo reintenta. Durante la espera de hasta 3 minutos, otras instalaciones en el dispositivo reciben <code>1618</code>. Cómo leer los registros: <a href=\"#ts-windows\">Solución de problemas</a>.",
           "mdm.upgrade.title": "Actualizaciones",
           "mdm.upgrade.desc": "Asigne el MSI más reciente con el mismo comando (reemplazo en Intune, o un nuevo tipo de implementación en SCCM). Nunca instala una versión anterior: un MSI más antiguo conserva un agente y un osquery más recientes y autoactualizados. Ejecutado sin token, repara y no toca un servicio en ejecución. Ejecutado con <code>TOKEN</code>, vuelve a inscribir el dispositivo: una credencial nueva para el mismo agente, o un traslado al proyecto del token. Los dispositivos inscritos sin el MSI se actualizan con él sin token.",
           "mdm.upgrade.auto": "Los agentes también se actualizan solos desde <code>cdn.licenseware-collector.com</code>. Para dejar las actualizaciones solo a su MDM, instale con <code>AUTOUPDATE=0</code>.",
@@ -6434,7 +6618,7 @@ Get-Content install.log -Tail 200</code></pre>
           "mac.s1.more":
             "Los ajustes están en el dominio de preferencias gestionadas <code>io.licenseware.collector</code>. La segunda carga útil del perfil aprueba el servicio en segundo plano del collector (Team ID <code>8MD7XA4CF3</code>), de modo que macOS 13 y posteriores no muestran el aviso «Background Items Added». Un perfil modificado llega a un Mac registrado en la siguiente ejecución del paquete.",
           "mac.s2.title": "Despliegue el paquete",
-          "mac.s2.desc": "Despliegue <a href=\"https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg\"><code>LicensewareCollector.pkg</code></a> en los mismos Mac. Lee el token del perfil, inscribe el Mac y espera hasta 3 minutos a que se registre. Si no, la instalación falla y su MDM la reintenta en la siguiente comprobación. El motivo está en <code>/var/log/install.log</code>: <code>20</code> aún no hay token, <code>21</code> token rechazado (caducado, revocado o deshabilitado), <code>22</code> la inscripción falló (red, proxy, TLS), <code>23</code> no se registró en 3 minutos.",
+          "mac.s2.desc": "Despliegue <a href=\"https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg\"><code>LicensewareCollector.pkg</code></a> en los mismos Mac. Lee el token del perfil, inscribe el Mac y espera hasta 3 minutos a que se registre. Si no, la instalación falla y su MDM la reintenta en la siguiente comprobación. El motivo está en <code>/var/log/install.log</code>: <code>20</code> aún no hay token, <code>21</code> token rechazado (caducado, revocado o deshabilitado), <code>22</code> la inscripción falló (red, proxy, TLS), <code>23</code> no se registró en 3 minutos. Qué hacer con cada código: <a href=\"#ts-macos\">Solución de problemas</a>.",
           "mac.s2.more":
             "El paquete es universal (Apple silicon e Intel) y no necesita Rosetta. Un paquete más antiguo nunca sustituye a un agente más reciente. Los agentes se actualizan solos desde la CDN; ponga <code>AUTOUPDATE</code> a false en el perfil para dejar las actualizaciones a su MDM.",
           "mac.s3.title": "Informe del registro con un atributo de extensión",
@@ -6482,6 +6666,7 @@ Get-Content install.log -Tail 200</code></pre>
             "Una máquina inscrita conserva su propia credencial: un <code>TOKEN</code> pasado en una actualización se ignora, así que las actualizaciones nunca vuelven a inscribir.",
           "linux.status.title": "Comprobar el resultado",
           "linux.status.desc": "<code>licenseware-collector status</code> no necesita root y sale con <code>0</code> cuando la máquina está registrada (todos los códigos de salida están en <a href=\"#day2\">Comandos</a>). Esta tarea espera hasta 3 minutos:",
+          "linux.fail": "Si falla, vea <a href=\"#ts-linux\">Solución de problemas</a>.",
           "image.title": "Imágenes maestras y VDI",
           "image.uuid.title": "⚠️ Cada clon necesita su propio UUID SMBIOS",
           "image.intro":
@@ -6578,6 +6763,61 @@ Get-Content install.log -Tail 200</code></pre>
           "logs.more":
             'Para más detalle, defina <code>LOG_LEVEL=debug</code> (<a href="#settings">Ajustes</a>) y vuelva a <code>info</code> al terminar. Desde 0.17.0, <code>diagnose</code> reúne estos logs en un paquete de soporte con los datos sensibles ocultos (<a href="#day2">Operaciones del día 2</a>).',
           "image.uuid": "Los clones que comparten un UUID SMBIOS se quitan la credencial unos a otros: solo informa el último en arrancar, y los demás muestran <code>Credential: REJECTED</code> en <code>status</code>. Antes del despliegue, ejecute <code>status</code> en dos clones y compare sus líneas <code>Device UUID</code>. Una actualización de Licenseware eliminará este requisito.",
+          "ts.title": "Solución de problemas",
+          "ts.intro": "Empiece con <code>status</code> en la máquina (<a href=\"#day2\">Comandos</a>). Si contacta con el soporte de Licenseware, ejecute <code>diagnose</code> y envíe el zip que genera: no incluye tokens, contraseñas ni claves.",
+          "ts.diag.win": "Windows, en un Símbolo del sistema como administrador:",
+          "ts.status.title": "Qué dice status",
+          "ts.col.says": "Ve",
+          "ts.col.means": "Significa",
+          "ts.col.do": "Qué hacer",
+          "ts.s4.k": "Código de salida <code>4</code>",
+          "ts.s4.m": "El servicio no está instalado",
+          "ts.s4.d": "Vuelva a ejecutar el instalador (<a href=\"#single-machine\">Una sola máquina</a>)",
+          "ts.s3.k": "Código de salida <code>3</code>",
+          "ts.s3.m": "Aún no inscrita: sin token, con un token rechazado, sin red, o una imagen maestra esperando su primer arranque",
+          "ts.s3.d": "Compruebe el token, la red y el proxy. Con un token rechazado, inscríbala con uno nuevo: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. En una imagen maestra, arranque el clon",
+          "ts.s2.k": "Código de salida <code>2</code> durante más de unos minutos",
+          "ts.s2.m": "Inscrita, pero Licenseware no ha confirmado el dispositivo",
+          "ts.s2.d": "Compruebe que el host <code>api</code> de su región es accesible (<a href=\"#network\">Red</a>)",
+          "ts.rej.m": "El token se revocó o deshabilitó, u otro clon comparte el UUID SMBIOS de este dispositivo",
+          "ts.rej.d": "Inscríbalo con un token nuevo, o vea <a href=\"#golden-images\">Imágenes maestras y VDI</a>",
+          "ts.clone.m": "La máquina parece una copia de otra",
+          "ts.clone.d": "Vea <a href=\"#golden-images\">Imágenes maestras y VDI</a>",
+          "ts.unhealthy.m": "Registrada, pero algo sigue fallando",
+          "ts.unhealthy.d": "El motivo entre paréntesis lo indica; los <a href=\"#logs\">registros</a> dan más detalle",
+          "ts.win.title": "Windows",
+          "ts.win.1603": "El MSI salió con <code>1603</code>: el motivo está en el registro propio del instalador, que sobrevive a la reversión y nunca contiene el token.",
+          "ts.win.refused": "Rechazado antes de instalar nada (sin token, o con <code>TOKEN</code> y <code>TOKENFILE</code> a la vez): el motivo solo aparece en un registro detallado del MSI.",
+          "ts.win.service": "El servicio no se inicia, o se detiene. En PowerShell como administrador:",
+          "ts.win.s1": "1. El estado del servicio:",
+          "ts.win.s2": "2. Su ruta del programa, cuenta y opciones de recuperación:",
+          "ts.win.s3": "3. El registro propio del Collector en el Visor de eventos:",
+          "ts.win.s4": "4. Eventos del Administrador de control de servicios de las últimas 24 horas:",
+          "ts.win.s5": "5. Registros de bloqueos de aplicaciones de los últimos 7 días:",
+          "ts.win.s6": "6. Una recopilación en la consola, con registro de depuración, guardada en un archivo:",
+          "ts.mac.title": "macOS",
+          "ts.mac.desc": "Un paquete que no termina sale con uno de estos códigos; el motivo está en <code>/var/log/install.log</code>.",
+          "ts.m20.m": "Aún no hay token",
+          "ts.m20.d": "Despliegue el perfil de configuración; su MDM reintenta el paquete",
+          "ts.m21.m": "El token fue rechazado (caducado, revocado o deshabilitado)",
+          "ts.m21.d": "Ponga un token válido en el perfil",
+          "ts.m22.m": "La inscripción falló: red, proxy o TLS",
+          "ts.m22.d": "Vea <a href=\"#ts-network\">Red y TLS</a> abajo",
+          "ts.m23.m": "No se registró en 3 minutos",
+          "ts.m23.d": "Compruebe que el host <code>api</code> de su región es accesible; el MDM reintenta",
+          "ts.mac.log": "El registro propio del agente:",
+          "ts.linux.title": "Linux",
+          "ts.l.notoken": "<code>apt</code> sale con <code>100</code>, o <code>dnf</code> indica \"Transaction failed\", con \"no enrolment token was given\": ponga <code>TOKEN=</code> después de <code>sudo</code>, o coloque antes el archivo del token (<a href=\"#linux-fleets\">Ansible / flotas Linux</a>).",
+          "ts.l.badtoken": "\"The token is not a valid enrolment token\", \"was not issued by a Licenseware service this package trusts\" o \"has expired\": cree un token nuevo.",
+          "ts.l.pending": "El paquete terminó pero <code>status</code> sale con <code>3</code>: el token fue rechazado o la red está bloqueada.",
+          "ts.l.log": "El registro propio del agente:",
+          "ts.net.title": "Red y TLS",
+          "ts.net.tls": "Errores de certificado (<code>x509</code>, \"certificate signed by unknown authority\") en los registros: un proxy inspecciona TLS. Defina <code>CA_CERT</code> (<a href=\"#custom-ca\">CA personalizada</a>).",
+          "ts.net.timeout": "Tiempos de espera agotados o conexiones rechazadas: permita los hosts de <a href=\"#network\">Red</a>, o defina <code>PROXY</code> (<a href=\"#proxy\">Proxy</a>).",
+          "ts.net.which": "Al iniciarse, el agente registra qué proxy usa: busque la línea que empieza por <code>network proxy</code>.",
+          "ts.app.title": "El dispositivo no aparece en la aplicación",
+          "ts.app.desc": "Un dispositivo registrado (<code>status</code> sale con <code>0</code>) aparece en <strong>Agents</strong> en la aplicación Licenseware Collector del proyecto al que pertenece su token; compruebe que mira ese proyecto. El software y el hardware que recopila aparecen tras el siguiente procesamiento, en 6 horas como máximo.",
+          "ts.logs": "Dónde está cada registro: <a href=\"#logs\">Registros</a>.",
         },
       };
 
