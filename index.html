@@ -1772,10 +1772,7 @@
                     >and sign in or create a free account</span
                   >
                 </li>
-                <li data-i18n="install.step1.3">
-                  Navigate to <strong>LC App</strong> and go to
-                  <strong>API Keys</strong> tab
-                </li>
+                <li data-i18n="install.step1.3">Open the <strong>Licenseware Collector</strong> app and its <strong>API Keys</strong> tab</li>
                 <li data-i18n="install.step1.4">
                   Click <strong>Create Key</strong>, configure it, and copy the
                   token
@@ -2353,7 +2350,7 @@
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
             <h2 id="single-machine-title" data-i18n="single.title">Single machine</h2>
           </div>
-          <p data-i18n="single.intro">Install the collector on one machine by hand. Each install enrols the machine and finishes only once Licenseware has registered it.</p>
+          <p data-i18n="single.intro">Install the collector on one machine by hand. Each install enrols the machine. The MSI, the macOS package and <code>install.sh</code> finish only once Licenseware has registered it; a Linux package installed by hand waits up to 60 seconds and finishes either way.</p>
           <p data-i18n="single.before"><strong>Before you start:</strong> an <a href="#installation">enrolment token</a>, administrator rights on the machine, and the hosts in <a href="#network">Network</a> reachable from it.</p>
           <h3 data-i18n="single.win.title">Windows (Command Prompt as administrator)</h3>
           <p data-i18n="single.win.run">In the folder that holds <code>LicensewareCollector.msi</code> from <a href="#downloads">Downloads</a>, run:</p>
@@ -2440,7 +2437,7 @@ Healthy:          yes [window 24h]</code></pre>
           <h3 data-i18n="mdm.sccm.title">SCCM</h3>
           <p data-i18n="mdm.sccm.desc">Create an application with a Windows Installer deployment type. Use the same command as the installation program and install for system. For the detection method, use the registry rule below (data type Integer, equals <code>1</code>, 64-bit).</p>
           <h4 id="intune-detect" data-i18n="mdm.detect.title">Detection rule</h4>
-          <p data-i18n="mdm.detect.desc">The agent mirrors its registration into the registry, so Intune and SCCM can use a built-in registry rule with no script. Do not use a file-version or product-code rule: both report success even when enrolment did not complete.</p>
+          <p data-i18n="mdm.detect.desc">The agent mirrors its registration into the registry, so Intune and SCCM can use a built-in registry rule with no script. Do not use a file-version or product-code rule: they also match a device whose agent is installed but not registered, such as a golden image or a device staged by an older MSI.</p>
           <div style="overflow-x: auto">
             <table>
               <thead><tr><th data-i18n="mdm.detect.reg.col_setting">Setting</th><th data-i18n="mdm.detect.reg.col_value">Value</th></tr></thead>
@@ -2488,8 +2485,8 @@ Healthy:          yes [window 24h]</code></pre>
           </ul>
           <p data-i18n="mdm.1603.note">An offline device therefore fails with <code>1603</code> instead of installing an agent that never reports, and Intune retries it. During the wait of up to 3 minutes, other installs on the device get <code>1618</code>. How to read the logs: <a href="#ts-windows">Troubleshooting</a>.</p>
           <h4 data-i18n="mdm.upgrade.title">Upgrades</h4>
-          <p data-i18n="mdm.upgrade.desc">Assign the newer MSI with the same command (Intune supersedence, or a new SCCM deployment type). It never downgrades: an older MSI keeps a newer, self-updated agent and osquery. Run without a token, it repairs and leaves a running service alone. Run with <code>TOKEN</code>, it re-enrols the device: a new credential for the same agent, or a move to the token's project. Devices enrolled without the MSI are upgraded by it without a token.</p>
-          <p data-i18n="mdm.upgrade.auto">Agents also update themselves from <code>cdn.licenseware-collector.com</code>. To leave upgrades to your MDM only, install with <code>AUTOUPDATE=0</code>.</p>
+          <p data-i18n="mdm.upgrade.desc">Assign the newer MSI with the same command (Intune supersedence, or a new SCCM deployment type). It never downgrades: an older MSI keeps a newer, self-updated agent and osquery. Run without a token, it repairs, and restarts the service only when it replaced the program or the settings file. Run with <code>TOKEN</code>, it re-enrols the device: a new credential for the same agent, or a move to the token's project. Devices enrolled without the MSI are upgraded by it without a token.</p>
+          <p data-i18n="mdm.upgrade.auto">Agents also update themselves from <code>cdn.licenseware-collector.com</code>. To leave agent upgrades to your MDM only, install with <code>AUTOUPDATE=0</code> (osquery keeps updating itself).</p>
           <h4 data-i18n="mdm.uninstall.title">Uninstall</h4>
           <p data-i18n="mdm.uninstall.desc">Uninstall the app from Intune or SCCM, or see <a href="#uninstall">Uninstall</a> for the other ways.</p>
         </section>
@@ -2779,7 +2776,7 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
             <p data-i18n="day2.warn"><strong>Use it for monitoring only. Never use <code>--require-healthy</code>, exit code <code>5</code> or the <code>Health</code> registry values as an Intune, SCCM or Jamf detection rule</strong> (<a href="#intune">Intune / SCCM</a>): a Licenseware outage would make your tool reinstall the collector everywhere.</p>
           </aside>
           <h4 data-i18n="day2.update.title">Updates</h4>
-          <p data-i18n="day2.update.desc">The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns updates off (<a href="#settings">Settings</a>).</p>
+          <p data-i18n="day2.update.desc">The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns the agent's own updates off, while osquery keeps updating (<a href="#settings">Settings</a>).</p>
         </section>
 
         <!-- Troubleshooting -->
@@ -2996,7 +2993,7 @@ Start-Service licenseware-collector</code></pre>
           <p data-i18n="upg.win.other">Without Intune, run <code>detect.ps1</code> as SYSTEM from any tool that can (an SCCM compliance item, an RMM tool), and <code>remediate.ps1</code> when it exits <code>1</code>. For servers and VDI that never restart, also deploy the 0.17.0 MSI to them once it is published: it starts a stopped service.</p>
 
           <h3 data-i18n="upg.optout.title" style="margin-top: 1.5rem">Keeping devices on 0.16.0</h3>
-          <p data-i18n="upg.optout.desc">Licenseware cannot pause agents on 0.16.0 or earlier. To keep devices off 0.17.0, block these hosts for them before the release: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code>. From 0.17.0 you can turn updates off on the device instead (<code>AUTOUPDATE=0</code>).</p>
+          <p data-i18n="upg.optout.desc">Licenseware cannot pause agents on 0.16.0 or earlier. To keep devices off 0.17.0, block these hosts for them before the release: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code>. From 0.17.0 you can turn the agent's own updates off on the device instead (<code>AUTOUPDATE=0</code>).</p>
 
           <h3 data-i18n="upg.mac.title" style="margin-top: 1.5rem">macOS: update privacy rules first</h3>
           <p data-i18n="upg.mac.desc">With 0.17.0, Macs update themselves for the first time. From 0.17.0 the collector's code-signing identifier is <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>); earlier builds used <code>licenseware-collector</code>, <code>LicensewareCollector</code> and <code>osqueryi</code>. If your MDM has PPPC or other privacy rules that name the collector by identifier, add the new identifiers before the release and keep the old ones until every Mac is updated. Rules that use the Team ID <code>8MD7XA4CF3</code> need no change.</p>
@@ -3009,9 +3006,9 @@ Start-Service licenseware-collector</code></pre>
 
           <h3 data-i18n="upg2.changes.title" style="margin-top: 1.5rem">What changes in 0.17.0</h3>
           <ul style="padding-left: 1.25rem">
-            <li data-i18n="upg2.c1">Installs are one step on every OS: the install enrols the device or fails (<a href="#single-machine">Single machine</a>).</li>
+            <li data-i18n="upg2.c1">Installs are one step on every OS: the install enrols the device, and the MSI, the macOS package and <code>install.sh</code> fail when it does not register (<a href="#single-machine">Single machine</a>).</li>
             <li data-i18n="upg2.c2"><code>status</code>, <code>set</code>, <code>restart</code>, <code>diagnose</code> and <code>uninstall</code> work the same way on every OS, and the command is on the <code>PATH</code> (<a href="#day2">Commands</a>).</li>
-            <li data-i18n="upg2.c3">Agents update from <code>cdn.licenseware-collector.com</code>, only to releases signed by Licenseware, Macs included; <code>AUTOUPDATE=0</code> turns updates off (<a href="#settings">Settings</a>).</li>
+            <li data-i18n="upg2.c3">Agents update from <code>cdn.licenseware-collector.com</code>, only to releases signed by Licenseware, Macs included; <code>AUTOUPDATE=0</code> turns the agent's own updates off (<a href="#settings">Settings</a>).</li>
             <li data-i18n="upg2.c4">One set of setting names works as MSI properties, macOS profile keys, environment variables and <code>set</code> keys (<a href="#settings">Settings</a>).</li>
           </ul>
 
@@ -3038,7 +3035,7 @@ exit 1</code></pre>
           <h3 data-i18n="upg2.old.title" style="margin-top: 1.5rem">On 0.16.0 and earlier</h3>
           <ul style="padding-left: 1.25rem">
             <li data-i18n="upg2.o.install">On macOS and Linux the package only installs files: enrol the machine afterwards with <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code> (on macOS the program is <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>).</li>
-            <li data-i18n="upg2.o.msi">The MSI takes only <code>TOKEN</code>, and its exit code <code>0</code> does not prove the device registered: check with <code>status</code>.</li>
+            <li data-i18n="upg2.o.msi">The MSI takes no setting other than the token, and its exit code <code>0</code> does not prove the device registered: check with <code>status</code>.</li>
             <li data-i18n="upg2.o.cmds"><code>set</code>, <code>restart</code> and <code>diagnose</code> do not exist, and <code>uninstall</code> refuses on a package install: remove the package instead. To change a setting, edit the env file, which uses the older names <code>HTTPS_PROXY</code>, <code>NO_PROXY</code> and <code>CA_CERT_PATH</code>, then restart the service: <code>systemctl restart licenseware-collector</code>, <code>launchctl kickstart -k system/io.licenseware.licenseware-collector</code> or <code>Restart-Service licenseware-collector</code>.</li>
             <li data-i18n="upg2.o.ca">The Windows and macOS services ignore <code>CA_CERT_PATH</code>: add the CA certificate to the operating system's trust store instead.</li>
             <li data-i18n="upg2.o.image">There is no image mode: install without a token on the image (Windows: the MSI without <code>TOKEN</code>; Linux and macOS: the package only), then run <code>register</code> with the token on each machine after it is created.</li>
@@ -5681,8 +5678,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.step1.title": "Get Your Token",
           "install.step1.1": "Go to",
           "install.step1.2": "and sign in or create a free account",
-          "install.step1.3":
-            "Navigate to <strong>LC App</strong> and go to <strong>API Keys</strong> tab",
+          "install.step1.3": "Open the <strong>Licenseware Collector</strong> app and its <strong>API Keys</strong> tab",
           "install.step1.4":
             "Click <strong>Create Key</strong>, configure it, and copy the token",
           "install.step2.title": "Pick the guide for how you deploy",
@@ -5697,7 +5693,7 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.codes.row1618": "Another installation is already in progress",
           "mdm.codes.row1619": "Package path unreachable, or not a valid installer package",
           "mdm.detect.title": "Detection rule",
-          "mdm.detect.desc": "The agent mirrors its registration into the registry, so Intune and SCCM can use a built-in registry rule with no script. Do not use a file-version or product-code rule: both report success even when enrolment did not complete.",
+          "mdm.detect.desc": "The agent mirrors its registration into the registry, so Intune and SCCM can use a built-in registry rule with no script. Do not use a file-version or product-code rule: they also match a device whose agent is installed but not registered, such as a golden image or a device staged by an older MSI.",
           "mdm.detect.reg.col_setting": "Setting",
           "mdm.detect.reg.col_value": "Value",
           "mdm.detect.reg.type": "Rule type",
@@ -5823,7 +5819,7 @@ Get-Content install.log -Tail 200</code></pre>
           "status.c4": "Service not installed",
           "status.c5": "Only with <code>--require-healthy</code>: registered, but not healthy",
           "single.title": "Single machine",
-          "single.intro": "Install the collector on one machine by hand. Each install enrols the machine and finishes only once Licenseware has registered it.",
+          "single.intro": "Install the collector on one machine by hand. Each install enrols the machine. The MSI, the macOS package and <code>install.sh</code> finish only once Licenseware has registered it; a Linux package installed by hand waits up to 60 seconds and finishes either way.",
           "single.before": "<strong>Before you start:</strong> an <a href=\"#installation\">enrolment token</a>, administrator rights on the machine, and the hosts in <a href=\"#network\">Network</a> reachable from it.",
           "single.win.title": "Windows (Command Prompt as administrator)",
           "single.win.run": "In the folder that holds <code>LicensewareCollector.msi</code> from <a href=\"#downloads\">Downloads</a>, run:",
@@ -5852,8 +5848,8 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.1603.upgrade": "An upgrade or a repair fails when it leaves no service, or leaves the service stopped and unable to start; Windows Installer then restores the previous version. On a device that is already enrolled, a <code>TOKENFILE</code> or <code>CA_CERT</code> path that no longer exists is ignored and noted in <code>setup.log</code>.",
           "mdm.1603.note": "An offline device therefore fails with <code>1603</code> instead of installing an agent that never reports, and Intune retries it. During the wait of up to 3 minutes, other installs on the device get <code>1618</code>. How to read the logs: <a href=\"#ts-windows\">Troubleshooting</a>.",
           "mdm.upgrade.title": "Upgrades",
-          "mdm.upgrade.desc": "Assign the newer MSI with the same command (Intune supersedence, or a new SCCM deployment type). It never downgrades: an older MSI keeps a newer, self-updated agent and osquery. Run without a token, it repairs and leaves a running service alone. Run with <code>TOKEN</code>, it re-enrols the device: a new credential for the same agent, or a move to the token's project. Devices enrolled without the MSI are upgraded by it without a token.",
-          "mdm.upgrade.auto": "Agents also update themselves from <code>cdn.licenseware-collector.com</code>. To leave upgrades to your MDM only, install with <code>AUTOUPDATE=0</code>.",
+          "mdm.upgrade.desc": "Assign the newer MSI with the same command (Intune supersedence, or a new SCCM deployment type). It never downgrades: an older MSI keeps a newer, self-updated agent and osquery. Run without a token, it repairs, and restarts the service only when it replaced the program or the settings file. Run with <code>TOKEN</code>, it re-enrols the device: a new credential for the same agent, or a move to the token's project. Devices enrolled without the MSI are upgraded by it without a token.",
+          "mdm.upgrade.auto": "Agents also update themselves from <code>cdn.licenseware-collector.com</code>. To leave agent upgrades to your MDM only, install with <code>AUTOUPDATE=0</code> (osquery keeps updating itself).",
           "mdm.uninstall.title": "Uninstall",
           "mdm.uninstall.desc": "Uninstall the app from Intune or SCCM, or see <a href=\"#uninstall\">Uninstall</a> for the other ways.",
           "mac.title": "Jamf, Intune for Mac, Kandji (macOS)",
@@ -6001,7 +5997,7 @@ Get-Content install.log -Tail 200</code></pre>
           "day2.codes.note": "A registered machine whose service is stopped still exits <code>0</code>. On Windows, a caller that cannot query the service (a standard user in a scheduled task) gets its answer from the registration state alone.",
           "day2.monitor.title": "Monitoring",
           "day2.update.title": "Updates",
-          "day2.update.desc": "The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns updates off (<a href=\"#settings\">Settings</a>).",
+          "day2.update.desc": "The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns the agent's own updates off, while osquery keeps updating (<a href=\"#settings\">Settings</a>).",
           "logs.macos.rotate": "The file is rotated at 10 MB, keeping 7 compressed copies. Package install failures (exit codes 20–23, <a href=\"#ts-macos\">Troubleshooting</a>) are in <code>/var/log/install.log</code>:",
           "logs.more": "For more detail, set <code>LOG_LEVEL=debug</code> (<a href=\"#settings\">Settings</a>) and set it back to <code>info</code> when done. <code>diagnose</code> collects these logs into a redacted support bundle (<a href=\"#day2\">Commands</a>). The agent also sends its own logs to Licenseware unless <code>LOG_SHIP_ENABLED=false</code>.",
           "image.uuid": "Clones that share one SMBIOS UUID take each other's credential: only the last one to start reports, and the others show <code>Credential: REJECTED</code> in <code>status</code>. Before you roll out, run <code>status</code> on two clones and compare their <code>Device UUID</code> lines. A Licenseware update will remove this requirement.",
@@ -6067,7 +6063,7 @@ Get-Content install.log -Tail 200</code></pre>
           "upg.msi.title": "Windows: replace the MSI in your deployment tool",
           "upg.old.desc": "These never update to 0.17.0. Reinstall them with the current package from <a href=\"#downloads\">Downloads</a>.",
           "upg.old.title": "Agents on 0.11.0 or older",
-          "upg.optout.desc": "Licenseware cannot pause agents on 0.16.0 or earlier. To keep devices off 0.17.0, block these hosts for them before the release: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code>. From 0.17.0 you can turn updates off on the device instead (<code>AUTOUPDATE=0</code>).",
+          "upg.optout.desc": "Licenseware cannot pause agents on 0.16.0 or earlier. To keep devices off 0.17.0, block these hosts for them before the release: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code>. From 0.17.0 you can turn the agent's own updates off on the device instead (<code>AUTOUPDATE=0</code>).",
           "upg.optout.title": "Keeping devices on 0.16.0",
           "upg.tbl.64": "Run script in 64-bit PowerShell",
           "upg.tbl.creds": "Run this script using the logged-on credentials",
@@ -6089,9 +6085,9 @@ Get-Content install.log -Tail 200</code></pre>
           "upg.win.remediate": "<a href=\"/mdm/intune/remediate.ps1\" download><code>remediate.ps1</code></a>: the remediation script",
           "upg.win.title": "Windows: start the service after the update",
           "upg2.changes.title": "What changes in 0.17.0",
-          "upg2.c1": "Installs are one step on every OS: the install enrols the device or fails (<a href=\"#single-machine\">Single machine</a>).",
+          "upg2.c1": "Installs are one step on every OS: the install enrols the device, and the MSI, the macOS package and <code>install.sh</code> fail when it does not register (<a href=\"#single-machine\">Single machine</a>).",
           "upg2.c2": "<code>status</code>, <code>set</code>, <code>restart</code>, <code>diagnose</code> and <code>uninstall</code> work the same way on every OS, and the command is on the <code>PATH</code> (<a href=\"#day2\">Commands</a>).",
-          "upg2.c3": "Agents update from <code>cdn.licenseware-collector.com</code>, only to releases signed by Licenseware, Macs included; <code>AUTOUPDATE=0</code> turns updates off (<a href=\"#settings\">Settings</a>).",
+          "upg2.c3": "Agents update from <code>cdn.licenseware-collector.com</code>, only to releases signed by Licenseware, Macs included; <code>AUTOUPDATE=0</code> turns the agent's own updates off (<a href=\"#settings\">Settings</a>).",
           "upg2.c4": "One set of setting names works as MSI properties, macOS profile keys, environment variables and <code>set</code> keys (<a href=\"#settings\">Settings</a>).",
           "upg2.net.title": "Network while devices update",
           "upg2.net.desc": "Agents on 0.16.0 and earlier reach 0.17.0 through GitHub. Until every device runs 0.17.0, allow <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code> as well as the hosts in <a href=\"#network\">Network</a>; those agents also use <code>github.com</code> for an osquery download they rarely need. Once every device runs 0.17.0, only the hosts in Network are needed.",
@@ -6101,7 +6097,7 @@ Get-Content install.log -Tail 200</code></pre>
           "upg2.detect.oldmsi": "Uninstalling with an MSI older than 0.17.0, on a device that has run 0.17.0, leaves <code>HKLM\\SOFTWARE\\Licenseware\\Collector</code> behind. While your fleet mixes versions, detect the <code>licenseware-collector</code> service as well.",
           "upg2.old.title": "On 0.16.0 and earlier",
           "upg2.o.install": "On macOS and Linux the package only installs files: enrol the machine afterwards with <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code> (on macOS the program is <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>).",
-          "upg2.o.msi": "The MSI takes only <code>TOKEN</code>, and its exit code <code>0</code> does not prove the device registered: check with <code>status</code>.",
+          "upg2.o.msi": "The MSI takes no setting other than the token, and its exit code <code>0</code> does not prove the device registered: check with <code>status</code>.",
           "upg2.o.cmds": "<code>set</code>, <code>restart</code> and <code>diagnose</code> do not exist, and <code>uninstall</code> refuses on a package install: remove the package instead. To change a setting, edit the env file, which uses the older names <code>HTTPS_PROXY</code>, <code>NO_PROXY</code> and <code>CA_CERT_PATH</code>, then restart the service: <code>systemctl restart licenseware-collector</code>, <code>launchctl kickstart -k system/io.licenseware.licenseware-collector</code> or <code>Restart-Service licenseware-collector</code>.",
           "upg2.o.ca": "The Windows and macOS services ignore <code>CA_CERT_PATH</code>: add the CA certificate to the operating system's trust store instead.",
           "upg2.o.image": "There is no image mode: install without a token on the image (Windows: the MSI without <code>TOKEN</code>; Linux and macOS: the package only), then run <code>register</code> with the token on each machine after it is created.",
@@ -6253,8 +6249,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.step1.title": "Obtenga su Token",
           "install.step1.1": "Vaya a",
           "install.step1.2": "e inicie sesión o cree una cuenta gratuita",
-          "install.step1.3":
-            "Navegue a <strong>LC App</strong> y vaya a la pestaña <strong>Claves API</strong>",
+          "install.step1.3": "Abra la aplicación <strong>Licenseware Collector</strong> y su pestaña <strong>API Keys</strong>",
           "install.step1.4":
             "Haga clic en <strong>Crear Clave</strong>, configúrela y copie el token",
           "install.step2.title": "Elija la guía según cómo despliega",
@@ -6269,7 +6264,7 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.codes.row1618": "Ya hay otra instalación en curso",
           "mdm.codes.row1619": "Ruta del paquete inaccesible, o no es un paquete de instalación válido",
           "mdm.detect.title": "Regla de detección",
-          "mdm.detect.desc": "El agente refleja su registro en el registro de Windows, así que Intune y SCCM pueden usar una regla de registro integrada, sin script. No use una regla de versión de archivo ni de código de producto: ambas indican éxito aunque la inscripción no se haya completado.",
+          "mdm.detect.desc": "El agente refleja su registro en el registro de Windows, así que Intune y SCCM pueden usar una regla de registro integrada, sin script. No use una regla de versión de archivo ni de código de producto: también coinciden con un dispositivo cuyo agente está instalado pero no registrado, como una imagen maestra o un dispositivo preparado con un MSI anterior.",
           "mdm.detect.reg.col_setting": "Ajuste",
           "mdm.detect.reg.col_value": "Valor",
           "mdm.detect.reg.type": "Tipo de regla",
@@ -6288,7 +6283,7 @@ Get-Content install.log -Tail 200</code></pre>
           "uninstall.intro": "Ejecútelo como administrador. Detiene y quita el servicio, el programa, su configuración y sus datos, y pasa por el gestor de paquetes o Windows Installer cuando uno de ellos instaló el Collector.",
           "uninstall.osquery": "osquery solo se quita si lo instaló el Collector; añada <code>--remove-osquery</code> para quitarlo igualmente.",
           "uninstall.other.title": "Otras formas",
-          "uninstall.o.app": "Desde la aplicación Licenseware Collector: en la pestaña <strong>Agents</strong>, elija <strong>Remove agent</strong>. Un agente que ha informado recientemente se desinstala solo; uno que no, solo se quita de la lista y usted lo desinstala en el dispositivo.",
+          "uninstall.o.app": "Desde la aplicación Licenseware Collector: en la pestaña <strong>Agents</strong>, elija <strong>Eliminar agente</strong>. Un agente que ha informado recientemente se desinstala solo; uno que no, solo se quita de la lista y usted lo desinstala en el dispositivo.",
           "uninstall.o.mdm": "Intune o SCCM: desinstale la aplicación desde su herramienta.",
           "uninstall.o.win": "Windows a mano: quite <strong>Licenseware Collector</strong> en Configuración, Aplicaciones.",
           "uninstall.o.mac": "macOS a mano: descargue <a href=\"https://cdn.licenseware-collector.com/d/latest/uninstall.command\"><code>uninstall.command</code></a> y haga doble clic en él.",
@@ -6396,7 +6391,7 @@ Get-Content install.log -Tail 200</code></pre>
           "status.c4": "Servicio no instalado",
           "status.c5": "Solo con <code>--require-healthy</code>: registrada, pero no en buen estado",
           "single.title": "Una sola máquina",
-          "single.intro": "Instale el Collector en una máquina a mano. Cada instalación inscribe la máquina y termina solo cuando Licenseware la ha registrado.",
+          "single.intro": "Instale el Collector en una máquina a mano. Cada instalación inscribe la máquina. El MSI, el paquete de macOS e <code>install.sh</code> terminan solo cuando Licenseware la ha registrado; un paquete de Linux instalado a mano espera hasta 60 segundos y termina en cualquier caso.",
           "single.before": "<strong>Antes de empezar:</strong> un <a href=\"#installation\">token de inscripción</a>, permisos de administrador en la máquina y los hosts de <a href=\"#network\">Red</a> accesibles desde ella.",
           "single.win.title": "Windows (Símbolo del sistema como administrador)",
           "single.win.run": "En la carpeta que contiene <code>LicensewareCollector.msi</code> de <a href=\"#downloads\">Descargas</a>, ejecute:",
@@ -6425,8 +6420,8 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.1603.upgrade": "Una actualización o una reparación falla cuando no deja ningún servicio, o deja el servicio detenido y sin poder iniciarse; Windows Installer restaura entonces la versión anterior. En un dispositivo ya inscrito, una ruta <code>TOKENFILE</code> o <code>CA_CERT</code> que ya no existe se ignora y se anota en <code>setup.log</code>.",
           "mdm.1603.note": "Por tanto, un dispositivo sin conexión falla con <code>1603</code> en lugar de instalar un agente que nunca informa, e Intune lo reintenta. Durante la espera de hasta 3 minutos, otras instalaciones en el dispositivo reciben <code>1618</code>. Cómo leer los registros: <a href=\"#ts-windows\">Solución de problemas</a>.",
           "mdm.upgrade.title": "Actualizaciones",
-          "mdm.upgrade.desc": "Asigne el MSI más reciente con el mismo comando (reemplazo en Intune, o un nuevo tipo de implementación en SCCM). Nunca instala una versión anterior: un MSI más antiguo conserva un agente y un osquery más recientes y autoactualizados. Ejecutado sin token, repara y no toca un servicio en ejecución. Ejecutado con <code>TOKEN</code>, vuelve a inscribir el dispositivo: una credencial nueva para el mismo agente, o un traslado al proyecto del token. Los dispositivos inscritos sin el MSI se actualizan con él sin token.",
-          "mdm.upgrade.auto": "Los agentes también se actualizan solos desde <code>cdn.licenseware-collector.com</code>. Para dejar las actualizaciones solo a su MDM, instale con <code>AUTOUPDATE=0</code>.",
+          "mdm.upgrade.desc": "Asigne el MSI más reciente con el mismo comando (reemplazo en Intune, o un nuevo tipo de implementación en SCCM). Nunca instala una versión anterior: un MSI más antiguo conserva un agente y un osquery más recientes y autoactualizados. Ejecutado sin token, repara, y reinicia el servicio solo si reemplazó el programa o el archivo de configuración. Ejecutado con <code>TOKEN</code>, vuelve a inscribir el dispositivo: una credencial nueva para el mismo agente, o un traslado al proyecto del token. Los dispositivos inscritos sin el MSI se actualizan con él sin token.",
+          "mdm.upgrade.auto": "Los agentes también se actualizan solos desde <code>cdn.licenseware-collector.com</code>. Para dejar las actualizaciones del agente solo a su MDM, instale con <code>AUTOUPDATE=0</code> (osquery se sigue actualizando solo).",
           "mdm.uninstall.title": "Desinstalación",
           "mdm.uninstall.desc": "Desinstale la aplicación desde Intune o SCCM, o vea <a href=\"#uninstall\">Desinstalar</a> para las demás formas.",
           "mac.title": "Jamf, Intune para Mac, Kandji (macOS)",
@@ -6571,7 +6566,7 @@ Get-Content install.log -Tail 200</code></pre>
           "day2.codes.note": "Una máquina registrada cuyo servicio está detenido sigue saliendo con <code>0</code>. En Windows, quien no puede consultar el servicio (un usuario estándar en una tarea programada) obtiene la respuesta solo del estado de registro.",
           "day2.monitor.title": "Supervisión",
           "day2.update.title": "Actualizaciones",
-          "day2.update.desc": "El agente consulta <code>cdn.licenseware-collector.com</code> 5 minutos después de iniciarse y luego cada 24 horas, instala solo versiones firmadas por Licenseware y vuelve a la versión anterior si la nueva no arranca e informa. osquery se actualiza de la misma forma. <code>update --check</code> muestra lo que haría; <code>AUTOUPDATE=0</code> desactiva las actualizaciones (<a href=\"#settings\">Configuración</a>).",
+          "day2.update.desc": "El agente consulta <code>cdn.licenseware-collector.com</code> 5 minutos después de iniciarse y luego cada 24 horas, instala solo versiones firmadas por Licenseware y vuelve a la versión anterior si la nueva no arranca e informa. osquery se actualiza de la misma forma. <code>update --check</code> muestra lo que haría; <code>AUTOUPDATE=0</code> desactiva las actualizaciones del propio agente, mientras osquery se sigue actualizando (<a href=\"#settings\">Configuración</a>).",
           "logs.macos.rotate": "El archivo rota a los 10 MB y conserva 7 copias comprimidas. Los fallos de instalación del paquete (códigos de salida 20–23, <a href=\"#ts-macos\">Solución de problemas</a>) están en <code>/var/log/install.log</code>:",
           "logs.more": "Para más detalle, defina <code>LOG_LEVEL=debug</code> (<a href=\"#settings\">Configuración</a>) y vuelva a <code>info</code> al terminar. <code>diagnose</code> reúne estos registros en un paquete de soporte sin secretos (<a href=\"#day2\">Comandos</a>). El agente también envía sus propios registros a Licenseware salvo con <code>LOG_SHIP_ENABLED=false</code>.",
           "image.uuid": "Los clones que comparten un UUID SMBIOS se quitan la credencial unos a otros: solo informa el último en arrancar, y los demás muestran <code>Credential: REJECTED</code> en <code>status</code>. Antes del despliegue, ejecute <code>status</code> en dos clones y compare sus líneas <code>Device UUID</code>. Una actualización de Licenseware eliminará este requisito.",
@@ -6637,7 +6632,7 @@ Get-Content install.log -Tail 200</code></pre>
           "upg.msi.title": "Windows: reemplace el MSI en su herramienta de despliegue",
           "upg.old.desc": "Estos nunca se actualizan a 0.17.0. Reinstálelos con el paquete actual de <a href=\"#downloads\">Descargas</a>.",
           "upg.old.title": "Agentes en 0.11.0 o anteriores",
-          "upg.optout.desc": "Licenseware no puede pausar agentes en 0.16.0 o anteriores. Para mantener dispositivos fuera de 0.17.0, bloquee para ellos estos hosts antes de la publicación: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> y <code>objects.githubusercontent.com</code>. Desde 0.17.0 puede desactivar las actualizaciones en el propio dispositivo (<code>AUTOUPDATE=0</code>).",
+          "upg.optout.desc": "Licenseware no puede pausar agentes en 0.16.0 o anteriores. Para mantener dispositivos fuera de 0.17.0, bloquee para ellos estos hosts antes de la publicación: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> y <code>objects.githubusercontent.com</code>. Desde 0.17.0 puede desactivar las actualizaciones del propio agente en el dispositivo (<code>AUTOUPDATE=0</code>).",
           "upg.optout.title": "Mantener dispositivos en 0.16.0",
           "upg.tbl.64": "Ejecutar el script en PowerShell de 64 bits",
           "upg.tbl.creds": "Ejecutar este script con las credenciales del usuario que inició sesión",
@@ -6659,9 +6654,9 @@ Get-Content install.log -Tail 200</code></pre>
           "upg.win.remediate": "<a href=\"/mdm/intune/remediate.ps1\" download><code>remediate.ps1</code></a>: el script de corrección",
           "upg.win.title": "Windows: inicie el servicio después de la actualización",
           "upg2.changes.title": "Qué cambia en 0.17.0",
-          "upg2.c1": "La instalación es un solo paso en todos los sistemas: inscribe el dispositivo o falla (<a href=\"#single-machine\">Una sola máquina</a>).",
+          "upg2.c1": "La instalación es un solo paso en todos los sistemas: inscribe el dispositivo, y el MSI, el paquete de macOS e <code>install.sh</code> fallan si no se registra (<a href=\"#single-machine\">Una sola máquina</a>).",
           "upg2.c2": "<code>status</code>, <code>set</code>, <code>restart</code>, <code>diagnose</code> y <code>uninstall</code> funcionan igual en todos los sistemas, y el comando está en el <code>PATH</code> (<a href=\"#day2\">Comandos</a>).",
-          "upg2.c3": "Los agentes se actualizan desde <code>cdn.licenseware-collector.com</code>, solo a versiones firmadas por Licenseware, incluidos los Mac; <code>AUTOUPDATE=0</code> desactiva las actualizaciones (<a href=\"#settings\">Configuración</a>).",
+          "upg2.c3": "Los agentes se actualizan desde <code>cdn.licenseware-collector.com</code>, solo a versiones firmadas por Licenseware, incluidos los Mac; <code>AUTOUPDATE=0</code> desactiva las actualizaciones del propio agente (<a href=\"#settings\">Configuración</a>).",
           "upg2.c4": "Un mismo conjunto de nombres de ajustes sirve como propiedades del MSI, claves del perfil de macOS, variables de entorno y claves de <code>set</code> (<a href=\"#settings\">Configuración</a>).",
           "upg2.net.title": "La red mientras se actualizan los dispositivos",
           "upg2.net.desc": "Los agentes en 0.16.0 y anteriores llegan a 0.17.0 a través de GitHub. Hasta que todos los dispositivos ejecuten 0.17.0, permita <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> y <code>objects.githubusercontent.com</code> además de los hosts de <a href=\"#network\">Red</a>; esos agentes también usan <code>github.com</code> para una descarga de osquery que rara vez necesitan. Cuando todos ejecuten 0.17.0, solo hacen falta los hosts de Red.",
@@ -6671,7 +6666,7 @@ Get-Content install.log -Tail 200</code></pre>
           "upg2.detect.oldmsi": "Desinstalar con un MSI anterior a 0.17.0, en un dispositivo que ha ejecutado 0.17.0, deja <code>HKLM\\SOFTWARE\\Licenseware\\Collector</code> atrás. Mientras su flota mezcle versiones, detecte también el servicio <code>licenseware-collector</code>.",
           "upg2.old.title": "En 0.16.0 y anteriores",
           "upg2.o.install": "En macOS y Linux el paquete solo instala archivos: inscriba la máquina después con <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code> (en macOS el programa es <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>).",
-          "upg2.o.msi": "El MSI solo acepta <code>TOKEN</code>, y su código de salida <code>0</code> no demuestra que el dispositivo se registrara: compruébelo con <code>status</code>.",
+          "upg2.o.msi": "El MSI no acepta más ajuste que el token, y su código de salida <code>0</code> no demuestra que el dispositivo se registrara: compruébelo con <code>status</code>.",
           "upg2.o.cmds": "<code>set</code>, <code>restart</code> y <code>diagnose</code> no existen, y <code>uninstall</code> se niega en una instalación por paquete: quite el paquete. Para cambiar un ajuste, edite el archivo de entorno, que usa los nombres antiguos <code>HTTPS_PROXY</code>, <code>NO_PROXY</code> y <code>CA_CERT_PATH</code>, y reinicie el servicio: <code>systemctl restart licenseware-collector</code>, <code>launchctl kickstart -k system/io.licenseware.licenseware-collector</code> o <code>Restart-Service licenseware-collector</code>.",
           "upg2.o.ca": "Los servicios de Windows y macOS ignoran <code>CA_CERT_PATH</code>: añada el certificado de CA al almacén de confianza del sistema operativo.",
           "upg2.o.image": "No existe el modo imagen: instale sin token en la imagen (Windows: el MSI sin <code>TOKEN</code>; Linux y macOS: solo el paquete) y luego ejecute <code>register</code> con el token en cada máquina después de crearla.",
