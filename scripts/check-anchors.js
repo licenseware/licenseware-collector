@@ -31,6 +31,7 @@ const PUBLISHED = [
   "golden-images",
   "settings",
   "day2",
+  "glossary",
 ];
 
 const ids = [...html.matchAll(/\sid="([^"]+)"/gu)].map((match) => match[1]);

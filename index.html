@@ -595,7 +595,7 @@
       }
 
       .req-list li div {
-        word-break: break-all;
+        overflow-wrap: anywhere;
       }
 
       .req-list .check {
@@ -917,6 +917,16 @@
 
       .guide .highlight-box.warning p {
         margin-top: 0;
+      }
+
+      .glossary dt {
+        font-weight: 700;
+        margin-top: 0.75rem;
+      }
+
+      .glossary dd {
+        margin: 0.25rem 0 0;
+        color: var(--text-secondary);
       }
 
       /* Copy Button Styles (Minimalist) */
@@ -1348,7 +1358,7 @@
               <ul>
                 <li data-i18n="compat.linux.1">x86_64 and arm64 (64-bit)</li>
                 <li data-i18n="compat.linux.2">systemd required</li>
-                <li>RHEL, Ubuntu, Debian, etc.</li>
+                <li data-i18n="compat.linux.3">RHEL, Rocky, Ubuntu, Debian and others (.deb or .rpm); SELinux in enforcing mode is supported</li>
               </ul>
             </article>
             <article class="os-card" role="listitem">
@@ -1465,7 +1475,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.api_desc"
-                    >Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.</small
+                    >Enrolment, registration, settings, collection catalogs, uploads and commands. The host is your account's region: <code>api.licenseware.io</code>, <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code>. The agent takes it from its enrolment token.</small
                   >
                 </div>
               </li>
@@ -1491,7 +1501,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.logs_desc"
-                    >Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.</small
+                    >The agent's own logs, on by default; not needed with <code>LOG_SHIP_ENABLED=false</code> (<a href="#settings">Settings</a>). Regional accounts use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.</small
                   >
                 </div>
               </li>
@@ -1517,85 +1527,7 @@
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.cdn_desc"
-                    >Installer downloads, and osquery updates (manifest and binaries), which the agent checks continuously. From 0.17.0 agent updates come from here too. Required continuously, not just at install time.</small
-                  >
-                </div>
-              </li>
-              <li>
-                <span class="check" aria-hidden="true">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </span>
-                <div>
-                  <strong>api.github.com</strong
-                  ><span class="port-badge">HTTPS 443</span><br />
-                  <small
-                    style="color: var(--text-secondary)"
-                    data-i18n="network.ghapi_desc"
-                    >Agent self-update on 0.16.0 and earlier: Windows and Linux agents check for a new release every 24 hours (macOS agents on those versions never self-update). From 0.17.0 agents update from <code>cdn.licenseware-collector.com</code> and no longer need this host.</small
-                  >
-                </div>
-              </li>
-              <li>
-                <span class="check" aria-hidden="true">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </span>
-                <div>
-                  <strong>release-assets.githubusercontent.com</strong
-                  ><span class="port-badge">HTTPS 443</span><br />
-                  <small
-                    style="color: var(--text-secondary)"
-                    data-i18n="network.ghassets_desc"
-                    >Self-update and osquery fallback downloads on 0.16.0 and earlier — GitHub redirects here. Also allow the legacy host <code>objects.githubusercontent.com</code>. Not needed from 0.17.0.</small
-                  >
-                </div>
-              </li>
-              <li>
-                <span class="check" aria-hidden="true">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </span>
-                <div>
-                  <strong>github.com</strong
-                  ><span class="port-badge">HTTPS 443</span><br />
-                  <small
-                    style="color: var(--text-secondary)"
-                    data-i18n="network.git_desc"
-                    >osquery fallback download on 0.16.0 and earlier. Not used by an MSI or package install, which bundle osquery already. Not needed from 0.17.0.</small
+                    >Installers, and agent and osquery updates, which the agent checks for while it runs.</small
                   >
                 </div>
               </li>
@@ -1612,8 +1544,7 @@
                 >⚠️ Firewall Configuration</strong
               ><br />
               <span data-i18n="network.firewall.desc"
-                >Ensure outbound HTTPS (port 443) is allowed to the domains
-                listed above. No inbound ports required.</span
+                >Allow outbound HTTPS (port 443) to the hosts above; no inbound ports are needed. Behind a proxy, see <a href="#proxy">Proxy</a>. The agent checks for commands every minute, uploads data every 5 minutes, and refreshes its settings and collection catalogs every 30 minutes.</span
               >
             </aside>
           </section>
@@ -1750,10 +1681,9 @@
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
             </div>
-            <h2 id="installation-title" data-i18n="install.title">
-              Installation Guide
-            </h2>
+            <h2 id="installation-title" data-i18n="install.title">Get an enrolment token</h2>
           </div>
+          <p data-i18n="start.token.what">An enrolment token lets a device join your Licenseware account. One token can enrol many devices, and it gives no access to your data. Create one in the Licenseware app:</p>
 
           <!-- Interactive Demo -->
           <div style="margin-bottom: 1.5rem">
@@ -1892,7 +1822,21 @@
               <li data-i18n="start.pick.image"><a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.</li>
             </ul>
             <p data-i18n="start.shared">Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.</p>
-            <p data-i18n="start.ver">Steps marked <strong>From 0.17.0</strong> need Collector 0.17.0 or later. Each guide ends with the steps for machines on 0.16.0 and earlier.</p>
+            <h3 id="glossary" data-i18n="start.glossary.title" style="margin-top: 1.5rem">Words used in these guides</h3>
+            <dl class="glossary">
+              <dt data-i18n="start.g.token.t">Enrolment token</dt>
+              <dd data-i18n="start.g.token.d">The key you create in the app. A device uses it once to join your account; it gives no access to your data.</dd>
+              <dt data-i18n="start.g.enrolled.t">Enrolled</dt>
+              <dd data-i18n="start.g.enrolled.d">The device has swapped the enrolment token for its own credential.</dd>
+              <dt data-i18n="start.g.registered.t">Registered</dt>
+              <dd data-i18n="start.g.registered.d">Licenseware has acknowledged the device: it appears under <strong>Agents</strong> in the Licenseware Collector app, and <code>status</code> exits <code>0</code>.</dd>
+              <dt data-i18n="start.g.image.t">Image mode</dt>
+              <dd data-i18n="start.g.image.d">Install on a golden image now; each clone enrols itself the first time it starts (<a href="#golden-images">Golden images and VDI</a>).</dd>
+              <dt data-i18n="start.g.detect.t">Detection rule</dt>
+              <dd data-i18n="start.g.detect.d">How Intune or SCCM decide that the collector is installed: the registry value <code>Registered</code> equals <code>1</code> (<a href="#intune">Intune / SCCM</a>).</dd>
+              <dt data-i18n="start.g.uuid.t">SMBIOS UUID</dt>
+              <dd data-i18n="start.g.uuid.d">The hardware identifier the device's firmware reports. Every device, and every clone, needs its own.</dd>
+            </dl>
             <p data-i18n="mdm.licence">Deployment of the Collector through automated tools such as Intune or SCCM constitutes acceptance of the <a href="#licence-agreement">Collector Licence Agreement</a> by the deploying organisation.</p>
           </div>
         </section>
@@ -1925,11 +1869,7 @@
           <p
             style="color: var(--text-secondary); margin-bottom: 1.5rem"
             data-i18n="downloads.desc"
-          >
-            Download the installer package for your operating system and
-            architecture. Packages never contain an enrollment token &mdash; you
-            supply it at install time.
-          </p>
+          >Download the installer for your operating system and architecture. Packages never contain an enrolment token: you supply it when you install.</p>
 
           <aside class="highlight-box" style="margin-bottom: 1.5rem" role="note">
             <strong data-i18n="downloads.licence.title">Licence agreement</strong
@@ -2029,10 +1969,7 @@
                   font-size: 0.75rem;
                 "
                 data-i18n="downloads.win.exe_note"
-                >The standalone <code>.exe</code> is deprecated and no longer
-                published here. Use the <code>.msi</code>: it bundles osquery,
-                installs the Windows service, and upgrades in place. Existing
-                <code>.exe</code> installs keep updating themselves.</small
+                >There is no standalone <code>.exe</code> download: use the <code>.msi</code>. It bundles osquery, installs the Windows service and upgrades in place.</small
               >
               <p
                 style="
@@ -2370,21 +2307,40 @@
             <a href="#licence-agreement">Collector Licence Agreement</a>.
           </p>
 
-          <p
-            style="
-              color: var(--text-secondary);
-              font-size: 0.85rem;
-              margin-top: 1.5rem;
-              margin-bottom: 0;
-            "
-            data-i18n="downloads.pinned"
-          >
-            The <code>/d/latest/</code> links above always resolve to the current
-            release. To pin a specific version, replace <code>latest</code> with
-            the release tag, e.g.
-            <code>https://cdn.licenseware-collector.com/d/v1.2.3/…</code>
-          </p>
-          <p style="margin-top: 0.75rem; font-size: 0.85rem" data-i18n="downloads.next">Next: <a href="#installation">pick the install guide for your tool</a>.</p>
+          <div class="guide">
+            <h3 data-i18n="dl.other.title" style="margin-top: 1.5rem">Other files</h3>
+            <div style="overflow-x: auto">
+              <table>
+                <thead><tr><th data-i18n="dl.col.file">File</th><th data-i18n="dl.col.for">For</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="https://cdn.licenseware-collector.com/install.sh"><code>install.sh</code></a></td><td data-i18n="dl.installsh">The one-line installer for Linux and macOS (<a href="#single-machine">Single machine</a>)</td></tr>
+                  <tr><td><a href="https://cdn.licenseware-collector.com/d/latest/mdm/io.licenseware.collector.mobileconfig"><code>io.licenseware.collector.mobileconfig</code></a></td><td data-i18n="dl.mobileconfig">The macOS configuration profile template (<a href="#macos-mdm">Jamf, Intune for Mac, Kandji</a>)</td></tr>
+                  <tr><td><a href="https://cdn.licenseware-collector.com/d/latest/mdm/status-attribute.sh"><code>status-attribute.sh</code></a></td><td data-i18n="dl.attribute">The registration attribute for Jamf, Intune and Kandji (<a href="#macos-mdm">Jamf, Intune for Mac, Kandji</a>)</td></tr>
+                  <tr><td><a href="https://cdn.licenseware-collector.com/d/latest/SHA256SUMS"><code>SHA256SUMS</code></a></td><td data-i18n="dl.sums">The SHA-256 of every file in the release (below)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3 data-i18n="dl.pinned.title" style="margin-top: 1.5rem">A specific version</h3>
+            <p data-i18n="downloads.pinned">The <code>/d/latest/</code> links always point to the current release. For a specific version, replace <code>latest</code> with its tag; the <code>v</code> is part of the path: <code>https://cdn.licenseware-collector.com/d/v0.17.0/LicensewareCollector.msi</code></p>
+            <h3 data-i18n="dl.sums.title" style="margin-top: 1.5rem">Checking a download</h3>
+            <p data-i18n="dl.sums.desc">Each version folder holds <code>SHA256SUMS</code>, the SHA-256 of every file in it. It is not signed: it shows that a download is complete and undamaged, not who published it. Download it beside the file, then:</p>
+            <p data-i18n="dl.sums.linux">Linux:</p>
+            <div class="code-block">
+              <pre><code style="font-size: 0.85rem">sha256sum -c --ignore-missing SHA256SUMS</code></pre>
+              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+            </div>
+            <p data-i18n="dl.sums.mac">macOS: compare the output with the package's line in <code>SHA256SUMS</code>.</p>
+            <div class="code-block">
+              <pre><code style="font-size: 0.85rem">shasum -a 256 LicensewareCollector.pkg</code></pre>
+              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+            </div>
+            <p data-i18n="dl.sums.win">Windows (PowerShell): compare the output with the MSI's line in <code>SHA256SUMS</code>.</p>
+            <div class="code-block">
+              <pre><code style="font-size: 0.85rem">Get-FileHash .\LicensewareCollector.msi -Algorithm SHA256</code></pre>
+              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+            </div>
+            <p data-i18n="downloads.next">Next: <a href="#installation">pick the guide for how you deploy</a>.</p>
+          </div>
         </section>
 
         <!-- Single machine -->
@@ -5795,6 +5751,7 @@ Get-Content install.log -Tail 200</code></pre>
           "compat.title": "Operating System Compatibility",
           "compat.linux.1": "x86_64 and arm64 (64-bit)",
           "compat.linux.2": "systemd required",
+          "compat.linux.3": "RHEL, Rocky, Ubuntu, Debian and others (.deb or .rpm); SELinux in enforcing mode is supported",
           "compat.win.1": "x86_64 (64-bit) only",
           "compat.win.2": "Windows 10+ (Desktop)",
           "compat.win.3": "Windows Server 2016+",
@@ -5804,21 +5761,11 @@ Get-Content install.log -Tail 200</code></pre>
           "compat.legacy.desc":
             "Windows 7, Windows 8.1, Windows Server 2012 R2 and earlier are not supported. The agent requires Windows 10 or Windows Server 2016 or later.",
           "network.title": "Network Requirements",
-          "network.api_desc":
-            "Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.",
-          "network.logs_desc":
-            "Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.",
-          "network.cdn_desc":
-            "Installer downloads, and osquery updates (manifest and binaries), which the agent checks continuously. From 0.17.0 agent updates come from here too. Required continuously, not just at install time.",
-          "network.ghapi_desc":
-            "Agent self-update on 0.16.0 and earlier: Windows and Linux agents check for a new release every 24 hours (macOS agents on those versions never self-update). From 0.17.0 agents update from <code>cdn.licenseware-collector.com</code> and no longer need this host.",
-          "network.ghassets_desc":
-            "Self-update and osquery fallback downloads on 0.16.0 and earlier — GitHub redirects here. Also allow the legacy host <code>objects.githubusercontent.com</code>. Not needed from 0.17.0.",
-          "network.git_desc":
-            "osquery fallback download on 0.16.0 and earlier. Not used by an MSI or package install, which bundle osquery already. Not needed from 0.17.0.",
+          "network.api_desc": "Enrolment, registration, settings, collection catalogs, uploads and commands. The host is your account's region: <code>api.licenseware.io</code>, <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code>. The agent takes it from its enrolment token.",
+          "network.logs_desc": "The agent's own logs, on by default; not needed with <code>LOG_SHIP_ENABLED=false</code> (<a href=\"#settings\">Settings</a>). Regional accounts use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.",
+          "network.cdn_desc": "Installers, and agent and osquery updates, which the agent checks for while it runs.",
           "network.firewall.title": "⚠️ Firewall Configuration",
-          "network.firewall.desc":
-            "Ensure outbound HTTPS (port 443) is allowed to the domains listed above. No inbound ports required.",
+          "network.firewall.desc": "Allow outbound HTTPS (port 443) to the hosts above; no inbound ports are needed. Behind a proxy, see <a href=\"#proxy\">Proxy</a>. The agent checks for commands every minute, uploads data every 5 minutes, and refreshes its settings and collection catalogs every 30 minutes.",
           "system.title": "System Requirements",
           "system.arch.title": "Architecture",
           "system.arch.desc": "64-bit only (32-bit not supported)",
@@ -5896,16 +5843,27 @@ Get-Content install.log -Tail 200</code></pre>
           "paths.state": "Registration state (no secrets, world-readable)",
           "paths.win.registry": "Registry mirror",
           "downloads.title": "Direct Downloads",
-          "downloads.desc":
-            "Download the installer package for your operating system and architecture. Packages never contain an enrollment token &mdash; you supply it at install time.",
+          "downloads.desc": "Download the installer for your operating system and architecture. Packages never contain an enrolment token: you supply it when you install.",
           "downloads.msi": "Download .msi",
-          "downloads.win.exe_note":
-            "The standalone <code>.exe</code> is deprecated and no longer published here. Use the <code>.msi</code>: it bundles osquery, installs the Windows service, and upgrades in place. Existing <code>.exe</code> installs keep updating themselves.",
+          "downloads.win.exe_note": "There is no standalone <code>.exe</code> download: use the <code>.msi</code>. It bundles osquery, installs the Windows service and upgrades in place.",
           "downloads.pkg": "Download .pkg",
           "downloads.uninstallcmd": "uninstall.command",
-          "downloads.pinned":
-            "The <code>/d/latest/</code> links above always resolve to the current release. To pin a specific version, replace <code>latest</code> with the release tag, e.g. <code>https://cdn.licenseware-collector.com/d/v1.2.3/…</code>",
-          "install.title": "Installation Guide",
+          "downloads.pinned": "The <code>/d/latest/</code> links always point to the current release. For a specific version, replace <code>latest</code> with its tag; the <code>v</code> is part of the path: <code>https://cdn.licenseware-collector.com/d/v0.17.0/LicensewareCollector.msi</code>",
+          "dl.other.title": "Other files",
+          "dl.col.file": "File",
+          "dl.col.for": "For",
+          "dl.installsh": "The one-line installer for Linux and macOS (<a href=\"#single-machine\">Single machine</a>)",
+          "dl.mobileconfig": "The macOS configuration profile template (<a href=\"#macos-mdm\">Jamf, Intune for Mac, Kandji</a>)",
+          "dl.attribute": "The registration attribute for Jamf, Intune and Kandji (<a href=\"#macos-mdm\">Jamf, Intune for Mac, Kandji</a>)",
+          "dl.sums": "The SHA-256 of every file in the release (below)",
+          "dl.pinned.title": "A specific version",
+          "dl.sums.title": "Checking a download",
+          "dl.sums.desc": "Each version folder holds <code>SHA256SUMS</code>, the SHA-256 of every file in it. It is not signed: it shows that a download is complete and undamaged, not who published it. Download it beside the file, then:",
+          "dl.sums.linux": "Linux:",
+          "dl.sums.mac": "macOS: compare the output with the package's line in <code>SHA256SUMS</code>.",
+          "dl.sums.win": "Windows (PowerShell): compare the output with the MSI's line in <code>SHA256SUMS</code>.",
+          "install.title": "Get an enrolment token",
+          "start.token.what": "An enrolment token lets a device join your Licenseware account. One token can enrol many devices, and it gives no access to your data. Create one in the Licenseware app:",
           "install.step1.title": "Get Your Token",
           "install.step1.1": "Go to",
           "install.step1.2": "and sign in or create a free account",
@@ -6027,8 +5985,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.proxy": "Proxy",
           "nav.customca": "Custom CA",
           "nav.day2": "Commands",
-          "downloads.next":
-            'Next: <a href="#installation">pick the install guide for your tool</a>.',
+          "downloads.next": "Next: <a href=\"#installation\">pick the guide for how you deploy</a>.",
           "start.pick.single":
             '<a href="#single-machine">Single machine</a>: one Windows, Mac or Linux machine, by hand.',
           "start.pick.intune":
@@ -6041,8 +5998,19 @@ Get-Content install.log -Tail 200</code></pre>
             '<a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.',
           "start.shared":
             'Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.',
-          "start.ver":
-            "Steps marked <strong>From 0.17.0</strong> need Collector 0.17.0 or later. Each guide ends with the steps for machines on 0.16.0 and earlier.",
+          "start.glossary.title": "Words used in these guides",
+          "start.g.token.t": "Enrolment token",
+          "start.g.token.d": "The key you create in the app. A device uses it once to join your account; it gives no access to your data.",
+          "start.g.enrolled.t": "Enrolled",
+          "start.g.enrolled.d": "The device has swapped the enrolment token for its own credential.",
+          "start.g.registered.t": "Registered",
+          "start.g.registered.d": "Licenseware has acknowledged the device: it appears under <strong>Agents</strong> in the Licenseware Collector app, and <code>status</code> exits <code>0</code>.",
+          "start.g.image.t": "Image mode",
+          "start.g.image.d": "Install on a golden image now; each clone enrols itself the first time it starts (<a href=\"#golden-images\">Golden images and VDI</a>).",
+          "start.g.detect.t": "Detection rule",
+          "start.g.detect.d": "How Intune or SCCM decide that the collector is installed: the registry value <code>Registered</code> equals <code>1</code> (<a href=\"#intune\">Intune / SCCM</a>).",
+          "start.g.uuid.t": "SMBIOS UUID",
+          "start.g.uuid.d": "The hardware identifier the device's firmware reports. Every device, and every clone, needs its own.",
           "status.c0": "Registered",
           "status.c1": "The check itself failed",
           "status.c2":
@@ -6289,6 +6257,7 @@ Get-Content install.log -Tail 200</code></pre>
           "compat.title": "Compatibilidad del Sistema Operativo",
           "compat.linux.1": "x86_64 y arm64 (64-bit)",
           "compat.linux.2": "systemd requerido",
+          "compat.linux.3": "RHEL, Rocky, Ubuntu, Debian y otros (.deb o .rpm); compatible con SELinux en modo enforcing",
           "compat.win.1": "x86_64 (64-bit) solamente",
           "compat.win.2": "Windows 10+ (Escritorio)",
           "compat.win.3": "Windows Server 2016+",
@@ -6298,21 +6267,11 @@ Get-Content install.log -Tail 200</code></pre>
           "compat.legacy.desc":
             "Windows 7, Windows 8.1, Windows Server 2012 R2 y versiones anteriores no son compatibles. El agente requiere Windows 10 o Windows Server 2016 o posterior.",
           "network.title": "Requisitos de Red",
-          "network.api_desc":
-            "API principal para ingesta de datos, inscripción y configuración. Los tenants regionales usan <code>api.us.licenseware.io</code> o <code>api.au.licenseware.io</code> — el agente sigue el emisor de su token de inscripción.",
-          "network.logs_desc":
-            "Envío de logs del agente, activado por defecto (<code>LOG_SHIP_ENABLED</code>). Los tenants regionales usan <code>pushlogs.us.licenseware.io</code> o <code>pushlogs.au.licenseware.io</code>.",
-          "network.cdn_desc":
-            "Descargas del instalador y actualizaciones de osquery (manifiesto y binarios), que el agente comprueba de forma continua. Desde 0.17.0 también las actualizaciones del agente. Necesario de forma continua, no solo durante la instalación.",
-          "network.ghapi_desc":
-            "Autoactualización del agente en 0.16.0 y anteriores: los agentes de Windows y Linux comprueban si hay una nueva versión cada 24 horas (los agentes de macOS de esas versiones nunca se autoactualizan). Desde 0.17.0 los agentes se actualizan desde <code>cdn.licenseware-collector.com</code> y ya no necesitan este host.",
-          "network.ghassets_desc":
-            "Descargas de la autoactualización y de la alternativa de osquery en 0.16.0 y anteriores — GitHub redirige aquí. Permita también el host antiguo <code>objects.githubusercontent.com</code>. No es necesario desde 0.17.0.",
-          "network.git_desc":
-            "Descarga alternativa de osquery en 0.16.0 y anteriores. No se usa en una instalación por MSI o paquete, que ya incluyen osquery. No es necesario desde 0.17.0.",
+          "network.api_desc": "Inscripción, registro, configuración, catálogos de recopilación, envíos y comandos. El host corresponde a la región de su cuenta: <code>api.licenseware.io</code>, <code>api.us.licenseware.io</code> o <code>api.au.licenseware.io</code>. El agente lo toma de su token de inscripción.",
+          "network.logs_desc": "Los registros del propio agente, activados por defecto; no hace falta con <code>LOG_SHIP_ENABLED=false</code> (<a href=\"#settings\">Configuración</a>). Las cuentas regionales usan <code>pushlogs.us.licenseware.io</code> o <code>pushlogs.au.licenseware.io</code>.",
+          "network.cdn_desc": "Instaladores y actualizaciones del agente y de osquery, que el agente comprueba mientras se ejecuta.",
           "network.firewall.title": "⚠️ Configuración del Firewall",
-          "network.firewall.desc":
-            "Asegúrese de que se permita HTTPS saliente (puerto 443) a los dominios enumerados anteriormente. No se requieren puertos de entrada.",
+          "network.firewall.desc": "Permita HTTPS saliente (puerto 443) hacia los hosts anteriores; no se necesitan puertos de entrada. Detrás de un proxy, vea <a href=\"#proxy\">Proxy</a>. El agente comprueba comandos cada minuto, envía datos cada 5 minutos y actualiza su configuración y sus catálogos de recopilación cada 30 minutos.",
           "system.title": "Requisitos del Sistema",
           "system.arch.title": "Arquitectura",
           "system.arch.desc": "Solo 64-bit (32-bit no compatible)",
@@ -6391,16 +6350,27 @@ Get-Content install.log -Tail 200</code></pre>
           "paths.state": "Estado de registro (sin secretos, legible por todos)",
           "paths.win.registry": "Réplica en el registro",
           "downloads.title": "Descargas Directas",
-          "downloads.desc":
-            "Descargue el paquete de instalación para su sistema operativo y arquitectura. Los paquetes nunca contienen un token de inscripción &mdash; usted lo proporciona en el momento de la instalación.",
+          "downloads.desc": "Descargue el instalador para su sistema operativo y arquitectura. Los paquetes nunca contienen un token de inscripción: usted lo proporciona al instalar.",
           "downloads.msi": "Descargar .msi",
-          "downloads.win.exe_note":
-            "El <code>.exe</code> independiente está obsoleto y ya no se publica aquí. Use el <code>.msi</code>: incluye osquery, instala el servicio de Windows y se actualiza in situ. Las instalaciones existentes con <code>.exe</code> siguen actualizándose solas.",
+          "downloads.win.exe_note": "No hay descarga de un <code>.exe</code> independiente: use el <code>.msi</code>. Incluye osquery, instala el servicio de Windows y se actualiza en su sitio.",
           "downloads.pkg": "Descargar .pkg",
           "downloads.uninstallcmd": "uninstall.command",
-          "downloads.pinned":
-            "Los enlaces <code>/d/latest/</code> anteriores siempre apuntan a la versión actual. Para fijar una versión específica, reemplace <code>latest</code> por la etiqueta de la versión, p. ej. <code>https://cdn.licenseware-collector.com/d/v1.2.3/…</code>",
-          "install.title": "Guía de Instalación",
+          "downloads.pinned": "Los enlaces <code>/d/latest/</code> siempre apuntan a la versión actual. Para una versión concreta, sustituya <code>latest</code> por su etiqueta; la <code>v</code> forma parte de la ruta: <code>https://cdn.licenseware-collector.com/d/v0.17.0/LicensewareCollector.msi</code>",
+          "dl.other.title": "Otros archivos",
+          "dl.col.file": "Archivo",
+          "dl.col.for": "Para",
+          "dl.installsh": "El instalador de una línea para Linux y macOS (<a href=\"#single-machine\">Una sola máquina</a>)",
+          "dl.mobileconfig": "La plantilla del perfil de configuración de macOS (<a href=\"#macos-mdm\">Jamf, Intune para Mac, Kandji</a>)",
+          "dl.attribute": "El atributo de registro para Jamf, Intune y Kandji (<a href=\"#macos-mdm\">Jamf, Intune para Mac, Kandji</a>)",
+          "dl.sums": "El SHA-256 de cada archivo de la versión (abajo)",
+          "dl.pinned.title": "Una versión concreta",
+          "dl.sums.title": "Comprobar una descarga",
+          "dl.sums.desc": "Cada carpeta de versión contiene <code>SHA256SUMS</code>, el SHA-256 de cada archivo. No está firmado: muestra que una descarga está completa y sin daños, no quién la publicó. Descárguelo junto al archivo y luego:",
+          "dl.sums.linux": "Linux:",
+          "dl.sums.mac": "macOS: compare el resultado con la línea del paquete en <code>SHA256SUMS</code>.",
+          "dl.sums.win": "Windows (PowerShell): compare el resultado con la línea del MSI en <code>SHA256SUMS</code>.",
+          "install.title": "Obtener un token de inscripción",
+          "start.token.what": "Un token de inscripción permite que un dispositivo se una a su cuenta de Licenseware. Un token puede inscribir muchos dispositivos y no da acceso a sus datos. Cree uno en la aplicación de Licenseware:",
           "install.step1.title": "Obtenga su Token",
           "install.step1.1": "Vaya a",
           "install.step1.2": "e inicie sesión o cree una cuenta gratuita",
@@ -6523,8 +6493,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.proxy": "Proxy",
           "nav.customca": "CA personalizada",
           "nav.day2": "Comandos",
-          "downloads.next":
-            'Siguiente paso: <a href="#installation">elija la guía de instalación de su herramienta</a>.',
+          "downloads.next": "Siguiente: <a href=\"#installation\">elija la guía según cómo despliega</a>.",
           "start.pick.single":
             '<a href="#single-machine">Una sola máquina</a>: una máquina Windows, Mac o Linux, a mano.',
           "start.pick.intune":
@@ -6537,8 +6506,19 @@ Get-Content install.log -Tail 200</code></pre>
             '<a href="#golden-images">Imágenes maestras y VDI</a>: una imagen o plantilla desde la que se inscribe cada clon.',
           "start.shared":
             'Todas las guías usan los mismos <a href="#settings">Ajustes</a> (proxy, certificado de CA, actualizaciones, nivel de log) y los mismos <a href="#day2">comandos del día 2</a>.',
-          "start.ver":
-            "Los pasos marcados <strong>Desde 0.17.0</strong> requieren Collector 0.17.0 o posterior. Cada guía termina con los pasos para máquinas en 0.16.0 y anteriores.",
+          "start.glossary.title": "Términos usados en estas guías",
+          "start.g.token.t": "Token de inscripción",
+          "start.g.token.d": "La clave que crea en la aplicación. Un dispositivo la usa una vez para unirse a su cuenta; no da acceso a sus datos.",
+          "start.g.enrolled.t": "Inscrito",
+          "start.g.enrolled.d": "El dispositivo ha cambiado el token de inscripción por su propia credencial.",
+          "start.g.registered.t": "Registrado",
+          "start.g.registered.d": "Licenseware ha confirmado el dispositivo: aparece en <strong>Agents</strong> en la aplicación Licenseware Collector, y <code>status</code> sale con <code>0</code>.",
+          "start.g.image.t": "Modo imagen",
+          "start.g.image.d": "Instale ahora en una imagen maestra; cada clon se inscribe solo la primera vez que arranca (<a href=\"#golden-images\">Imágenes maestras y VDI</a>).",
+          "start.g.detect.t": "Regla de detección",
+          "start.g.detect.d": "Cómo deciden Intune o SCCM que el Collector está instalado: el valor de registro <code>Registered</code> igual a <code>1</code> (<a href=\"#intune\">Intune / SCCM</a>).",
+          "start.g.uuid.t": "UUID SMBIOS",
+          "start.g.uuid.d": "El identificador de hardware que informa el firmware del dispositivo. Cada dispositivo, y cada clon, necesita el suyo.",
           "status.c0": "Registrado",
           "status.c1": "La propia comprobación falló",
           "status.c2":
