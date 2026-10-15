@@ -2348,49 +2348,61 @@
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
             <h2 id="single-machine-title" data-i18n="single.title">Single machine</h2>
-            <span class="badge badge-version" data-i18n="ver.017">From 0.17.0</span>
           </div>
-          <p data-i18n="single.intro">Install on one machine by hand. You need an <a href="#installation">enrolment token</a> and administrator rights. Each install enrols the machine and finishes only once Licenseware has registered it, usually within seconds and at most 3 minutes.</p>
-          <h3 data-i18n="single.win.title">Windows (Administrator Command Prompt)</h3>
+          <p data-i18n="single.intro">Install the collector on one machine by hand. Each install enrols the machine and finishes only once Licenseware has registered it.</p>
+          <p data-i18n="single.before"><strong>Before you start:</strong> an <a href="#installation">enrolment token</a>, administrator rights on the machine, and the hosts in <a href="#network">Network</a> reachable from it.</p>
+          <h3 data-i18n="single.win.title">Windows (Command Prompt as administrator)</h3>
+          <p data-i18n="single.win.run">In the folder that holds <code>LicensewareCollector.msi</code> from <a href="#downloads">Downloads</a>, run:</p>
           <div class="code-block">
             <pre><code style="font-size: 0.85rem">msiexec /i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt;</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p data-i18n="single.win.desc">Download <code>LicensewareCollector.msi</code> from <a href="#downloads">Downloads</a> first. If the machine cannot register (a rejected token, no network), the installer removes itself again and exits <code>1603</code>; the reason is in <code>%ProgramData%\Licenseware\setup.log</code>. Double-clicking the <code>.msi</code> without a token is refused: pass the token on the command line.</p>
-          <h3 data-i18n="single.mac.title">macOS (Terminal)</h3>
+          <p data-i18n="single.win.desc"><code>msiexec</code> returns once the machine is registered and its service is running, within 3 minutes. Otherwise it removes what it installed and exits <code>1603</code>; the reason is in <code>%ProgramData%\Licenseware\setup.log</code>. Double-clicking the MSI without a token is refused.</p>
+          <h3 data-i18n="single.unix.title">macOS and Linux (Terminal)</h3>
           <div class="code-block">
-            <pre><code style="font-size: 0.85rem">curl -fsSLO https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg
-sudo mkdir -p /usr/local/etc
+            <pre><code style="font-size: 0.85rem">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="single.unix.desc">The script picks the package for the machine (<code>.pkg</code>, <code>.deb</code> or <code>.rpm</code>; Apple silicon, Intel, amd64 or arm64), checks it against the release's <code>SHA256SUMS</code> (<a href="#downloads">Downloads</a>), installs it and waits up to 3 minutes for the machine to register. Otherwise it removes what it installed and exits <code>1</code>. Keep <code>TOKEN=</code> after <code>sudo</code>: placed before it, <code>sudo</code> drops it. The script's options (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>, <code>--dry-run</code>) are in <a href="#linux-fleets">Ansible / Linux fleets</a>.</p>
+          <h4 data-i18n="single.manual.title">Without the script</h4>
+          <p data-i18n="single.manual.mac">macOS: put the token in the collector's settings file, then install the package from <a href="#downloads">Downloads</a>:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo mkdir -p /usr/local/etc
 sudo install -m 0600 /dev/null /usr/local/etc/licenseware-collector
 echo 'TOKEN=&lt;enrolment-token&gt;' | sudo tee /usr/local/etc/licenseware-collector &gt;/dev/null
 sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p data-i18n="single.mac.desc">The package reads the token from that root-only file, enrols the Mac and waits for it to register. If it does not register, <code>installer</code> reports that the installation failed, and the reason is in <code>/var/log/install.log</code>.</p>
-          <h3>Linux</h3>
+          <p data-i18n="single.manual.mac.note"><code>sudo TOKEN=… installer</code> does not work: <code>installer</code> passes no environment to the package.</p>
+          <p data-i18n="single.manual.deb">Debian and Ubuntu:</p>
           <div class="code-block">
-            <pre><code style="font-size: 0.85rem">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
+            <pre><code style="font-size: 0.85rem">sudo TOKEN=&lt;enrolment-token&gt; apt install ./licenseware-collector_amd64.deb</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p data-i18n="single.linux.desc">The script picks the <code>.deb</code> or <code>.rpm</code> for this machine, checks it against the release's <code>SHA256SUMS</code>, installs it and waits for the machine to register. If it does not register, the script removes the package again and exits <code>1</code>. Its options (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>) are in <a href="#linux-fleets">Ansible / Linux fleets</a>.</p>
-          <p data-i18n="single.check">To check a machine, run <code>status</code>: it exits <code>0</code> once the machine is registered (<a href="#day2">Day-2 operations</a>). Behind a proxy or TLS inspection, see <a href="#settings">Settings</a>: the MSI takes <code>PROXY=</code> and <code>CA_CERT=</code> beside <code>TOKEN=</code>, the Mac file takes them as extra lines, and <code>install.sh</code> takes <code>--proxy URL</code>.</p>
-          <aside class="highlight-box" role="note">
-            <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
-            <p data-i18n="single.old.win">Windows: the same <code>msiexec</code> line enrols the machine, but exit code <code>0</code> does not prove it is registered; check with <code>status</code>.</p>
-            <p data-i18n="install.win.tokenless">To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>"%ProgramFiles%\Licenseware\LicensewareCollector.exe" register</code>.</p>
-            <p data-i18n="single.old.unix">macOS and Linux: install the package, then enrol the machine.</p>
-            <div class="code-block">
-              <pre><code style="font-size: 0.85rem">sudo installer -pkg LicensewareCollector.pkg -target /
-sudo TOKEN=&lt;enrolment-token&gt; /usr/local/licenseware-collector/seed/licenseware-collector register</code></pre>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-            </div>
-            <div class="code-block">
-              <pre><code style="font-size: 0.85rem">sudo apt install ./licenseware-collector_amd64.deb
-# RHEL / Fedora / SUSE: sudo dnf install ./licenseware-collector_amd64.rpm
-sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code></pre>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-            </div>
-          </aside>
+          <p data-i18n="single.manual.rpm">RHEL, Rocky and Fedora:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo TOKEN=&lt;enrolment-token&gt; dnf install ./licenseware-collector_amd64.rpm</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="single.manual.pkgwait">The package waits up to 60 seconds and finishes even if the machine is not registered yet, so check it with <code>status</code>. Without a token it refuses to install.</p>
+          <h3 data-i18n="single.check.title">Check it worked</h3>
+          <p data-i18n="single.check.unix">macOS and Linux:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">licenseware-collector status</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="single.check.win">Windows, in a new Command Prompt:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">LicensewareCollector.exe status</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="single.check.sample">A registered machine shows, among other lines:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">Registered:       true
+Registration:     registered
+Healthy:          yes [window 24h]</code></pre>
+          </div>
+          <p data-i18n="single.check.app"><code>status</code> exits <code>0</code>, and the machine appears under <strong>Agents</strong> in the Licenseware Collector app. Every exit code is in <a href="#day2">Commands</a>.</p>
         </section>
 
         <!-- Intune / SCCM (Windows) -->
@@ -5911,8 +5923,6 @@ Get-Content install.log -Tail 200</code></pre>
             "Devices installed before 0.16.0 gain the key and the file only after they self-update and complete one check-in, about a minute after the restart. A required assignment whose detection rule already expects the key would treat those devices as not installed and re-run the installer on them. Keep the script below until the console shows the fleet on 0.16.0 or later.",
           "mdm.detect.legacy":
             "Agents older than 0.16.0: use this PowerShell detection script. The <code>TOKEN=</code> line is written only by a completed enrolment and the Windows service is created only by <code>register</code>; together they mean the agent has enrolled, though not that the backend has acknowledged it.",
-          "install.win.tokenless":
-            "To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Uninstall",
           "uninstall.title": "Uninstall Guide",
           "uninstall.warning":
@@ -6021,22 +6031,24 @@ Get-Content install.log -Tail 200</code></pre>
           "status.c5":
             "Only with <code>--require-healthy</code>: registered, but not healthy",
           "single.title": "Single machine",
-          "single.intro":
-            'Install on one machine by hand. You need an <a href="#installation">enrolment token</a> and administrator rights. Each install enrols the machine and finishes only once Licenseware has registered it, usually within seconds and at most 3 minutes.',
-          "single.win.title": "Windows (Administrator Command Prompt)",
-          "single.win.desc":
-            'Download <code>LicensewareCollector.msi</code> from <a href="#downloads">Downloads</a> first. If the machine cannot register (a rejected token, no network), the installer removes itself again and exits <code>1603</code>; the reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>. Double-clicking the <code>.msi</code> without a token is refused: pass the token on the command line.',
-          "single.mac.title": "macOS (Terminal)",
-          "single.mac.desc":
-            "The package reads the token from that root-only file, enrols the Mac and waits for it to register. If it does not register, <code>installer</code> reports that the installation failed, and the reason is in <code>/var/log/install.log</code>.",
-          "single.linux.desc":
-            "The script picks the <code>.deb</code> or <code>.rpm</code> for this machine, checks it against the release's <code>SHA256SUMS</code>, installs it and waits for the machine to register. If it does not register, the script removes the package again and exits <code>1</code>. Its options (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>) are in <a href=\"#linux-fleets\">Ansible / Linux fleets</a>.",
-          "single.check":
-            'To check a machine, run <code>status</code>: it exits <code>0</code> once the machine is registered (<a href="#day2">Day-2 operations</a>). Behind a proxy or TLS inspection, see <a href="#settings">Settings</a>: the MSI takes <code>PROXY=</code> and <code>CA_CERT=</code> beside <code>TOKEN=</code>, the Mac file takes them as extra lines, and <code>install.sh</code> takes <code>--proxy URL</code>.',
-          "single.old.win":
-            "Windows: the same <code>msiexec</code> line enrols the machine, but exit code <code>0</code> does not prove it is registered; check with <code>status</code>.",
-          "single.old.unix":
-            "macOS and Linux: install the package, then enrol the machine.",
+          "single.intro": "Install the collector on one machine by hand. Each install enrols the machine and finishes only once Licenseware has registered it.",
+          "single.before": "<strong>Before you start:</strong> an <a href=\"#installation\">enrolment token</a>, administrator rights on the machine, and the hosts in <a href=\"#network\">Network</a> reachable from it.",
+          "single.win.title": "Windows (Command Prompt as administrator)",
+          "single.win.run": "In the folder that holds <code>LicensewareCollector.msi</code> from <a href=\"#downloads\">Downloads</a>, run:",
+          "single.win.desc": "<code>msiexec</code> returns once the machine is registered and its service is running, within 3 minutes. Otherwise it removes what it installed and exits <code>1603</code>; the reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>. Double-clicking the MSI without a token is refused.",
+          "single.unix.title": "macOS and Linux (Terminal)",
+          "single.unix.desc": "The script picks the package for the machine (<code>.pkg</code>, <code>.deb</code> or <code>.rpm</code>; Apple silicon, Intel, amd64 or arm64), checks it against the release's <code>SHA256SUMS</code> (<a href=\"#downloads\">Downloads</a>), installs it and waits up to 3 minutes for the machine to register. Otherwise it removes what it installed and exits <code>1</code>. Keep <code>TOKEN=</code> after <code>sudo</code>: placed before it, <code>sudo</code> drops it. The script's options (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>, <code>--dry-run</code>) are in <a href=\"#linux-fleets\">Ansible / Linux fleets</a>.",
+          "single.manual.title": "Without the script",
+          "single.manual.mac": "macOS: put the token in the collector's settings file, then install the package from <a href=\"#downloads\">Downloads</a>:",
+          "single.manual.mac.note": "<code>sudo TOKEN=… installer</code> does not work: <code>installer</code> passes no environment to the package.",
+          "single.manual.deb": "Debian and Ubuntu:",
+          "single.manual.rpm": "RHEL, Rocky and Fedora:",
+          "single.manual.pkgwait": "The package waits up to 60 seconds and finishes even if the machine is not registered yet, so check it with <code>status</code>. Without a token it refuses to install.",
+          "single.check.title": "Check it worked",
+          "single.check.unix": "macOS and Linux:",
+          "single.check.win": "Windows, in a new Command Prompt:",
+          "single.check.sample": "A registered machine shows, among other lines:",
+          "single.check.app": "<code>status</code> exits <code>0</code>, and the machine appears under <strong>Agents</strong> in the Licenseware Collector app. Every exit code is in <a href=\"#day2\">Commands</a>.",
           "mdm.install.title": "Install command",
           "mdm.install.tokenfile":
             "A <code>TOKEN=</code> value is visible wherever the command line is logged (MDM logs, process-creation auditing). To keep it off every command line, put the token in a file that SYSTEM can read (ASCII, the token on the first line) and pass its absolute path instead. The installer never deletes that file.",
@@ -6418,8 +6430,6 @@ Get-Content install.log -Tail 200</code></pre>
             "Los dispositivos instalados antes de 0.16.0 obtienen la clave y el archivo solo tras autoactualizarse y completar una comunicación, aproximadamente un minuto después del reinicio. Una asignación obligatoria cuya regla de detección ya espere la clave trataría esos dispositivos como no instalados y volvería a ejecutar el instalador en ellos. Mantenga el script siguiente hasta que la consola muestre la flota en 0.16.0 o posterior.",
           "mdm.detect.legacy":
             "Agentes anteriores a 0.16.0: use este script de detección de PowerShell. La línea <code>TOKEN=</code> solo la escribe una inscripción completada y el servicio de Windows solo lo crea <code>register</code>; juntos significan que el agente se ha inscrito, aunque no que el backend lo haya reconocido.",
-          "install.win.tokenless":
-            "Para preparar los archivos ahora e inscribir más tarde, omita <code>TOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
           "nav.uninstall": "Desinstalar",
           "uninstall.title": "Guía de Desinstalación",
           "uninstall.warning":
@@ -6529,22 +6539,24 @@ Get-Content install.log -Tail 200</code></pre>
           "status.c5":
             "Solo con <code>--require-healthy</code>: registrado, pero no en buen estado",
           "single.title": "Una sola máquina",
-          "single.intro":
-            'Instale a mano en una máquina. Necesita un <a href="#installation">token de inscripción</a> y derechos de administrador. Cada instalación inscribe la máquina y solo termina cuando Licenseware la ha registrado, normalmente en segundos y como máximo en 3 minutos.',
-          "single.win.title": "Windows (Símbolo del sistema de Administrador)",
-          "single.win.desc":
-            'Descargue antes <code>LicensewareCollector.msi</code> desde <a href="#downloads">Descargas</a>. Si la máquina no puede registrarse (un token rechazado, sin red), el instalador se elimina de nuevo y devuelve <code>1603</code>; el motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>. Hacer doble clic en el <code>.msi</code> sin token se rechaza: pase el token en la línea de comandos.',
-          "single.mac.title": "macOS (Terminal)",
-          "single.mac.desc":
-            "El paquete lee el token de ese archivo, solo accesible para root, inscribe el Mac y espera a que se registre. Si no se registra, <code>installer</code> indica que la instalación falló y el motivo está en <code>/var/log/install.log</code>.",
-          "single.linux.desc":
-            'El script elige el <code>.deb</code> o el <code>.rpm</code> para esta máquina, lo verifica con el <code>SHA256SUMS</code> de la versión, lo instala y espera a que la máquina se registre. Si no se registra, el script vuelve a eliminar el paquete y devuelve <code>1</code>. Sus opciones (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>) están en <a href="#linux-fleets">Ansible / flotas Linux</a>.',
-          "single.check":
-            'Para comprobar una máquina, ejecute <code>status</code>: devuelve <code>0</code> cuando la máquina está registrada (<a href="#day2">Operaciones del día 2</a>). Detrás de un proxy o de inspección TLS, vea <a href="#settings">Ajustes</a>: el MSI acepta <code>PROXY=</code> y <code>CA_CERT=</code> junto a <code>TOKEN=</code>, el archivo del Mac los acepta como líneas adicionales e <code>install.sh</code> acepta <code>--proxy URL</code>.',
-          "single.old.win":
-            "Windows: la misma línea de <code>msiexec</code> inscribe la máquina, pero el código de salida <code>0</code> no prueba que esté registrada; compruébelo con <code>status</code>.",
-          "single.old.unix":
-            "macOS y Linux: instale el paquete y después inscriba la máquina.",
+          "single.intro": "Instale el Collector en una máquina a mano. Cada instalación inscribe la máquina y termina solo cuando Licenseware la ha registrado.",
+          "single.before": "<strong>Antes de empezar:</strong> un <a href=\"#installation\">token de inscripción</a>, permisos de administrador en la máquina y los hosts de <a href=\"#network\">Red</a> accesibles desde ella.",
+          "single.win.title": "Windows (Símbolo del sistema como administrador)",
+          "single.win.run": "En la carpeta que contiene <code>LicensewareCollector.msi</code> de <a href=\"#downloads\">Descargas</a>, ejecute:",
+          "single.win.desc": "<code>msiexec</code> termina cuando la máquina está registrada y su servicio en ejecución, en 3 minutos como máximo. Si no, quita lo que instaló y sale con <code>1603</code>; el motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>. Hacer doble clic en el MSI sin token se rechaza.",
+          "single.unix.title": "macOS y Linux (Terminal)",
+          "single.unix.desc": "El script elige el paquete para la máquina (<code>.pkg</code>, <code>.deb</code> o <code>.rpm</code>; Apple silicon, Intel, amd64 o arm64), lo comprueba con el <code>SHA256SUMS</code> de la versión (<a href=\"#downloads\">Descargas</a>), lo instala y espera hasta 3 minutos a que la máquina se registre. Si no, quita lo que instaló y sale con <code>1</code>. Ponga <code>TOKEN=</code> después de <code>sudo</code>: si va antes, <code>sudo</code> lo descarta. Las opciones del script (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>, <code>--dry-run</code>) están en <a href=\"#linux-fleets\">Ansible / flotas Linux</a>.",
+          "single.manual.title": "Sin el script",
+          "single.manual.mac": "macOS: ponga el token en el archivo de configuración del Collector y luego instale el paquete de <a href=\"#downloads\">Descargas</a>:",
+          "single.manual.mac.note": "<code>sudo TOKEN=… installer</code> no funciona: <code>installer</code> no pasa ningún entorno al paquete.",
+          "single.manual.deb": "Debian y Ubuntu:",
+          "single.manual.rpm": "RHEL, Rocky y Fedora:",
+          "single.manual.pkgwait": "El paquete espera hasta 60 segundos y termina aunque la máquina aún no esté registrada, así que compruébelo con <code>status</code>. Sin token se niega a instalarse.",
+          "single.check.title": "Compruebe que funcionó",
+          "single.check.unix": "macOS y Linux:",
+          "single.check.win": "Windows, en un Símbolo del sistema nuevo:",
+          "single.check.sample": "Una máquina registrada muestra, entre otras líneas:",
+          "single.check.app": "<code>status</code> sale con <code>0</code> y la máquina aparece en <strong>Agents</strong> en la aplicación Licenseware Collector. Todos los códigos de salida están en <a href=\"#day2\">Comandos</a>.",
           "mdm.install.title": "Comando de instalación",
           "mdm.install.tokenfile":
             "Un valor de <code>TOKEN=</code> es visible allí donde se registra la línea de comandos (registros del MDM, auditoría de creación de procesos). Para mantenerlo fuera de toda línea de comandos, guarde el token en un archivo que SYSTEM pueda leer (ASCII, el token en la primera línea) y pase su ruta absoluta en su lugar. El instalador nunca elimina ese archivo.",
