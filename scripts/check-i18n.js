@@ -35,6 +35,20 @@ for (const lang of langs) {
   }
 }
 
+// A command must read the same in every language: a reader copies it.
+const codes = (text) =>
+  [...String(text).matchAll(/<code>([\s\S]*?)<\/code>/gu)]
+    .map((match) => match[1])
+    .sort();
+for (const lang of langs) {
+  for (const key of Object.keys(translations[langs[0]])) {
+    const reference = codes(translations[langs[0]][key]).join("\u0000");
+    if (codes(translations[lang][key] ?? "").join("\u0000") !== reference) {
+      problems.push(`${lang}: <code> in "${key}" differs from ${langs[0]}`);
+    }
+  }
+}
+
 const unused = Object.keys(translations[langs[0]]).filter(
   (key) => !used.has(key),
 );

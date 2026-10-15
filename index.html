@@ -923,6 +923,12 @@
         color: var(--text-secondary);
       }
 
+      p code,
+      li code,
+      td code {
+        overflow-wrap: anywhere;
+      }
+
       /* Copy Button Styles (Minimalist) */
       .copy-btn {
         position: absolute;
@@ -1818,7 +1824,7 @@
               <li data-i18n="start.pick.linux"><a href="#linux-fleets">Ansible and other Linux tools</a>: Linux fleets, including restricted sudo rules and proxies.</li>
               <li data-i18n="start.pick.image"><a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.</li>
             </ul>
-            <p data-i18n="start.shared">Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.</p>
+            <p data-i18n="start.shared">Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Commands</a>.</p>
             <p data-i18n="start.old">Devices already running 0.16.0 or earlier: see <a href="#upgrading">what to prepare and what changes</a>.</p>
             <h3 id="glossary" data-i18n="start.glossary.title" style="margin-top: 1.5rem">Words used in these guides</h3>
             <dl class="glossary">
@@ -2724,7 +2730,7 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
           </section>
         </section>
 
-        <!-- Day-2 operations -->
+        <!-- Commands -->
         <section class="card guide" id="day2" aria-labelledby="day2-title">
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
@@ -3576,6 +3582,7 @@ exit 1</code></pre>
           >
             Change history
           </h3>
+          <div style="overflow-x: auto">
           <table class="spec-history">
             <tbody>
               <tr>
@@ -3596,6 +3603,7 @@ exit 1</code></pre>
               </tr>
             </tbody>
           </table>
+          </div>
           <p
             style="color: var(--text-secondary); font-size: 0.85rem"
             data-i18n="catalogs.notify"
@@ -5633,7 +5641,6 @@ Get-Content install.log -Tail 200</code></pre>
           "table.os": "OS",
           "table.fields": "Fields collected",
           "table.pd": "Personal data relevance",
-          "table.all_os": "All OS",
           "catalogs.logs.title": "Operational logs",
           "catalogs.logs.body":
             "The agent ships its own operational logs (status, errors, ingestion cycle information) to <code>pushlogs.licenseware.io</code> or the regional equivalent by default. They may incidentally contain hostnames or file paths. Set <code>LOG_SHIP_ENABLED=false</code> in the environment file and restart the service to disable log shipping. Logs are processed under the DPA.",
@@ -5689,9 +5696,6 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.codes.row1603": "Refused, or failed and rolled back (below)",
           "mdm.codes.row1618": "Another installation is already in progress",
           "mdm.codes.row1619": "Package path unreachable, or not a valid installer package",
-          "mdm.zero.title": "⚠️ Exit code 0 is not proof of enrolment",
-          "mdm.zero.desc":
-            "The installer reports success once the files are in place, so a backend failure during enrolment does not fail the install — that is deliberate, because failing it would roll back the files while leaving the Windows service behind. Key your detection rule on installed state, not on the exit code.",
           "mdm.detect.title": "Detection rule",
           "mdm.detect.desc": "The agent mirrors its registration into the registry, so Intune and SCCM can use a built-in registry rule with no script. Do not use a file-version or product-code rule: both report success even when enrolment did not complete.",
           "mdm.detect.reg.col_setting": "Setting",
@@ -5797,8 +5801,7 @@ Get-Content install.log -Tail 200</code></pre>
             '<a href="#linux-fleets">Ansible and other Linux tools</a>: Linux fleets, including restricted sudo rules and proxies.',
           "start.pick.image":
             '<a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.',
-          "start.shared":
-            'Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.',
+          "start.shared": "Every guide uses the same <a href=\"#settings\">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href=\"#day2\">Commands</a>.",
           "start.old": "Devices already running 0.16.0 or earlier: see <a href=\"#upgrading\">what to prepare and what changes</a>.",
           "start.glossary.title": "Words used in these guides",
           "start.g.token.t": "Enrolment token",
@@ -6209,7 +6212,6 @@ Get-Content install.log -Tail 200</code></pre>
           "table.os": "SO",
           "table.fields": "Campos recopilados",
           "table.pd": "Relevancia para datos personales",
-          "table.all_os": "Todos los SO",
           "catalogs.logs.title": "Logs operativos",
           "catalogs.logs.body":
             "El agente envía por defecto sus propios logs operativos (estado, errores, información del ciclo de ingesta) a <code>pushlogs.licenseware.io</code> o al equivalente regional. Pueden contener incidentalmente nombres de host o rutas de archivo. Establezca <code>LOG_SHIP_ENABLED=false</code> en el archivo de entorno y reinicie el servicio para desactivar el envío de logs. Los logs se tratan conforme al DPA.",
@@ -6266,9 +6268,6 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.codes.row1603": "Rechazado, o fallido y revertido (vea abajo)",
           "mdm.codes.row1618": "Ya hay otra instalación en curso",
           "mdm.codes.row1619": "Ruta del paquete inaccesible, o no es un paquete de instalación válido",
-          "mdm.zero.title": "⚠️ El código de salida 0 no prueba la inscripción",
-          "mdm.zero.desc":
-            "El instalador informa éxito una vez que los archivos están en su sitio, por lo que un fallo del backend durante la inscripción no hace fallar la instalación — es deliberado, porque hacerla fallar revertiría los archivos dejando atrás el servicio de Windows. Base su regla de detección en el estado instalado, no en el código de salida.",
           "mdm.detect.title": "Regla de detección",
           "mdm.detect.desc": "El agente refleja su registro en el registro de Windows, así que Intune y SCCM pueden usar una regla de registro integrada, sin script. No use una regla de versión de archivo ni de código de producto: ambas indican éxito aunque la inscripción no se haya completado.",
           "mdm.detect.reg.col_setting": "Ajuste",
@@ -6358,7 +6357,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.linux": "Ansible / flotas Linux",
           "nav.image": "Imágenes maestras y VDI",
           "nav.operate": "Operar",
-          "nav.settings": "Ajustes",
+          "nav.settings": "Configuración",
           "nav.proxy": "Proxy",
           "nav.customca": "CA personalizada",
           "nav.day2": "Comandos",
@@ -6375,8 +6374,7 @@ Get-Content install.log -Tail 200</code></pre>
             '<a href="#linux-fleets">Ansible y otras herramientas Linux</a>: flotas Linux, incluidas reglas de sudo restringidas y proxies.',
           "start.pick.image":
             '<a href="#golden-images">Imágenes maestras y VDI</a>: una imagen o plantilla desde la que se inscribe cada clon.',
-          "start.shared":
-            'Todas las guías usan los mismos <a href="#settings">Ajustes</a> (proxy, certificado de CA, actualizaciones, nivel de log) y los mismos <a href="#day2">comandos del día 2</a>.',
+          "start.shared": "Todas las guías usan la misma <a href=\"#settings\">Configuración</a> (proxy, certificado de CA, actualizaciones, nivel de registro) y los mismos <a href=\"#day2\">Comandos</a>.",
           "start.old": "Dispositivos que ya ejecutan 0.16.0 o anterior: vea <a href=\"#upgrading\">qué preparar y qué cambia</a>.",
           "start.glossary.title": "Términos usados en estas guías",
           "start.g.token.t": "Token de inscripción",
@@ -6512,19 +6510,16 @@ Get-Content install.log -Tail 200</code></pre>
             "No espere al registro mientras construye la imagen: en modo imagen los instaladores terminan de inmediato y <code>status</code> devuelve <code>3</code>.",
           "image.clone.title": "Máquinas clonadas",
           "image.clone": "Cada agente registra una huella de la máquina en la que se inscribió (número de serie del hardware e ID de máquina del sistema). En una máquina clonada después del primer arranque, <code>status</code> muestra <code>CLONED IMAGE SUSPECTED</code>; nada cambia por sí solo. Corríjalo en este orden: dé al clon su propio UUID SMBIOS y luego desinstale el Collector en él e instálelo e inscríbalo de nuevo. Nunca registre un clon que aún comparte el UUID de su gemelo: le quita la credencial al gemelo. Un clon que no cambia ni su número de serie ni su ID de máquina no se detecta.",
-          "settings.title": "Ajustes",
+          "settings.title": "Configuración",
           "settings.intro": "Un mismo conjunto de nombres sirve en todas partes: como propiedad del MSI, clave del archivo de entorno, variable de entorno para <code>register</code>, <code>apt</code>, <code>dnf</code> o <code>install.sh</code>, clave del perfil de configuración de macOS y clave de <code>set</code>. Un ajuste hecho en la máquina se guarda en su archivo de entorno y prevalece sobre lo que envía Licenseware. El servicio lee sus ajustes al iniciarse; <code>set</code> lo reinicia por usted.",
           "settings.col.name": "Ajuste",
           "settings.col.value": "Valor",
           "settings.col.msi": "MSI",
           "settings.col.env": "Archivo de entorno",
           "settings.col.profile": "Perfil de macOS",
-          "settings.token":
-            "Token de inscripción, sustituido por la credencial propia de la máquina tras la inscripción. El MSI también acepta <code>TOKENFILE=&lt;ruta&gt;</code>. Para cambiarlo, ejecute <code>register</code>.",
-          "settings.proxy":
-            "URL <code>http://</code>, <code>https://</code> o <code>socks5://</code> (un <code>host:puerto</code> sin esquema significa http), o <code>direct</code> para no usar ningún proxy",
-          "settings.noproxy":
-            "Hosts, <code>.dominios</code>, IP y CIDR separados por comas que no pasan por el proxy",
+          "settings.token": "Token de inscripción, sustituido por la credencial propia de la máquina tras la inscripción. El MSI también acepta <code>TOKENFILE=&lt;path&gt;</code> (la ruta de un archivo). Para cambiarlo, ejecute <code>register</code>.",
+          "settings.proxy": "URL <code>http://</code>, <code>https://</code> o <code>socks5://</code> (un <code>host:port</code> sin esquema significa http), o <code>direct</code> para no usar ningún proxy",
+          "settings.noproxy": "Hosts, <code>.domains</code> (dominios), IP y CIDR separados por comas que no pasan por el proxy",
           "settings.cacert": "Ruta de un archivo PEM con certificados de CA adicionales, para la inspección TLS. El MSI lo copia en <code>%ProgramData%\\Licenseware\\ca.pem</code>; en macOS y Linux el archivo debe quedarse donde está.",
           "settings.autoupdate": "<code>0</code> impide que el agente se actualice solo y rechaza el comando de actualización remoto de Licenseware; <code>update</code> ejecutado a mano sigue funcionando. <code>1</code> (el valor por defecto) respeta igualmente una pausa que Licenseware fije para toda la flota. También acepta <code>true</code>/<code>false</code>, <code>yes</code>/<code>no</code>, <code>on</code>/<code>off</code> y <code>enabled</code>/<code>disabled</code> en mayúsculas o minúsculas; cualquier otro valor se rechaza. Un booleano en el perfil.",
           "settings.loglevel":

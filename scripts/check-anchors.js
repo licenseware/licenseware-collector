@@ -64,6 +64,18 @@ for (const id of PUBLISHED) {
   }
 }
 
+// The copy button copies the whole block: a block holds one command or one
+// sequence, never an alternative hidden behind a comment or a shell prompt.
+for (const [, block] of html.matchAll(
+  /<pre><code[^>]*>([\s\S]*?)<\/code><\/pre>/gu,
+)) {
+  for (const line of block.split("\n")) {
+    if (/^\s*(#|REM\b|\$ )/u.test(line)) {
+      problems.push(`code block line is a comment or prompt: ${line.trim()}`);
+    }
+  }
+}
+
 if (problems.length > 0) {
   process.stderr.write(`${problems.join("\n")}\n`);
   process.exitCode = 1;
