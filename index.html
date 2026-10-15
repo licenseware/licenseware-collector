@@ -2494,36 +2494,40 @@ Healthy:          yes [window 24h]</code></pre>
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg></div>
             <h2 id="macos-mdm-title" data-i18n="mac.title">Jamf, Intune for Mac, Kandji (macOS)</h2>
-            <span class="badge badge-version" data-i18n="ver.017">From 0.17.0</span>
           </div>
           <p data-i18n="mac.intro">Works with any MDM that deploys configuration profiles and packages. The three steps can happen in any order: a package that arrives before the profile fails, and succeeds when the MDM retries it.</p>
           <ol class="steps">
             <li>
               <strong data-i18n="mac.s1.title">Push the configuration profile</strong>
-              <p data-i18n="mac.s1.desc">Download it from the install instructions the Licenseware app shows when you create an API key (the key is filled in), or take the template <a href="https://cdn.licenseware-collector.com/d/latest/mdm/io.licenseware.collector.mobileconfig"><code>io.licenseware.collector.mobileconfig</code></a> and replace <code>REPLACE_WITH_ENROLMENT_TOKEN</code> with your token. Set <code>PROXY</code>, <code>NO_PROXY</code> or <code>CA_CERT</code> only if your network needs them (<a href="#settings">Settings</a>). Deploy it as a device-level profile.</p>
+              <p data-i18n="mac.s1.desc">Take the template <a href="https://cdn.licenseware-collector.com/d/latest/mdm/io.licenseware.collector.mobileconfig"><code>io.licenseware.collector.mobileconfig</code></a>, replace <code>REPLACE_WITH_ENROLMENT_TOKEN</code> with your token, give each <code>PayloadUUID</code> a new value if your MDM does not, and deploy it as a device (system) profile. Set <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code> (the path of a PEM file already on the Mac), <code>AUTOUPDATE</code> or <code>LOG_LEVEL</code> only if you need them (<a href="#settings">Settings</a>). Local users may be able to read managed preferences, and the token can enrol more devices into your account, though it gives no access to data: step 3 removes the profile from each Mac once it is registered.</p>
               <p data-i18n="mac.s1.more">The settings live in the managed preferences domain <code>io.licenseware.collector</code>. The profile's second payload approves the collector's background service (Team ID <code>8MD7XA4CF3</code>), so macOS 13 and later show no "Background Items Added" notice. A changed profile reaches a registered Mac at its next package run.</p>
             </li>
             <li>
               <strong data-i18n="mac.s2.title">Deploy the package</strong>
-              <p data-i18n="mac.s2.desc">Deploy <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired or revoked), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes.</p>
+              <p data-i18n="mac.s2.desc">Deploy <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired, revoked or disabled), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes.</p>
               <p data-i18n="mac.s2.more">The package is universal (Apple silicon and Intel) and needs no Rosetta. An older package never downgrades a newer agent. Agents update themselves from the CDN; set <code>AUTOUPDATE</code> to false in the profile to leave upgrades to your MDM.</p>
             </li>
             <li>
               <strong data-i18n="mac.s3.title">Report registration with an extension attribute</strong>
-              <p data-i18n="mac.s3.desc">Add <a href="https://cdn.licenseware-collector.com/d/latest/mdm/status-attribute.sh"><code>status-attribute.sh</code></a> as a Jamf extension attribute (string; it prints <code>&lt;result&gt;registered&lt;/result&gt;</code>), or as an Intune or Kandji custom attribute run with <code>--plain</code>. Its values are <code>registered</code>, <code>enrolled</code>, <code>absent</code>, <code>no-service</code>, <code>not-installed</code> and <code>error(&lt;code&gt;)</code>.</p>
-              <p data-i18n="mac.s3.group">Build a smart group of the Macs whose value is not <code>registered</code> and scope the profile to it. The token then leaves each Mac once it is registered: local users may be able to read managed preferences, and the token can enrol more devices into your account (it gives no access to data).</p>
+              <p data-i18n="mac.s3.desc">Add <a href="https://cdn.licenseware-collector.com/d/latest/mdm/status-attribute.sh"><code>status-attribute.sh</code></a> as a Jamf extension attribute (string; it prints <code>&lt;result&gt;registered&lt;/result&gt;</code>), or as an Intune or Kandji custom attribute run with <code>--plain</code>. Its values:</p>
+              <div style="overflow-x: auto">
+                <table>
+                  <thead><tr><th data-i18n="mac.attr.col_value">Value</th><th data-i18n="mac.attr.col_means">Means</th><th data-i18n="mac.attr.col_do">What to do</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>registered</code></td><td data-i18n="mac.attr.registered.m">Reporting to Licenseware</td><td data-i18n="mac.attr.registered.d">Nothing</td></tr>
+                    <tr><td><code>enrolled</code></td><td data-i18n="mac.attr.enrolled.m">Enrolled, waiting for Licenseware to acknowledge it</td><td data-i18n="mac.attr.enrolled.d">Wait a few minutes; if it stays, check the <a href="#network">network</a></td></tr>
+                    <tr><td><code>absent</code></td><td data-i18n="mac.attr.absent.m">Installed but not enrolled: no token yet, or the token was rejected</td><td data-i18n="mac.attr.absent.d">Check that the profile reached the Mac and that its token is valid</td></tr>
+                    <tr><td><code>no-service</code></td><td data-i18n="mac.attr.noservice.m">The collector's service is missing</td><td data-i18n="mac.attr.noservice.d">Deploy the package again</td></tr>
+                    <tr><td><code>not-installed</code></td><td data-i18n="mac.attr.notinstalled.m">No collector on this Mac</td><td data-i18n="mac.attr.notinstalled.d">Deploy the package</td></tr>
+                    <tr><td><code>error(&lt;code&gt;)</code></td><td data-i18n="mac.attr.error.m">The check itself failed</td><td data-i18n="mac.attr.error.d">Run <code>licenseware-collector status</code> on the Mac</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p data-i18n="mac.s3.group">Build a smart group of the Macs whose value is not <code>registered</code> and scope the profile to it, so the token leaves each Mac once it is registered.</p>
             </li>
           </ol>
           <h4 data-i18n="mac.tcc.title">Privacy rules (PPPC / TCC)</h4>
-          <p data-i18n="mac.tcc.desc">From 0.17.0 the agent is signed with the identifier <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>). PPPC profiles or TCC grants that name <code>licenseware-collector</code> or <code>LicensewareCollector</code> stop matching new binaries: add the new identifier and keep the old ones until every Mac has updated. Rules by Team ID (<code>8MD7XA4CF3</code>) are unaffected.</p>
-          <aside class="highlight-box" role="note">
-            <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
-            <p data-i18n="mac.old">The package only installs files, and agents on 0.16.0 and earlier never update themselves. Push the package, then run this on each Mac as root, for example in a Jamf policy script. The profile and its settings need 0.17.0; <code>status-attribute.sh</code> also works with 0.16.0 agents.</p>
-            <div class="code-block">
-              <pre><code style="font-size: 0.85rem">sudo TOKEN=&lt;enrolment-token&gt; /usr/local/licenseware-collector/seed/licenseware-collector register</code></pre>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-            </div>
-          </aside>
+          <p data-i18n="mac.tcc.desc">The agent is signed with the identifier <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>) and the Team ID <code>8MD7XA4CF3</code>: use them in PPPC or other privacy rules.</p>
         </section>
 
         <!-- Ansible / Linux fleets -->
@@ -5966,25 +5970,33 @@ Get-Content install.log -Tail 200</code></pre>
           "mac.intro":
             "Works with any MDM that deploys configuration profiles and packages. The three steps can happen in any order: a package that arrives before the profile fails, and succeeds when the MDM retries it.",
           "mac.s1.title": "Push the configuration profile",
-          "mac.s1.desc":
-            'Download it from the install instructions the Licenseware app shows when you create an API key (the key is filled in), or take the template <a href="https://cdn.licenseware-collector.com/d/latest/mdm/io.licenseware.collector.mobileconfig"><code>io.licenseware.collector.mobileconfig</code></a> and replace <code>REPLACE_WITH_ENROLMENT_TOKEN</code> with your token. Set <code>PROXY</code>, <code>NO_PROXY</code> or <code>CA_CERT</code> only if your network needs them (<a href="#settings">Settings</a>). Deploy it as a device-level profile.',
+          "mac.s1.desc": "Take the template <a href=\"https://cdn.licenseware-collector.com/d/latest/mdm/io.licenseware.collector.mobileconfig\"><code>io.licenseware.collector.mobileconfig</code></a>, replace <code>REPLACE_WITH_ENROLMENT_TOKEN</code> with your token, give each <code>PayloadUUID</code> a new value if your MDM does not, and deploy it as a device (system) profile. Set <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code> (the path of a PEM file already on the Mac), <code>AUTOUPDATE</code> or <code>LOG_LEVEL</code> only if you need them (<a href=\"#settings\">Settings</a>). Local users may be able to read managed preferences, and the token can enrol more devices into your account, though it gives no access to data: step 3 removes the profile from each Mac once it is registered.",
           "mac.s1.more":
             "The settings live in the managed preferences domain <code>io.licenseware.collector</code>. The profile's second payload approves the collector's background service (Team ID <code>8MD7XA4CF3</code>), so macOS 13 and later show no \"Background Items Added\" notice. A changed profile reaches a registered Mac at its next package run.",
           "mac.s2.title": "Deploy the package",
-          "mac.s2.desc":
-            'Deploy <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired or revoked), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes.',
+          "mac.s2.desc": "Deploy <a href=\"https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg\"><code>LicensewareCollector.pkg</code></a> to the same Macs. It reads the token from the profile, enrols the Mac and waits up to 3 minutes for it to register. Otherwise the install fails and your MDM retries it at the next check-in. The reason is in <code>/var/log/install.log</code>: <code>20</code> no token yet, <code>21</code> token rejected (expired, revoked or disabled), <code>22</code> enrolment failed (network, proxy, TLS), <code>23</code> not registered within 3 minutes.",
           "mac.s2.more":
             "The package is universal (Apple silicon and Intel) and needs no Rosetta. An older package never downgrades a newer agent. Agents update themselves from the CDN; set <code>AUTOUPDATE</code> to false in the profile to leave upgrades to your MDM.",
           "mac.s3.title": "Report registration with an extension attribute",
-          "mac.s3.desc":
-            'Add <a href="https://cdn.licenseware-collector.com/d/latest/mdm/status-attribute.sh"><code>status-attribute.sh</code></a> as a Jamf extension attribute (string; it prints <code>&lt;result&gt;registered&lt;/result&gt;</code>), or as an Intune or Kandji custom attribute run with <code>--plain</code>. Its values are <code>registered</code>, <code>enrolled</code>, <code>absent</code>, <code>no-service</code>, <code>not-installed</code> and <code>error(&lt;code&gt;)</code>.',
-          "mac.s3.group":
-            "Build a smart group of the Macs whose value is not <code>registered</code> and scope the profile to it. The token then leaves each Mac once it is registered: local users may be able to read managed preferences, and the token can enrol more devices into your account (it gives no access to data).",
+          "mac.s3.desc": "Add <a href=\"https://cdn.licenseware-collector.com/d/latest/mdm/status-attribute.sh\"><code>status-attribute.sh</code></a> as a Jamf extension attribute (string; it prints <code>&lt;result&gt;registered&lt;/result&gt;</code>), or as an Intune or Kandji custom attribute run with <code>--plain</code>. Its values:",
+          "mac.attr.col_value": "Value",
+          "mac.attr.col_means": "Means",
+          "mac.attr.col_do": "What to do",
+          "mac.attr.registered.m": "Reporting to Licenseware",
+          "mac.attr.registered.d": "Nothing",
+          "mac.attr.enrolled.m": "Enrolled, waiting for Licenseware to acknowledge it",
+          "mac.attr.enrolled.d": "Wait a few minutes; if it stays, check the <a href=\"#network\">network</a>",
+          "mac.attr.absent.m": "Installed but not enrolled: no token yet, or the token was rejected",
+          "mac.attr.absent.d": "Check that the profile reached the Mac and that its token is valid",
+          "mac.attr.noservice.m": "The collector's service is missing",
+          "mac.attr.noservice.d": "Deploy the package again",
+          "mac.attr.notinstalled.m": "No collector on this Mac",
+          "mac.attr.notinstalled.d": "Deploy the package",
+          "mac.attr.error.m": "The check itself failed",
+          "mac.attr.error.d": "Run <code>licenseware-collector status</code> on the Mac",
+          "mac.s3.group": "Build a smart group of the Macs whose value is not <code>registered</code> and scope the profile to it, so the token leaves each Mac once it is registered.",
           "mac.tcc.title": "Privacy rules (PPPC / TCC)",
-          "mac.tcc.desc":
-            "From 0.17.0 the agent is signed with the identifier <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>). PPPC profiles or TCC grants that name <code>licenseware-collector</code> or <code>LicensewareCollector</code> stop matching new binaries: add the new identifier and keep the old ones until every Mac has updated. Rules by Team ID (<code>8MD7XA4CF3</code>) are unaffected.",
-          "mac.old":
-            "The package only installs files, and agents on 0.16.0 and earlier never update themselves. Push the package, then run this on each Mac as root, for example in a Jamf policy script. The profile and its settings need 0.17.0; <code>status-attribute.sh</code> also works with 0.16.0 agents.",
+          "mac.tcc.desc": "The agent is signed with the identifier <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>) and the Team ID <code>8MD7XA4CF3</code>: use them in PPPC or other privacy rules.",
           "linux.title": "Ansible / Linux fleets",
           "linux.intro":
             "For Ansible, Puppet, Salt or any tool that runs commands as root. Each step is also what you would type by hand.",
@@ -6469,25 +6481,33 @@ Get-Content install.log -Tail 200</code></pre>
           "mac.intro":
             "Funciona con cualquier MDM que despliegue perfiles de configuración y paquetes. Los tres pasos pueden ocurrir en cualquier orden: un paquete que llega antes que el perfil falla, y se completa cuando el MDM lo reintenta.",
           "mac.s1.title": "Distribuya el perfil de configuración",
-          "mac.s1.desc":
-            'Descárguelo de las instrucciones de instalación que muestra la aplicación de Licenseware al crear una clave API (la clave ya está incluida), o use la plantilla <a href="https://cdn.licenseware-collector.com/d/latest/mdm/io.licenseware.collector.mobileconfig"><code>io.licenseware.collector.mobileconfig</code></a> y sustituya <code>REPLACE_WITH_ENROLMENT_TOKEN</code> por su token. Defina <code>PROXY</code>, <code>NO_PROXY</code> o <code>CA_CERT</code> solo si su red los necesita (<a href="#settings">Ajustes</a>). Despliéguelo como perfil a nivel de dispositivo.',
+          "mac.s1.desc": "Tome la plantilla <a href=\"https://cdn.licenseware-collector.com/d/latest/mdm/io.licenseware.collector.mobileconfig\"><code>io.licenseware.collector.mobileconfig</code></a>, sustituya <code>REPLACE_WITH_ENROLMENT_TOKEN</code> por su token, dé a cada <code>PayloadUUID</code> un valor nuevo si su MDM no lo hace, y despliéguela como perfil de dispositivo (sistema). Defina <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code> (la ruta de un archivo PEM que ya está en el Mac), <code>AUTOUPDATE</code> o <code>LOG_LEVEL</code> solo si los necesita (<a href=\"#settings\">Configuración</a>). Los usuarios locales podrían leer las preferencias gestionadas, y el token puede inscribir más dispositivos en su cuenta, aunque no da acceso a datos: el paso 3 quita el perfil de cada Mac cuando está registrado.",
           "mac.s1.more":
             "Los ajustes están en el dominio de preferencias gestionadas <code>io.licenseware.collector</code>. La segunda carga útil del perfil aprueba el servicio en segundo plano del collector (Team ID <code>8MD7XA4CF3</code>), de modo que macOS 13 y posteriores no muestran el aviso «Background Items Added». Un perfil modificado llega a un Mac registrado en la siguiente ejecución del paquete.",
           "mac.s2.title": "Despliegue el paquete",
-          "mac.s2.desc":
-            'Despliegue <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"><code>LicensewareCollector.pkg</code></a> en los mismos Mac. Lee el token del perfil, inscribe el Mac y espera hasta 3 minutos a que se registre. Si no, la instalación falla y su MDM la reintenta en la siguiente comunicación. El motivo está en <code>/var/log/install.log</code>: <code>20</code> todavía sin token, <code>21</code> token rechazado (caducado o revocado), <code>22</code> la inscripción falló (red, proxy, TLS), <code>23</code> no se registró en 3 minutos.',
+          "mac.s2.desc": "Despliegue <a href=\"https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg\"><code>LicensewareCollector.pkg</code></a> en los mismos Mac. Lee el token del perfil, inscribe el Mac y espera hasta 3 minutos a que se registre. Si no, la instalación falla y su MDM la reintenta en la siguiente comprobación. El motivo está en <code>/var/log/install.log</code>: <code>20</code> aún no hay token, <code>21</code> token rechazado (caducado, revocado o deshabilitado), <code>22</code> la inscripción falló (red, proxy, TLS), <code>23</code> no se registró en 3 minutos.",
           "mac.s2.more":
             "El paquete es universal (Apple silicon e Intel) y no necesita Rosetta. Un paquete más antiguo nunca sustituye a un agente más reciente. Los agentes se actualizan solos desde la CDN; ponga <code>AUTOUPDATE</code> a false en el perfil para dejar las actualizaciones a su MDM.",
           "mac.s3.title": "Informe del registro con un atributo de extensión",
-          "mac.s3.desc":
-            'Añada <a href="https://cdn.licenseware-collector.com/d/latest/mdm/status-attribute.sh"><code>status-attribute.sh</code></a> como atributo de extensión de Jamf (cadena; imprime <code>&lt;result&gt;registered&lt;/result&gt;</code>), o como atributo personalizado de Intune o Kandji ejecutado con <code>--plain</code>. Sus valores son <code>registered</code>, <code>enrolled</code>, <code>absent</code>, <code>no-service</code>, <code>not-installed</code> y <code>error(&lt;code&gt;)</code>.',
-          "mac.s3.group":
-            "Cree un grupo inteligente con los Mac cuyo valor no sea <code>registered</code> y asigne el perfil a ese grupo. Así el token sale de cada Mac en cuanto queda registrado: los usuarios locales podrían leer las preferencias gestionadas, y el token puede inscribir más dispositivos en su cuenta (no da acceso a datos).",
+          "mac.s3.desc": "Añada <a href=\"https://cdn.licenseware-collector.com/d/latest/mdm/status-attribute.sh\"><code>status-attribute.sh</code></a> como atributo de extensión de Jamf (cadena; imprime <code>&lt;result&gt;registered&lt;/result&gt;</code>), o como atributo personalizado de Intune o Kandji ejecutado con <code>--plain</code>. Sus valores:",
+          "mac.attr.col_value": "Valor",
+          "mac.attr.col_means": "Significa",
+          "mac.attr.col_do": "Qué hacer",
+          "mac.attr.registered.m": "Informa a Licenseware",
+          "mac.attr.registered.d": "Nada",
+          "mac.attr.enrolled.m": "Inscrito, esperando a que Licenseware lo confirme",
+          "mac.attr.enrolled.d": "Espere unos minutos; si sigue así, compruebe la <a href=\"#network\">red</a>",
+          "mac.attr.absent.m": "Instalado pero no inscrito: aún no hay token, o el token fue rechazado",
+          "mac.attr.absent.d": "Compruebe que el perfil llegó al Mac y que su token es válido",
+          "mac.attr.noservice.m": "Falta el servicio del Collector",
+          "mac.attr.noservice.d": "Despliegue el paquete de nuevo",
+          "mac.attr.notinstalled.m": "No hay Collector en este Mac",
+          "mac.attr.notinstalled.d": "Despliegue el paquete",
+          "mac.attr.error.m": "La comprobación misma falló",
+          "mac.attr.error.d": "Ejecute <code>licenseware-collector status</code> en el Mac",
+          "mac.s3.group": "Cree un grupo inteligente con los Mac cuyo valor no sea <code>registered</code> y asígnele el perfil, para que el token salga de cada Mac en cuanto esté registrado.",
           "mac.tcc.title": "Reglas de privacidad (PPPC / TCC)",
-          "mac.tcc.desc":
-            "Desde 0.17.0 el agente se firma con el identificador <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>). Los perfiles PPPC o permisos TCC que nombran <code>licenseware-collector</code> o <code>LicensewareCollector</code> dejan de coincidir con los binarios nuevos: añada el nuevo identificador y conserve los antiguos hasta que todos los Mac se hayan actualizado. Las reglas por Team ID (<code>8MD7XA4CF3</code>) no se ven afectadas.",
-          "mac.old":
-            "El paquete solo instala archivos, y los agentes en 0.16.0 y anteriores nunca se actualizan solos. Distribuya el paquete y después ejecute esto en cada Mac como root, por ejemplo en un script de política de Jamf. El perfil y sus ajustes requieren 0.17.0; <code>status-attribute.sh</code> también funciona con agentes 0.16.0.",
+          "mac.tcc.desc": "El agente está firmado con el identificador <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>) y el Team ID <code>8MD7XA4CF3</code>: úselos en reglas PPPC u otras reglas de privacidad.",
           "linux.title": "Ansible / flotas Linux",
           "linux.intro":
             "Para Ansible, Puppet, Salt o cualquier herramienta que ejecute comandos como root. Cada paso es también lo que escribiría a mano.",
