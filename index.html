@@ -2669,7 +2669,7 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></div>
             <h2 id="settings-title" data-i18n="settings.title">Settings</h2>
           </div>
-          <p data-i18n="settings.intro">One set of names works everywhere: as an MSI property, a key in the env file, an environment variable for <code>register</code>, <code>apt</code>, <code>dnf</code> or <code>install.sh</code>, a key in the macOS configuration profile, and a <code>set</code> key. A setting given at install time is stored in the machine's env file and wins over what the Licenseware control plane sends.</p>
+          <p data-i18n="settings.intro">One set of names works everywhere: as an MSI property, a key in the env file, an environment variable for <code>register</code>, <code>apt</code>, <code>dnf</code> or <code>install.sh</code>, a key in the macOS configuration profile, and a <code>set</code> key. A setting made on the machine is stored in its env file and wins over what Licenseware sends. The service reads its settings when it starts; <code>set</code> restarts it for you.</p>
           <div style="overflow-x: auto">
             <table>
               <thead><tr><th data-i18n="settings.col.name">Setting</th><th data-i18n="settings.col.value">Value</th><th data-i18n="settings.col.msi">MSI</th><th data-i18n="settings.col.env">Env file</th><th data-i18n="settings.col.profile">macOS profile</th><th><code>set</code></th></tr></thead>
@@ -2677,14 +2677,14 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
                 <tr><td><code>TOKEN</code></td><td data-i18n="settings.token">Enrolment token, replaced by the machine's own credential after enrolment. The MSI also takes <code>TOKENFILE=&lt;path&gt;</code>. To change it, run <code>register</code>.</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
                 <tr><td><code>PROXY</code></td><td data-i18n="settings.proxy"><code>http://</code>, <code>https://</code> or <code>socks5://</code> URL (a bare <code>host:port</code> means http), or <code>direct</code> for no proxy at all</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                 <tr><td><code>NO_PROXY</code></td><td data-i18n="settings.noproxy">Comma-separated hosts, <code>.domains</code>, IPs and CIDRs that bypass the proxy</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                <tr><td><code>CA_CERT</code></td><td data-i18n="settings.cacert">Path of a PEM file with extra CA certificates, for TLS inspection. The MSI copies it to <code>%ProgramData%\Licenseware\ca.pem</code>; on a Mac it must already be on disk.</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                <tr><td><code>AUTOUPDATE</code></td><td data-i18n="settings.autoupdate"><code>0</code> stops agent self-update on this machine. <code>1</code> (the default) still honours a fleet-wide pause. A boolean in the profile.</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                <tr><td><code>CA_CERT</code></td><td data-i18n="settings.cacert">Path of a PEM file with extra CA certificates, for TLS inspection. The MSI copies it to <code>%ProgramData%\Licenseware\ca.pem</code>; on macOS and Linux the file must stay where it is.</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                <tr><td><code>AUTOUPDATE</code></td><td data-i18n="settings.autoupdate"><code>0</code> stops the agent updating itself and refuses Licenseware's remote update command; <code>update</code> run by hand still works. <code>1</code> (the default) still honours a pause Licenseware sets for the whole fleet. Also accepts <code>true</code>/<code>false</code>, <code>yes</code>/<code>no</code>, <code>on</code>/<code>off</code> and <code>enabled</code>/<code>disabled</code> in any case; anything else is refused. A boolean in the profile.</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                 <tr><td><code>LOG_LEVEL</code></td><td data-i18n="settings.loglevel"><code>debug</code>, <code>info</code> (default), <code>warn</code>, <code>error</code> or <code>critical</code></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                <tr><td><code>LOG_SHIP_ENABLED</code></td><td data-i18n="settings.logship"><code>false</code> stops the agent sending its own logs to Licenseware; <code>true</code> (the default) keeps it on even if Licenseware turns it off. <code>set LOG_SHIP_ENABLED=</code> hands it back to Licenseware.</td><td>—</td><td>✓</td><td>—</td><td>✓</td></tr>
                 <tr><td><code>ENROLL_ON_START</code></td><td data-i18n="settings.enroll"><code>1</code>: prepare a <a href="#golden-images">golden image</a>; removed at the first start</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
               </tbody>
             </table>
           </div>
-          <p data-i18n="settings.since">These need 0.17.0, except <code>TOKEN</code> (every version) and the env file keys listed for 0.16.0 below.</p>
           <h4 data-i18n="settings.file.title">Where the env file lives</h4>
           <div style="overflow-x: auto">
             <table>
@@ -2695,8 +2695,8 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
               </tbody>
             </table>
           </div>
-          <p data-i18n="settings.file.desc">Readable by root or Administrators only. It holds only what was set on that machine (from 0.17.0 it starts with <code># licenseware-collector env format=2</code>); everything else follows the control plane. The older names <code>CA_CERT_PATH</code>, <code>SELF_UPDATE_ENABLED</code>, <code>HTTPS_PROXY</code> and <code>HTTP_PROXY</code> are still read.</p>
-          <p data-i18n="settings.change">To change a setting later, run <code>set</code>, which validates it, stores it and restarts the service: <code>sudo licenseware-collector set PROXY=http://proxy.corp:3128</code>, and <code>set PROXY=</code> to remove it. After editing the file by hand, run <code>restart</code> (<a href="#day2">Day-2 operations</a>).</p>
+          <p data-i18n="settings.file.desc">Readable by root or Administrators only. It holds only what was set on that machine; everything else follows Licenseware's settings.</p>
+          <p data-i18n="settings.change">To change a setting later, run <code>set</code>, which checks it, stores it and restarts the service: <code>sudo licenseware-collector set PROXY=http://proxy.corp:3128</code>, and <code>set PROXY=</code> to remove it. <code>set</code> on its own lists every setting and where it comes from. On Windows, run <code>LicensewareCollector.exe set ...</code> in a Command Prompt as administrator. After editing the file by hand, run <code>restart</code> (<a href="#day2">Commands</a>).</p>
           <section id="proxy" aria-labelledby="proxy-title">
           <h4 id="proxy-title" data-i18n="settings.proxy.title">Proxy</h4>
           <p data-i18n="settings.proxy.order">The agent picks its route in this order:</p>
@@ -2706,33 +2706,22 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
             <li data-i18n="settings.proxy.o3">The system proxy: on Windows the WinHTTP proxy (<code>netsh winhttp</code>) or the machine-wide Internet settings, on macOS the proxies set in System Settings &gt; Network. <code>NO_PROXY</code> applies to it too. Linux has no system proxy setting.</li>
             <li data-i18n="settings.proxy.o4">Direct.</li>
           </ol>
-          <p data-i18n="settings.proxy.notes">A system proxy that fails before any request has gone through it is skipped for the rest of the run, with one warning; an explicit <code>PROXY</code> is never bypassed. Credentials go in the URL (<code>http://user:password@proxy.corp:3128</code>, Basic authentication). Not supported: PAC files and WPAD, and NTLM or Kerberos proxy authentication.</p>
+          <p data-i18n="settings.proxy.notes">A system proxy that fails to connect is tried again after 1 minute, then up to every 10 minutes; a proxy that refuses one destination (<code>403</code>, <code>407</code> or <code>503</code>) is skipped for that destination only. An explicit <code>PROXY</code> is never bypassed. Credentials go in the URL (<code>http://user:password@proxy.corp:3128</code>, Basic authentication); they are stored in the env file and shown as <code>&lt;redacted&gt;</code>. Not detected or not supported: PAC files and WPAD, per-user proxies, SOCKS proxies set in the operating system, proxy changes after the service starts, and NTLM or Kerberos proxy authentication.</p>
           </section>
           <section id="custom-ca" aria-labelledby="custom-ca-title">
           <h4 id="custom-ca-title" data-i18n="settings.ca.title">TLS inspection (custom CA)</h4>
-          <p data-i18n="settings.ca.desc">If a proxy inspects TLS, set <code>CA_CERT</code> to a PEM file holding its CA certificate. The certificates are added to the system trust store, not used instead of it.</p>
+          <p data-i18n="settings.ca.desc">If a proxy inspects TLS, set <code>CA_CERT</code> to a PEM file holding its CA certificate. The agent adds it to the certificates it trusts for its own connections; the operating system's trust store is not changed.</p>
+          <p data-i18n="settings.ca.msi">Windows, at install time (the MSI keeps its own copy, so the original can be deleted):</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">msiexec /i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt; CA_CERT=C:\certs\proxy-ca.pem</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="settings.ca.set">macOS and Linux, on an installed machine (the file must stay where it is):</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo licenseware-collector set CA_CERT=/etc/ssl/certs/proxy-ca.pem</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
           </section>
-          <aside class="highlight-box" role="note">
-            <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
-            <p data-i18n="settings.old">The agent reads these from the env file under their older names, and only <code>TOKEN</code> can be given to the installer. Proxy variables and <code>CA_CERT_PATH</code> exported for <code>register</code> (<code>sudo -E</code>) are stored in the file too. After editing the file, restart the service:</p>
-            <div class="code-block">
-              <pre><code style="font-size: 0.85rem">HTTPS_PROXY=http://proxy.corp.com:8080
-NO_PROXY=localhost,127.0.0.1
-CA_CERT_PATH=/etc/ssl/certs/corp-ca.pem
-LOG_LEVEL=debug</code></pre>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-            </div>
-            <div class="code-block">
-              <pre><code style="font-size: 0.85rem"># Linux
-sudo systemctl restart licenseware-collector
-# macOS
-sudo launchctl kickstart -k system/io.licenseware.licenseware-collector
-# Windows (Administrator PowerShell)
-Restart-Service licenseware-collector</code></pre>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-            </div>
-            <p data-i18n="settings.old.ca">The Windows and macOS services of 0.16.0 and earlier ignore <code>CA_CERT_PATH</code>: add the CA certificate to the operating system trust store instead (Windows: <em>Trusted Root Certification Authorities</em> of the local computer; macOS: the System keychain), which the collector always trusts.</p>
-          </aside>
         </section>
 
         <!-- Day-2 operations -->
@@ -6058,8 +6047,7 @@ Get-Content install.log -Tail 200</code></pre>
           "image.clone.title": "Cloned machines",
           "image.clone": "Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start, <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>; nothing changes by itself. Fix it in this order: give the clone its own SMBIOS UUID, then uninstall the collector on it and install and enrol it again. Never register a clone that still shares its twin's UUID: it takes the twin's credential. A clone that changes neither its serial nor its machine ID is not detected.",
           "settings.title": "Settings",
-          "settings.intro":
-            "One set of names works everywhere: as an MSI property, a key in the env file, an environment variable for <code>register</code>, <code>apt</code>, <code>dnf</code> or <code>install.sh</code>, a key in the macOS configuration profile, and a <code>set</code> key. A setting given at install time is stored in the machine's env file and wins over what the Licenseware control plane sends.",
+          "settings.intro": "One set of names works everywhere: as an MSI property, a key in the env file, an environment variable for <code>register</code>, <code>apt</code>, <code>dnf</code> or <code>install.sh</code>, a key in the macOS configuration profile, and a <code>set</code> key. A setting made on the machine is stored in its env file and wins over what Licenseware sends. The service reads its settings when it starts; <code>set</code> restarts it for you.",
           "settings.col.name": "Setting",
           "settings.col.value": "Value",
           "settings.col.msi": "MSI",
@@ -6071,21 +6059,16 @@ Get-Content install.log -Tail 200</code></pre>
             "<code>http://</code>, <code>https://</code> or <code>socks5://</code> URL (a bare <code>host:port</code> means http), or <code>direct</code> for no proxy at all",
           "settings.noproxy":
             "Comma-separated hosts, <code>.domains</code>, IPs and CIDRs that bypass the proxy",
-          "settings.cacert":
-            "Path of a PEM file with extra CA certificates, for TLS inspection. The MSI copies it to <code>%ProgramData%\\Licenseware\\ca.pem</code>; on a Mac it must already be on disk.",
-          "settings.autoupdate":
-            "<code>0</code> stops agent self-update on this machine. <code>1</code> (the default) still honours a fleet-wide pause. A boolean in the profile.",
+          "settings.cacert": "Path of a PEM file with extra CA certificates, for TLS inspection. The MSI copies it to <code>%ProgramData%\\Licenseware\\ca.pem</code>; on macOS and Linux the file must stay where it is.",
+          "settings.autoupdate": "<code>0</code> stops the agent updating itself and refuses Licenseware's remote update command; <code>update</code> run by hand still works. <code>1</code> (the default) still honours a pause Licenseware sets for the whole fleet. Also accepts <code>true</code>/<code>false</code>, <code>yes</code>/<code>no</code>, <code>on</code>/<code>off</code> and <code>enabled</code>/<code>disabled</code> in any case; anything else is refused. A boolean in the profile.",
           "settings.loglevel":
             "<code>debug</code>, <code>info</code> (default), <code>warn</code>, <code>error</code> or <code>critical</code>",
+          "settings.logship": "<code>false</code> stops the agent sending its own logs to Licenseware; <code>true</code> (the default) keeps it on even if Licenseware turns it off. <code>set LOG_SHIP_ENABLED=</code> hands it back to Licenseware.",
           "settings.enroll":
             '<code>1</code>: prepare a <a href="#golden-images">golden image</a>; removed at the first start',
-          "settings.since":
-            "These need 0.17.0, except <code>TOKEN</code> (every version) and the env file keys listed for 0.16.0 below.",
           "settings.file.title": "Where the env file lives",
-          "settings.file.desc":
-            "Readable by root or Administrators only. It holds only what was set on that machine (from 0.17.0 it starts with <code># licenseware-collector env format=2</code>); everything else follows the control plane. The older names <code>CA_CERT_PATH</code>, <code>SELF_UPDATE_ENABLED</code>, <code>HTTPS_PROXY</code> and <code>HTTP_PROXY</code> are still read.",
-          "settings.change":
-            'To change a setting later, run <code>set</code>, which validates it, stores it and restarts the service: <code>sudo licenseware-collector set PROXY=http://proxy.corp:3128</code>, and <code>set PROXY=</code> to remove it. After editing the file by hand, run <code>restart</code> (<a href="#day2">Day-2 operations</a>).',
+          "settings.file.desc": "Readable by root or Administrators only. It holds only what was set on that machine; everything else follows Licenseware's settings.",
+          "settings.change": "To change a setting later, run <code>set</code>, which checks it, stores it and restarts the service: <code>sudo licenseware-collector set PROXY=http://proxy.corp:3128</code>, and <code>set PROXY=</code> to remove it. <code>set</code> on its own lists every setting and where it comes from. On Windows, run <code>LicensewareCollector.exe set ...</code> in a Command Prompt as administrator. After editing the file by hand, run <code>restart</code> (<a href=\"#day2\">Commands</a>).",
           "settings.proxy.title": "Proxy",
           "settings.proxy.order": "The agent picks its route in this order:",
           "settings.proxy.o1":
@@ -6095,15 +6078,11 @@ Get-Content install.log -Tail 200</code></pre>
           "settings.proxy.o3":
             "The system proxy: on Windows the WinHTTP proxy (<code>netsh winhttp</code>) or the machine-wide Internet settings, on macOS the proxies set in System Settings &gt; Network. <code>NO_PROXY</code> applies to it too. Linux has no system proxy setting.",
           "settings.proxy.o4": "Direct.",
-          "settings.proxy.notes":
-            "A system proxy that fails before any request has gone through it is skipped for the rest of the run, with one warning; an explicit <code>PROXY</code> is never bypassed. Credentials go in the URL (<code>http://user:password@proxy.corp:3128</code>, Basic authentication). Not supported: PAC files and WPAD, and NTLM or Kerberos proxy authentication.",
+          "settings.proxy.notes": "A system proxy that fails to connect is tried again after 1 minute, then up to every 10 minutes; a proxy that refuses one destination (<code>403</code>, <code>407</code> or <code>503</code>) is skipped for that destination only. An explicit <code>PROXY</code> is never bypassed. Credentials go in the URL (<code>http://user:password@proxy.corp:3128</code>, Basic authentication); they are stored in the env file and shown as <code>&lt;redacted&gt;</code>. Not detected or not supported: PAC files and WPAD, per-user proxies, SOCKS proxies set in the operating system, proxy changes after the service starts, and NTLM or Kerberos proxy authentication.",
           "settings.ca.title": "TLS inspection (custom CA)",
-          "settings.ca.desc":
-            "If a proxy inspects TLS, set <code>CA_CERT</code> to a PEM file holding its CA certificate. The certificates are added to the system trust store, not used instead of it.",
-          "settings.old":
-            "The agent reads these from the env file under their older names, and only <code>TOKEN</code> can be given to the installer. Proxy variables and <code>CA_CERT_PATH</code> exported for <code>register</code> (<code>sudo -E</code>) are stored in the file too. After editing the file, restart the service:",
-          "settings.old.ca":
-            "The Windows and macOS services of 0.16.0 and earlier ignore <code>CA_CERT_PATH</code>: add the CA certificate to the operating system trust store instead (Windows: <em>Trusted Root Certification Authorities</em> of the local computer; macOS: the System keychain), which the collector always trusts.",
+          "settings.ca.desc": "If a proxy inspects TLS, set <code>CA_CERT</code> to a PEM file holding its CA certificate. The agent adds it to the certificates it trusts for its own connections; the operating system's trust store is not changed.",
+          "settings.ca.msi": "Windows, at install time (the MSI keeps its own copy, so the original can be deleted):",
+          "settings.ca.set": "macOS and Linux, on an installed machine (the file must stay where it is):",
           "day2.title": "Day-2 operations",
           "day2.intro":
             "Commands for an installed machine. The binary is <code>licenseware-collector</code> on Linux, <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code> on macOS and <code>%ProgramData%\\Licenseware\\bin\\LicensewareCollector.exe</code> on Windows. From 0.17.0 <code>register</code> also puts it on the <code>PATH</code> on macOS (<code>/usr/local/bin</code>) and Windows (the machine <code>Path</code>, in new prompts).",
@@ -6564,8 +6543,7 @@ Get-Content install.log -Tail 200</code></pre>
           "image.clone.title": "Máquinas clonadas",
           "image.clone": "Cada agente registra una huella de la máquina en la que se inscribió (número de serie del hardware e ID de máquina del sistema). En una máquina clonada después del primer arranque, <code>status</code> muestra <code>CLONED IMAGE SUSPECTED</code>; nada cambia por sí solo. Corríjalo en este orden: dé al clon su propio UUID SMBIOS y luego desinstale el Collector en él e instálelo e inscríbalo de nuevo. Nunca registre un clon que aún comparte el UUID de su gemelo: le quita la credencial al gemelo. Un clon que no cambia ni su número de serie ni su ID de máquina no se detecta.",
           "settings.title": "Ajustes",
-          "settings.intro":
-            "Un mismo conjunto de nombres sirve en todas partes: como propiedad del MSI, clave del archivo de entorno, variable de entorno para <code>register</code>, <code>apt</code>, <code>dnf</code> o <code>install.sh</code>, clave del perfil de configuración de macOS y clave de <code>set</code>. Un ajuste indicado al instalar se guarda en el archivo de entorno de la máquina y prevalece sobre lo que envía el plano de control de Licenseware.",
+          "settings.intro": "Un mismo conjunto de nombres sirve en todas partes: como propiedad del MSI, clave del archivo de entorno, variable de entorno para <code>register</code>, <code>apt</code>, <code>dnf</code> o <code>install.sh</code>, clave del perfil de configuración de macOS y clave de <code>set</code>. Un ajuste hecho en la máquina se guarda en su archivo de entorno y prevalece sobre lo que envía Licenseware. El servicio lee sus ajustes al iniciarse; <code>set</code> lo reinicia por usted.",
           "settings.col.name": "Ajuste",
           "settings.col.value": "Valor",
           "settings.col.msi": "MSI",
@@ -6577,21 +6555,16 @@ Get-Content install.log -Tail 200</code></pre>
             "URL <code>http://</code>, <code>https://</code> o <code>socks5://</code> (un <code>host:puerto</code> sin esquema significa http), o <code>direct</code> para no usar ningún proxy",
           "settings.noproxy":
             "Hosts, <code>.dominios</code>, IP y CIDR separados por comas que no pasan por el proxy",
-          "settings.cacert":
-            "Ruta de un archivo PEM con certificados de CA adicionales, para la inspección TLS. El MSI lo copia en <code>%ProgramData%\\Licenseware\\ca.pem</code>; en un Mac ya debe estar en el disco.",
-          "settings.autoupdate":
-            "<code>0</code> detiene la autoactualización del agente en esta máquina. <code>1</code> (el valor predeterminado) sigue respetando una pausa para toda la flota. Un booleano en el perfil.",
+          "settings.cacert": "Ruta de un archivo PEM con certificados de CA adicionales, para la inspección TLS. El MSI lo copia en <code>%ProgramData%\\Licenseware\\ca.pem</code>; en macOS y Linux el archivo debe quedarse donde está.",
+          "settings.autoupdate": "<code>0</code> impide que el agente se actualice solo y rechaza el comando de actualización remoto de Licenseware; <code>update</code> ejecutado a mano sigue funcionando. <code>1</code> (el valor por defecto) respeta igualmente una pausa que Licenseware fije para toda la flota. También acepta <code>true</code>/<code>false</code>, <code>yes</code>/<code>no</code>, <code>on</code>/<code>off</code> y <code>enabled</code>/<code>disabled</code> en mayúsculas o minúsculas; cualquier otro valor se rechaza. Un booleano en el perfil.",
           "settings.loglevel":
             "<code>debug</code>, <code>info</code> (predeterminado), <code>warn</code>, <code>error</code> o <code>critical</code>",
+          "settings.logship": "<code>false</code> impide que el agente envíe sus propios registros a Licenseware; <code>true</code> (el valor por defecto) lo mantiene activado aunque Licenseware lo desactive. <code>set LOG_SHIP_ENABLED=</code> devuelve el control a Licenseware.",
           "settings.enroll":
             '<code>1</code>: prepara una <a href="#golden-images">imagen maestra</a>; se elimina en el primer arranque',
-          "settings.since":
-            "Requieren 0.17.0, salvo <code>TOKEN</code> (todas las versiones) y las claves del archivo de entorno indicadas abajo para 0.16.0.",
           "settings.file.title": "Dónde está el archivo de entorno",
-          "settings.file.desc":
-            "Solo pueden leerlo root o los Administradores. Contiene solo lo que se configuró en esa máquina (desde 0.17.0 empieza por <code># licenseware-collector env format=2</code>); todo lo demás sigue al plano de control. Los nombres antiguos <code>CA_CERT_PATH</code>, <code>SELF_UPDATE_ENABLED</code>, <code>HTTPS_PROXY</code> y <code>HTTP_PROXY</code> se siguen leyendo.",
-          "settings.change":
-            'Para cambiar un ajuste más tarde, ejecute <code>set</code>, que lo valida, lo guarda y reinicia el servicio: <code>sudo licenseware-collector set PROXY=http://proxy.corp:3128</code>, y <code>set PROXY=</code> para eliminarlo. Tras editar el archivo a mano, ejecute <code>restart</code> (<a href="#day2">Operaciones del día 2</a>).',
+          "settings.file.desc": "Solo lo pueden leer root o los administradores. Contiene solo lo que se configuró en esa máquina; todo lo demás sigue la configuración de Licenseware.",
+          "settings.change": "Para cambiar un ajuste más tarde, ejecute <code>set</code>, que lo comprueba, lo guarda y reinicia el servicio: <code>sudo licenseware-collector set PROXY=http://proxy.corp:3128</code>, y <code>set PROXY=</code> para quitarlo. <code>set</code> sin argumentos lista cada ajuste y de dónde viene. En Windows, ejecute <code>LicensewareCollector.exe set ...</code> en un Símbolo del sistema como administrador. Tras editar el archivo a mano, ejecute <code>restart</code> (<a href=\"#day2\">Comandos</a>).",
           "settings.proxy.title": "Proxy",
           "settings.proxy.order": "El agente elige su ruta en este orden:",
           "settings.proxy.o1":
@@ -6601,15 +6574,11 @@ Get-Content install.log -Tail 200</code></pre>
           "settings.proxy.o3":
             "El proxy del sistema: en Windows el proxy de WinHTTP (<code>netsh winhttp</code>) o la configuración de Internet de toda la máquina, en macOS los proxies definidos en Ajustes del Sistema &gt; Red. <code>NO_PROXY</code> también se aplica. Linux no tiene un ajuste de proxy del sistema.",
           "settings.proxy.o4": "Conexión directa.",
-          "settings.proxy.notes":
-            "Un proxy del sistema que falla antes de que ninguna petición pase por él se omite durante el resto de la ejecución, con un aviso; un <code>PROXY</code> explícito nunca se omite. Las credenciales van en la URL (<code>http://usuario:contraseña@proxy.corp:3128</code>, autenticación básica). No se admiten archivos PAC ni WPAD, ni la autenticación de proxy NTLM o Kerberos.",
+          "settings.proxy.notes": "Un proxy del sistema que no logra conectar se vuelve a probar tras 1 minuto y después hasta cada 10 minutos; un proxy que rechaza un destino (<code>403</code>, <code>407</code> o <code>503</code>) se omite solo para ese destino. Un <code>PROXY</code> explícito nunca se omite. Las credenciales van en la URL (<code>http://user:password@proxy.corp:3128</code>, autenticación básica); se guardan en el archivo de entorno y se muestran como <code>&lt;redacted&gt;</code>. No se detectan o no se admiten: archivos PAC y WPAD, proxies por usuario, proxies SOCKS configurados en el sistema operativo, cambios de proxy después de iniciar el servicio, y autenticación de proxy NTLM o Kerberos.",
           "settings.ca.title": "Inspección TLS (CA personalizada)",
-          "settings.ca.desc":
-            "Si un proxy inspecciona TLS, apunte <code>CA_CERT</code> a un archivo PEM con su certificado de CA. Los certificados se añaden al almacén de confianza del sistema, no lo sustituyen.",
-          "settings.old":
-            "El agente los lee del archivo de entorno con sus nombres antiguos, y al instalador solo se le puede pasar <code>TOKEN</code>. Las variables de proxy y <code>CA_CERT_PATH</code> exportadas para <code>register</code> (<code>sudo -E</code>) también se guardan en el archivo. Tras editar el archivo, reinicie el servicio:",
-          "settings.old.ca":
-            "Los servicios de Windows y macOS de 0.16.0 y anteriores ignoran <code>CA_CERT_PATH</code>: añada el certificado de CA al almacén de confianza del sistema operativo (Windows: <em>Entidades de certificación raíz de confianza</em> del equipo local; macOS: el llavero del Sistema), en el que el collector siempre confía.",
+          "settings.ca.desc": "Si un proxy inspecciona TLS, defina <code>CA_CERT</code> con un archivo PEM que contenga su certificado de CA. El agente lo añade a los certificados en los que confía para sus propias conexiones; el almacén de confianza del sistema operativo no cambia.",
+          "settings.ca.msi": "Windows, al instalar (el MSI guarda su propia copia, así que el original se puede borrar):",
+          "settings.ca.set": "macOS y Linux, en una máquina instalada (el archivo debe quedarse donde está):",
           "day2.title": "Operaciones del día 2",
           "day2.intro":
             "Comandos para una máquina instalada. El binario es <code>licenseware-collector</code> en Linux, <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code> en macOS y <code>%ProgramData%\\Licenseware\\bin\\LicensewareCollector.exe</code> en Windows. Desde 0.17.0 <code>register</code> también lo pone en el <code>PATH</code> en macOS (<code>/usr/local/bin</code>) y en Windows (el <code>Path</code> de la máquina, en consolas nuevas).",
