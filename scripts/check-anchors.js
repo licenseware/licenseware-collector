@@ -21,6 +21,8 @@ const PUBLISHED = [
   "catalogs",
   "paths",
   "commands",
+  "commands-title",
+  "commands-list",
   "logs",
   "licence-agreement",
   "single-machine",

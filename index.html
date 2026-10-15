@@ -2366,10 +2366,10 @@
           <h3 data-i18n="single.win.title">Windows (Command Prompt as administrator)</h3>
           <p data-i18n="single.win.run">In the folder that holds <code>LicensewareCollector.msi</code> from <a href="#downloads">Downloads</a>, run:</p>
           <div class="code-block">
-            <pre><code style="font-size: 0.85rem">msiexec /i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt;</code></pre>
+            <pre><code style="font-size: 0.85rem">start /wait msiexec /i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt;</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p data-i18n="single.win.desc"><code>msiexec</code> returns once the machine is registered and its service is running, within 3 minutes. Otherwise it removes what it installed and exits <code>1603</code>; the reason is in <code>%ProgramData%\Licenseware\setup.log</code>. Double-clicking the MSI without a token is refused.</p>
+          <p data-i18n="single.win.desc"><code>start /wait</code> keeps the Command Prompt waiting until the installer finishes, which is once the machine is registered and its service is running, within 3 minutes. Otherwise it removes what it installed and exits <code>1603</code> (<code>echo %errorlevel%</code> shows the code); the reason is in <code>%ProgramData%\Licenseware\setup.log</code>. Double-clicking the MSI without a token is refused.</p>
           <h3 data-i18n="single.unix.title">macOS and Linux (Terminal)</h3>
           <div class="code-block">
             <pre><code style="font-size: 0.85rem">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
@@ -2564,16 +2564,16 @@ Healthy:          yes [window 24h]</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
           <p data-i18n="linux.one.desc">The script picks the package for the machine (<code>apt</code>, <code>dnf</code>, <code>yum</code> or <code>zypper</code>; amd64 or arm64), checks it against the release's <code>SHA256SUMS</code>, installs it and waits up to 3 minutes for the machine to register. If it does not register, the script removes the package again and exits <code>1</code>, so the task fails and the next run retries. <code>creates:</code> stops the task from running again on an enrolled machine.</p>
-          <p data-i18n="linux.one.flags">Options, after <code>sh -s --</code>: <code>--token-file /root/lc-token</code> reads the token from a root-only file (for sudo rules that refuse <code>TOKEN=</code>), <code>--proxy URL</code> downloads through a proxy and stores it for the agent, <code>--version 0.17.0</code> pins a release, <code>--no-enroll</code> prepares a <a href="#golden-images">golden image</a>, and <code>--dry-run</code> downloads and verifies without changing anything.</p>
+          <p data-i18n="linux.one.flags">Options, after <code>sh -s --</code>: <code>--token-file /root/lc-token</code> reads the token from a root-only file (for sudo rules that refuse <code>TOKEN=</code>), <code>--proxy URL</code> downloads through a proxy and stores it for the agent, <code>--version 0.17.0</code> pins a release, <code>--wait 300</code> waits longer than the default 180 seconds for registration, <code>--base-url URL</code> downloads from your own mirror of the CDN's <code>d/</code> folder, <code>--no-enroll</code> prepares a <a href="#golden-images">golden image</a>, and <code>--dry-run</code> downloads and checks the files without changing anything.</p>
           <div class="code-block">
             <pre><code style="font-size: 0.85rem">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo sh -s -- --token-file /root/lc-token</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
           <h4 data-i18n="linux.seed.title">Restricted sudo rules and proxies: pre-seed the env file</h4>
-          <p data-i18n="linux.seed.desc"><code>sudo</code> passes <code>TOKEN=</code> only to rules that allow every command, and it drops <code>HTTPS_PROXY</code>. Write the settings to the env file as root first, then install the package with nothing else on the command line:</p>
+          <p data-i18n="linux.seed.desc"><code>sudo</code> passes <code>TOKEN=</code> only to rules that allow every command, and it drops <code>HTTPS_PROXY</code>. Write the settings to the env file as root first, then install the package with nothing else on the command line. Add a <code>PROXY=</code> line the same way if the machine needs a proxy:</p>
           <div class="code-block">
             <pre><code style="font-size: 0.85rem">sudo install -m 0600 /dev/null /etc/default/licenseware-collector
-printf 'TOKEN=%s\nPROXY=%s\n' '&lt;enrolment-token&gt;' 'http://proxy:3128' |
+echo 'TOKEN=&lt;enrolment-token&gt;' | sudo tee /etc/default/licenseware-collector &gt;/dev/null|
   sudo tee /etc/default/licenseware-collector &gt;/dev/null
 sudo apt install ./licenseware-collector_amd64.deb</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
@@ -2675,6 +2675,7 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
           </ul>
           <h4 data-i18n="image.clone.title">Cloned machines</h4>
           <p data-i18n="image.clone">Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start, <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>; nothing changes by itself. Fix it in this order: give the clone its own SMBIOS UUID, then uninstall the collector on it and install and enrol it again. Never register a clone that still shares its twin's UUID: it takes the twin's credential. A clone that changes neither its serial nor its machine ID is not detected.</p>
+          <p data-i18n="image.fail">To check a clone after its first start, run <code>status</code> on it; if it does not report, see <a href="#ts-status">Troubleshooting</a>.</p>
         </section>
 
         <!-- Settings -->
@@ -2740,13 +2741,13 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
 
         <!-- Commands -->
         <section class="card guide" id="day2" aria-labelledby="day2-title">
-          <div class="card-header">
+          <div class="card-header" id="commands-title">
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
             <h2 id="day2-title" data-i18n="day2.title">Commands</h2>
           </div>
           <p data-i18n="day2.intro">Run these on an installed machine: <code>licenseware-collector</code> on Linux and macOS, <code>LicensewareCollector.exe</code> on Windows in a new Command Prompt (<code>%ProgramData%\Licenseware\bin</code> is on the machine <code>Path</code>). On macOS the command is linked into <code>/usr/local/bin</code> when that folder belongs to root; otherwise run <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code>. Commands marked as administrator need <code>sudo</code>, or a Command Prompt run as administrator.</p>
           <h4 id="commands" data-i18n="day2.cmds.title">Command reference</h4>
-          <div style="overflow-x: auto">
+          <div id="commands-list" style="overflow-x: auto">
             <table>
               <thead><tr><th data-i18n="day2.col.cmd">Command</th><th data-i18n="day2.col.what">What it does</th><th data-i18n="day2.col.root">Administrator</th></tr></thead>
               <tbody>
@@ -2813,7 +2814,7 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
               <thead><tr><th data-i18n="ts.col.says">You see</th><th data-i18n="ts.col.means">It means</th><th data-i18n="ts.col.do">What to do</th></tr></thead>
               <tbody>
                 <tr><td data-i18n="ts.s4.k">Exit code <code>4</code></td><td data-i18n="ts.s4.m">The service is not installed</td><td data-i18n="ts.s4.d">Run the installer again (<a href="#single-machine">Single machine</a>)</td></tr>
-                <tr><td data-i18n="ts.s3.k">Exit code <code>3</code></td><td data-i18n="ts.s3.m">Not enrolled yet: no token, a rejected token, no network, or a golden image waiting for its first start</td><td data-i18n="ts.s3.d">Check the token, the network and the proxy. With a rejected token, enrol with a new one: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. On a golden image, start the clone</td></tr>
+                <tr><td data-i18n="ts.s3.k">Exit code <code>3</code></td><td data-i18n="ts.s3.m">Not enrolled yet: no token, a rejected token, no network, or a golden image waiting for its first start</td><td data-i18n="ts.s3.d">Check the token, the network and the proxy. With a rejected token, enrol with a new one: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. On Windows, in a Command Prompt as administrator: <code>set TOKEN=&lt;enrolment-token&gt;</code>, then <code>LicensewareCollector.exe register</code>. On a golden image, start the clone</td></tr>
                 <tr><td data-i18n="ts.s2.k">Exit code <code>2</code> for more than a few minutes</td><td data-i18n="ts.s2.m">Enrolled, but Licenseware has not acknowledged the device</td><td data-i18n="ts.s2.d">Check that the <code>api</code> host of your region is reachable (<a href="#network">Network</a>)</td></tr>
                 <tr><td><code>Credential: REJECTED</code></td><td data-i18n="ts.rej.m">The token was revoked or disabled, or another clone shares this device's SMBIOS UUID</td><td data-i18n="ts.rej.d">Enrol with a new token, or see <a href="#golden-images">Golden images and VDI</a></td></tr>
                 <tr><td><code>CLONED IMAGE SUSPECTED</code></td><td data-i18n="ts.clone.m">The machine looks like a copy of another one</td><td data-i18n="ts.clone.d">See <a href="#golden-images">Golden images and VDI</a></td></tr>
@@ -2822,7 +2823,7 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
             </table>
           </div>
           <h3 id="ts-windows" data-i18n="ts.win.title">Windows</h3>
-          <p data-i18n="ts.win.1603">The MSI exited <code>1603</code>: the reason is in the installer's own log, which survives the rollback and never contains the token.</p>
+          <p data-i18n="ts.win.1603">The MSI exited <code>1603</code>: the reason is in the installer's own log, which survives the rollback and never contains the token. In PowerShell:</p>
           <div class="code-block">
             <pre><code style="font-size: 0.85rem">Get-Content C:\ProgramData\Licenseware\setup.log -Tail 50</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
@@ -4747,7 +4748,7 @@ exit 1</code></pre>
           <div style="margin-top: 0.75rem">
             <small style="color: var(--text-secondary)" data-i18n="logs.win.msilog">Windows Installer's own log, for an install that fails or is refused before the setup helper runs. Re-run the MSI with verbose logging; the token is a hidden property and is never written to this log:</small>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem">msiexec /i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt; /l*v install.log
+              <pre><code style="font-size: 0.85rem">Start-Process msiexec -Wait -ArgumentList '/i LicensewareCollector.msi TOKEN=&lt;enrolment-token&gt; /l*v install.log'
 Get-Content install.log -Tail 200</code></pre>
               <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
             </div>
@@ -5834,7 +5835,7 @@ Get-Content install.log -Tail 200</code></pre>
           "single.before": "<strong>Before you start:</strong> an <a href=\"#installation\">enrolment token</a>, administrator rights on the machine, and the hosts in <a href=\"#network\">Network</a> reachable from it.",
           "single.win.title": "Windows (Command Prompt as administrator)",
           "single.win.run": "In the folder that holds <code>LicensewareCollector.msi</code> from <a href=\"#downloads\">Downloads</a>, run:",
-          "single.win.desc": "<code>msiexec</code> returns once the machine is registered and its service is running, within 3 minutes. Otherwise it removes what it installed and exits <code>1603</code>; the reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>. Double-clicking the MSI without a token is refused.",
+          "single.win.desc": "<code>start /wait</code> keeps the Command Prompt waiting until the installer finishes, which is once the machine is registered and its service is running, within 3 minutes. Otherwise it removes what it installed and exits <code>1603</code> (<code>echo %errorlevel%</code> shows the code); the reason is in <code>%ProgramData%\\Licenseware\\setup.log</code>. Double-clicking the MSI without a token is refused.",
           "single.unix.title": "macOS and Linux (Terminal)",
           "single.unix.desc": "The script picks the package for the machine (<code>.pkg</code>, <code>.deb</code> or <code>.rpm</code>; Apple silicon, Intel, amd64 or arm64), checks it against the release's <code>SHA256SUMS</code> (<a href=\"#downloads\">Downloads</a>), installs it and waits up to 3 minutes for the machine to register. Otherwise it removes what it installed and exits <code>1</code>. Keep <code>TOKEN=</code> after <code>sudo</code>: placed before it, <code>sudo</code> drops it. The script's options (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>, <code>--dry-run</code>) are in <a href=\"#linux-fleets\">Ansible / Linux fleets</a>.",
           "single.manual.title": "Without the script",
@@ -5900,12 +5901,10 @@ Get-Content install.log -Tail 200</code></pre>
           "linux.one.title": "One task: install.sh",
           "linux.one.desc":
             "The script picks the package for the machine (<code>apt</code>, <code>dnf</code>, <code>yum</code> or <code>zypper</code>; amd64 or arm64), checks it against the release's <code>SHA256SUMS</code>, installs it and waits up to 3 minutes for the machine to register. If it does not register, the script removes the package again and exits <code>1</code>, so the task fails and the next run retries. <code>creates:</code> stops the task from running again on an enrolled machine.",
-          "linux.one.flags":
-            'Options, after <code>sh -s --</code>: <code>--token-file /root/lc-token</code> reads the token from a root-only file (for sudo rules that refuse <code>TOKEN=</code>), <code>--proxy URL</code> downloads through a proxy and stores it for the agent, <code>--version 0.17.0</code> pins a release, <code>--no-enroll</code> prepares a <a href="#golden-images">golden image</a>, and <code>--dry-run</code> downloads and verifies without changing anything.',
+          "linux.one.flags": "Options, after <code>sh -s --</code>: <code>--token-file /root/lc-token</code> reads the token from a root-only file (for sudo rules that refuse <code>TOKEN=</code>), <code>--proxy URL</code> downloads through a proxy and stores it for the agent, <code>--version 0.17.0</code> pins a release, <code>--wait 300</code> waits longer than the default 180 seconds for registration, <code>--base-url URL</code> downloads from your own mirror of the CDN's <code>d/</code> folder, <code>--no-enroll</code> prepares a <a href=\"#golden-images\">golden image</a>, and <code>--dry-run</code> downloads and checks the files without changing anything.",
           "linux.seed.title":
             "Restricted sudo rules and proxies: pre-seed the env file",
-          "linux.seed.desc":
-            "<code>sudo</code> passes <code>TOKEN=</code> only to rules that allow every command, and it drops <code>HTTPS_PROXY</code>. Write the settings to the env file as root first, then install the package with nothing else on the command line:",
+          "linux.seed.desc": "<code>sudo</code> passes <code>TOKEN=</code> only to rules that allow every command, and it drops <code>HTTPS_PROXY</code>. Write the settings to the env file as root first, then install the package with nothing else on the command line. Add a <code>PROXY=</code> line the same way if the machine needs a proxy:",
           "linux.seed.ansible": "In Ansible, the same as two tasks. Never overwrite the file afterwards: once the machine is enrolled, it holds the machine's own credential. On RHEL-family hosts, use <code>ansible.builtin.dnf</code> with the <code>.rpm</code> URL instead of the <code>apt</code> task.",
           "linux.pkg.title": "Package manager with TOKEN=",
           "linux.pkg.desc": "Packages for amd64 and arm64 are in <a href=\"#downloads\">Downloads</a>. The package stores the token and starts the service, which enrols and registers the machine. It waits up to 60 seconds to say whether registration finished, and finishes either way; the service keeps retrying, so follow it with the status task below.",
@@ -5944,6 +5943,7 @@ Get-Content install.log -Tail 200</code></pre>
             "Do not wait for registration while you build the image: in image mode the installers return at once and <code>status</code> exits <code>3</code>.",
           "image.clone.title": "Cloned machines",
           "image.clone": "Each agent records a fingerprint of the machine it enrolled on (hardware serial and OS machine ID). On a machine cloned after the first start, <code>status</code> prints <code>CLONED IMAGE SUSPECTED</code>; nothing changes by itself. Fix it in this order: give the clone its own SMBIOS UUID, then uninstall the collector on it and install and enrol it again. Never register a clone that still shares its twin's UUID: it takes the twin's credential. A clone that changes neither its serial nor its machine ID is not detected.",
+          "image.fail": "To check a clone after its first start, run <code>status</code> on it; if it does not report, see <a href=\"#ts-status\">Troubleshooting</a>.",
           "settings.title": "Settings",
           "settings.intro": "One set of names works everywhere: as an MSI property, a key in the env file, an environment variable for <code>register</code>, <code>apt</code>, <code>dnf</code> or <code>install.sh</code>, a key in the macOS configuration profile, and a <code>set</code> key. A setting made on the machine is stored in its env file and wins over what Licenseware sends. The service reads its settings when it starts; <code>set</code> restarts it for you.",
           "settings.col.name": "Setting",
@@ -6024,7 +6024,7 @@ Get-Content install.log -Tail 200</code></pre>
           "ts.s4.d": "Run the installer again (<a href=\"#single-machine\">Single machine</a>)",
           "ts.s3.k": "Exit code <code>3</code>",
           "ts.s3.m": "Not enrolled yet: no token, a rejected token, no network, or a golden image waiting for its first start",
-          "ts.s3.d": "Check the token, the network and the proxy. With a rejected token, enrol with a new one: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. On a golden image, start the clone",
+          "ts.s3.d": "Check the token, the network and the proxy. With a rejected token, enrol with a new one: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. On Windows, in a Command Prompt as administrator: <code>set TOKEN=&lt;enrolment-token&gt;</code>, then <code>LicensewareCollector.exe register</code>. On a golden image, start the clone",
           "ts.s2.k": "Exit code <code>2</code> for more than a few minutes",
           "ts.s2.m": "Enrolled, but Licenseware has not acknowledged the device",
           "ts.s2.d": "Check that the <code>api</code> host of your region is reachable (<a href=\"#network\">Network</a>)",
@@ -6035,7 +6035,7 @@ Get-Content install.log -Tail 200</code></pre>
           "ts.unhealthy.m": "Registered, but something keeps failing",
           "ts.unhealthy.d": "The reason in brackets names it; the <a href=\"#logs\">logs</a> say more",
           "ts.win.title": "Windows",
-          "ts.win.1603": "The MSI exited <code>1603</code>: the reason is in the installer's own log, which survives the rollback and never contains the token.",
+          "ts.win.1603": "The MSI exited <code>1603</code>: the reason is in the installer's own log, which survives the rollback and never contains the token. In PowerShell:",
           "ts.win.refused": "Refused before anything was installed (no token, or <code>TOKEN</code> and <code>TOKENFILE</code> together): the reason is only in a verbose MSI log.",
           "ts.win.service": "The service does not start, or stops. In PowerShell as administrator:",
           "ts.win.s1": "1. The service's state:",
@@ -6261,8 +6261,7 @@ Get-Content install.log -Tail 200</code></pre>
           "install.step1.1": "Vaya a",
           "install.step1.2": "e inicie sesión o cree una cuenta gratuita",
           "install.step1.3": "Abra la aplicación <strong>Licenseware Collector</strong> y su pestaña <strong>API Keys</strong>",
-          "install.step1.4":
-            "Haga clic en <strong>Crear Clave</strong>, configúrela y copie el token",
+          "install.step1.4": "Haga clic en <strong>Create Key</strong>, configúrela y copie el token",
           "install.step2.title": "Elija la guía según cómo despliega",
           "mdm.title": "Intune / SCCM (Windows)",
           "mdm.intro": "Despliegue <code>LicensewareCollector.msi</code> (<a href=\"#downloads\">Descargas</a>) como aplicación Win32 en Intune o como aplicación en SCCM. Se ejecuta como SYSTEM sin interacción del usuario. Cuando <code>msiexec</code> devuelve <code>0</code> en un dispositivo nuevo, el dispositivo está inscrito y registrado y su servicio está en ejecución.",
@@ -6406,7 +6405,7 @@ Get-Content install.log -Tail 200</code></pre>
           "single.before": "<strong>Antes de empezar:</strong> un <a href=\"#installation\">token de inscripción</a>, permisos de administrador en la máquina y los hosts de <a href=\"#network\">Red</a> accesibles desde ella.",
           "single.win.title": "Windows (Símbolo del sistema como administrador)",
           "single.win.run": "En la carpeta que contiene <code>LicensewareCollector.msi</code> de <a href=\"#downloads\">Descargas</a>, ejecute:",
-          "single.win.desc": "<code>msiexec</code> termina cuando la máquina está registrada y su servicio en ejecución, en 3 minutos como máximo. Si no, quita lo que instaló y sale con <code>1603</code>; el motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>. Hacer doble clic en el MSI sin token se rechaza.",
+          "single.win.desc": "<code>start /wait</code> hace que el Símbolo del sistema espere a que termine el instalador, que es cuando la máquina está registrada y su servicio en ejecución, en 3 minutos como máximo. Si no, quita lo que instaló y sale con <code>1603</code> (<code>echo %errorlevel%</code> muestra el código); el motivo está en <code>%ProgramData%\\Licenseware\\setup.log</code>. Hacer doble clic en el MSI sin token se rechaza.",
           "single.unix.title": "macOS y Linux (Terminal)",
           "single.unix.desc": "El script elige el paquete para la máquina (<code>.pkg</code>, <code>.deb</code> o <code>.rpm</code>; Apple silicon, Intel, amd64 o arm64), lo comprueba con el <code>SHA256SUMS</code> de la versión (<a href=\"#downloads\">Descargas</a>), lo instala y espera hasta 3 minutos a que la máquina se registre. Si no, quita lo que instaló y sale con <code>1</code>. Ponga <code>TOKEN=</code> después de <code>sudo</code>: si va antes, <code>sudo</code> lo descarta. Las opciones del script (<code>--token-file</code>, <code>--proxy</code>, <code>--version</code>, <code>--dry-run</code>) están en <a href=\"#linux-fleets\">Ansible / flotas Linux</a>.",
           "single.manual.title": "Sin el script",
@@ -6423,7 +6422,7 @@ Get-Content install.log -Tail 200</code></pre>
           "single.fail": "Si falla, vea Solución de problemas para <a href=\"#ts-windows\">Windows</a>, <a href=\"#ts-macos\">macOS</a> o <a href=\"#ts-linux\">Linux</a>.",
           "mdm.install.tokenfile": "Un valor <code>TOKEN=</code> es visible allí donde se registran las líneas de comandos (registros del MDM, auditoría de creación de procesos). Para mantenerlo fuera de toda línea de comandos, ponga el token en un archivo que SYSTEM pueda leer (ASCII o UTF-8, el token en la primera línea), colóquelo con su herramienta antes de la instalación y pase su ruta absoluta. El instalador nunca borra ese archivo. Pasar <code>TOKEN</code> y <code>TOKENFILE</code> a la vez se rechaza.",
           "mdm.props.title": "Más ajustes",
-          "mdm.install.props": "Los ajustes de proxy, certificado de CA, actualizaciones y log son propiedades del MSI con los mismos nombres: <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code> y <code>LOG_LEVEL</code> (<a href=\"#settings\">Ajustes</a>). Requisitos: Windows 10 de 64 bits, o Windows Server 2016 y posteriores (<a href=\"#compatibility\">Compatibilidad</a>).",
+          "mdm.install.props": "Los ajustes de proxy, certificado de CA, actualizaciones y log son propiedades del MSI con los mismos nombres: <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code> y <code>LOG_LEVEL</code> (<a href=\"#settings\">Configuración</a>). Requisitos: Windows 10 de 64 bits, o Windows Server 2016 y posteriores (<a href=\"#compatibility\">Compatibilidad</a>).",
           "mdm.codes.keep": "Mantenga los códigos de retorno predeterminados de Intune (<code>0</code> y <code>1707</code> correcto, <code>3010</code> reinicio suave, <code>1641</code> reinicio forzado, <code>1618</code> reintentar) y no añada ninguno: el MSI solo devuelve códigos estándar de Windows Installer.",
           "mdm.1603.title": "Qué significa 1603",
           "mdm.1603.refused": "Una instalación nueva sin <code>TOKEN</code> ni <code>TOKENFILE</code>, o con ambos, se rechaza antes de escribir nada. El motivo está en el registro de <code>msiexec /l*v</code>.",
@@ -6470,14 +6469,11 @@ Get-Content install.log -Tail 200</code></pre>
           "linux.intro":
             "Para Ansible, Puppet, Salt o cualquier herramienta que ejecute comandos como root. Cada paso es también lo que escribiría a mano.",
           "linux.one.title": "Una sola tarea: install.sh",
-          "linux.one.desc":
-            "El script elige el paquete para la máquina (<code>apt</code>, <code>dnf</code>, <code>yum</code> o <code>zypper</code>; amd64 o arm64), lo verifica con el <code>SHA256SUMS</code> de la versión, lo instala y espera hasta 3 minutos a que la máquina se registre. Si no se registra, el script vuelve a eliminar el paquete y devuelve <code>1</code>, de modo que la tarea falla y la siguiente ejecución lo reintenta. <code>creates:</code> evita que la tarea se ejecute de nuevo en una máquina inscrita.",
-          "linux.one.flags":
-            'Opciones, después de <code>sh -s --</code>: <code>--token-file /root/lc-token</code> lee el token de un archivo solo accesible para root (para reglas de sudo que rechazan <code>TOKEN=</code>), <code>--proxy URL</code> descarga a través de un proxy y lo guarda para el agente, <code>--version 0.17.0</code> fija una versión, <code>--no-enroll</code> prepara una <a href="#golden-images">imagen maestra</a> y <code>--dry-run</code> descarga y verifica sin cambiar nada.',
+          "linux.one.desc": "El script elige el paquete para la máquina (<code>apt</code>, <code>dnf</code>, <code>yum</code> o <code>zypper</code>; amd64 o arm64), lo comprueba con el <code>SHA256SUMS</code> de la versión, lo instala y espera hasta 3 minutos a que la máquina se registre. Si no se registra, el script vuelve a eliminar el paquete y devuelve <code>1</code>, de modo que la tarea falla y la siguiente ejecución lo reintenta. <code>creates:</code> evita que la tarea se ejecute de nuevo en una máquina inscrita.",
+          "linux.one.flags": "Opciones, después de <code>sh -s --</code>: <code>--token-file /root/lc-token</code> lee el token de un archivo solo accesible para root (para reglas de sudo que rechazan <code>TOKEN=</code>), <code>--proxy URL</code> descarga a través de un proxy y lo guarda para el agente, <code>--version 0.17.0</code> fija una versión, <code>--wait 300</code> espera más que los 180 segundos por defecto al registro, <code>--base-url URL</code> descarga desde su propia réplica de la carpeta <code>d/</code> del CDN, <code>--no-enroll</code> prepara una <a href=\"#golden-images\">imagen maestra</a> y <code>--dry-run</code> descarga y comprueba sin cambiar nada.",
           "linux.seed.title":
             "Reglas de sudo restringidas y proxies: prepare el archivo de entorno",
-          "linux.seed.desc":
-            "<code>sudo</code> solo pasa <code>TOKEN=</code> a reglas que permiten cualquier comando, y descarta <code>HTTPS_PROXY</code>. Escriba antes los ajustes en el archivo de entorno como root y después instale el paquete sin nada más en la línea de comandos:",
+          "linux.seed.desc": "<code>sudo</code> solo pasa <code>TOKEN=</code> a reglas que permiten cualquier comando, y descarta <code>HTTPS_PROXY</code>. Escriba antes los ajustes en el archivo de entorno como root y después instale el paquete sin nada más en la línea de comandos. Añada del mismo modo una línea <code>PROXY=</code> si la máquina necesita un proxy:",
           "linux.seed.ansible": "En Ansible, lo mismo en dos tareas. No sobrescriba el archivo después: una vez inscrita la máquina, contiene su propia credencial. En hosts de la familia RHEL, use <code>ansible.builtin.dnf</code> con la URL del <code>.rpm</code> en lugar de la tarea <code>apt</code>.",
           "linux.pkg.title": "Gestor de paquetes con TOKEN=",
           "linux.pkg.desc": "Los paquetes para amd64 y arm64 están en <a href=\"#downloads\">Descargas</a>. El paquete guarda el token e inicia el servicio, que inscribe y registra la máquina. Espera hasta 60 segundos para indicar si el registro terminó, y termina en cualquier caso; el servicio sigue reintentando, así que añada después la tarea de estado de abajo.",
@@ -6516,6 +6512,7 @@ Get-Content install.log -Tail 200</code></pre>
             "No espere al registro mientras construye la imagen: en modo imagen los instaladores terminan de inmediato y <code>status</code> devuelve <code>3</code>.",
           "image.clone.title": "Máquinas clonadas",
           "image.clone": "Cada agente registra una huella de la máquina en la que se inscribió (número de serie del hardware e ID de máquina del sistema). En una máquina clonada después del primer arranque, <code>status</code> muestra <code>CLONED IMAGE SUSPECTED</code>; nada cambia por sí solo. Corríjalo en este orden: dé al clon su propio UUID SMBIOS y luego desinstale el Collector en él e instálelo e inscríbalo de nuevo. Nunca registre un clon que aún comparte el UUID de su gemelo: le quita la credencial al gemelo. Un clon que no cambia ni su número de serie ni su ID de máquina no se detecta.",
+          "image.fail": "Para comprobar un clon tras su primer arranque, ejecute <code>status</code> en él; si no informa, vea <a href=\"#ts-status\">Solución de problemas</a>.",
           "settings.title": "Configuración",
           "settings.intro": "Un mismo conjunto de nombres sirve en todas partes: como propiedad del MSI, clave del archivo de entorno, variable de entorno para <code>register</code>, <code>apt</code>, <code>dnf</code> o <code>install.sh</code>, clave del perfil de configuración de macOS y clave de <code>set</code>. Un ajuste hecho en la máquina se guarda en su archivo de entorno y prevalece sobre lo que envía Licenseware. El servicio lee sus ajustes al iniciarse; <code>set</code> lo reinicia por usted.",
           "settings.col.name": "Ajuste",
@@ -6593,7 +6590,7 @@ Get-Content install.log -Tail 200</code></pre>
           "ts.s4.d": "Vuelva a ejecutar el instalador (<a href=\"#single-machine\">Una sola máquina</a>)",
           "ts.s3.k": "Código de salida <code>3</code>",
           "ts.s3.m": "Aún no inscrita: sin token, con un token rechazado, sin red, o una imagen maestra esperando su primer arranque",
-          "ts.s3.d": "Compruebe el token, la red y el proxy. Con un token rechazado, inscríbala con uno nuevo: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. En una imagen maestra, arranque el clon",
+          "ts.s3.d": "Compruebe el token, la red y el proxy. Con un token rechazado, inscríbala con uno nuevo: <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>. En Windows, en un Símbolo del sistema como administrador: <code>set TOKEN=&lt;enrolment-token&gt;</code> y luego <code>LicensewareCollector.exe register</code>. En una imagen maestra, arranque el clon",
           "ts.s2.k": "Código de salida <code>2</code> durante más de unos minutos",
           "ts.s2.m": "Inscrita, pero Licenseware no ha confirmado el dispositivo",
           "ts.s2.d": "Compruebe que el host <code>api</code> de su región es accesible (<a href=\"#network\">Red</a>)",
@@ -6604,7 +6601,7 @@ Get-Content install.log -Tail 200</code></pre>
           "ts.unhealthy.m": "Registrada, pero algo sigue fallando",
           "ts.unhealthy.d": "El motivo entre paréntesis lo indica; los <a href=\"#logs\">registros</a> dan más detalle",
           "ts.win.title": "Windows",
-          "ts.win.1603": "El MSI salió con <code>1603</code>: el motivo está en el registro propio del instalador, que sobrevive a la reversión y nunca contiene el token.",
+          "ts.win.1603": "El MSI salió con <code>1603</code>: el motivo está en el registro propio del instalador, que sobrevive a la reversión y nunca contiene el token. En PowerShell:",
           "ts.win.refused": "Rechazado antes de instalar nada (sin token, o con <code>TOKEN</code> y <code>TOKENFILE</code> a la vez): el motivo solo aparece en un registro detallado del MSI.",
           "ts.win.service": "El servicio no se inicia, o se detiene. En PowerShell como administrador:",
           "ts.win.s1": "1. El estado del servicio:",
