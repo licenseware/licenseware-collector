@@ -2728,33 +2728,30 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
         <section class="card guide" id="day2" aria-labelledby="day2-title">
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
-            <h2 id="day2-title" data-i18n="day2.title">Day-2 operations</h2>
+            <h2 id="day2-title" data-i18n="day2.title">Commands</h2>
           </div>
-          <p data-i18n="day2.intro">Commands for an installed machine. The binary is <code>licenseware-collector</code> on Linux, <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code> on macOS and <code>%ProgramData%\Licenseware\bin\LicensewareCollector.exe</code> on Windows. From 0.17.0 <code>register</code> also puts it on the <code>PATH</code> on macOS (<code>/usr/local/bin</code>) and Windows (the machine <code>Path</code>, in new prompts).</p>
-          <h4 id="commands" data-i18n="day2.cmds.title">Commands</h4>
+          <p data-i18n="day2.intro">Run these on an installed machine: <code>licenseware-collector</code> on Linux and macOS, <code>LicensewareCollector.exe</code> on Windows in a new Command Prompt (<code>%ProgramData%\Licenseware\bin</code> is on the machine <code>Path</code>). On macOS the command is linked into <code>/usr/local/bin</code> when that folder belongs to root; otherwise run <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code>. Commands marked as administrator need <code>sudo</code>, or a Command Prompt run as administrator.</p>
+          <h4 id="commands" data-i18n="day2.cmds.title">Command reference</h4>
           <div style="overflow-x: auto">
             <table>
-              <thead><tr><th data-i18n="day2.col.cmd">Command</th><th data-i18n="day2.col.what">What it does</th><th data-i18n="day2.col.root">Elevated</th><th data-i18n="day2.col.needs">Needs</th></tr></thead>
+              <thead><tr><th data-i18n="day2.col.cmd">Command</th><th data-i18n="day2.col.what">What it does</th><th data-i18n="day2.col.root">Administrator</th></tr></thead>
               <tbody>
-                <tr><td><code>status [-v]</code></td><td data-i18n="day2.status">Registration and service state; exit codes below</td><td data-i18n="day2.no">no</td><td>0.16.0</td></tr>
-                <tr><td><code>status --json</code></td><td data-i18n="day2.json1">Prints <code>registration.json</code> (schema 1)</td><td data-i18n="day2.no">no</td><td>0.16.0</td></tr>
-                <tr><td><code>status --json --schema 2</code></td><td data-i18n="day2.json2">Registration, live service state and health in one object</td><td data-i18n="day2.no">no</td><td>0.17.0</td></tr>
-                <tr><td><code>status --require-healthy</code></td><td data-i18n="day2.healthy">Exits <code>5</code> instead of <code>0</code> when the service is stopped, osquery is broken, or uploads have failed for the whole <code>--health-window</code> (default <code>24h</code>)</td><td data-i18n="day2.no">no</td><td>0.17.0</td></tr>
-                <tr><td><code>set</code></td><td data-i18n="day2.setlist">Lists <code>LOG_LEVEL</code>, <code>AUTOUPDATE</code>, <code>PROXY</code>, <code>NO_PROXY</code> and <code>CA_CERT</code> with their value and where it came from</td><td data-i18n="day2.yes">yes</td><td>0.17.0</td></tr>
-                <tr><td><code>set KEY=VALUE ...</code></td><td data-i18n="day2.set">Validates, stores and restarts a running service (<code>--no-restart</code> to skip); <code>KEY=</code> removes the key</td><td data-i18n="day2.yes">yes</td><td>0.17.0</td></tr>
-                <tr><td><code>restart</code></td><td data-i18n="day2.restart">Restarts the service, or starts it when stopped</td><td data-i18n="day2.yes">yes</td><td>0.17.0</td></tr>
-                <tr><td><code>stop</code></td><td data-i18n="day2.stop">Stops the service</td><td data-i18n="day2.yes">yes</td><td data-i18n="day2.any">any</td></tr>
-                <tr><td><code>diagnose [-o file.zip]</code></td><td data-i18n="day2.diagnose">Writes a support bundle with every credential redacted and no query output; unelevated, it leaves out what it cannot read</td><td data-i18n="day2.no">no</td><td>0.17.0</td></tr>
-                <tr><td><code>update [--check]</code></td><td data-i18n="day2.update">Checks for, and applies, an agent update now (<code>--no-restart</code> to skip the restart)</td><td data-i18n="day2.yes">yes</td><td data-i18n="day2.any">any</td></tr>
-                <tr><td><code>uninstall</code></td><td data-i18n="day2.uninstall">Removes the collector, through <code>apt</code>/<code>dnf</code> or <code>msiexec /x</code> when a package installed it (on 0.16.0 use the <a href="#uninstall">Uninstall Guide</a>)</td><td data-i18n="day2.yes">yes</td><td>0.17.0</td></tr>
-                <tr><td><code>register</code></td><td data-i18n="day2.register">With <code>TOKEN</code>: enrol the machine, or move it to the token's project. Without (0.17.0): repair an enrolled machine with its stored credential</td><td data-i18n="day2.yes">yes</td><td data-i18n="day2.any">any</td></tr>
-                <tr><td><code>run-once</code></td><td data-i18n="day2.runonce">Runs every query once, for testing</td><td data-i18n="day2.yes">yes</td><td data-i18n="day2.any">any</td></tr>
+                <tr><td><code>register</code></td><td data-i18n="day2.register">With <code>TOKEN=</code>: enrols the machine, or moves it to the token's project. Without: repairs the install with its stored credential</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>status [-v] [--json]</code></td><td data-i18n="day2.status">Registration, service and health; exit codes below. <code>--json</code> prints the registration state as JSON</td><td data-i18n="day2.no">no</td></tr>
+                <tr><td><code>set</code></td><td data-i18n="day2.setlist">Lists every setting, its value and where it comes from (<a href="#settings">Settings</a>)</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>set KEY=VALUE ...</code></td><td data-i18n="day2.set">Checks and stores the settings, then restarts the service (<code>--no-restart</code> to skip); <code>KEY=</code> removes one</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>restart</code></td><td data-i18n="day2.restart">Restarts the service, or starts it when stopped</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>stop</code></td><td data-i18n="day2.stop">Stops the service</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>diagnose [-o file.zip]</code></td><td data-i18n="day2.diagnose">Writes a support zip with tokens, passwords and keys removed, to send to Licenseware support; without administrator rights it leaves out what it cannot read</td><td data-i18n="day2.no">no</td></tr>
+                <tr><td><code>update [--check]</code></td><td data-i18n="day2.update">Updates the agent now; <code>--check</code> only reports what it would do</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>uninstall</code></td><td data-i18n="day2.uninstall">Removes the collector (<a href="#uninstall">Uninstall</a>)</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>run-once [--dry-run]</code></td><td data-i18n="day2.runonce">Runs every query once; <code>--dry-run</code> sends nothing</td><td data-i18n="day2.yes">yes</td></tr>
+                <tr><td><code>system-info</code></td><td data-i18n="day2.sysinfo">Prints what the agent detects about this machine, as JSON</td><td data-i18n="day2.no">no</td></tr>
+                <tr><td><code>licences</code></td><td data-i18n="day2.licences">Prints the third-party licence notices</td><td data-i18n="day2.no">no</td></tr>
+                <tr><td><code>licence</code></td><td data-i18n="day2.licence">Prints the Licenseware Collector Licence Agreement</td><td data-i18n="day2.no">no</td></tr>
               </tbody>
             </table>
           </div>
-          <aside class="highlight-box warning" role="note">
-            <p data-i18n="day2.warn"><strong>Never use <code>--require-healthy</code>, exit code <code>5</code> or the <code>Health</code> registry values as an Intune, SCCM or Jamf detection rule.</strong> A backend outage makes every agent unhealthy at once, and a failing detection rule makes the MDM reinstall the collector across the whole fleet. Detection rules use exit codes <code>0</code>–<code>4</code> or <code>Registered</code> = 1.</p>
-          </aside>
           <h4 data-i18n="day2.codes.title">status exit codes</h4>
           <div style="overflow-x: auto">
             <table>
@@ -2763,25 +2760,20 @@ sudo apt install ./licenseware-collector_amd64.deb</code></pre>
                 <tr><td><code>0</code></td><td data-i18n="status.c0">Registered</td></tr>
                 <tr><td><code>1</code></td><td data-i18n="status.c1">The check itself failed</td></tr>
                 <tr><td><code>2</code></td><td data-i18n="status.c2">Enrolled; registration not acknowledged yet (the service keeps retrying)</td></tr>
-                <tr><td><code>3</code></td><td data-i18n="status.c3">No registration state: not enrolled, an enrolment still pending, or a golden image before its first start</td></tr>
+                <tr><td><code>3</code></td><td data-i18n="status.c3">Not enrolled yet: no token, a token that was rejected, no network, or a golden image waiting for its first start</td></tr>
                 <tr><td><code>4</code></td><td data-i18n="status.c4">Service not installed</td></tr>
                 <tr><td><code>5</code></td><td data-i18n="status.c5">Only with <code>--require-healthy</code>: registered, but not healthy</td></tr>
               </tbody>
             </table>
           </div>
-          <p data-i18n="day2.codes.note">Checked in the order 1, 4, 3, 2, 0. A stopped but registered service still exits <code>0</code>. On Windows, a caller that cannot query the service (a standard user in a scheduled task) is judged by the state file alone. Exit codes <code>0</code>–<code>4</code> exist from 0.16.0, <code>5</code> from 0.17.0.</p>
-          <h4 data-i18n="day2.update.title">Updates</h4>
-          <p data-i18n="day2.update.desc">From 0.17.0 agents update themselves on every OS from <code>cdn.licenseware-collector.com</code>: signed releases, checked every 24 hours, and rolled back automatically when the new version does not start and reach Licenseware. <code>AUTOUPDATE=0</code> stops it on a machine (<a href="#settings">Settings</a>). On 0.16.0 and earlier, Windows and Linux agents update from GitHub every 24 hours, and macOS agents never update themselves.</p>
-          <h4 data-i18n="quick.intervals">Agent Intervals</h4>
-          <ul>
-            <li><span data-i18n="quick.config">Config Refresh:</span> <strong>30 mins</strong></li>
-            <li><span data-i18n="quick.catalog">Catalog Check:</span> <strong>30 mins</strong></li>
-            <li><span data-i18n="quick.cleanup">Failed File Cleanup:</span> <strong>6 hours</strong></li>
-          </ul>
-          <aside class="highlight-box" role="note">
-            <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
-            <p data-i18n="day2.old">Only <code>register</code>, <code>status</code> (with <code>--json</code>), <code>stop</code>, <code>update</code>, <code>run-once</code> and <code>uninstall</code> exist, and the binary is not on the <code>PATH</code> on Windows or macOS. To change a setting, edit the env file and restart the service (<a href="#settings">Settings</a>). <code>uninstall</code> refuses on a package install: remove the package instead (<a href="#uninstall">Uninstall Guide</a>).</p>
+          <p data-i18n="day2.codes.note">A registered machine whose service is stopped still exits <code>0</code>. On Windows, a caller that cannot query the service (a standard user in a scheduled task) gets its answer from the registration state alone.</p>
+          <h4 data-i18n="day2.monitor.title">Monitoring</h4>
+          <p data-i18n="day2.healthy"><code>status --require-healthy</code> exits <code>5</code> instead of <code>0</code> when the service is not running or has hung, or when over the last 24 hours uploads kept failing, command checks were refused (a revoked or disabled credential) or every collection failed. <code>--require-healthy=48h</code> changes the window. The <code>Healthy:</code> line of <code>status</code> says why.</p>
+          <aside class="highlight-box warning" role="note">
+            <p data-i18n="day2.warn"><strong>Use it for monitoring only. Never use <code>--require-healthy</code>, exit code <code>5</code> or the <code>Health</code> registry values as an Intune, SCCM or Jamf detection rule</strong> (<a href="#intune">Intune / SCCM</a>): a Licenseware outage would make your tool reinstall the collector everywhere.</p>
           </aside>
+          <h4 data-i18n="day2.update.title">Updates</h4>
+          <p data-i18n="day2.update.desc">The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns updates off (<a href="#settings">Settings</a>).</p>
         </section>
 
         <!-- Uninstall Guide -->
@@ -5825,10 +5817,6 @@ Get-Content install.log -Tail 200</code></pre>
           "uninstall.win.cleanup": "Or remove it from the UI:",
           "uninstall.note":
             "Uninstalling stops the service, removes it, and deletes the collector's runtime files and enrollment token from the machine. The package removals above (<code>msiexec /x</code>, <code>apt remove</code> / <code>dnf remove</code> and <code>uninstall.command</code>) run with fixed arguments and take no extra options: <code>--preserve-state</code> and <code>--remove-osquery</code> are options of the <code>licenseware-collector uninstall</code> command, not of <code>msiexec</code>.",
-          "quick.intervals": "Agent Intervals",
-          "quick.config": "Config Refresh:",
-          "quick.catalog": "Catalog Check:",
-          "quick.cleanup": "Failed File Cleanup:",
           "nav.reference": "Reference",
           "nav.logs": "Logs",
           "logs.title": "Logs &amp; Troubleshooting",
@@ -5926,13 +5914,10 @@ Get-Content install.log -Tail 200</code></pre>
           "start.g.uuid.d": "The hardware identifier the device's firmware reports. Every device, and every clone, needs its own.",
           "status.c0": "Registered",
           "status.c1": "The check itself failed",
-          "status.c2":
-            "Enrolled; registration not acknowledged yet (the service keeps retrying)",
-          "status.c3":
-            "No registration state: not enrolled, an enrolment still pending, or a golden image before its first start",
+          "status.c2": "Enrolled; registration not acknowledged yet (the service keeps retrying)",
+          "status.c3": "Not enrolled yet: no token, a token that was rejected, no network, or a golden image waiting for its first start",
           "status.c4": "Service not installed",
-          "status.c5":
-            "Only with <code>--require-healthy</code>: registered, but not healthy",
+          "status.c5": "Only with <code>--require-healthy</code>: registered, but not healthy",
           "single.title": "Single machine",
           "single.intro": "Install the collector on one machine by hand. Each install enrols the machine and finishes only once Licenseware has registered it.",
           "single.before": "<strong>Before you start:</strong> an <a href=\"#installation\">enrolment token</a>, administrator rights on the machine, and the hosts in <a href=\"#network\">Network</a> reachable from it.",
@@ -6083,48 +6068,34 @@ Get-Content install.log -Tail 200</code></pre>
           "settings.ca.desc": "If a proxy inspects TLS, set <code>CA_CERT</code> to a PEM file holding its CA certificate. The agent adds it to the certificates it trusts for its own connections; the operating system's trust store is not changed.",
           "settings.ca.msi": "Windows, at install time (the MSI keeps its own copy, so the original can be deleted):",
           "settings.ca.set": "macOS and Linux, on an installed machine (the file must stay where it is):",
-          "day2.title": "Day-2 operations",
-          "day2.intro":
-            "Commands for an installed machine. The binary is <code>licenseware-collector</code> on Linux, <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code> on macOS and <code>%ProgramData%\\Licenseware\\bin\\LicensewareCollector.exe</code> on Windows. From 0.17.0 <code>register</code> also puts it on the <code>PATH</code> on macOS (<code>/usr/local/bin</code>) and Windows (the machine <code>Path</code>, in new prompts).",
-          "day2.cmds.title": "Commands",
+          "day2.title": "Commands",
+          "day2.intro": "Run these on an installed machine: <code>licenseware-collector</code> on Linux and macOS, <code>LicensewareCollector.exe</code> on Windows in a new Command Prompt (<code>%ProgramData%\\Licenseware\\bin</code> is on the machine <code>Path</code>). On macOS the command is linked into <code>/usr/local/bin</code> when that folder belongs to root; otherwise run <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code>. Commands marked as administrator need <code>sudo</code>, or a Command Prompt run as administrator.",
+          "day2.cmds.title": "Command reference",
           "day2.col.cmd": "Command",
           "day2.col.what": "What it does",
-          "day2.col.root": "Elevated",
-          "day2.col.needs": "Needs",
+          "day2.col.root": "Administrator",
           "day2.yes": "yes",
           "day2.no": "no",
-          "day2.any": "any",
-          "day2.status": "Registration and service state; exit codes below",
-          "day2.json1": "Prints <code>registration.json</code> (schema 1)",
-          "day2.json2":
-            "Registration, live service state and health in one object",
-          "day2.healthy":
-            "Exits <code>5</code> instead of <code>0</code> when the service is stopped, osquery is broken, or uploads have failed for the whole <code>--health-window</code> (default <code>24h</code>)",
-          "day2.setlist":
-            "Lists <code>LOG_LEVEL</code>, <code>AUTOUPDATE</code>, <code>PROXY</code>, <code>NO_PROXY</code> and <code>CA_CERT</code> with their value and where it came from",
-          "day2.set":
-            "Validates, stores and restarts a running service (<code>--no-restart</code> to skip); <code>KEY=</code> removes the key",
+          "day2.status": "Registration, service and health; exit codes below. <code>--json</code> prints the registration state as JSON",
+          "day2.healthy": "<code>status --require-healthy</code> exits <code>5</code> instead of <code>0</code> when the service is not running or has hung, or when over the last 24 hours uploads kept failing, command checks were refused (a revoked or disabled credential) or every collection failed. <code>--require-healthy=48h</code> changes the window. The <code>Healthy:</code> line of <code>status</code> says why.",
+          "day2.setlist": "Lists every setting, its value and where it comes from (<a href=\"#settings\">Settings</a>)",
+          "day2.set": "Checks and stores the settings, then restarts the service (<code>--no-restart</code> to skip); <code>KEY=</code> removes one",
           "day2.restart": "Restarts the service, or starts it when stopped",
           "day2.stop": "Stops the service",
-          "day2.diagnose":
-            "Writes a support bundle with every credential redacted and no query output; unelevated, it leaves out what it cannot read",
-          "day2.update":
-            "Checks for, and applies, an agent update now (<code>--no-restart</code> to skip the restart)",
-          "day2.uninstall":
-            'Removes the collector, through <code>apt</code>/<code>dnf</code> or <code>msiexec /x</code> when a package installed it (on 0.16.0 use the <a href="#uninstall">Uninstall Guide</a>)',
-          "day2.register":
-            "With <code>TOKEN</code>: enrol the machine, or move it to the token's project. Without (0.17.0): repair an enrolled machine with its stored credential",
-          "day2.runonce": "Runs every query once, for testing",
-          "day2.warn":
-            "<strong>Never use <code>--require-healthy</code>, exit code <code>5</code> or the <code>Health</code> registry values as an Intune, SCCM or Jamf detection rule.</strong> A backend outage makes every agent unhealthy at once, and a failing detection rule makes the MDM reinstall the collector across the whole fleet. Detection rules use exit codes <code>0</code>–<code>4</code> or <code>Registered</code> = 1.",
+          "day2.diagnose": "Writes a support zip with tokens, passwords and keys removed, to send to Licenseware support; without administrator rights it leaves out what it cannot read",
+          "day2.update": "Updates the agent now; <code>--check</code> only reports what it would do",
+          "day2.uninstall": "Removes the collector (<a href=\"#uninstall\">Uninstall</a>)",
+          "day2.register": "With <code>TOKEN=</code>: enrols the machine, or moves it to the token's project. Without: repairs the install with its stored credential",
+          "day2.runonce": "Runs every query once; <code>--dry-run</code> sends nothing",
+          "day2.sysinfo": "Prints what the agent detects about this machine, as JSON",
+          "day2.licences": "Prints the third-party licence notices",
+          "day2.licence": "Prints the Licenseware Collector Licence Agreement",
+          "day2.warn": "<strong>Use it for monitoring only. Never use <code>--require-healthy</code>, exit code <code>5</code> or the <code>Health</code> registry values as an Intune, SCCM or Jamf detection rule</strong> (<a href=\"#intune\">Intune / SCCM</a>): a Licenseware outage would make your tool reinstall the collector everywhere.",
           "day2.codes.title": "status exit codes",
-          "day2.codes.note":
-            "Checked in the order 1, 4, 3, 2, 0. A stopped but registered service still exits <code>0</code>. On Windows, a caller that cannot query the service (a standard user in a scheduled task) is judged by the state file alone. Exit codes <code>0</code>–<code>4</code> exist from 0.16.0, <code>5</code> from 0.17.0.",
+          "day2.codes.note": "A registered machine whose service is stopped still exits <code>0</code>. On Windows, a caller that cannot query the service (a standard user in a scheduled task) gets its answer from the registration state alone.",
+          "day2.monitor.title": "Monitoring",
           "day2.update.title": "Updates",
-          "day2.update.desc":
-            'From 0.17.0 agents update themselves on every OS from <code>cdn.licenseware-collector.com</code>: signed releases, checked every 24 hours, and rolled back automatically when the new version does not start and reach Licenseware. <code>AUTOUPDATE=0</code> stops it on a machine (<a href="#settings">Settings</a>). On 0.16.0 and earlier, Windows and Linux agents update from GitHub every 24 hours, and macOS agents never update themselves.',
-          "day2.old":
-            'Only <code>register</code>, <code>status</code> (with <code>--json</code>), <code>stop</code>, <code>update</code>, <code>run-once</code> and <code>uninstall</code> exist, and the binary is not on the <code>PATH</code> on Windows or macOS. To change a setting, edit the env file and restart the service (<a href="#settings">Settings</a>). <code>uninstall</code> refuses on a package install: remove the package instead (<a href="#uninstall">Uninstall Guide</a>).',
+          "day2.update.desc": "The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns updates off (<a href=\"#settings\">Settings</a>).",
           "uninstall.day2":
             'From 0.17.0, <code>uninstall</code> (Windows: <code>LicensewareCollector.exe uninstall</code>) removes a package install through its package manager on every OS, so the refusal above applies only to 0.16.0 and earlier. See <a href="#day2">Day-2 operations</a>, and for Intune and SCCM <a href="#intune">the uninstall command</a>.',
           "logs.macos.rotate":
@@ -6320,10 +6291,6 @@ Get-Content install.log -Tail 200</code></pre>
           "uninstall.win.cleanup": "O elimínelo desde la interfaz:",
           "uninstall.note":
             "La desinstalación detiene el servicio, lo elimina y borra de la máquina los archivos de ejecución del collector y el token de inscripción. Las desinstalaciones de paquete anteriores (<code>msiexec /x</code>, <code>apt remove</code> / <code>dnf remove</code> y <code>uninstall.command</code>) se ejecutan con argumentos fijos y no admiten opciones adicionales: <code>--preserve-state</code> y <code>--remove-osquery</code> son opciones del comando <code>licenseware-collector uninstall</code>, no de <code>msiexec</code>.",
-          "quick.intervals": "Intervalos del Agente",
-          "quick.config": "Refrescar Config:",
-          "quick.catalog": "Comprobar Catálogo:",
-          "quick.cleanup": "Limpieza de Archivos:",
           "nav.reference": "Referencia",
           "nav.logs": "Registros",
           "logs.title": "Registros y Solución de Problemas",
@@ -6422,13 +6389,10 @@ Get-Content install.log -Tail 200</code></pre>
           "start.g.uuid.d": "El identificador de hardware que informa el firmware del dispositivo. Cada dispositivo, y cada clon, necesita el suyo.",
           "status.c0": "Registrado",
           "status.c1": "La propia comprobación falló",
-          "status.c2":
-            "Inscrito; el registro aún no se ha confirmado (el servicio sigue reintentando)",
-          "status.c3":
-            "Sin estado de registro: no inscrito, una inscripción aún pendiente o una imagen maestra antes de su primer arranque",
+          "status.c2": "Inscrito; el registro aún no se ha confirmado (el servicio sigue reintentando)",
+          "status.c3": "Aún no inscrita: sin token, con un token rechazado, sin red, o una imagen maestra esperando su primer arranque",
           "status.c4": "Servicio no instalado",
-          "status.c5":
-            "Solo con <code>--require-healthy</code>: registrado, pero no en buen estado",
+          "status.c5": "Solo con <code>--require-healthy</code>: registrada, pero no en buen estado",
           "single.title": "Una sola máquina",
           "single.intro": "Instale el Collector en una máquina a mano. Cada instalación inscribe la máquina y termina solo cuando Licenseware la ha registrado.",
           "single.before": "<strong>Antes de empezar:</strong> un <a href=\"#installation\">token de inscripción</a>, permisos de administrador en la máquina y los hosts de <a href=\"#network\">Red</a> accesibles desde ella.",
@@ -6579,49 +6543,34 @@ Get-Content install.log -Tail 200</code></pre>
           "settings.ca.desc": "Si un proxy inspecciona TLS, defina <code>CA_CERT</code> con un archivo PEM que contenga su certificado de CA. El agente lo añade a los certificados en los que confía para sus propias conexiones; el almacén de confianza del sistema operativo no cambia.",
           "settings.ca.msi": "Windows, al instalar (el MSI guarda su propia copia, así que el original se puede borrar):",
           "settings.ca.set": "macOS y Linux, en una máquina instalada (el archivo debe quedarse donde está):",
-          "day2.title": "Operaciones del día 2",
-          "day2.intro":
-            "Comandos para una máquina instalada. El binario es <code>licenseware-collector</code> en Linux, <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code> en macOS y <code>%ProgramData%\\Licenseware\\bin\\LicensewareCollector.exe</code> en Windows. Desde 0.17.0 <code>register</code> también lo pone en el <code>PATH</code> en macOS (<code>/usr/local/bin</code>) y en Windows (el <code>Path</code> de la máquina, en consolas nuevas).",
-          "day2.cmds.title": "Comandos",
+          "day2.title": "Comandos",
+          "day2.intro": "Ejecútelos en una máquina instalada: <code>licenseware-collector</code> en Linux y macOS, <code>LicensewareCollector.exe</code> en Windows en un Símbolo del sistema nuevo (<code>%ProgramData%\\Licenseware\\bin</code> está en el <code>Path</code> de la máquina). En macOS el comando se enlaza en <code>/usr/local/bin</code> cuando esa carpeta pertenece a root; si no, ejecute <code>/usr/local/libexec/licenseware-collector/licenseware-collector</code>. Los comandos marcados como de administrador necesitan <code>sudo</code>, o un Símbolo del sistema ejecutado como administrador.",
+          "day2.cmds.title": "Referencia de comandos",
           "day2.col.cmd": "Comando",
           "day2.col.what": "Qué hace",
-          "day2.col.root": "Elevado",
-          "day2.col.needs": "Requiere",
+          "day2.col.root": "Administrador",
           "day2.yes": "sí",
           "day2.no": "no",
-          "day2.any": "cualquiera",
-          "day2.status":
-            "Estado del registro y del servicio; códigos de salida abajo",
-          "day2.json1": "Imprime <code>registration.json</code> (esquema 1)",
-          "day2.json2":
-            "Registro, estado actual del servicio y salud en un solo objeto",
-          "day2.healthy":
-            "Devuelve <code>5</code> en lugar de <code>0</code> cuando el servicio está detenido, osquery no funciona o los envíos han fallado durante toda la <code>--health-window</code> (predeterminado <code>24h</code>)",
-          "day2.setlist":
-            "Muestra <code>LOG_LEVEL</code>, <code>AUTOUPDATE</code>, <code>PROXY</code>, <code>NO_PROXY</code> y <code>CA_CERT</code> con su valor y su origen",
-          "day2.set":
-            "Valida, guarda y reinicia un servicio en ejecución (<code>--no-restart</code> para omitirlo); <code>CLAVE=</code> elimina la clave",
+          "day2.status": "Registro, servicio y estado de salud; códigos de salida abajo. <code>--json</code> imprime el estado de registro como JSON",
+          "day2.healthy": "<code>status --require-healthy</code> sale con <code>5</code> en lugar de <code>0</code> cuando el servicio no se ejecuta o se ha bloqueado, o cuando en las últimas 24 horas los envíos fallaron sin parar, las comprobaciones de comandos fueron rechazadas (una credencial revocada o deshabilitada) o fallaron todas las recopilaciones. <code>--require-healthy=48h</code> cambia la ventana. La línea <code>Healthy:</code> de <code>status</code> dice por qué.",
+          "day2.setlist": "Lista cada ajuste, su valor y de dónde viene (<a href=\"#settings\">Configuración</a>)",
+          "day2.set": "Comprueba y guarda los ajustes y luego reinicia el servicio (<code>--no-restart</code> para omitirlo); <code>KEY=</code> quita uno",
           "day2.restart": "Reinicia el servicio, o lo inicia si está detenido",
           "day2.stop": "Detiene el servicio",
-          "day2.diagnose":
-            "Escribe un paquete de soporte con todas las credenciales ocultas y sin resultados de consultas; sin elevación, omite lo que no puede leer",
-          "day2.update":
-            "Busca y aplica ahora una actualización del agente (<code>--no-restart</code> para omitir el reinicio)",
-          "day2.uninstall":
-            'Elimina el collector, mediante <code>apt</code>/<code>dnf</code> o <code>msiexec /x</code> cuando lo instaló un paquete (en 0.16.0 use la <a href="#uninstall">Guía de Desinstalación</a>)',
-          "day2.register":
-            "Con <code>TOKEN</code>: inscribe la máquina o la traslada al proyecto del token. Sin él (0.17.0): repara una máquina inscrita con su credencial guardada",
-          "day2.runonce": "Ejecuta cada consulta una vez, para pruebas",
-          "day2.warn":
-            "<strong>Nunca use <code>--require-healthy</code>, el código de salida <code>5</code> ni los valores <code>Health</code> del registro como regla de detección de Intune, SCCM o Jamf.</strong> Una caída del backend deja a todos los agentes en mal estado a la vez, y una regla de detección que falla hace que el MDM reinstale el collector en toda la flota. Las reglas de detección usan los códigos de salida <code>0</code>–<code>4</code> o <code>Registered</code> = 1.",
+          "day2.diagnose": "Escribe un zip de soporte sin tokens, contraseñas ni claves, para enviarlo al soporte de Licenseware; sin permisos de administrador omite lo que no puede leer",
+          "day2.update": "Actualiza el agente ahora; <code>--check</code> solo informa de lo que haría",
+          "day2.uninstall": "Quita el Collector (<a href=\"#uninstall\">Desinstalar</a>)",
+          "day2.register": "Con <code>TOKEN=</code>: inscribe la máquina, o la mueve al proyecto del token. Sin él: repara la instalación con su credencial guardada",
+          "day2.runonce": "Ejecuta cada consulta una vez; <code>--dry-run</code> no envía nada",
+          "day2.sysinfo": "Imprime lo que el agente detecta de esta máquina, en JSON",
+          "day2.licences": "Imprime los avisos de licencias de terceros",
+          "day2.licence": "Imprime el Acuerdo de Licencia del Licenseware Collector",
+          "day2.warn": "<strong>Úselo solo para supervisión. Nunca use <code>--require-healthy</code>, el código de salida <code>5</code> ni los valores de registro <code>Health</code> como regla de detección de Intune, SCCM o Jamf</strong> (<a href=\"#intune\">Intune / SCCM</a>): una caída de Licenseware haría que su herramienta reinstalara el Collector en todas partes.",
           "day2.codes.title": "Códigos de salida de status",
-          "day2.codes.note":
-            "Se comprueban en el orden 1, 4, 3, 2, 0. Un servicio registrado pero detenido sigue devolviendo <code>0</code>. En Windows, quien no puede consultar el servicio (un usuario estándar en una tarea programada) se evalúa solo por el archivo de estado. Los códigos <code>0</code>–<code>4</code> existen desde 0.16.0, el <code>5</code> desde 0.17.0.",
+          "day2.codes.note": "Una máquina registrada cuyo servicio está detenido sigue saliendo con <code>0</code>. En Windows, quien no puede consultar el servicio (un usuario estándar en una tarea programada) obtiene la respuesta solo del estado de registro.",
+          "day2.monitor.title": "Supervisión",
           "day2.update.title": "Actualizaciones",
-          "day2.update.desc":
-            'Desde 0.17.0 los agentes se actualizan solos en todos los SO desde <code>cdn.licenseware-collector.com</code>: versiones firmadas, comprobadas cada 24 horas y revertidas automáticamente cuando la nueva versión no arranca ni llega a Licenseware. <code>AUTOUPDATE=0</code> lo detiene en una máquina (<a href="#settings">Ajustes</a>). En 0.16.0 y anteriores, los agentes de Windows y Linux se actualizan desde GitHub cada 24 horas, y los de macOS nunca se actualizan solos.',
-          "day2.old":
-            'Solo existen <code>register</code>, <code>status</code> (con <code>--json</code>), <code>stop</code>, <code>update</code>, <code>run-once</code> y <code>uninstall</code>, y el binario no está en el <code>PATH</code> en Windows ni en macOS. Para cambiar un ajuste, edite el archivo de entorno y reinicie el servicio (<a href="#settings">Ajustes</a>). <code>uninstall</code> se niega en una instalación por paquete: elimine el paquete (<a href="#uninstall">Guía de Desinstalación</a>).',
+          "day2.update.desc": "El agente consulta <code>cdn.licenseware-collector.com</code> 5 minutos después de iniciarse y luego cada 24 horas, instala solo versiones firmadas por Licenseware y vuelve a la versión anterior si la nueva no arranca e informa. osquery se actualiza de la misma forma. <code>update --check</code> muestra lo que haría; <code>AUTOUPDATE=0</code> desactiva las actualizaciones (<a href=\"#settings\">Configuración</a>).",
           "uninstall.day2":
             'Desde 0.17.0, <code>uninstall</code> (Windows: <code>LicensewareCollector.exe uninstall</code>) elimina una instalación por paquete mediante su gestor de paquetes en todos los SO, de modo que la negativa anterior solo se aplica a 0.16.0 y anteriores. Vea <a href="#day2">Operaciones del día 2</a> y, para Intune y SCCM, <a href="#intune">el comando de desinstalación</a>.',
           "logs.macos.rotate":
