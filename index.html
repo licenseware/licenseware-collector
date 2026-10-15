@@ -1246,79 +1246,35 @@
       <aside class="sidebar" aria-label="Page navigation">
         <nav aria-label="Table of contents">
           <ul class="sidebar-nav" role="list">
-            <li
-              class="sidebar-title"
-              role="presentation"
-              data-i18n="nav.overview"
-            >
-              Overview
-            </li>
+            <li class="sidebar-title" role="presentation" data-i18n="nav.start">Start</li>
             <li><a href="#overview" data-i18n="nav.what">What is it?</a></li>
-            <li>
-              <a href="#compatibility" data-i18n="nav.compatibility"
-                >OS Compatibility</a
-              >
-            </li>
-
-            <li
-              class="sidebar-title"
-              role="presentation"
-              data-i18n="nav.requirements"
-            >
-              Requirements
-            </li>
+            <li><a href="#compatibility" data-i18n="nav.compatibility">OS Compatibility</a></li>
             <li><a href="#network" data-i18n="nav.network">Network</a></li>
             <li><a href="#system" data-i18n="nav.system">System</a></li>
+            <li><a href="#installation" data-i18n="nav.token">Get a token</a></li>
+            <li><a href="#downloads" data-i18n="nav.downloads">Downloads</a></li>
 
-            <li
-              class="sidebar-title"
-              role="presentation"
-              data-i18n="nav.installguide"
-            >
-              Installation Guide
-            </li>
-            <li>
-              <a href="#downloads" data-i18n="nav.downloads">Downloads</a>
-            </li>
-            <li><a href="#installation" data-i18n="nav.start">Getting Started</a></li>
+            <li class="sidebar-title" role="presentation" data-i18n="nav.deploy">Deploy</li>
             <li><a href="#single-machine" data-i18n="nav.single">Single machine</a></li>
             <li><a href="#intune" data-i18n="nav.intune">Intune / SCCM (Windows)</a></li>
             <li><a href="#macos-mdm" data-i18n="nav.mac">Jamf, Intune for Mac, Kandji</a></li>
             <li><a href="#linux-fleets" data-i18n="nav.linux">Ansible / Linux fleets</a></li>
             <li><a href="#golden-images" data-i18n="nav.image">Golden images and VDI</a></li>
 
-            <li class="sidebar-title" role="presentation" data-i18n="nav.operate">Configure and operate</li>
+            <li class="sidebar-title" role="presentation" data-i18n="nav.operate">Operate</li>
             <li><a href="#settings" data-i18n="nav.settings">Settings</a></li>
-            <li><a href="#day2" data-i18n="nav.day2">Day-2 operations</a></li>
-            <li><a href="#uninstall" data-i18n="nav.uninstall">Uninstall Guide</a></li>
+            <li><a href="#proxy" data-i18n="nav.proxy">Proxy</a></li>
+            <li><a href="#custom-ca" data-i18n="nav.customca">Custom CA</a></li>
+            <li><a href="#day2" data-i18n="nav.day2">Commands</a></li>
+            <li><a href="#uninstall" data-i18n="nav.uninstall">Uninstall</a></li>
 
-            <li class="sidebar-title" role="presentation" data-i18n="nav.tech">
-              Technical Details
-            </li>
-            <li>
-              <a href="#endpoints" data-i18n="nav.endpoints">API Endpoints</a>
-            </li>
-            <li><a href="#process" data-i18n="nav.process">Process Flow</a></li>
-            <li>
-              <a href="#catalogs" data-i18n="nav.catalogs">Data Collection</a>
-            </li>
-            <li>
-              <a href="#paths" data-i18n="nav.paths">Installation Paths</a>
-            </li>
-
-            <li
-              class="sidebar-title"
-              role="presentation"
-              data-i18n="nav.reference"
-            >
-              Reference
-            </li>
+            <li class="sidebar-title" role="presentation" data-i18n="nav.reference">Reference</li>
+            <li><a href="#catalogs" data-i18n="nav.catalogs">What we collect</a></li>
+            <li><a href="#process" data-i18n="nav.how">How it works</a></li>
+            <li><a href="#endpoints" data-i18n="nav.endpoints">API Endpoints</a></li>
+            <li><a href="#paths" data-i18n="nav.paths">Installation Paths</a></li>
             <li><a href="#logs" data-i18n="nav.logs">Logs</a></li>
-            <li>
-              <a href="#licence-agreement" data-i18n="nav.licence"
-                >Licence Agreement</a
-              >
-            </li>
+            <li><a href="#licence-agreement" data-i18n="nav.licence">Licence Agreement</a></li>
           </ul>
         </nav>
       </aside>
@@ -1769,6 +1725,177 @@
             </ul>
           </section>
         </div>
+
+        <!-- Installation Guide -->
+        <section
+          class="card"
+          id="installation"
+          aria-labelledby="installation-title"
+        >
+          <div class="card-header">
+            <div class="card-icon flow" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <h2 id="installation-title" data-i18n="install.title">
+              Installation Guide
+            </h2>
+          </div>
+
+          <!-- Interactive Demo -->
+          <div style="margin-bottom: 1.5rem">
+            <!--ARCADE EMBED START-->
+            <div
+              style="
+                position: relative;
+                padding-bottom: calc(55.4722% + 41px);
+                height: 0px;
+                width: 100%;
+              "
+            >
+              <iframe
+                src="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+                title="Generate and Manage API Keys in Licenseware Collector"
+                frameborder="0"
+                loading="lazy"
+                webkitallowfullscreen
+                mozallowfullscreen
+                allowfullscreen
+                allow="clipboard-write"
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  color-scheme: light;
+                "
+              ></iframe>
+            </div>
+            <!--ARCADE EMBED END-->
+          </div>
+
+          <!-- Common Step: Get Your Token -->
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
+            <div
+              style="
+                width: 28px;
+                height: 28px;
+                background: var(--primary);
+                color: #fff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 0.9rem;
+                flex-shrink: 0;
+              "
+            >
+              1
+            </div>
+            <div style="flex: 1">
+              <h3
+                style="
+                  margin: 0 0 0.5rem 0;
+                  font-size: 1.05rem;
+                  font-weight: 700;
+                "
+                data-i18n="install.step1.title"
+              >
+                Get Your Token
+              </h3>
+              <ol
+                style="
+                  margin: 0;
+                  padding-left: 1.25rem;
+                  color: var(--text-secondary);
+                  line-height: 1.7;
+                "
+              >
+                <li>
+                  <span data-i18n="install.step1.1">Go to</span>
+                  <a
+                    href="https://app.licenseware.io/?utm_campaign=LGen&utm_source=licenseware%20collector&utm_medium=web"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="font-weight: 600"
+                    >LICENSEWARE</a
+                  >
+                  <span data-i18n="install.step1.2"
+                    >and sign in or create a free account</span
+                  >
+                </li>
+                <li data-i18n="install.step1.3">
+                  Navigate to <strong>LC App</strong> and go to
+                  <strong>API Keys</strong> tab
+                </li>
+                <li data-i18n="install.step1.4">
+                  Click <strong>Create Key</strong>, configure it, and copy the
+                  token
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Step 2 Header -->
+          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
+            <div
+              style="
+                width: 28px;
+                height: 28px;
+                background: var(--primary);
+                color: #fff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 0.9rem;
+                flex-shrink: 0;
+              "
+            >
+              2
+            </div>
+            <h3
+              style="
+                margin: 0;
+                font-size: 1.05rem;
+                font-weight: 700;
+                line-height: 28px;
+              "
+              data-i18n="install.step2.title"
+            >
+              Pick the guide for how you deploy
+            </h3>
+          </div>
+
+          <div class="guide" style="margin-left: calc(28px + 1rem)">
+            <ul>
+              <li data-i18n="start.pick.single"><a href="#single-machine">Single machine</a>: one Windows, Mac or Linux machine, by hand.</li>
+              <li data-i18n="start.pick.intune"><a href="#intune">Intune / SCCM</a>: Windows fleets.</li>
+              <li data-i18n="start.pick.mac"><a href="#macos-mdm">Jamf, Intune for Mac, Kandji</a>: Mac fleets.</li>
+              <li data-i18n="start.pick.linux"><a href="#linux-fleets">Ansible and other Linux tools</a>: Linux fleets, including restricted sudo rules and proxies.</li>
+              <li data-i18n="start.pick.image"><a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.</li>
+            </ul>
+            <p data-i18n="start.shared">Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.</p>
+            <p data-i18n="start.ver">Steps marked <strong>From 0.17.0</strong> need Collector 0.17.0 or later. Each guide ends with the steps for machines on 0.16.0 and earlier.</p>
+            <p data-i18n="mdm.licence">Deployment of the Collector through automated tools such as Intune or SCCM constitutes acceptance of the <a href="#licence-agreement">Collector Licence Agreement</a> by the deploying organisation.</p>
+          </div>
+        </section>
 
         <!-- Direct Downloads -->
         <section class="card" id="downloads" aria-labelledby="downloads-title">
@@ -2260,177 +2387,6 @@
           <p style="margin-top: 0.75rem; font-size: 0.85rem" data-i18n="downloads.next">Next: <a href="#installation">pick the install guide for your tool</a>.</p>
         </section>
 
-        <!-- Installation Guide -->
-        <section
-          class="card"
-          id="installation"
-          aria-labelledby="installation-title"
-        >
-          <div class="card-header">
-            <div class="card-icon flow" aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-            </div>
-            <h2 id="installation-title" data-i18n="install.title">
-              Installation Guide
-            </h2>
-          </div>
-
-          <!-- Interactive Demo -->
-          <div style="margin-bottom: 1.5rem">
-            <!--ARCADE EMBED START-->
-            <div
-              style="
-                position: relative;
-                padding-bottom: calc(55.4722% + 41px);
-                height: 0px;
-                width: 100%;
-              "
-            >
-              <iframe
-                src="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-                title="Generate and Manage API Keys in Licenseware Collector"
-                frameborder="0"
-                loading="lazy"
-                webkitallowfullscreen
-                mozallowfullscreen
-                allowfullscreen
-                allow="clipboard-write"
-                style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  color-scheme: light;
-                "
-              ></iframe>
-            </div>
-            <!--ARCADE EMBED END-->
-          </div>
-
-          <!-- Common Step: Get Your Token -->
-          <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
-            <div
-              style="
-                width: 28px;
-                height: 28px;
-                background: var(--primary);
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
-                font-size: 0.9rem;
-                flex-shrink: 0;
-              "
-            >
-              1
-            </div>
-            <div style="flex: 1">
-              <h3
-                style="
-                  margin: 0 0 0.5rem 0;
-                  font-size: 1.05rem;
-                  font-weight: 700;
-                "
-                data-i18n="install.step1.title"
-              >
-                Get Your Token
-              </h3>
-              <ol
-                style="
-                  margin: 0;
-                  padding-left: 1.25rem;
-                  color: var(--text-secondary);
-                  line-height: 1.7;
-                "
-              >
-                <li>
-                  <span data-i18n="install.step1.1">Go to</span>
-                  <a
-                    href="https://app.licenseware.io/?utm_campaign=LGen&utm_source=licenseware%20collector&utm_medium=web"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style="font-weight: 600"
-                    >LICENSEWARE</a
-                  >
-                  <span data-i18n="install.step1.2"
-                    >and sign in or create a free account</span
-                  >
-                </li>
-                <li data-i18n="install.step1.3">
-                  Navigate to <strong>LC App</strong> and go to
-                  <strong>API Keys</strong> tab
-                </li>
-                <li data-i18n="install.step1.4">
-                  Click <strong>Create Key</strong>, configure it, and copy the
-                  token
-                </li>
-              </ol>
-            </div>
-          </div>
-
-          <!-- Step 2 Header -->
-          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
-            <div
-              style="
-                width: 28px;
-                height: 28px;
-                background: var(--primary);
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
-                font-size: 0.9rem;
-                flex-shrink: 0;
-              "
-            >
-              2
-            </div>
-            <h3
-              style="
-                margin: 0;
-                font-size: 1.05rem;
-                font-weight: 700;
-                line-height: 28px;
-              "
-              data-i18n="install.step2.title"
-            >
-              Pick the guide for how you deploy
-            </h3>
-          </div>
-
-          <div class="guide" style="margin-left: calc(28px + 1rem)">
-            <ul>
-              <li data-i18n="start.pick.single"><a href="#single-machine">Single machine</a>: one Windows, Mac or Linux machine, by hand.</li>
-              <li data-i18n="start.pick.intune"><a href="#intune">Intune / SCCM</a>: Windows fleets.</li>
-              <li data-i18n="start.pick.mac"><a href="#macos-mdm">Jamf, Intune for Mac, Kandji</a>: Mac fleets.</li>
-              <li data-i18n="start.pick.linux"><a href="#linux-fleets">Ansible and other Linux tools</a>: Linux fleets, including restricted sudo rules and proxies.</li>
-              <li data-i18n="start.pick.image"><a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.</li>
-            </ul>
-            <p data-i18n="start.shared">Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.</p>
-            <p data-i18n="start.ver">Steps marked <strong>From 0.17.0</strong> need Collector 0.17.0 or later. Each guide ends with the steps for machines on 0.16.0 and earlier.</p>
-            <p data-i18n="mdm.licence">Deployment of the Collector through automated tools such as Intune or SCCM constitutes acceptance of the <a href="#licence-agreement">Collector Licence Agreement</a> by the deploying organisation.</p>
-          </div>
-        </section>
-
         <!-- Single machine -->
         <section class="card guide" id="single-machine" aria-labelledby="single-machine-title">
           <div class="card-header">
@@ -2866,7 +2822,8 @@ sudo TOKEN=&lt;enrolment-token&gt; ENROLL_ON_START=1 apt install ./licenseware-c
           </div>
           <p data-i18n="settings.file.desc">Readable by root or Administrators only. It holds only what was set on that machine (from 0.17.0 it starts with <code># licenseware-collector env format=2</code>); everything else follows the control plane. The older names <code>CA_CERT_PATH</code>, <code>SELF_UPDATE_ENABLED</code>, <code>HTTPS_PROXY</code> and <code>HTTP_PROXY</code> are still read.</p>
           <p data-i18n="settings.change">To change a setting later, run <code>set</code>, which validates it, stores it and restarts the service: <code>sudo licenseware-collector set PROXY=http://proxy.corp:3128</code>, and <code>set PROXY=</code> to remove it. After editing the file by hand, run <code>restart</code> (<a href="#day2">Day-2 operations</a>).</p>
-          <h4 id="proxy" data-i18n="settings.proxy.title">Proxy</h4>
+          <section id="proxy" aria-labelledby="proxy-title">
+          <h4 id="proxy-title" data-i18n="settings.proxy.title">Proxy</h4>
           <p data-i18n="settings.proxy.order">The agent picks its route in this order:</p>
           <ol>
             <li data-i18n="settings.proxy.o1"><code>PROXY=direct</code>: no proxy, not even the system's.</li>
@@ -2875,8 +2832,11 @@ sudo TOKEN=&lt;enrolment-token&gt; ENROLL_ON_START=1 apt install ./licenseware-c
             <li data-i18n="settings.proxy.o4">Direct.</li>
           </ol>
           <p data-i18n="settings.proxy.notes">A system proxy that fails before any request has gone through it is skipped for the rest of the run, with one warning; an explicit <code>PROXY</code> is never bypassed. Credentials go in the URL (<code>http://user:password@proxy.corp:3128</code>, Basic authentication). Not supported: PAC files and WPAD, and NTLM or Kerberos proxy authentication.</p>
-          <h4 id="custom-ca" data-i18n="settings.ca.title">TLS inspection (custom CA)</h4>
+          </section>
+          <section id="custom-ca" aria-labelledby="custom-ca-title">
+          <h4 id="custom-ca-title" data-i18n="settings.ca.title">TLS inspection (custom CA)</h4>
           <p data-i18n="settings.ca.desc">If a proxy inspects TLS, set <code>CA_CERT</code> to a PEM file holding its CA certificate. The certificates are added to the system trust store, not used instead of it.</p>
+          </section>
           <aside class="highlight-box" role="note">
             <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
             <p data-i18n="settings.old">The agent reads these from the env file under their older names, and only <code>TOKEN</code> can be given to the installer. Proxy variables and <code>CA_CERT_PATH</code> exported for <code>register</code> (<code>sudo -E</code>) are stored in the file too. After editing the file, restart the service:</p>
@@ -3293,156 +3253,6 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
           <aside class="highlight-box" style="margin-top: 1rem" role="note">
             <span style="font-size: 0.85rem" data-i18n="uninstall.day2">From 0.17.0, <code>uninstall</code> (Windows: <code>LicensewareCollector.exe uninstall</code>) removes a package install through its package manager on every OS, so the refusal above applies only to 0.16.0 and earlier. See <a href="#day2">Day-2 operations</a>, and for Intune and SCCM <a href="#intune">the uninstall command</a>.</span>
           </aside>
-        </section>
-
-        <!-- API Endpoints -->
-        <section class="card" id="endpoints" aria-labelledby="endpoints-title">
-          <div class="card-header">
-            <div class="card-icon api" aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
-                ></path>
-                <path
-                  d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
-                ></path>
-              </svg>
-            </div>
-            <h2 id="endpoints-title" data-i18n="endpoints.title">
-              API Endpoints
-            </h2>
-          </div>
-
-          <p data-i18n="endpoints.desc">
-            All communication uses HTTPS with Bearer token authentication.
-          </p>
-
-          <table>
-            <thead>
-              <tr>
-                <th data-i18n="table.method">Method</th>
-                <th data-i18n="table.endpoint">Endpoint</th>
-                <th data-i18n="table.purpose">Purpose</th>
-                <th data-i18n="table.freq">Frequency</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td>
-                  <span class="endpoint">/agent/register</span>
-                </td>
-                <td data-i18n="endpoints.row1">Register agent</td>
-                <td data-i18n="endpoints.once">Once</td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-get">GET</span></td>
-                <td>
-                  <span class="endpoint">/agent/configs</span>
-                </td>
-                <td data-i18n="endpoints.row2">Fetch configs</td>
-                <td data-i18n="time.30m">Every 30m</td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-get">GET</span></td>
-                <td>
-                  <span class="endpoint">/agent/catalogs</span>
-                </td>
-                <td data-i18n="endpoints.row3">Get catalogs</td>
-                <td data-i18n="time.30m">Every 30m</td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td>
-                  <span class="endpoint">/agent/ingest</span>
-                </td>
-                <td data-i18n="endpoints.row4">Upload data</td>
-                <td data-i18n="endpoints.cycle">Cyclical</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <!-- Process Flow -->
-        <section class="card" id="process" aria-labelledby="process-title">
-          <div class="card-header">
-            <div class="card-icon flow" aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-              </svg>
-            </div>
-            <h2 id="process-title" data-i18n="process.title">
-              Data Collection Process
-            </h2>
-          </div>
-
-          <p class="section-title" data-i18n="process.user">What You Do</p>
-          <div class="flow-diagram">
-            <div class="flow-step">
-              <span data-i18n="process.step1">Download<br />Collector</span>
-            </div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-step">
-              <span data-i18n="process.step2">Register<br />Collector</span>
-            </div>
-            <span class="flow-arrow">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--success); color: var(--success)"
-              data-i18n="process.done"
-            >
-              ✓ Done!
-            </div>
-          </div>
-
-          <p class="section-title" data-i18n="process.auto">
-            What the Collector Does
-          </p>
-          <div class="flow-diagram">
-            <div
-              class="flow-step"
-              style="border-color: var(--border); font-size: 0.8rem"
-              data-i18n="process.step3"
-            >
-              Fetch Query<br />Catalogs
-            </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--border); font-size: 0.8rem"
-              data-i18n="process.step4"
-            >
-              Execute<br />Queries
-            </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--border); font-size: 0.8rem"
-              data-i18n="process.step5"
-            >
-              Upload to<br />LICENSEWARE ™
-            </div>
-          </div>
         </section>
 
         <!-- Data Collection Specification -->
@@ -4009,6 +3819,156 @@ sudo pkgutil --forget io.licenseware.collector</code></pre>
             contacts at least 30 days in advance under DPA clause 13.3.
             Reductions in scope take effect immediately and are recorded here.
           </p>
+        </section>
+
+        <!-- Process Flow -->
+        <section class="card" id="process" aria-labelledby="process-title">
+          <div class="card-header">
+            <div class="card-icon flow" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <h2 id="process-title" data-i18n="process.title">
+              Data Collection Process
+            </h2>
+          </div>
+
+          <p class="section-title" data-i18n="process.user">What You Do</p>
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <span data-i18n="process.step1">Download<br />Collector</span>
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+              <span data-i18n="process.step2">Register<br />Collector</span>
+            </div>
+            <span class="flow-arrow">→</span>
+            <div
+              class="flow-step"
+              style="border-color: var(--success); color: var(--success)"
+              data-i18n="process.done"
+            >
+              ✓ Done!
+            </div>
+          </div>
+
+          <p class="section-title" data-i18n="process.auto">
+            What the Collector Does
+          </p>
+          <div class="flow-diagram">
+            <div
+              class="flow-step"
+              style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step3"
+            >
+              Fetch Query<br />Catalogs
+            </div>
+            <span class="flow-arrow" style="color: var(--secondary)">→</span>
+            <div
+              class="flow-step"
+              style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step4"
+            >
+              Execute<br />Queries
+            </div>
+            <span class="flow-arrow" style="color: var(--secondary)">→</span>
+            <div
+              class="flow-step"
+              style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step5"
+            >
+              Upload to<br />LICENSEWARE ™
+            </div>
+          </div>
+        </section>
+
+        <!-- API Endpoints -->
+        <section class="card" id="endpoints" aria-labelledby="endpoints-title">
+          <div class="card-header">
+            <div class="card-icon api" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+                ></path>
+                <path
+                  d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+                ></path>
+              </svg>
+            </div>
+            <h2 id="endpoints-title" data-i18n="endpoints.title">
+              API Endpoints
+            </h2>
+          </div>
+
+          <p data-i18n="endpoints.desc">
+            All communication uses HTTPS with Bearer token authentication.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="table.method">Method</th>
+                <th data-i18n="table.endpoint">Endpoint</th>
+                <th data-i18n="table.purpose">Purpose</th>
+                <th data-i18n="table.freq">Frequency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td>
+                  <span class="endpoint">/agent/register</span>
+                </td>
+                <td data-i18n="endpoints.row1">Register agent</td>
+                <td data-i18n="endpoints.once">Once</td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-get">GET</span></td>
+                <td>
+                  <span class="endpoint">/agent/configs</span>
+                </td>
+                <td data-i18n="endpoints.row2">Fetch configs</td>
+                <td data-i18n="time.30m">Every 30m</td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-get">GET</span></td>
+                <td>
+                  <span class="endpoint">/agent/catalogs</span>
+                </td>
+                <td data-i18n="endpoints.row3">Get catalogs</td>
+                <td data-i18n="time.30m">Every 30m</td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td>
+                  <span class="endpoint">/agent/ingest</span>
+                </td>
+                <td data-i18n="endpoints.row4">Upload data</td>
+                <td data-i18n="endpoints.cycle">Cyclical</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
 
         <!-- Installation Paths -->
@@ -5817,19 +5777,18 @@ Get-Content install.log -Tail 200</code></pre>
       const translations = {
         en: {
           "app.title": "LICENSEWARE Collector",
-          "nav.overview": "Overview",
           "nav.what": "What is it?",
           "nav.compatibility": "OS Compatibility",
-          "nav.requirements": "Requirements",
           "nav.network": "Network",
           "nav.system": "System",
-          "nav.tech": "Technical Details",
           "nav.endpoints": "API Endpoints",
-          "nav.process": "Process Flow",
-          "nav.catalogs": "Data Collection",
+          "nav.catalogs": "What we collect",
+          "nav.how": "How it works",
           "nav.paths": "Installation Paths",
-          "nav.start": "Getting Started",
+          "nav.start": "Start",
+          "nav.token": "Get a token",
           "nav.downloads": "Downloads",
+          "nav.deploy": "Deploy",
           "overview.title": "What is LICENSEWARE Collector?",
           "overview.desc":
             "A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE ™ platform for software license compliance analysis.",
@@ -5996,7 +5955,7 @@ Get-Content install.log -Tail 200</code></pre>
             "Agents older than 0.16.0: use this PowerShell detection script. The <code>TOKEN=</code> line is written only by a completed enrolment and the Windows service is created only by <code>register</code>; together they mean the agent has enrolled, though not that the backend has acknowledged it.",
           "install.win.tokenless":
             "To stage the files now and enroll later, omit <code>TOKEN</code>. No service is created until you run: <code>set TOKEN=&lt;enrollment-token&gt;</code> then <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
-          "nav.uninstall": "Uninstall Guide",
+          "nav.uninstall": "Uninstall",
           "uninstall.title": "Uninstall Guide",
           "uninstall.warning":
             "Requires elevated privileges (sudo on Linux/macOS, Administrator on Windows)",
@@ -6017,7 +5976,6 @@ Get-Content install.log -Tail 200</code></pre>
           "quick.config": "Config Refresh:",
           "quick.catalog": "Catalog Check:",
           "quick.cleanup": "Failed File Cleanup:",
-          "nav.installguide": "Installation Guide",
           "nav.reference": "Reference",
           "nav.logs": "Logs",
           "logs.title": "Logs &amp; Troubleshooting",
@@ -6064,9 +6022,11 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.mac": "Jamf, Intune for Mac, Kandji",
           "nav.linux": "Ansible / Linux fleets",
           "nav.image": "Golden images and VDI",
-          "nav.operate": "Configure and operate",
+          "nav.operate": "Operate",
           "nav.settings": "Settings",
-          "nav.day2": "Day-2 operations",
+          "nav.proxy": "Proxy",
+          "nav.customca": "Custom CA",
+          "nav.day2": "Commands",
           "downloads.next":
             'Next: <a href="#installation">pick the install guide for your tool</a>.',
           "start.pick.single":
@@ -6311,19 +6271,18 @@ Get-Content install.log -Tail 200</code></pre>
         },
         es: {
           "app.title": "LICENSEWARE Collector",
-          "nav.overview": "Resumen",
           "nav.what": "¿Qué es?",
           "nav.compatibility": "Compatibilidad",
-          "nav.requirements": "Requisitos",
           "nav.network": "Red",
           "nav.system": "Sistema",
-          "nav.tech": "Detalles Técnicos",
           "nav.endpoints": "Puntos finales de API",
-          "nav.process": "Flujo del proceso",
-          "nav.catalogs": "Recopilación de datos",
+          "nav.catalogs": "Qué recopilamos",
+          "nav.how": "Cómo funciona",
           "nav.paths": "Rutas de instalación",
-          "nav.start": "Empezando",
+          "nav.start": "Inicio",
+          "nav.token": "Obtener un token",
           "nav.downloads": "Descargas",
+          "nav.deploy": "Desplegar",
           "overview.title": "¿Qué es LICENSEWARE Collector?",
           "overview.desc":
             "Un agente <strong>gratuito</strong> y ligero que recopila datos de inventario de software y sistemas de sus servidores y los transmite de forma segura a la plataforma LICENSEWARE ™ para el análisis de cumplimiento de licencias.",
@@ -6491,7 +6450,7 @@ Get-Content install.log -Tail 200</code></pre>
             "Agentes anteriores a 0.16.0: use este script de detección de PowerShell. La línea <code>TOKEN=</code> solo la escribe una inscripción completada y el servicio de Windows solo lo crea <code>register</code>; juntos significan que el agente se ha inscrito, aunque no que el backend lo haya reconocido.",
           "install.win.tokenless":
             "Para preparar los archivos ahora e inscribir más tarde, omita <code>TOKEN</code>. No se crea ningún servicio hasta que ejecute: <code>set TOKEN=&lt;token-de-inscripción&gt;</code> y luego <code>\"%ProgramFiles%\\Licenseware\\LicensewareCollector.exe\" register</code>.",
-          "nav.uninstall": "Guía de Desinstalación",
+          "nav.uninstall": "Desinstalar",
           "uninstall.title": "Guía de Desinstalación",
           "uninstall.warning":
             "Requiere privilegios elevados (sudo en Linux/macOS, Administrador en Windows)",
@@ -6512,7 +6471,6 @@ Get-Content install.log -Tail 200</code></pre>
           "quick.config": "Refrescar Config:",
           "quick.catalog": "Comprobar Catálogo:",
           "quick.cleanup": "Limpieza de Archivos:",
-          "nav.installguide": "Guía de Instalación",
           "nav.reference": "Referencia",
           "nav.logs": "Registros",
           "logs.title": "Registros y Solución de Problemas",
@@ -6560,9 +6518,11 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.mac": "Jamf, Intune para Mac, Kandji",
           "nav.linux": "Ansible / flotas Linux",
           "nav.image": "Imágenes maestras y VDI",
-          "nav.operate": "Configurar y operar",
+          "nav.operate": "Operar",
           "nav.settings": "Ajustes",
-          "nav.day2": "Operaciones del día 2",
+          "nav.proxy": "Proxy",
+          "nav.customca": "CA personalizada",
+          "nav.day2": "Comandos",
           "downloads.next":
             'Siguiente paso: <a href="#installation">elija la guía de instalación de su herramienta</a>.',
           "start.pick.single":
@@ -6872,19 +6832,28 @@ Get-Content install.log -Tail 200</code></pre>
       const sections = document.querySelectorAll("section");
       const navLinks = document.querySelectorAll(".sidebar-nav a");
 
+      // The innermost section under the header wins (Proxy inside Settings);
+      // sections side by side (Network, System) share the highlight.
       function scrollSpy() {
-        let current = "";
+        let current = [];
+        let currentTop = -Infinity;
         const scrollPosition = window.scrollY + 100; // Offset for sticky header
 
         sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
+          const sectionTop = section.getBoundingClientRect().top + window.scrollY;
           const sectionHeight = section.clientHeight;
 
           if (
             scrollPosition >= sectionTop &&
             scrollPosition < sectionTop + sectionHeight
           ) {
-            current = section.getAttribute("id");
+            if (sectionTop > currentTop) {
+              current = [];
+              currentTop = sectionTop;
+            }
+            if (sectionTop === currentTop) {
+              current.push(`#${section.getAttribute("id")}`);
+            }
           }
         });
 
@@ -6894,14 +6863,14 @@ Get-Content install.log -Tail 200</code></pre>
           document.body.offsetHeight - 50
         ) {
           const lastSection = sections[sections.length - 1];
-          if (lastSection) current = lastSection.getAttribute("id");
+          if (lastSection) current = [`#${lastSection.getAttribute("id")}`];
         }
 
         navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
-          }
+          link.classList.toggle(
+            "active",
+            current.includes(link.getAttribute("href")),
+          );
         });
       }
 
