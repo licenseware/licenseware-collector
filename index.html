@@ -2901,338 +2901,41 @@ Start-Service licenseware-collector</code></pre>
         </section>
 
         <!-- Uninstall Guide -->
-        <section class="card" id="uninstall" aria-labelledby="uninstall-title">
+        <section class="card guide" id="uninstall" aria-labelledby="uninstall-title">
           <div class="card-header">
-            <div class="card-icon flow" aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="3 6 5 6 21 6"></polyline>
-                <path
-                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                ></path>
-                <line x1="10" y1="11" x2="10" y2="17"></line>
-                <line x1="14" y1="11" x2="14" y2="17"></line>
-              </svg>
-            </div>
-            <h2 id="uninstall-title" data-i18n="uninstall.title">
-              Uninstall Guide
-            </h2>
+            <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></div>
+            <h2 id="uninstall-title" data-i18n="uninstall.title">Uninstall</h2>
           </div>
-
-          <aside
-            class="highlight-box warning"
-            role="note"
-            aria-label="Uninstall privileges warning"
-          >
-            <strong style="color: var(--warning)">⚠️</strong>
-            <span data-i18n="uninstall.warning"
-              >Requires elevated privileges (sudo on Linux/macOS, Administrator
-              on Windows)</span
-            >
-          </aside>
-
-          <!-- Linux / macOS -->
-          <div
-            style="
-              border: 1px solid var(--border);
-              border-radius: 12px;
-              padding: 1.25rem;
-              margin-top: 1rem;
-            "
-          >
-            <h3
-              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
-              data-i18n="uninstall.linux.title"
-            >
-              Linux
-            </h3>
-            <ol style="margin: 0; padding-left: 1.25rem">
-              <li>
-                <strong
-                  style="color: var(--text-primary)"
-                  data-i18n="uninstall.linux.deb"
-                  >Debian / Ubuntu</strong
-                >
-                <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
-                    >sudo apt remove licenseware-collector</code
-                  >
-                  <button
-                    class="copy-btn"
-                    onclick="copyToClipboard(this)"
-                    aria-label="Copy command"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <rect
-                        x="9"
-                        y="9"
-                        width="13"
-                        height="13"
-                        rx="2"
-                        ry="2"
-                      ></rect>
-                      <path
-                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-              </li>
-              <li>
-                <strong
-                  style="color: var(--text-primary)"
-                  data-i18n="uninstall.linux.cleanup"
-                  >RHEL / Fedora / SUSE</strong
-                >
-                <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
-                    >sudo dnf remove licenseware-collector</code
-                  >
-                  <button
-                    class="copy-btn"
-                    onclick="copyToClipboard(this)"
-                    aria-label="Copy command"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <rect
-                        x="9"
-                        y="9"
-                        width="13"
-                        height="13"
-                        rx="2"
-                        ry="2"
-                      ></rect>
-                      <path
-                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-              </li>
-            </ol>
-            <p
-              style="
-                margin: 0.75rem 0 0 0;
-                font-size: 0.8rem;
-                color: var(--text-secondary);
-              "
-              data-i18n="uninstall.linux.note"
-            >
-              Removing the package stops the service and runs the uninstaller
-              for you. Do not call
-              <code>licenseware-collector uninstall</code> directly on a
-              package-managed host &mdash; it refuses and points you back at the
-              package manager.
-            </p>
+          <p data-i18n="uninstall.intro">Run this as administrator. It stops and removes the service, the program, its settings and its data, and goes through the package manager or Windows Installer when one installed the collector.</p>
+          <p data-i18n="single.check.unix">macOS and Linux:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo licenseware-collector uninstall</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-
-          <!-- macOS -->
-          <div
-            style="
-              border: 1px solid var(--border);
-              border-radius: 12px;
-              padding: 1.25rem;
-              margin-top: 1rem;
-            "
-          >
-            <h3
-              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
-              data-i18n="uninstall.macos.title"
-            >
-              macOS
-            </h3>
-            <p
-              style="
-                margin: 0 0 0.5rem 0;
-                font-size: 0.85rem;
-                color: var(--text-secondary);
-              "
-              data-i18n="uninstall.macos.desc"
-            >
-              Download <code>uninstall.command</code> from the Downloads section
-              and double-click it, or run it from Terminal:
-            </p>
-            <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
-                >sudo LICENSEWARE_UNINSTALL_FROM_PACKAGE=1 \
-  /usr/local/libexec/licenseware-collector/licenseware-collector uninstall --force
-sudo rm -rf /usr/local/licenseware-collector
-sudo pkgutil --forget io.licenseware.collector</code></pre>
-              <button
-                class="copy-btn"
-                onclick="copyToClipboard(this)"
-                aria-label="Copy command"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path
-                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                  ></path>
-                </svg>
-              </button>
-            </div>
+          <p data-i18n="ts.diag.win">Windows, in a Command Prompt as administrator:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">LicensewareCollector.exe uninstall</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-
-          <!-- Windows -->
-          <div
-            style="
-              border: 1px solid var(--border);
-              border-radius: 12px;
-              padding: 1.25rem;
-              margin-top: 1rem;
-            "
-          >
-            <h3
-              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
-              data-i18n="uninstall.win.title"
-            >
-              Windows (Administrator PowerShell)
-            </h3>
-            <ol style="margin: 0; padding-left: 1.25rem">
-              <li>
-                <strong
-                  style="color: var(--text-primary)"
-                  data-i18n="uninstall.win.msi"
-                  >Uninstall the package</strong
-                >
-                <div class="code-block" style="margin-top: 0.5rem">
-                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
-                    >msiexec /x LicensewareCollector.msi</code></pre>
-                  <button
-                    class="copy-btn"
-                    onclick="copyToClipboard(this)"
-                    aria-label="Copy command"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <rect
-                        x="9"
-                        y="9"
-                        width="13"
-                        height="13"
-                        rx="2"
-                        ry="2"
-                      ></rect>
-                      <path
-                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-              </li>
-              <li>
-                <strong
-                  style="color: var(--text-primary)"
-                  data-i18n="uninstall.win.cleanup"
-                  >Or remove it from the UI:</strong
-                >
-                <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
-                    >Settings &gt; Apps &gt; Installed apps</code
-                  >
-                  <button
-                    class="copy-btn"
-                    onclick="copyToClipboard(this)"
-                    aria-label="Copy command"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <rect
-                        x="9"
-                        y="9"
-                        width="13"
-                        height="13"
-                        rx="2"
-                        ry="2"
-                      ></rect>
-                      <path
-                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-              </li>
-            </ol>
+          <p data-i18n="uninstall.osquery">osquery is removed only if the collector installed it; add <code>--remove-osquery</code> to remove it anyway.</p>
+          <h3 data-i18n="uninstall.other.title">Other ways</h3>
+          <ul>
+            <li data-i18n="uninstall.o.app">From the Licenseware Collector app: on the <strong>Agents</strong> tab, choose <strong>Remove agent</strong>. An agent that has reported recently uninstalls itself; one that has not is only removed from the list, and you uninstall it on the device.</li>
+            <li data-i18n="uninstall.o.mdm">Intune or SCCM: uninstall the app from your tool.</li>
+            <li data-i18n="uninstall.o.win">Windows by hand: remove <strong>Licenseware Collector</strong> in Settings, Apps.</li>
+            <li data-i18n="uninstall.o.mac">macOS by hand: download <a href="https://cdn.licenseware-collector.com/d/latest/uninstall.command"><code>uninstall.command</code></a> and double-click it.</li>
+          </ul>
+          <p data-i18n="single.manual.deb">Debian and Ubuntu:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo apt purge licenseware-collector</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-
-          <span
-            style="
-              font-size: 0.8rem;
-              color: var(--text-secondary);
-              display: block;
-              margin-top: 0.75rem;
-            "
-            data-i18n="uninstall.note"
-            >Uninstalling stops the service, removes it, and deletes the
-            collector's runtime files and enrollment token from the machine.
-            The package removals above (<code>msiexec /x</code>,
-            <code>apt remove</code> / <code>dnf remove</code> and
-            <code>uninstall.command</code>) run with fixed arguments and take no
-            extra options: <code>--preserve-state</code> and
-            <code>--remove-osquery</code> are options of the
-            <code>licenseware-collector uninstall</code> command, not of
-            <code>msiexec</code>.</span
-          >
-          <aside class="highlight-box" style="margin-top: 1rem" role="note">
-            <span style="font-size: 0.85rem" data-i18n="uninstall.day2">From 0.17.0, <code>uninstall</code> (Windows: <code>LicensewareCollector.exe uninstall</code>) removes a package install through its package manager on every OS, so the refusal above applies only to 0.16.0 and earlier. See <a href="#day2">Day-2 operations</a>, and for Intune and SCCM <a href="#intune">the uninstall command</a>.</span>
-          </aside>
+          <p data-i18n="single.manual.rpm">RHEL, Rocky and Fedora:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo dnf remove licenseware-collector</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="uninstall.app">Uninstalling on the device does not remove the device from the Licenseware Collector app: remove it on the <strong>Agents</strong> tab too.</p>
         </section>
 
         <!-- Data Collection Specification -->
@@ -5925,22 +5628,15 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.detect.never.title": "⚠️ Never detect on health",
           "mdm.detect.never": "Never use <code>status --require-healthy</code>, its exit code <code>5</code> or anything under <code>Collector\\Health</code> as a detection rule: a Licenseware outage would then make Intune or SCCM reinstall the collector everywhere.",
           "nav.uninstall": "Uninstall",
-          "uninstall.title": "Uninstall Guide",
-          "uninstall.warning":
-            "Requires elevated privileges (sudo on Linux/macOS, Administrator on Windows)",
-          "uninstall.linux.title": "Linux",
-          "uninstall.linux.deb": "Debian / Ubuntu",
-          "uninstall.linux.cleanup": "RHEL / Fedora / SUSE",
-          "uninstall.linux.note":
-            "Removing the package stops the service and runs the uninstaller for you. Do not call <code>licenseware-collector uninstall</code> directly on a package-managed host &mdash; it refuses and points you back at the package manager.",
-          "uninstall.macos.title": "macOS",
-          "uninstall.macos.desc":
-            "Download <code>uninstall.command</code> from the Downloads section and double-click it, or run it from Terminal:",
-          "uninstall.win.title": "Windows (Administrator PowerShell)",
-          "uninstall.win.msi": "Uninstall the package",
-          "uninstall.win.cleanup": "Or remove it from the UI:",
-          "uninstall.note":
-            "Uninstalling stops the service, removes it, and deletes the collector's runtime files and enrollment token from the machine. The package removals above (<code>msiexec /x</code>, <code>apt remove</code> / <code>dnf remove</code> and <code>uninstall.command</code>) run with fixed arguments and take no extra options: <code>--preserve-state</code> and <code>--remove-osquery</code> are options of the <code>licenseware-collector uninstall</code> command, not of <code>msiexec</code>.",
+          "uninstall.title": "Uninstall",
+          "uninstall.intro": "Run this as administrator. It stops and removes the service, the program, its settings and its data, and goes through the package manager or Windows Installer when one installed the collector.",
+          "uninstall.osquery": "osquery is removed only if the collector installed it; add <code>--remove-osquery</code> to remove it anyway.",
+          "uninstall.other.title": "Other ways",
+          "uninstall.o.app": "From the Licenseware Collector app: on the <strong>Agents</strong> tab, choose <strong>Remove agent</strong>. An agent that has reported recently uninstalls itself; one that has not is only removed from the list, and you uninstall it on the device.",
+          "uninstall.o.mdm": "Intune or SCCM: uninstall the app from your tool.",
+          "uninstall.o.win": "Windows by hand: remove <strong>Licenseware Collector</strong> in Settings, Apps.",
+          "uninstall.o.mac": "macOS by hand: download <a href=\"https://cdn.licenseware-collector.com/d/latest/uninstall.command\"><code>uninstall.command</code></a> and double-click it.",
+          "uninstall.app": "Uninstalling on the device does not remove the device from the Licenseware Collector app: remove it on the <strong>Agents</strong> tab too.",
           "nav.reference": "Reference",
           "nav.logs": "Logs",
           "logs.title": "Logs &amp; Troubleshooting",
@@ -6223,8 +5919,6 @@ Get-Content install.log -Tail 200</code></pre>
           "day2.monitor.title": "Monitoring",
           "day2.update.title": "Updates",
           "day2.update.desc": "The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns updates off (<a href=\"#settings\">Settings</a>).",
-          "uninstall.day2":
-            'From 0.17.0, <code>uninstall</code> (Windows: <code>LicensewareCollector.exe uninstall</code>) removes a package install through its package manager on every OS, so the refusal above applies only to 0.16.0 and earlier. See <a href="#day2">Day-2 operations</a>, and for Intune and SCCM <a href="#intune">the uninstall command</a>.',
           "logs.macos.rotate":
             "From 0.17.0 the file is rotated at 10 MB and 7 compressed copies are kept. Package install failures (exit codes 20–23) are in <code>/var/log/install.log</code>:",
           "logs.more":
@@ -6457,22 +6151,15 @@ Get-Content install.log -Tail 200</code></pre>
           "mdm.detect.never.title": "⚠️ Nunca detecte por el estado de salud",
           "mdm.detect.never": "Nunca use <code>status --require-healthy</code>, su código de salida <code>5</code> ni nada bajo <code>Collector\\Health</code> como regla de detección: una caída de Licenseware haría que Intune o SCCM reinstalara el Collector en todas partes.",
           "nav.uninstall": "Desinstalar",
-          "uninstall.title": "Guía de Desinstalación",
-          "uninstall.warning":
-            "Requiere privilegios elevados (sudo en Linux/macOS, Administrador en Windows)",
-          "uninstall.linux.title": "Linux",
-          "uninstall.linux.deb": "Debian / Ubuntu",
-          "uninstall.linux.cleanup": "RHEL / Fedora / SUSE",
-          "uninstall.linux.note":
-            "Eliminar el paquete detiene el servicio y ejecuta el desinstalador por usted. No invoque <code>licenseware-collector uninstall</code> directamente en un host gestionado por paquetes &mdash; se negará y le remitirá al gestor de paquetes.",
-          "uninstall.macos.title": "macOS",
-          "uninstall.macos.desc":
-            "Descargue <code>uninstall.command</code> desde la sección Descargas y haga doble clic en él, o ejecútelo desde el Terminal:",
-          "uninstall.win.title": "Windows (PowerShell de Administrador)",
-          "uninstall.win.msi": "Desinstale el paquete",
-          "uninstall.win.cleanup": "O elimínelo desde la interfaz:",
-          "uninstall.note":
-            "La desinstalación detiene el servicio, lo elimina y borra de la máquina los archivos de ejecución del collector y el token de inscripción. Las desinstalaciones de paquete anteriores (<code>msiexec /x</code>, <code>apt remove</code> / <code>dnf remove</code> y <code>uninstall.command</code>) se ejecutan con argumentos fijos y no admiten opciones adicionales: <code>--preserve-state</code> y <code>--remove-osquery</code> son opciones del comando <code>licenseware-collector uninstall</code>, no de <code>msiexec</code>.",
+          "uninstall.title": "Desinstalar",
+          "uninstall.intro": "Ejecútelo como administrador. Detiene y quita el servicio, el programa, su configuración y sus datos, y pasa por el gestor de paquetes o Windows Installer cuando uno de ellos instaló el Collector.",
+          "uninstall.osquery": "osquery solo se quita si lo instaló el Collector; añada <code>--remove-osquery</code> para quitarlo igualmente.",
+          "uninstall.other.title": "Otras formas",
+          "uninstall.o.app": "Desde la aplicación Licenseware Collector: en la pestaña <strong>Agents</strong>, elija <strong>Remove agent</strong>. Un agente que ha informado recientemente se desinstala solo; uno que no, solo se quita de la lista y usted lo desinstala en el dispositivo.",
+          "uninstall.o.mdm": "Intune o SCCM: desinstale la aplicación desde su herramienta.",
+          "uninstall.o.win": "Windows a mano: quite <strong>Licenseware Collector</strong> en Configuración, Aplicaciones.",
+          "uninstall.o.mac": "macOS a mano: descargue <a href=\"https://cdn.licenseware-collector.com/d/latest/uninstall.command\"><code>uninstall.command</code></a> y haga doble clic en él.",
+          "uninstall.app": "Desinstalar en el dispositivo no lo quita de la aplicación Licenseware Collector: quítelo también en la pestaña <strong>Agents</strong>.",
           "nav.reference": "Referencia",
           "nav.logs": "Registros",
           "logs.title": "Registros y Solución de Problemas",
@@ -6756,8 +6443,6 @@ Get-Content install.log -Tail 200</code></pre>
           "day2.monitor.title": "Supervisión",
           "day2.update.title": "Actualizaciones",
           "day2.update.desc": "El agente consulta <code>cdn.licenseware-collector.com</code> 5 minutos después de iniciarse y luego cada 24 horas, instala solo versiones firmadas por Licenseware y vuelve a la versión anterior si la nueva no arranca e informa. osquery se actualiza de la misma forma. <code>update --check</code> muestra lo que haría; <code>AUTOUPDATE=0</code> desactiva las actualizaciones (<a href=\"#settings\">Configuración</a>).",
-          "uninstall.day2":
-            'Desde 0.17.0, <code>uninstall</code> (Windows: <code>LicensewareCollector.exe uninstall</code>) elimina una instalación por paquete mediante su gestor de paquetes en todos los SO, de modo que la negativa anterior solo se aplica a 0.16.0 y anteriores. Vea <a href="#day2">Operaciones del día 2</a> y, para Intune y SCCM, <a href="#intune">el comando de desinstalación</a>.',
           "logs.macos.rotate":
             "Desde 0.17.0 el archivo rota a los 10 MB y se conservan 7 copias comprimidas. Los fallos de instalación del paquete (códigos de salida 20–23) están en <code>/var/log/install.log</code>:",
           "logs.more":
