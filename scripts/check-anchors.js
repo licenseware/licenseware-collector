@@ -6,7 +6,6 @@ const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 
 // Anchors that bookmarks, the retired install.sh stub and other pages use.
 // Add an anchor here before creating it; never remove one.
-// Coming with the 0.17.0 rework: "upgrading" (Task B13).
 const PUBLISHED = [
   "overview",
   "compatibility",
@@ -31,6 +30,7 @@ const PUBLISHED = [
   "golden-images",
   "settings",
   "day2",
+  "upgrading",
   "troubleshooting",
   "ts-status",
   "ts-windows",

@@ -354,12 +354,6 @@
         margin-top: 0.5rem;
       }
 
-      .badge-version {
-        background: transparent;
-        color: var(--text-secondary);
-        border: 1px solid var(--border);
-      }
-
       .card {
         background: var(--bg-card);
         border-radius: 12px;
@@ -1278,6 +1272,7 @@
             <li><a href="#day2" data-i18n="nav.day2">Commands</a></li>
             <li><a href="#troubleshooting" data-i18n="nav.troubleshooting">Troubleshooting</a></li>
             <li><a href="#uninstall" data-i18n="nav.uninstall">Uninstall</a></li>
+            <li><a href="#upgrading" data-i18n="nav.upgrading">Before 0.17.0 arrives</a></li>
 
             <li class="sidebar-title" role="presentation" data-i18n="nav.reference">Reference</li>
             <li><a href="#catalogs" data-i18n="nav.catalogs">What we collect</a></li>
@@ -1548,6 +1543,7 @@
                 >Allow outbound HTTPS (port 443) to the hosts above; no inbound ports are needed. Behind a proxy, see <a href="#proxy">Proxy</a>. The agent checks for commands every minute, uploads data every 5 minutes, and refreshes its settings and collection catalogs every 30 minutes.</span
               >
             </aside>
+            <p data-i18n="network.upgrading" style="margin-top: 1rem">Devices updating from 0.16.0 also need GitHub for that one update: see <a href="#upgrading">the upgrade notes</a>.</p>
           </section>
 
           <!-- System Requirements -->
@@ -1823,6 +1819,7 @@
               <li data-i18n="start.pick.image"><a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.</li>
             </ul>
             <p data-i18n="start.shared">Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.</p>
+            <p data-i18n="start.old">Devices already running 0.16.0 or earlier: see <a href="#upgrading">what to prepare and what changes</a>.</p>
             <h3 id="glossary" data-i18n="start.glossary.title" style="margin-top: 1.5rem">Words used in these guides</h3>
             <dl class="glossary">
               <dt data-i18n="start.g.token.t">Enrolment token</dt>
@@ -2936,6 +2933,111 @@ Start-Service licenseware-collector</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
           <p data-i18n="uninstall.app">Uninstalling on the device does not remove the device from the Licenseware Collector app: remove it on the <strong>Agents</strong> tab too.</p>
+        </section>
+
+        <!-- Before Collector 0.17.0 arrives -->
+        <section class="card" id="upgrading" aria-labelledby="upgrading-title">
+          <div class="card-header">
+            <div class="card-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path
+                  d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
+                ></path>
+              </svg>
+            </div>
+            <h2 id="upgrading-title" data-i18n="upg.title">Before Collector 0.17.0 arrives</h2>
+          </div>
+          <p data-i18n="upg.intro">Collector 0.17.0 is the next release. Every agent newer than 0.11.0 updates itself to it from GitHub within a day of the release, all at once, and Licenseware cannot pause an agent that is still on 0.16.0 or earlier. Linux and macOS agents restart on the new version straight away. Prepare for the points below before the release.</p>
+
+          <h3 data-i18n="upg.win.title" style="margin-top: 1.5rem">Windows: start the service after the update</h3>
+          <p data-i18n="upg.win.desc">The updater in 0.16.0 and earlier stops its own service to replace the program and never starts it again. A Windows device that takes the update stops reporting until it restarts, or until something starts the <code>licenseware-collector</code> service. After the last update, half of these devices stayed stopped for more than 57 hours. 0.17.0 updates itself without this problem, so it happens once.</p>
+          <p data-i18n="upg.win.intune">With Intune, set up this remediation before the release. It starts the service only where it is stopped under 0.17.0 or later and not disabled, and does nothing anywhere else.</p>
+          <ul style="padding-left: 1.25rem">
+            <li data-i18n="upg.win.detect"><a href="/mdm/intune/detect.ps1" download><code>detect.ps1</code></a>: the detection script</li>
+            <li data-i18n="upg.win.remediate"><a href="/mdm/intune/remediate.ps1" download><code>remediate.ps1</code></a>: the remediation script</li>
+          </ul>
+          <div style="overflow-x: auto">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="upg.tbl.setting">Setting (Intune admin center, Devices, Scripts and remediations, Remediations, Create)</th>
+                  <th data-i18n="upg.tbl.value">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td data-i18n="upg.tbl.detect">Detection script file</td><td><code>detect.ps1</code></td></tr>
+                <tr><td data-i18n="upg.tbl.remediate">Remediation script file</td><td><code>remediate.ps1</code></td></tr>
+                <tr><td data-i18n="upg.tbl.creds">Run this script using the logged-on credentials</td><td><strong data-i18n="upg.tbl.no">No</strong></td></tr>
+                <tr><td data-i18n="upg.tbl.sig">Enforce script signature check</td><td data-i18n="upg.tbl.no">No</td></tr>
+                <tr><td data-i18n="upg.tbl.64">Run script in 64-bit PowerShell</td><td><strong data-i18n="upg.tbl.yes">Yes</strong></td></tr>
+                <tr><td data-i18n="upg.tbl.sched">Schedule</td><td data-i18n="upg.tbl.hourly">Hourly</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p data-i18n="upg.win.licence">Assign it to the Windows devices that run the collector, starting with a pilot group. Remediations need a Windows licence that includes them (Enterprise or Education); check your tenant before relying on them.</p>
+          <p data-i18n="upg.win.other">Without Intune, run <code>detect.ps1</code> as SYSTEM from any tool that can (an SCCM compliance item, an RMM tool), and <code>remediate.ps1</code> when it exits <code>1</code>. For servers and VDI that never restart, also deploy the 0.17.0 MSI to them once it is published: it starts a stopped service.</p>
+
+          <h3 data-i18n="upg.optout.title" style="margin-top: 1.5rem">Keeping devices on 0.16.0</h3>
+          <p data-i18n="upg.optout.desc">Licenseware cannot pause agents on 0.16.0 or earlier. To keep devices off 0.17.0, block these hosts for them before the release: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code>. From 0.17.0 you can turn updates off on the device instead (<code>AUTOUPDATE=0</code>).</p>
+
+          <h3 data-i18n="upg.mac.title" style="margin-top: 1.5rem">macOS: update privacy rules first</h3>
+          <p data-i18n="upg.mac.desc">With 0.17.0, Macs update themselves for the first time. From 0.17.0 the collector's code-signing identifier is <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>); earlier builds used <code>licenseware-collector</code>, <code>LicensewareCollector</code> and <code>osqueryi</code>. If your MDM has PPPC or other privacy rules that name the collector by identifier, add the new identifiers before the release and keep the old ones until every Mac is updated. Rules that use the Team ID <code>8MD7XA4CF3</code> need no change.</p>
+
+          <h3 data-i18n="upg.msi.title" style="margin-top: 1.5rem">Windows: replace the MSI in your deployment tool</h3>
+          <p data-i18n="upg.msi.desc">Once 0.17.0 is published, replace the 0.16.x MSI in Intune, SCCM or your other tool with the 0.17.0 one. Running an older MSI again on an updated device puts the older version back.</p>
+
+          <h3 data-i18n="upg.old.title" style="margin-top: 1.5rem">Agents on 0.11.0 or older</h3>
+          <p data-i18n="upg.old.desc">These never update to 0.17.0. Reinstall them with the current package from <a href="#downloads">Downloads</a>.</p>
+
+          <h3 data-i18n="upg2.changes.title" style="margin-top: 1.5rem">What changes in 0.17.0</h3>
+          <ul style="padding-left: 1.25rem">
+            <li data-i18n="upg2.c1">Installs are one step on every OS: the install enrols the device or fails (<a href="#single-machine">Single machine</a>).</li>
+            <li data-i18n="upg2.c2"><code>status</code>, <code>set</code>, <code>restart</code>, <code>diagnose</code> and <code>uninstall</code> work the same way on every OS, and the command is on the <code>PATH</code> (<a href="#day2">Commands</a>).</li>
+            <li data-i18n="upg2.c3">Agents update from <code>cdn.licenseware-collector.com</code>, only to releases signed by Licenseware, Macs included; <code>AUTOUPDATE=0</code> turns updates off (<a href="#settings">Settings</a>).</li>
+            <li data-i18n="upg2.c4">One set of setting names works as MSI properties, macOS profile keys, environment variables and <code>set</code> keys (<a href="#settings">Settings</a>).</li>
+          </ul>
+
+          <h3 data-i18n="upg2.net.title" style="margin-top: 1.5rem">Network while devices update</h3>
+          <p data-i18n="upg2.net.desc">Agents on 0.16.0 and earlier reach 0.17.0 through GitHub. Until every device runs 0.17.0, allow <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code> as well as the hosts in <a href="#network">Network</a>; those agents also use <code>github.com</code> for an osquery download they rarely need. Once every device runs 0.17.0, only the hosts in Network are needed.</p>
+
+          <h3 data-i18n="upg2.detect.title" style="margin-top: 1.5rem">Detection rules for older agents</h3>
+          <p data-i18n="upg2.detect.desc">The registry detection rule (<a href="#intune-detect">Intune / SCCM</a>) works from 0.16.0. A device on an older agent gains it only after it updates and checks in once, about a minute after the restart, so a required assignment that already detects on it would reinstall the collector there. Until your console shows the fleet on 0.16.0 or later, keep this script:</p>
+          <details style="margin: 0.75rem 0">
+            <summary data-i18n="upg2.detect.script">PowerShell detection script for agents older than 0.16.0</summary>
+            <div class="code-block">
+              <pre><code style="font-size: 0.85rem">$svc = Get-Service licenseware-collector -ErrorAction SilentlyContinue
+$env = "$env:ProgramData\Licenseware\collector.env"
+if ($svc -and (Test-Path $env) -and (Select-String -Path $env -Pattern '^TOKEN=..*' -Quiet)) {
+    Write-Output "Installed"
+    exit 0
+}
+exit 1</code></pre>
+              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+            </div>
+          </details>
+          <p data-i18n="upg2.detect.oldmsi">Uninstalling with an MSI older than 0.17.0, on a device that has run 0.17.0, leaves <code>HKLM\SOFTWARE\Licenseware\Collector</code> behind. While your fleet mixes versions, detect the <code>licenseware-collector</code> service as well.</p>
+
+          <h3 data-i18n="upg2.old.title" style="margin-top: 1.5rem">On 0.16.0 and earlier</h3>
+          <ul style="padding-left: 1.25rem">
+            <li data-i18n="upg2.o.install">On macOS and Linux the package only installs files: enrol the machine afterwards with <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code> (on macOS the program is <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>).</li>
+            <li data-i18n="upg2.o.msi">The MSI takes only <code>TOKEN</code>, and its exit code <code>0</code> does not prove the device registered: check with <code>status</code>.</li>
+            <li data-i18n="upg2.o.cmds"><code>set</code>, <code>restart</code> and <code>diagnose</code> do not exist, and <code>uninstall</code> refuses on a package install: remove the package instead. To change a setting, edit the env file, which uses the older names <code>HTTPS_PROXY</code>, <code>NO_PROXY</code> and <code>CA_CERT_PATH</code>, then restart the service: <code>systemctl restart licenseware-collector</code>, <code>launchctl kickstart -k system/io.licenseware.licenseware-collector</code> or <code>Restart-Service licenseware-collector</code>.</li>
+            <li data-i18n="upg2.o.ca">The Windows and macOS services ignore <code>CA_CERT_PATH</code>: add the CA certificate to the operating system's trust store instead.</li>
+            <li data-i18n="upg2.o.image">There is no image mode: install without a token on the image (Windows: the MSI without <code>TOKEN</code>; Linux and macOS: the package only), then run <code>register</code> with the token on each machine after it is created.</li>
+            <li data-i18n="upg2.o.maclink">A Mac that updated itself from 0.16.0 gets the <code>licenseware-collector</code> command in <code>/usr/local/bin</code> only after <code>sudo /usr/local/libexec/licenseware-collector/licenseware-collector register</code>.</li>
+          </ul>
         </section>
 
         <!-- Data Collection Specification -->
@@ -5493,6 +5595,7 @@ Get-Content install.log -Tail 200</code></pre>
           "network.cdn_desc": "Installers, and agent and osquery updates, which the agent checks for while it runs.",
           "network.firewall.title": "⚠️ Firewall Configuration",
           "network.firewall.desc": "Allow outbound HTTPS (port 443) to the hosts above; no inbound ports are needed. Behind a proxy, see <a href=\"#proxy\">Proxy</a>. The agent checks for commands every minute, uploads data every 5 minutes, and refreshes its settings and collection catalogs every 30 minutes.",
+          "network.upgrading": "Devices updating from 0.16.0 also need GitHub for that one update: see <a href=\"#upgrading\">the upgrade notes</a>.",
           "system.title": "System Requirements",
           "system.arch.title": "Architecture",
           "system.arch.desc": "64-bit only (32-bit not supported)",
@@ -5694,8 +5797,6 @@ Get-Content install.log -Tail 200</code></pre>
           "footer.copyright": "© 2026 LICENSEWARE®. All rights reserved.",
           "footer.licence": "Licence Agreement",
           "footer.legal": "Legal",
-          "ver.017": "From 0.17.0",
-          "ver.old.title": "On 0.16.0 and earlier",
           "nav.single": "Single machine",
           "nav.intune": "Intune / SCCM (Windows)",
           "nav.mac": "Jamf, Intune for Mac, Kandji",
@@ -5707,6 +5808,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.customca": "Custom CA",
           "nav.day2": "Commands",
           "nav.troubleshooting": "Troubleshooting",
+          "nav.upgrading": "Before 0.17.0 arrives",
           "downloads.next": "Next: <a href=\"#installation\">pick the guide for how you deploy</a>.",
           "start.pick.single":
             '<a href="#single-machine">Single machine</a>: one Windows, Mac or Linux machine, by hand.',
@@ -5720,6 +5822,7 @@ Get-Content install.log -Tail 200</code></pre>
             '<a href="#golden-images">Golden images and VDI</a>: an image or template that every clone enrols from.',
           "start.shared":
             'Every guide uses the same <a href="#settings">Settings</a> (proxy, CA certificate, updates, log level) and the same <a href="#day2">Day-2 commands</a>.',
+          "start.old": "Devices already running 0.16.0 or earlier: see <a href=\"#upgrading\">what to prepare and what changes</a>.",
           "start.glossary.title": "Words used in these guides",
           "start.g.token.t": "Enrolment token",
           "start.g.token.d": "The key you create in the app. A device uses it once to join your account; it gives no access to your data.",
@@ -5979,6 +6082,52 @@ Get-Content install.log -Tail 200</code></pre>
           "ts.app.title": "The device is not in the app",
           "ts.app.desc": "A registered device (<code>status</code> exits <code>0</code>) appears under <strong>Agents</strong> in the Licenseware Collector app of the project its token belongs to; check that you are looking at that project. The software and hardware it collects appear after the next processing run, within 6 hours.",
           "ts.logs": "Where every log lives: <a href=\"#logs\">Logs</a>.",
+          "upg.intro": "Collector 0.17.0 is the next release. Every agent newer than 0.11.0 updates itself to it from GitHub within a day of the release, all at once, and Licenseware cannot pause an agent that is still on 0.16.0 or earlier. Linux and macOS agents restart on the new version straight away. Prepare for the points below before the release.",
+          "upg.mac.desc": "With 0.17.0, Macs update themselves for the first time. From 0.17.0 the collector's code-signing identifier is <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>); earlier builds used <code>licenseware-collector</code>, <code>LicensewareCollector</code> and <code>osqueryi</code>. If your MDM has PPPC or other privacy rules that name the collector by identifier, add the new identifiers before the release and keep the old ones until every Mac is updated. Rules that use the Team ID <code>8MD7XA4CF3</code> need no change.",
+          "upg.mac.title": "macOS: update privacy rules first",
+          "upg.msi.desc": "Once 0.17.0 is published, replace the 0.16.x MSI in Intune, SCCM or your other tool with the 0.17.0 one. Running an older MSI again on an updated device puts the older version back.",
+          "upg.msi.title": "Windows: replace the MSI in your deployment tool",
+          "upg.old.desc": "These never update to 0.17.0. Reinstall them with the current package from <a href=\"#downloads\">Downloads</a>.",
+          "upg.old.title": "Agents on 0.11.0 or older",
+          "upg.optout.desc": "Licenseware cannot pause agents on 0.16.0 or earlier. To keep devices off 0.17.0, block these hosts for them before the release: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code>. From 0.17.0 you can turn updates off on the device instead (<code>AUTOUPDATE=0</code>).",
+          "upg.optout.title": "Keeping devices on 0.16.0",
+          "upg.tbl.64": "Run script in 64-bit PowerShell",
+          "upg.tbl.creds": "Run this script using the logged-on credentials",
+          "upg.tbl.detect": "Detection script file",
+          "upg.tbl.hourly": "Hourly",
+          "upg.tbl.no": "No",
+          "upg.tbl.remediate": "Remediation script file",
+          "upg.tbl.sched": "Schedule",
+          "upg.tbl.setting": "Setting (Intune admin center, Devices, Scripts and remediations, Remediations, Create)",
+          "upg.tbl.sig": "Enforce script signature check",
+          "upg.tbl.value": "Value",
+          "upg.tbl.yes": "Yes",
+          "upg.title": "Before Collector 0.17.0 arrives",
+          "upg.win.desc": "The updater in 0.16.0 and earlier stops its own service to replace the program and never starts it again. A Windows device that takes the update stops reporting until it restarts, or until something starts the <code>licenseware-collector</code> service. After the last update, half of these devices stayed stopped for more than 57 hours. 0.17.0 updates itself without this problem, so it happens once.",
+          "upg.win.detect": "<a href=\"/mdm/intune/detect.ps1\" download><code>detect.ps1</code></a>: the detection script",
+          "upg.win.intune": "With Intune, set up this remediation before the release. It starts the service only where it is stopped under 0.17.0 or later and not disabled, and does nothing anywhere else.",
+          "upg.win.licence": "Assign it to the Windows devices that run the collector, starting with a pilot group. Remediations need a Windows licence that includes them (Enterprise or Education); check your tenant before relying on them.",
+          "upg.win.other": "Without Intune, run <code>detect.ps1</code> as SYSTEM from any tool that can (an SCCM compliance item, an RMM tool), and <code>remediate.ps1</code> when it exits <code>1</code>. For servers and VDI that never restart, also deploy the 0.17.0 MSI to them once it is published: it starts a stopped service.",
+          "upg.win.remediate": "<a href=\"/mdm/intune/remediate.ps1\" download><code>remediate.ps1</code></a>: the remediation script",
+          "upg.win.title": "Windows: start the service after the update",
+          "upg2.changes.title": "What changes in 0.17.0",
+          "upg2.c1": "Installs are one step on every OS: the install enrols the device or fails (<a href=\"#single-machine\">Single machine</a>).",
+          "upg2.c2": "<code>status</code>, <code>set</code>, <code>restart</code>, <code>diagnose</code> and <code>uninstall</code> work the same way on every OS, and the command is on the <code>PATH</code> (<a href=\"#day2\">Commands</a>).",
+          "upg2.c3": "Agents update from <code>cdn.licenseware-collector.com</code>, only to releases signed by Licenseware, Macs included; <code>AUTOUPDATE=0</code> turns updates off (<a href=\"#settings\">Settings</a>).",
+          "upg2.c4": "One set of setting names works as MSI properties, macOS profile keys, environment variables and <code>set</code> keys (<a href=\"#settings\">Settings</a>).",
+          "upg2.net.title": "Network while devices update",
+          "upg2.net.desc": "Agents on 0.16.0 and earlier reach 0.17.0 through GitHub. Until every device runs 0.17.0, allow <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code> as well as the hosts in <a href=\"#network\">Network</a>; those agents also use <code>github.com</code> for an osquery download they rarely need. Once every device runs 0.17.0, only the hosts in Network are needed.",
+          "upg2.detect.title": "Detection rules for older agents",
+          "upg2.detect.desc": "The registry detection rule (<a href=\"#intune-detect\">Intune / SCCM</a>) works from 0.16.0. A device on an older agent gains it only after it updates and checks in once, about a minute after the restart, so a required assignment that already detects on it would reinstall the collector there. Until your console shows the fleet on 0.16.0 or later, keep this script:",
+          "upg2.detect.script": "PowerShell detection script for agents older than 0.16.0",
+          "upg2.detect.oldmsi": "Uninstalling with an MSI older than 0.17.0, on a device that has run 0.17.0, leaves <code>HKLM\\SOFTWARE\\Licenseware\\Collector</code> behind. While your fleet mixes versions, detect the <code>licenseware-collector</code> service as well.",
+          "upg2.old.title": "On 0.16.0 and earlier",
+          "upg2.o.install": "On macOS and Linux the package only installs files: enrol the machine afterwards with <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code> (on macOS the program is <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>).",
+          "upg2.o.msi": "The MSI takes only <code>TOKEN</code>, and its exit code <code>0</code> does not prove the device registered: check with <code>status</code>.",
+          "upg2.o.cmds": "<code>set</code>, <code>restart</code> and <code>diagnose</code> do not exist, and <code>uninstall</code> refuses on a package install: remove the package instead. To change a setting, edit the env file, which uses the older names <code>HTTPS_PROXY</code>, <code>NO_PROXY</code> and <code>CA_CERT_PATH</code>, then restart the service: <code>systemctl restart licenseware-collector</code>, <code>launchctl kickstart -k system/io.licenseware.licenseware-collector</code> or <code>Restart-Service licenseware-collector</code>.",
+          "upg2.o.ca": "The Windows and macOS services ignore <code>CA_CERT_PATH</code>: add the CA certificate to the operating system's trust store instead.",
+          "upg2.o.image": "There is no image mode: install without a token on the image (Windows: the MSI without <code>TOKEN</code>; Linux and macOS: the package only), then run <code>register</code> with the token on each machine after it is created.",
+          "upg2.o.maclink": "A Mac that updated itself from 0.16.0 gets the <code>licenseware-collector</code> command in <code>/usr/local/bin</code> only after <code>sudo /usr/local/libexec/licenseware-collector/licenseware-collector register</code>.",
         },
         es: {
           "app.title": "LICENSEWARE Collector",
@@ -6015,6 +6164,7 @@ Get-Content install.log -Tail 200</code></pre>
           "network.cdn_desc": "Instaladores y actualizaciones del agente y de osquery, que el agente comprueba mientras se ejecuta.",
           "network.firewall.title": "⚠️ Configuración del Firewall",
           "network.firewall.desc": "Permita HTTPS saliente (puerto 443) hacia los hosts anteriores; no se necesitan puertos de entrada. Detrás de un proxy, vea <a href=\"#proxy\">Proxy</a>. El agente comprueba comandos cada minuto, envía datos cada 5 minutos y actualiza su configuración y sus catálogos de recopilación cada 30 minutos.",
+          "network.upgrading": "Los dispositivos que se actualizan desde 0.16.0 también necesitan GitHub para esa actualización: vea <a href=\"#upgrading\">las notas de actualización</a>.",
           "system.title": "Requisitos del Sistema",
           "system.arch.title": "Arquitectura",
           "system.arch.desc": "Solo 64-bit (32-bit no compatible)",
@@ -6218,8 +6368,6 @@ Get-Content install.log -Tail 200</code></pre>
             "© 2026 LICENSEWARE®. Todos los derechos reservados.",
           "footer.licence": "Acuerdo de Licencia",
           "footer.legal": "Legal",
-          "ver.017": "Desde 0.17.0",
-          "ver.old.title": "En 0.16.0 y anteriores",
           "nav.single": "Una sola máquina",
           "nav.intune": "Intune / SCCM (Windows)",
           "nav.mac": "Jamf, Intune para Mac, Kandji",
@@ -6231,6 +6379,7 @@ Get-Content install.log -Tail 200</code></pre>
           "nav.customca": "CA personalizada",
           "nav.day2": "Comandos",
           "nav.troubleshooting": "Solución de problemas",
+          "nav.upgrading": "Antes de la 0.17.0",
           "downloads.next": "Siguiente: <a href=\"#installation\">elija la guía según cómo despliega</a>.",
           "start.pick.single":
             '<a href="#single-machine">Una sola máquina</a>: una máquina Windows, Mac o Linux, a mano.',
@@ -6244,6 +6393,7 @@ Get-Content install.log -Tail 200</code></pre>
             '<a href="#golden-images">Imágenes maestras y VDI</a>: una imagen o plantilla desde la que se inscribe cada clon.',
           "start.shared":
             'Todas las guías usan los mismos <a href="#settings">Ajustes</a> (proxy, certificado de CA, actualizaciones, nivel de log) y los mismos <a href="#day2">comandos del día 2</a>.',
+          "start.old": "Dispositivos que ya ejecutan 0.16.0 o anterior: vea <a href=\"#upgrading\">qué preparar y qué cambia</a>.",
           "start.glossary.title": "Términos usados en estas guías",
           "start.g.token.t": "Token de inscripción",
           "start.g.token.d": "La clave que crea en la aplicación. Un dispositivo la usa una vez para unirse a su cuenta; no da acceso a sus datos.",
@@ -6503,6 +6653,52 @@ Get-Content install.log -Tail 200</code></pre>
           "ts.app.title": "El dispositivo no aparece en la aplicación",
           "ts.app.desc": "Un dispositivo registrado (<code>status</code> sale con <code>0</code>) aparece en <strong>Agents</strong> en la aplicación Licenseware Collector del proyecto al que pertenece su token; compruebe que mira ese proyecto. El software y el hardware que recopila aparecen tras el siguiente procesamiento, en 6 horas como máximo.",
           "ts.logs": "Dónde está cada registro: <a href=\"#logs\">Registros</a>.",
+          "upg.intro": "Collector 0.17.0 es la próxima versión. Todo agente posterior a 0.11.0 se actualiza a ella desde GitHub en el día siguiente a su publicación, todos a la vez, y Licenseware no puede pausar un agente que siga en 0.16.0 o anterior. Los agentes de Linux y macOS se reinician con la nueva versión de inmediato. Prepare los puntos siguientes antes de la publicación.",
+          "upg.mac.desc": "Con 0.17.0, los Mac se actualizan solos por primera vez. Desde 0.17.0, el identificador de firma de código del Collector es <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>); las versiones anteriores usaban <code>licenseware-collector</code>, <code>LicensewareCollector</code> y <code>osqueryi</code>. Si su MDM tiene reglas PPPC u otras reglas de privacidad que nombran el Collector por identificador, añada los nuevos identificadores antes de la publicación y mantenga los antiguos hasta que todos los Mac estén actualizados. Las reglas que usan el Team ID <code>8MD7XA4CF3</code> no necesitan cambios.",
+          "upg.mac.title": "macOS: actualice primero las reglas de privacidad",
+          "upg.msi.desc": "Cuando 0.17.0 esté publicado, reemplace el MSI 0.16.x en Intune, SCCM u otra herramienta por el de 0.17.0. Volver a ejecutar un MSI anterior en un dispositivo actualizado restaura la versión anterior.",
+          "upg.msi.title": "Windows: reemplace el MSI en su herramienta de despliegue",
+          "upg.old.desc": "Estos nunca se actualizan a 0.17.0. Reinstálelos con el paquete actual de <a href=\"#downloads\">Descargas</a>.",
+          "upg.old.title": "Agentes en 0.11.0 o anteriores",
+          "upg.optout.desc": "Licenseware no puede pausar agentes en 0.16.0 o anteriores. Para mantener dispositivos fuera de 0.17.0, bloquee para ellos estos hosts antes de la publicación: <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> y <code>objects.githubusercontent.com</code>. Desde 0.17.0 puede desactivar las actualizaciones en el propio dispositivo (<code>AUTOUPDATE=0</code>).",
+          "upg.optout.title": "Mantener dispositivos en 0.16.0",
+          "upg.tbl.64": "Ejecutar el script en PowerShell de 64 bits",
+          "upg.tbl.creds": "Ejecutar este script con las credenciales del usuario que inició sesión",
+          "upg.tbl.detect": "Archivo de script de detección",
+          "upg.tbl.hourly": "Cada hora",
+          "upg.tbl.no": "No",
+          "upg.tbl.remediate": "Archivo de script de corrección",
+          "upg.tbl.sched": "Programación",
+          "upg.tbl.setting": "Opción (Centro de administración de Intune, Dispositivos, Scripts y correcciones, Correcciones, Crear)",
+          "upg.tbl.sig": "Exigir la comprobación de la firma del script",
+          "upg.tbl.value": "Valor",
+          "upg.tbl.yes": "Sí",
+          "upg.title": "Antes de que llegue Collector 0.17.0",
+          "upg.win.desc": "El actualizador de 0.16.0 y anteriores detiene su propio servicio para reemplazar el programa y no lo vuelve a iniciar. Un dispositivo Windows que recibe la actualización deja de informar hasta que se reinicia, o hasta que algo inicia el servicio <code>licenseware-collector</code>. En la última actualización, la mitad de estos dispositivos estuvo detenida más de 57 horas. 0.17.0 se actualiza sin este problema, así que ocurre una sola vez.",
+          "upg.win.detect": "<a href=\"/mdm/intune/detect.ps1\" download><code>detect.ps1</code></a>: el script de detección",
+          "upg.win.intune": "Con Intune, configure esta corrección antes de la publicación. Inicia el servicio solo donde está detenido con 0.17.0 o posterior y no deshabilitado, y no hace nada en los demás casos.",
+          "upg.win.licence": "Asígnela a los dispositivos Windows que ejecutan el Collector, empezando por un grupo piloto. Las correcciones requieren una licencia de Windows que las incluya (Enterprise o Education); compruebe su tenant antes de depender de ellas.",
+          "upg.win.other": "Sin Intune, ejecute <code>detect.ps1</code> como SYSTEM desde cualquier herramienta que lo permita (un elemento de cumplimiento de SCCM, una herramienta RMM), y <code>remediate.ps1</code> cuando salga con <code>1</code>. En servidores y VDI que nunca se reinician, despliegue además el MSI de 0.17.0 cuando esté publicado: inicia un servicio detenido.",
+          "upg.win.remediate": "<a href=\"/mdm/intune/remediate.ps1\" download><code>remediate.ps1</code></a>: el script de corrección",
+          "upg.win.title": "Windows: inicie el servicio después de la actualización",
+          "upg2.changes.title": "Qué cambia en 0.17.0",
+          "upg2.c1": "La instalación es un solo paso en todos los sistemas: inscribe el dispositivo o falla (<a href=\"#single-machine\">Una sola máquina</a>).",
+          "upg2.c2": "<code>status</code>, <code>set</code>, <code>restart</code>, <code>diagnose</code> y <code>uninstall</code> funcionan igual en todos los sistemas, y el comando está en el <code>PATH</code> (<a href=\"#day2\">Comandos</a>).",
+          "upg2.c3": "Los agentes se actualizan desde <code>cdn.licenseware-collector.com</code>, solo a versiones firmadas por Licenseware, incluidos los Mac; <code>AUTOUPDATE=0</code> desactiva las actualizaciones (<a href=\"#settings\">Configuración</a>).",
+          "upg2.c4": "Un mismo conjunto de nombres de ajustes sirve como propiedades del MSI, claves del perfil de macOS, variables de entorno y claves de <code>set</code> (<a href=\"#settings\">Configuración</a>).",
+          "upg2.net.title": "La red mientras se actualizan los dispositivos",
+          "upg2.net.desc": "Los agentes en 0.16.0 y anteriores llegan a 0.17.0 a través de GitHub. Hasta que todos los dispositivos ejecuten 0.17.0, permita <code>api.github.com</code>, <code>release-assets.githubusercontent.com</code> y <code>objects.githubusercontent.com</code> además de los hosts de <a href=\"#network\">Red</a>; esos agentes también usan <code>github.com</code> para una descarga de osquery que rara vez necesitan. Cuando todos ejecuten 0.17.0, solo hacen falta los hosts de Red.",
+          "upg2.detect.title": "Reglas de detección para agentes antiguos",
+          "upg2.detect.desc": "La regla de detección por registro (<a href=\"#intune-detect\">Intune / SCCM</a>) funciona desde 0.16.0. Un dispositivo con un agente anterior la obtiene solo después de actualizarse e informar una vez, alrededor de un minuto tras el reinicio, así que una asignación obligatoria que ya detecta con ella reinstalaría el Collector allí. Hasta que su consola muestre la flota en 0.16.0 o posterior, mantenga este script:",
+          "upg2.detect.script": "Script de detección de PowerShell para agentes anteriores a 0.16.0",
+          "upg2.detect.oldmsi": "Desinstalar con un MSI anterior a 0.17.0, en un dispositivo que ha ejecutado 0.17.0, deja <code>HKLM\\SOFTWARE\\Licenseware\\Collector</code> atrás. Mientras su flota mezcle versiones, detecte también el servicio <code>licenseware-collector</code>.",
+          "upg2.old.title": "En 0.16.0 y anteriores",
+          "upg2.o.install": "En macOS y Linux el paquete solo instala archivos: inscriba la máquina después con <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code> (en macOS el programa es <code>/usr/local/licenseware-collector/seed/licenseware-collector</code>).",
+          "upg2.o.msi": "El MSI solo acepta <code>TOKEN</code>, y su código de salida <code>0</code> no demuestra que el dispositivo se registrara: compruébelo con <code>status</code>.",
+          "upg2.o.cmds": "<code>set</code>, <code>restart</code> y <code>diagnose</code> no existen, y <code>uninstall</code> se niega en una instalación por paquete: quite el paquete. Para cambiar un ajuste, edite el archivo de entorno, que usa los nombres antiguos <code>HTTPS_PROXY</code>, <code>NO_PROXY</code> y <code>CA_CERT_PATH</code>, y reinicie el servicio: <code>systemctl restart licenseware-collector</code>, <code>launchctl kickstart -k system/io.licenseware.licenseware-collector</code> o <code>Restart-Service licenseware-collector</code>.",
+          "upg2.o.ca": "Los servicios de Windows y macOS ignoran <code>CA_CERT_PATH</code>: añada el certificado de CA al almacén de confianza del sistema operativo.",
+          "upg2.o.image": "No existe el modo imagen: instale sin token en la imagen (Windows: el MSI sin <code>TOKEN</code>; Linux y macOS: solo el paquete) y luego ejecute <code>register</code> con el token en cada máquina después de crearla.",
+          "upg2.o.maclink": "Un Mac que se actualizó solo desde 0.16.0 obtiene el comando <code>licenseware-collector</code> en <code>/usr/local/bin</code> solo después de <code>sudo /usr/local/libexec/licenseware-collector/licenseware-collector register</code>.",
         },
       };
 
