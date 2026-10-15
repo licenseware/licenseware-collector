@@ -2535,7 +2535,6 @@ Healthy:          yes [window 24h]</code></pre>
           <div class="card-header">
             <div class="card-icon flow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg></div>
             <h2 id="linux-fleets-title" data-i18n="linux.title">Ansible / Linux fleets</h2>
-            <span class="badge badge-version" data-i18n="ver.017">From 0.17.0</span>
           </div>
           <p data-i18n="linux.intro">For Ansible, Puppet, Salt or any tool that runs commands as root. Each step is also what you would type by hand.</p>
           <h4 data-i18n="linux.one.title">One task: install.sh</h4>
@@ -2566,44 +2565,56 @@ printf 'TOKEN=%s\nPROXY=%s\n' '&lt;enrolment-token&gt;' 'http://proxy:3128' |
 sudo apt install ./licenseware-collector_amd64.deb</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p data-i18n="linux.seed.ansible">In Ansible this is an <code>ansible.builtin.copy</code> task with <code>mode: "0600"</code> and <code>force: false</code> before the package task. Never overwrite the file afterwards: once the machine is enrolled, it holds the machine's own credential.</p>
-          <h4 data-i18n="linux.pkg.title">Package manager with TOKEN=</h4>
+          <p data-i18n="linux.seed.ansible">In Ansible, the same as two tasks. Never overwrite the file afterwards: once the machine is enrolled, it holds the machine's own credential. On RHEL-family hosts, use <code>ansible.builtin.dnf</code> with the <code>.rpm</code> URL instead of the <code>apt</code> task.</p>
           <div class="code-block">
-            <pre><code style="font-size: 0.85rem">sudo TOKEN=&lt;enrolment-token&gt; apt install ./licenseware-collector_amd64.deb
-sudo TOKEN=&lt;enrolment-token&gt; dnf install ./licenseware-collector_amd64.rpm</code></pre>
+            <pre><code style="font-size: 0.85rem">- name: Pre-seed the Licenseware Collector token
+  ansible.builtin.copy:
+    dest: /etc/default/licenseware-collector
+    content: "TOKEN={{ licenseware_token }}\n"
+    owner: root
+    group: root
+    mode: "0600"
+    force: false
+  no_log: true
+  become: true
+
+- name: Install the Licenseware Collector package
+  ansible.builtin.apt:
+    deb: https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.deb
+  become: true</code></pre>
             <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <p data-i18n="linux.pkg.desc">Packages for amd64 and arm64 are in <a href="#downloads">Downloads</a>. The package stores the token and starts the service, which enrols and registers the machine. It waits up to a minute to say whether registration finished; the service keeps retrying either way.</p>
+          <h4 data-i18n="linux.pkg.title">Package manager with TOKEN=</h4>
+          <p data-i18n="single.manual.deb">Debian and Ubuntu:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo TOKEN=&lt;enrolment-token&gt; apt install ./licenseware-collector_amd64.deb</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="single.manual.rpm">RHEL, Rocky and Fedora:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">sudo TOKEN=&lt;enrolment-token&gt; dnf install ./licenseware-collector_amd64.rpm</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <p data-i18n="linux.pkg.desc">Packages for amd64 and arm64 are in <a href="#downloads">Downloads</a>. The package stores the token and starts the service, which enrols and registers the machine. It waits up to 60 seconds to say whether registration finished, and finishes either way; the service keeps retrying, so follow it with the status task below.</p>
           <h4 data-i18n="linux.pre.title">What the package checks first</h4>
           <ul>
             <li data-i18n="linux.pre.bad">A malformed or expired token, or one not issued by Licenseware, stops the install before any file is written: <code>apt</code> exits <code>100</code>, <code>dnf</code> reports "Transaction failed", the package stays not installed and the next install works. The message gives the reason and where the token came from, never the token.</li>
             <li data-i18n="linux.pre.none">No token: a fresh install is refused the same way, before any file is written, so a run that forgot the token (or put <code>TOKEN=</code> before <code>sudo</code>, which drops it) fails instead of reporting success. For an offline image, set <code>LICENSEWARE_ALLOW_TOKENLESS=1</code>: the package installs, leaves the service stopped and prints the <code>register</code> command to enrol the machine later.</li>
+            <li data-i18n="linux.pre.rejected">A token that Licenseware rejects later (revoked or disabled) still installs: <code>status</code> exits <code>3</code> until you enrol the machine with a valid token, <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>.</li>
             <li data-i18n="linux.pre.enrolled">An enrolled machine keeps its own credential: a <code>TOKEN</code> given to an upgrade is ignored, so upgrades never re-enrol.</li>
           </ul>
           <h4 data-i18n="linux.status.title">Checking the result</h4>
-          <p data-i18n="linux.status.desc"><code>licenseware-collector status</code> needs no root. Use exit code <code>0</code> as the success check, for example in an Ansible <code>command</code> task with <code>changed_when: false</code>:</p>
-          <div style="overflow-x: auto">
-            <table>
-              <thead><tr><th data-i18n="mdm.codes.col_code">Code</th><th data-i18n="mdm.codes.col_meaning">Meaning</th></tr></thead>
-              <tbody>
-                <tr><td><code>0</code></td><td data-i18n="status.c0">Registered</td></tr>
-                <tr><td><code>1</code></td><td data-i18n="status.c1">The check itself failed</td></tr>
-                <tr><td><code>2</code></td><td data-i18n="status.c2">Enrolled; registration not acknowledged yet (the service keeps retrying)</td></tr>
-                <tr><td><code>3</code></td><td data-i18n="status.c3">No registration state: not enrolled, an enrolment still pending, or a golden image before its first start</td></tr>
-                <tr><td><code>4</code></td><td data-i18n="status.c4">Service not installed</td></tr>
-              </tbody>
-            </table>
+          <p data-i18n="linux.status.desc"><code>licenseware-collector status</code> needs no root and exits <code>0</code> once the machine is registered (every exit code is in <a href="#day2">Commands</a>). This task waits up to 3 minutes for it:</p>
+          <div class="code-block">
+            <pre><code style="font-size: 0.85rem">- name: Wait until the Licenseware Collector is registered
+  ansible.builtin.command: licenseware-collector status
+  register: lc_status
+  changed_when: false
+  until: lc_status.rc == 0
+  retries: 18
+  delay: 10</code></pre>
+            <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
-          <aside class="highlight-box" role="note">
-            <strong data-i18n="ver.old.title">On 0.16.0 and earlier</strong>
-            <p data-i18n="linux.old">Install the package, then enrol the machine: the package ignores <code>TOKEN</code>, and <code>install.sh</code> on the CDN needs 0.17.0. With Ansible, put <code>creates: /var/lib/licenseware-collector/registration.json</code> on the <code>register</code> task.</p>
-            <div class="code-block">
-              <pre><code style="font-size: 0.85rem">sudo apt install ./licenseware-collector_amd64.deb
-# RHEL / Fedora / SUSE: sudo dnf install ./licenseware-collector_amd64.rpm
-sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code></pre>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-            </div>
-          </aside>
         </section>
 
         <!-- Golden images and VDI -->
@@ -6009,23 +6020,19 @@ Get-Content install.log -Tail 200</code></pre>
             "Restricted sudo rules and proxies: pre-seed the env file",
           "linux.seed.desc":
             "<code>sudo</code> passes <code>TOKEN=</code> only to rules that allow every command, and it drops <code>HTTPS_PROXY</code>. Write the settings to the env file as root first, then install the package with nothing else on the command line:",
-          "linux.seed.ansible":
-            "In Ansible this is an <code>ansible.builtin.copy</code> task with <code>mode: \"0600\"</code> and <code>force: false</code> before the package task. Never overwrite the file afterwards: once the machine is enrolled, it holds the machine's own credential.",
+          "linux.seed.ansible": "In Ansible, the same as two tasks. Never overwrite the file afterwards: once the machine is enrolled, it holds the machine's own credential. On RHEL-family hosts, use <code>ansible.builtin.dnf</code> with the <code>.rpm</code> URL instead of the <code>apt</code> task.",
           "linux.pkg.title": "Package manager with TOKEN=",
-          "linux.pkg.desc":
-            'Packages for amd64 and arm64 are in <a href="#downloads">Downloads</a>. The package stores the token and starts the service, which enrols and registers the machine. It waits up to a minute to say whether registration finished; the service keeps retrying either way.',
+          "linux.pkg.desc": "Packages for amd64 and arm64 are in <a href=\"#downloads\">Downloads</a>. The package stores the token and starts the service, which enrols and registers the machine. It waits up to 60 seconds to say whether registration finished, and finishes either way; the service keeps retrying, so follow it with the status task below.",
           "linux.pre.title": "What the package checks first",
           "linux.pre.bad":
             'A malformed or expired token, or one not issued by Licenseware, stops the install before any file is written: <code>apt</code> exits <code>100</code>, <code>dnf</code> reports "Transaction failed", the package stays not installed and the next install works. The message gives the reason and where the token came from, never the token.',
           "linux.pre.none":
             "No token: a fresh install is refused the same way, before any file is written, so a run that forgot the token (or put <code>TOKEN=</code> before <code>sudo</code>, which drops it) fails instead of reporting success. For an offline image, set <code>LICENSEWARE_ALLOW_TOKENLESS=1</code>: the package installs, leaves the service stopped and prints the <code>register</code> command to enrol the machine later.",
+          "linux.pre.rejected": "A token that Licenseware rejects later (revoked or disabled) still installs: <code>status</code> exits <code>3</code> until you enrol the machine with a valid token, <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>.",
           "linux.pre.enrolled":
             "An enrolled machine keeps its own credential: a <code>TOKEN</code> given to an upgrade is ignored, so upgrades never re-enrol.",
           "linux.status.title": "Checking the result",
-          "linux.status.desc":
-            "<code>licenseware-collector status</code> needs no root. Use exit code <code>0</code> as the success check, for example in an Ansible <code>command</code> task with <code>changed_when: false</code>:",
-          "linux.old":
-            "Install the package, then enrol the machine: the package ignores <code>TOKEN</code>, and <code>install.sh</code> on the CDN needs 0.17.0. With Ansible, put <code>creates: /var/lib/licenseware-collector/registration.json</code> on the <code>register</code> task.",
+          "linux.status.desc": "<code>licenseware-collector status</code> needs no root and exits <code>0</code> once the machine is registered (every exit code is in <a href=\"#day2\">Commands</a>). This task waits up to 3 minutes for it:",
           "image.title": "Golden images and VDI",
           "image.intro":
             "For an image (VDI, Autopilot, a VM template) from which every machine enrols as itself. Install in image mode: the token is stored and the service is set to start at boot, but nothing is enrolled on the image.",
@@ -6520,23 +6527,19 @@ Get-Content install.log -Tail 200</code></pre>
             "Reglas de sudo restringidas y proxies: prepare el archivo de entorno",
           "linux.seed.desc":
             "<code>sudo</code> solo pasa <code>TOKEN=</code> a reglas que permiten cualquier comando, y descarta <code>HTTPS_PROXY</code>. Escriba antes los ajustes en el archivo de entorno como root y después instale el paquete sin nada más en la línea de comandos:",
-          "linux.seed.ansible":
-            'En Ansible es una tarea <code>ansible.builtin.copy</code> con <code>mode: "0600"</code> y <code>force: false</code> antes de la tarea del paquete. No sobrescriba el archivo después: una vez inscrita la máquina, contiene su propia credencial.',
+          "linux.seed.ansible": "En Ansible, lo mismo en dos tareas. No sobrescriba el archivo después: una vez inscrita la máquina, contiene su propia credencial. En hosts de la familia RHEL, use <code>ansible.builtin.dnf</code> con la URL del <code>.rpm</code> en lugar de la tarea <code>apt</code>.",
           "linux.pkg.title": "Gestor de paquetes con TOKEN=",
-          "linux.pkg.desc":
-            'Los paquetes para amd64 y arm64 están en <a href="#downloads">Descargas</a>. El paquete guarda el token e inicia el servicio, que inscribe y registra la máquina. Espera hasta un minuto para indicar si el registro terminó; el servicio sigue reintentando en cualquier caso.',
+          "linux.pkg.desc": "Los paquetes para amd64 y arm64 están en <a href=\"#downloads\">Descargas</a>. El paquete guarda el token e inicia el servicio, que inscribe y registra la máquina. Espera hasta 60 segundos para indicar si el registro terminó, y termina en cualquier caso; el servicio sigue reintentando, así que añada después la tarea de estado de abajo.",
           "linux.pre.title": "Qué comprueba primero el paquete",
           "linux.pre.bad":
             "Un token mal formado o caducado, o no emitido por Licenseware, detiene la instalación antes de escribir ningún archivo: <code>apt</code> devuelve <code>100</code>, <code>dnf</code> indica «Transaction failed», el paquete queda sin instalar y la siguiente instalación funciona. El mensaje indica el motivo y de dónde vino el token, nunca el token.",
           "linux.pre.none":
             "Sin token: una instalación nueva se rechaza de la misma forma, antes de escribir ningún archivo, así que una ejecución que olvidó el token (o puso <code>TOKEN=</code> antes de <code>sudo</code>, que lo descarta) falla en lugar de informar éxito. Para una imagen sin conexión, defina <code>LICENSEWARE_ALLOW_TOKENLESS=1</code>: el paquete se instala, deja el servicio detenido e imprime el comando <code>register</code> para inscribir la máquina más tarde.",
+          "linux.pre.rejected": "Un token que Licenseware rechaza después (revocado o deshabilitado) se instala igualmente: <code>status</code> sale con <code>3</code> hasta que inscriba la máquina con un token válido, <code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code>.",
           "linux.pre.enrolled":
             "Una máquina inscrita conserva su propia credencial: un <code>TOKEN</code> pasado en una actualización se ignora, así que las actualizaciones nunca vuelven a inscribir.",
           "linux.status.title": "Comprobar el resultado",
-          "linux.status.desc":
-            "<code>licenseware-collector status</code> no necesita root. Use el código de salida <code>0</code> como comprobación de éxito, por ejemplo en una tarea <code>command</code> de Ansible con <code>changed_when: false</code>:",
-          "linux.old":
-            "Instale el paquete y después inscriba la máquina: el paquete ignora <code>TOKEN</code>, e <code>install.sh</code> en la CDN requiere 0.17.0. Con Ansible, ponga <code>creates: /var/lib/licenseware-collector/registration.json</code> en la tarea de <code>register</code>.",
+          "linux.status.desc": "<code>licenseware-collector status</code> no necesita root y sale con <code>0</code> cuando la máquina está registrada (todos los códigos de salida están en <a href=\"#day2\">Comandos</a>). Esta tarea espera hasta 3 minutos:",
           "image.title": "Imágenes maestras y VDI",
           "image.intro":
             "Para una imagen (VDI, Autopilot, una plantilla de VM) desde la que cada máquina se inscribe como ella misma. Instale en modo imagen: el token se guarda y el servicio queda configurado para iniciarse al arrancar, pero en la imagen no se inscribe nada.",
