@@ -3624,58 +3624,59 @@ exit 1</code></pre>
                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
               </svg>
             </div>
-            <h2 id="process-title" data-i18n="process.title">
-              Data Collection Process
-            </h2>
+            <h2 id="process-title" data-i18n="process.title">How it works</h2>
           </div>
 
           <p class="section-title" data-i18n="process.user">What You Do</p>
           <div class="flow-diagram">
             <div class="flow-step">
-              <span data-i18n="process.step1">Download<br />Collector</span>
+              <span data-i18n="process.step1">Get a<br />token</span>
             </div>
             <span class="flow-arrow">→</span>
             <div class="flow-step">
-              <span data-i18n="process.step2">Register<br />Collector</span>
+              <span data-i18n="process.step2">Install<br />with it</span>
             </div>
             <span class="flow-arrow">→</span>
             <div
               class="flow-step"
               style="border-color: var(--success); color: var(--success)"
               data-i18n="process.done"
-            >
-              ✓ Done!
-            </div>
+            >✓ Registered</div>
           </div>
 
-          <p class="section-title" data-i18n="process.auto">
-            What the Collector Does
-          </p>
+          <p class="section-title" data-i18n="process.auto">What the Collector Does</p>
           <div class="flow-diagram">
             <div
               class="flow-step"
               style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step0"
+            >Enrol and<br />register</div>
+            <span class="flow-arrow" style="color: var(--secondary)">→</span>
+            <div
+              class="flow-step"
+              style="border-color: var(--border); font-size: 0.8rem"
               data-i18n="process.step3"
-            >
-              Fetch Query<br />Catalogs
-            </div>
+            >Fetch Query<br />Catalogs</div>
             <span class="flow-arrow" style="color: var(--secondary)">→</span>
             <div
               class="flow-step"
               style="border-color: var(--border); font-size: 0.8rem"
               data-i18n="process.step4"
-            >
-              Execute<br />Queries
-            </div>
+            >Execute<br />Queries</div>
             <span class="flow-arrow" style="color: var(--secondary)">→</span>
             <div
               class="flow-step"
               style="border-color: var(--border); font-size: 0.8rem"
               data-i18n="process.step5"
-            >
-              Upload to<br />LICENSEWARE ™
-            </div>
+            >Upload to<br />LICENSEWARE ™</div>
+            <span class="flow-arrow" style="color: var(--secondary)">→</span>
+            <div
+              class="flow-step"
+              style="border-color: var(--border); font-size: 0.8rem"
+              data-i18n="process.step6"
+            >Update<br />itself</div>
           </div>
+          <p data-i18n="process.desc" style="margin-top: 1rem">You install the collector with an enrolment token. The agent swaps the token for its own credential (enrolled), and Licenseware acknowledges it (registered). From then on it checks for commands every minute, fetches its collection catalogs every 30 minutes, runs the queries, uploads the results every 5 minutes, and updates itself and osquery from <code>cdn.licenseware-collector.com</code>.</p>
         </section>
 
         <!-- API Endpoints -->
@@ -3706,54 +3707,22 @@ exit 1</code></pre>
             </h2>
           </div>
 
-          <p data-i18n="endpoints.desc">
-            All communication uses HTTPS with Bearer token authentication.
-          </p>
-
+          <p data-i18n="endpoints.desc">The agent talks to <code>https://api.&lt;region&gt;.licenseware.io/licenseware</code> over HTTPS; the paths below sit under <code>/licenseware-collector</code>. Every request carries the device's own credential as a Bearer token, except enrolment, which carries the enrolment token.</p>
+          <div style="overflow-x: auto">
           <table>
-            <thead>
-              <tr>
-                <th data-i18n="table.method">Method</th>
-                <th data-i18n="table.endpoint">Endpoint</th>
-                <th data-i18n="table.purpose">Purpose</th>
-                <th data-i18n="table.freq">Frequency</th>
-              </tr>
-            </thead>
+            <thead><tr><th data-i18n="table.method">Method</th><th data-i18n="table.endpoint">Endpoint</th><th data-i18n="table.purpose">Purpose</th><th data-i18n="table.freq">Frequency</th></tr></thead>
             <tbody>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td>
-                  <span class="endpoint">/agent/register</span>
-                </td>
-                <td data-i18n="endpoints.row1">Register agent</td>
-                <td data-i18n="endpoints.once">Once</td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-get">GET</span></td>
-                <td>
-                  <span class="endpoint">/agent/configs</span>
-                </td>
-                <td data-i18n="endpoints.row2">Fetch configs</td>
-                <td data-i18n="time.30m">Every 30m</td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-get">GET</span></td>
-                <td>
-                  <span class="endpoint">/agent/catalogs</span>
-                </td>
-                <td data-i18n="endpoints.row3">Get catalogs</td>
-                <td data-i18n="time.30m">Every 30m</td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td>
-                  <span class="endpoint">/agent/ingest</span>
-                </td>
-                <td data-i18n="endpoints.row4">Upload data</td>
-                <td data-i18n="endpoints.cycle">Cyclical</td>
-              </tr>
+              <tr><td><span class="method-badge method-post">POST</span></td><td><span class="endpoint">/agent/enroll</span></td><td data-i18n="endpoints.row0">Swap the enrolment token for the device's credential</td><td data-i18n="endpoints.once">Once</td></tr>
+              <tr><td><span class="method-badge method-post">POST</span></td><td><span class="endpoint">/agent/register</span></td><td data-i18n="endpoints.row1">Register the device</td><td data-i18n="endpoints.once">Once</td></tr>
+              <tr><td><span class="method-badge method-get">GET</span></td><td><span class="endpoint">/agent/configs</span></td><td data-i18n="endpoints.row2">Fetch configs</td><td data-i18n="time.30m">Every 30m</td></tr>
+              <tr><td><span class="method-badge method-get">GET</span></td><td><span class="endpoint">/agent/catalogs</span></td><td data-i18n="endpoints.row3">Get catalogs</td><td data-i18n="time.30m">Every 30m</td></tr>
+              <tr><td><span class="method-badge method-post">POST</span></td><td><span class="endpoint">/agent/ingest</span></td><td data-i18n="endpoints.row4">Upload collected data</td><td data-i18n="endpoints.5m">Every 5m</td></tr>
+              <tr><td><span class="method-badge method-get">GET</span></td><td><span class="endpoint">/agent/commands/pending</span></td><td data-i18n="endpoints.row5">Check for commands</td><td data-i18n="endpoints.1m">Every minute</td></tr>
+              <tr><td><span class="method-badge method-post">POST</span></td><td><span class="endpoint">/agent/commands/&lt;id&gt;/result</span></td><td data-i18n="endpoints.row6">Report a command's result</td><td data-i18n="endpoints.aftercmd">After each command</td></tr>
             </tbody>
           </table>
+          </div>
+          <p data-i18n="endpoints.other">The agent also reads <code>https://cdn.licenseware-collector.com/agent/manifest.json</code> and <code>/osquery/manifest.json</code> (signed update manifests) and sends its own logs to <code>https://pushlogs.&lt;region&gt;.licenseware.io/insert/jsonline</code> unless <code>LOG_SHIP_ENABLED=false</code>.</p>
         </section>
 
         <!-- Installation Paths -->
@@ -4541,6 +4510,7 @@ exit 1</code></pre>
               </div>
             </div>
           </div>
+          <p data-i18n="paths.cmd" style="margin-top: 1rem">The command on the <code>PATH</code>: <code>/usr/bin/licenseware-collector</code> on Linux; <code>/usr/local/bin/licenseware-collector</code> on macOS, when <code>/usr/local/bin</code> belongs to root; on Windows, <code>%ProgramData%\Licenseware\bin</code> is added to the machine <code>Path</code>.</p>
         </section>
 
         <!-- Logs & Troubleshooting -->
@@ -4567,9 +4537,7 @@ exit 1</code></pre>
                 <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
             </div>
-            <h2 id="logs-title" data-i18n="logs.title">
-              Logs &amp; Troubleshooting
-            </h2>
+            <h2 id="logs-title" data-i18n="logs.title">Logs</h2>
           </div>
 
           <p data-i18n="logs.desc">
@@ -4733,7 +4701,7 @@ exit 1</code></pre>
           </div>
 
           <div style="margin-top: 0.75rem">
-            <small style="color: var(--text-secondary)" data-i18n="logs.macos.rotate">From 0.17.0 the file is rotated at 10 MB and 7 compressed copies are kept. Package install failures (exit codes 20–23) are in <code>/var/log/install.log</code>:</small>
+            <small style="color: var(--text-secondary)" data-i18n="logs.macos.rotate">The file is rotated at 10 MB, keeping 7 compressed copies. Package install failures (exit codes 20–23, <a href="#ts-macos">Troubleshooting</a>) are in <code>/var/log/install.log</code>:</small>
             <div class="code-block" style="margin-top: 0.5rem">
               <pre><code style="font-size: 0.85rem">grep -i licenseware /var/log/install.log</code></pre>
               <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
@@ -4770,7 +4738,7 @@ Get-Content install.log -Tail 200</code></pre>
           </div>
 
           <aside class="highlight-box" style="margin-top: 1.5rem" role="note">
-            <span data-i18n="logs.more">For more detail, set <code>LOG_LEVEL=debug</code> (<a href="#settings">Settings</a>) and set it back to <code>info</code> when done. From 0.17.0, <code>diagnose</code> collects these logs into a redacted support bundle (<a href="#day2">Day-2 operations</a>).</span>
+            <span data-i18n="logs.more">For more detail, set <code>LOG_LEVEL=debug</code> (<a href="#settings">Settings</a>) and set it back to <code>info</code> when done. <code>diagnose</code> collects these logs into a redacted support bundle (<a href="#day2">Commands</a>). The agent also sends its own logs to Licenseware unless <code>LOG_SHIP_ENABLED=false</code>.</span>
           </aside>
         </section>
 
@@ -5604,28 +5572,36 @@ Get-Content install.log -Tail 200</code></pre>
           "system.mem.title": "Memory",
           "system.mem.desc": "Minimal (~50 MB during operation)",
           "endpoints.title": "API Endpoints",
-          "endpoints.desc":
-            "All communication uses HTTPS with Bearer token authentication.",
+          "endpoints.desc": "The agent talks to <code>https://api.&lt;region&gt;.licenseware.io/licenseware</code> over HTTPS; the paths below sit under <code>/licenseware-collector</code>. Every request carries the device's own credential as a Bearer token, except enrolment, which carries the enrolment token.",
+          "endpoints.row0": "Swap the enrolment token for the device's credential",
           "table.method": "Method",
           "table.endpoint": "Endpoint",
           "table.purpose": "Purpose",
           "table.freq": "Frequency",
-          "endpoints.row1": "Register agent",
+          "endpoints.row1": "Register the device",
           "endpoints.once": "Once",
           "endpoints.row2": "Fetch configs",
           "endpoints.row3": "Get catalogs",
-          "endpoints.row4": "Upload data",
-          "endpoints.cycle": "Cyclical",
+          "endpoints.row4": "Upload collected data",
+          "endpoints.5m": "Every 5m",
+          "endpoints.row5": "Check for commands",
+          "endpoints.1m": "Every minute",
+          "endpoints.row6": "Report a command's result",
+          "endpoints.aftercmd": "After each command",
+          "endpoints.other": "The agent also reads <code>https://cdn.licenseware-collector.com/agent/manifest.json</code> and <code>/osquery/manifest.json</code> (signed update manifests) and sends its own logs to <code>https://pushlogs.&lt;region&gt;.licenseware.io/insert/jsonline</code> unless <code>LOG_SHIP_ENABLED=false</code>.",
           "time.30m": "Every 30m",
-          "process.title": "Data Collection Process",
+          "process.title": "How it works",
           "process.user": "What You Do",
-          "process.step1": "Download<br />Collector",
-          "process.step2": "Register<br />Collector",
-          "process.done": "✓ Done!",
+          "process.step1": "Get a<br />token",
+          "process.step2": "Install<br />with it",
+          "process.step0": "Enrol and<br />register",
+          "process.done": "✓ Registered",
           "process.auto": "What the Collector Does",
           "process.step3": "Fetch Query<br />Catalogs",
           "process.step4": "Execute<br />Queries",
           "process.step5": "Upload to<br />LICENSEWARE ™",
+          "process.step6": "Update<br />itself",
+          "process.desc": "You install the collector with an enrolment token. The agent swaps the token for its own credential (enrolled), and Licenseware acknowledges it (registered). From then on it checks for commands every minute, fetches its collection catalogs every 30 minutes, runs the queries, uploads the results every 5 minutes, and updates itself and osquery from <code>cdn.licenseware-collector.com</code>.",
           "catalogs.title": "Data Collection Specification",
           "catalogs.lead":
             'This section lists every query the Collector runs, the operating systems it runs on, how often, the exact fields collected and why. It is the same specification published as Schedule 3 of the <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Licenseware Data Processing Addendum</a>, which governs all data transmitted by the Collector. Nothing outside this list is collected.',
@@ -5665,6 +5641,7 @@ Get-Content install.log -Tail 200</code></pre>
           "catalogs.notify":
             "Additions to this specification are notified to registered customer contacts at least 30 days in advance under DPA clause 13.3. Reductions in scope take effect immediately and are recorded here.",
           "paths.title": "Installation Paths",
+          "paths.cmd": "The command on the <code>PATH</code>: <code>/usr/bin/licenseware-collector</code> on Linux; <code>/usr/local/bin/licenseware-collector</code> on macOS, when <code>/usr/local/bin</code> belongs to root; on Windows, <code>%ProgramData%\\Licenseware\\bin</code> is added to the machine <code>Path</code>.",
           "paths.binary": "Binary",
           "paths.win.seed": "Seed binary (installer-owned)",
           "paths.win.runtime": "Runtime binary (service + self-update)",
@@ -5742,7 +5719,7 @@ Get-Content install.log -Tail 200</code></pre>
           "uninstall.app": "Uninstalling on the device does not remove the device from the Licenseware Collector app: remove it on the <strong>Agents</strong> tab too.",
           "nav.reference": "Reference",
           "nav.logs": "Logs",
-          "logs.title": "Logs &amp; Troubleshooting",
+          "logs.title": "Logs",
           "logs.desc":
             "The collector writes its logs to standard error; the Windows service writes them to the Windows Event Log instead. How you access them depends on the operating system and service manager.",
           "logs.linux.desc":
@@ -6022,10 +5999,8 @@ Get-Content install.log -Tail 200</code></pre>
           "day2.monitor.title": "Monitoring",
           "day2.update.title": "Updates",
           "day2.update.desc": "The agent checks <code>cdn.licenseware-collector.com</code> 5 minutes after it starts and then every 24 hours, installs only releases signed by Licenseware, and goes back to the previous version if the new one does not start and report. osquery is updated the same way. <code>update --check</code> shows what it would do; <code>AUTOUPDATE=0</code> turns updates off (<a href=\"#settings\">Settings</a>).",
-          "logs.macos.rotate":
-            "From 0.17.0 the file is rotated at 10 MB and 7 compressed copies are kept. Package install failures (exit codes 20–23) are in <code>/var/log/install.log</code>:",
-          "logs.more":
-            'For more detail, set <code>LOG_LEVEL=debug</code> (<a href="#settings">Settings</a>) and set it back to <code>info</code> when done. From 0.17.0, <code>diagnose</code> collects these logs into a redacted support bundle (<a href="#day2">Day-2 operations</a>).',
+          "logs.macos.rotate": "The file is rotated at 10 MB, keeping 7 compressed copies. Package install failures (exit codes 20–23, <a href=\"#ts-macos\">Troubleshooting</a>) are in <code>/var/log/install.log</code>:",
+          "logs.more": "For more detail, set <code>LOG_LEVEL=debug</code> (<a href=\"#settings\">Settings</a>) and set it back to <code>info</code> when done. <code>diagnose</code> collects these logs into a redacted support bundle (<a href=\"#day2\">Commands</a>). The agent also sends its own logs to Licenseware unless <code>LOG_SHIP_ENABLED=false</code>.",
           "image.uuid": "Clones that share one SMBIOS UUID take each other's credential: only the last one to start reports, and the others show <code>Credential: REJECTED</code> in <code>status</code>. Before you roll out, run <code>status</code> on two clones and compare their <code>Device UUID</code> lines. A Licenseware update will remove this requirement.",
           "ts.title": "Troubleshooting",
           "ts.intro": "Start with <code>status</code> on the machine (<a href=\"#day2\">Commands</a>). If you contact Licenseware support, run <code>diagnose</code> and send the zip it writes: it leaves out tokens, passwords and keys.",
@@ -6173,28 +6148,36 @@ Get-Content install.log -Tail 200</code></pre>
           "system.mem.title": "Memoria",
           "system.mem.desc": "Mínima (~50 MB durante la operación)",
           "endpoints.title": "Puntos finales de API",
-          "endpoints.desc":
-            "Toda la comunicación utiliza HTTPS con autenticación Bearer token.",
+          "endpoints.desc": "El agente se comunica con <code>https://api.&lt;region&gt;.licenseware.io/licenseware</code> por HTTPS; las rutas de abajo cuelgan de <code>/licenseware-collector</code>. Cada petición lleva la credencial propia del dispositivo como token Bearer, salvo la inscripción, que lleva el token de inscripción.",
+          "endpoints.row0": "Cambiar el token de inscripción por la credencial del dispositivo",
           "table.method": "Método",
           "table.endpoint": "Endpoint",
           "table.purpose": "Propósito",
           "table.freq": "Frecuencia",
-          "endpoints.row1": "Registrar agente",
+          "endpoints.row1": "Registrar el dispositivo",
           "endpoints.once": "Una vez",
           "endpoints.row2": "Obtener configuraciones",
           "endpoints.row3": "Obtener catálogos",
-          "endpoints.row4": "Subir datos",
-          "endpoints.cycle": "Cíclico",
+          "endpoints.row4": "Enviar los datos recopilados",
+          "endpoints.5m": "Cada 5m",
+          "endpoints.row5": "Comprobar comandos",
+          "endpoints.1m": "Cada minuto",
+          "endpoints.row6": "Informar del resultado de un comando",
+          "endpoints.aftercmd": "Tras cada comando",
+          "endpoints.other": "El agente también lee <code>https://cdn.licenseware-collector.com/agent/manifest.json</code> y <code>/osquery/manifest.json</code> (manifiestos de actualización firmados) y envía sus propios registros a <code>https://pushlogs.&lt;region&gt;.licenseware.io/insert/jsonline</code> salvo con <code>LOG_SHIP_ENABLED=false</code>.",
           "time.30m": "Cada 30m",
-          "process.title": "Proceso de Recopilación de Datos",
+          "process.title": "Cómo funciona",
           "process.user": "Lo que usted hace",
-          "process.step1": "Descargar<br />Collector",
-          "process.step2": "Registrar<br />Collector",
-          "process.done": "✓ ¡Listo!",
+          "process.step1": "Obtener un<br />token",
+          "process.step2": "Instalar<br />con él",
+          "process.step0": "Inscribirse y<br />registrarse",
+          "process.done": "✓ Registrado",
           "process.auto": "Lo que hace el Collector",
           "process.step3": "Obtener catálogos<br />de consultas",
           "process.step4": "Ejecutar<br />Consultas",
-          "process.step5": "Subir a<br />LICENSEWARE ™",
+          "process.step5": "Enviar a<br />LICENSEWARE ™",
+          "process.step6": "Actualizarse<br />solo",
+          "process.desc": "Usted instala el Collector con un token de inscripción. El agente cambia el token por su propia credencial (inscrito) y Licenseware lo confirma (registrado). Desde entonces comprueba comandos cada minuto, obtiene sus catálogos de recopilación cada 30 minutos, ejecuta las consultas, envía los resultados cada 5 minutos y se actualiza a sí mismo y a osquery desde <code>cdn.licenseware-collector.com</code>.",
           "catalogs.title": "Especificación de Recopilación de Datos",
           "catalogs.lead":
             'Esta sección enumera todas las consultas que ejecuta el Collector, los sistemas operativos en los que se ejecutan, con qué frecuencia, los campos exactos que se recopilan y con qué finalidad. Es la misma especificación publicada como Anexo 3 del <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Anexo de Tratamiento de Datos de Licenseware</a>, que rige todos los datos transmitidos por el Collector. No se recopila nada fuera de esta lista.',
@@ -6234,6 +6217,7 @@ Get-Content install.log -Tail 200</code></pre>
           "catalogs.notify":
             "Las ampliaciones de esta especificación se notifican a los contactos registrados del cliente con al menos 30 días de antelación conforme a la cláusula 13.3 del DPA. Las reducciones de alcance surten efecto de inmediato y se registran aquí.",
           "paths.title": "Rutas de Instalación",
+          "paths.cmd": "El comando en el <code>PATH</code>: <code>/usr/bin/licenseware-collector</code> en Linux; <code>/usr/local/bin/licenseware-collector</code> en macOS, cuando <code>/usr/local/bin</code> pertenece a root; en Windows, <code>%ProgramData%\\Licenseware\\bin</code> se añade al <code>Path</code> de la máquina.",
           "paths.binary": "Binario",
           "paths.win.seed": "Binario base (propiedad del instalador)",
           "paths.win.runtime":
@@ -6312,7 +6296,7 @@ Get-Content install.log -Tail 200</code></pre>
           "uninstall.app": "Desinstalar en el dispositivo no lo quita de la aplicación Licenseware Collector: quítelo también en la pestaña <strong>Agents</strong>.",
           "nav.reference": "Referencia",
           "nav.logs": "Registros",
-          "logs.title": "Registros y Solución de Problemas",
+          "logs.title": "Registros",
           "logs.desc":
             "El collector escribe sus registros en la salida de error estándar; el servicio de Windows los escribe en el Registro de Eventos de Windows. Cómo acceder a ellos depende del sistema operativo y el gestor de servicios.",
           "logs.linux.desc":
@@ -6593,10 +6577,8 @@ Get-Content install.log -Tail 200</code></pre>
           "day2.monitor.title": "Supervisión",
           "day2.update.title": "Actualizaciones",
           "day2.update.desc": "El agente consulta <code>cdn.licenseware-collector.com</code> 5 minutos después de iniciarse y luego cada 24 horas, instala solo versiones firmadas por Licenseware y vuelve a la versión anterior si la nueva no arranca e informa. osquery se actualiza de la misma forma. <code>update --check</code> muestra lo que haría; <code>AUTOUPDATE=0</code> desactiva las actualizaciones (<a href=\"#settings\">Configuración</a>).",
-          "logs.macos.rotate":
-            "Desde 0.17.0 el archivo rota a los 10 MB y se conservan 7 copias comprimidas. Los fallos de instalación del paquete (códigos de salida 20–23) están en <code>/var/log/install.log</code>:",
-          "logs.more":
-            'Para más detalle, defina <code>LOG_LEVEL=debug</code> (<a href="#settings">Ajustes</a>) y vuelva a <code>info</code> al terminar. Desde 0.17.0, <code>diagnose</code> reúne estos logs en un paquete de soporte con los datos sensibles ocultos (<a href="#day2">Operaciones del día 2</a>).',
+          "logs.macos.rotate": "El archivo rota a los 10 MB y conserva 7 copias comprimidas. Los fallos de instalación del paquete (códigos de salida 20–23, <a href=\"#ts-macos\">Solución de problemas</a>) están en <code>/var/log/install.log</code>:",
+          "logs.more": "Para más detalle, defina <code>LOG_LEVEL=debug</code> (<a href=\"#settings\">Configuración</a>) y vuelva a <code>info</code> al terminar. <code>diagnose</code> reúne estos registros en un paquete de soporte sin secretos (<a href=\"#day2\">Comandos</a>). El agente también envía sus propios registros a Licenseware salvo con <code>LOG_SHIP_ENABLED=false</code>.",
           "image.uuid": "Los clones que comparten un UUID SMBIOS se quitan la credencial unos a otros: solo informa el último en arrancar, y los demás muestran <code>Credential: REJECTED</code> en <code>status</code>. Antes del despliegue, ejecute <code>status</code> en dos clones y compare sus líneas <code>Device UUID</code>. Una actualización de Licenseware eliminará este requisito.",
           "ts.title": "Solución de problemas",
           "ts.intro": "Empiece con <code>status</code> en la máquina (<a href=\"#day2\">Comandos</a>). Si contacta con el soporte de Licenseware, ejecute <code>diagnose</code> y envíe el zip que genera: no incluye tokens, contraseñas ni claves.",
