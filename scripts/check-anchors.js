@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 
 // Anchors that bookmarks, the retired install.sh stub and other pages use.
+// The Licenseware app links to "installation" from its API keys tab.
 // Add an anchor here before creating it; never remove one.
 const PUBLISHED = [
   "overview",
