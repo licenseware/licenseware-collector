@@ -3,6 +3,6 @@ Write-Error -ErrorAction Continue -Message (@(
         'licenseware-collector: this installer script is retired and installs nothing.'
         'Download LicensewareCollector.msi from https://licenseware-collector.com/#downloads'
         'and follow https://licenseware-collector.com/#installation:'
-        '  msiexec /i LicensewareCollector.msi TOKEN=<enrollment-token>'
+        '  msiexec /i LicensewareCollector.msi /qn TOKEN=<enrolment-token>'
     ) -join [Environment]::NewLine)
 exit 1
