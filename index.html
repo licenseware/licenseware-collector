@@ -1464,12 +1464,13 @@
                   </svg>
                 </span>
                 <div>
-                  <strong>api.licenseware.io</strong
+                  <strong data-i18n="network.api_title"
+                    >api.licenseware.io <span style="font-weight: normal">or</span> api.us.licenseware.io <span style="font-weight: normal">or</span> api.au.licenseware.io</strong
                   ><span class="port-badge">HTTPS 443</span><br />
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.api_desc"
-                    >Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.</small
+                    >Data ingestion, enrolment and configuration. Allow the one for your region: <code>api.licenseware.io</code> (EU), <code>api.us.licenseware.io</code> (US) or <code>api.au.licenseware.io</code> (AU). The agent uses the one named in your enrolment token.</small
                   >
                 </div>
               </li>
@@ -1490,12 +1491,13 @@
                   </svg>
                 </span>
                 <div>
-                  <strong>pushlogs.licenseware.io</strong
+                  <strong data-i18n="network.logs_title"
+                    >pushlogs.licenseware.io <span style="font-weight: normal">or</span> pushlogs.us.licenseware.io <span style="font-weight: normal">or</span> pushlogs.au.licenseware.io</strong
                   ><span class="port-badge">HTTPS 443</span><br />
                   <small
                     style="color: var(--text-secondary)"
                     data-i18n="network.logs_desc"
-                    >Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.</small
+                    >Agent log shipping, on by default (<code>LOG_SHIP_ENABLED</code>). Allow the one for the same region: <code>pushlogs.licenseware.io</code> (EU), <code>pushlogs.us.licenseware.io</code> (US) or <code>pushlogs.au.licenseware.io</code> (AU).</small
                   >
                 </div>
               </li>
@@ -1527,10 +1529,6 @@
               </li>
             </ul>
 
-            <aside class="highlight-box" style="margin-top: 1rem" role="note">
-              <strong data-i18n="network.github.title">Agents on 0.16.0 or older</strong><br />
-              <span data-i18n="network.github.desc">These update from GitHub, not from the CDN. Until they are on 0.17.0, also allow <code>api.github.com</code>, <code>github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code> (Linux agents take the 0.17.0 update from there). Agents on 0.17.0 or later never contact GitHub.</span>
-            </aside>
 
             <aside
               class="highlight-box warning"
@@ -1693,7 +1691,7 @@
 
           <h3 data-i18n="upg.linux.title" style="margin-top: 1.5rem">Linux: nothing to do</h3>
 
-          <p data-i18n="upg.linux.desc">Linux agents on 0.16.x update themselves to 0.17.0 within a day. They fetch this one update from GitHub, so keep the GitHub hosts in <a href="#network">Network</a> allowed until they are on 0.17.0.</p>
+          <p data-i18n="upg.linux.desc">Linux agents on 0.16.x update themselves to 0.17.0 within a day. Nothing to do.</p>
 
           <h3 data-i18n="upg.old.title" style="margin-top: 1.5rem">Agents on 0.11.0 or older</h3>
 
@@ -6388,10 +6386,12 @@ Start-Service licenseware-collector</code></pre>
           "compat.legacy.desc":
             "Windows 7, Windows 8.1, Windows Server 2012 R2 and earlier are not supported. The agent requires Windows 10 or Windows Server 2016 or later.",
           "network.title": "Network Requirements",
+          "network.api_title": "api.licenseware.io <span style=\"font-weight: normal\">or</span> api.us.licenseware.io <span style=\"font-weight: normal\">or</span> api.au.licenseware.io",
+          "network.logs_title": "pushlogs.licenseware.io <span style=\"font-weight: normal\">or</span> pushlogs.us.licenseware.io <span style=\"font-weight: normal\">or</span> pushlogs.au.licenseware.io",
           "network.api_desc":
-            "Primary API for data ingestion, enrolment and configuration. Regional tenants use <code>api.us.licenseware.io</code> or <code>api.au.licenseware.io</code> instead — the agent follows the issuer in its enrolment token.",
+            "Data ingestion, enrolment and configuration. Allow the one for your region: <code>api.licenseware.io</code> (EU), <code>api.us.licenseware.io</code> (US) or <code>api.au.licenseware.io</code> (AU). The agent uses the one named in your enrolment token.",
           "network.logs_desc":
-            "Agent log shipping, enabled by default (<code>LOG_SHIP_ENABLED</code>). Regional tenants use <code>pushlogs.us.licenseware.io</code> or <code>pushlogs.au.licenseware.io</code>.",
+            "Agent log shipping, on by default (<code>LOG_SHIP_ENABLED</code>). Allow the one for the same region: <code>pushlogs.licenseware.io</code> (EU), <code>pushlogs.us.licenseware.io</code> (US) or <code>pushlogs.au.licenseware.io</code> (AU).",
           "network.cdn_desc": "Installer downloads, agent updates (signed manifest and packages) and osquery updates, which the agent checks continuously. Required continuously, not just at install time.",
           "network.firewall.title": "⚠️ Firewall Configuration",
           "network.firewall.desc":
@@ -6709,10 +6709,8 @@ Start-Service licenseware-collector</code></pre>
           "logs.first.unix": "Linux and macOS:",
           "logs.first.win": "Windows (elevated prompt):",
           "nav.settings": "Settings",
-          "network.github.title": "Agents on 0.16.0 or older",
-          "network.github.desc": "These update from GitHub, not from the CDN. Until they are on 0.17.0, also allow <code>api.github.com</code>, <code>github.com</code>, <code>release-assets.githubusercontent.com</code> and <code>objects.githubusercontent.com</code> (Linux agents take the 0.17.0 update from there). Agents on 0.17.0 or later never contact GitHub.",
           "upg.linux.title": "Linux: nothing to do",
-          "upg.linux.desc": "Linux agents on 0.16.x update themselves to 0.17.0 within a day. They fetch this one update from GitHub, so keep the GitHub hosts in <a href=\"#network\">Network</a> allowed until they are on 0.17.0.",
+          "upg.linux.desc": "Linux agents on 0.16.x update themselves to 0.17.0 within a day. Nothing to do.",
           "upg.after.title": "After 0.17.0",
           "upg.after.desc": "Every OS updates itself from the CDN. To keep one device on its current version, turn its updates off with <code>AUTOUPDATE=0</code> (see <a href=\"#settings\">Settings</a>).",
           "uninstall.win.cmd": "Run the uninstall command (it runs <code>msiexec /x</code> for you)",
@@ -6759,10 +6757,12 @@ Start-Service licenseware-collector</code></pre>
           "compat.legacy.desc":
             "Windows 7, Windows 8.1, Windows Server 2012 R2 y versiones anteriores no son compatibles. El agente requiere Windows 10 o Windows Server 2016 o posterior.",
           "network.title": "Requisitos de Red",
+          "network.api_title": "api.licenseware.io <span style=\"font-weight: normal\">o</span> api.us.licenseware.io <span style=\"font-weight: normal\">o</span> api.au.licenseware.io",
+          "network.logs_title": "pushlogs.licenseware.io <span style=\"font-weight: normal\">o</span> pushlogs.us.licenseware.io <span style=\"font-weight: normal\">o</span> pushlogs.au.licenseware.io",
           "network.api_desc":
-            "API principal para ingesta de datos, inscripción y configuración. Los tenants regionales usan <code>api.us.licenseware.io</code> o <code>api.au.licenseware.io</code> — el agente sigue el emisor de su token de inscripción.",
+            "Ingesta de datos, inscripción y configuración. Permita el de su región: <code>api.licenseware.io</code> (UE), <code>api.us.licenseware.io</code> (EE. UU.) o <code>api.au.licenseware.io</code> (AU). El agente usa el que indica su token de inscripción.",
           "network.logs_desc":
-            "Envío de logs del agente, activado por defecto (<code>LOG_SHIP_ENABLED</code>). Los tenants regionales usan <code>pushlogs.us.licenseware.io</code> o <code>pushlogs.au.licenseware.io</code>.",
+            "Envío de logs del agente, activado por defecto (<code>LOG_SHIP_ENABLED</code>). Permita el de la misma región: <code>pushlogs.licenseware.io</code> (UE), <code>pushlogs.us.licenseware.io</code> (EE. UU.) o <code>pushlogs.au.licenseware.io</code> (AU).",
           "network.cdn_desc": "Descargas del instalador, actualizaciones del agente (manifiesto firmado y paquetes) y actualizaciones de osquery, que el agente comprueba de forma continua. Necesario de forma continua, no solo durante la instalación.",
           "network.firewall.title": "⚠️ Configuración del Firewall",
           "network.firewall.desc":
@@ -7083,10 +7083,8 @@ Start-Service licenseware-collector</code></pre>
           "logs.first.unix": "Linux y macOS:",
           "logs.first.win": "Windows (símbolo del sistema elevado):",
           "nav.settings": "Ajustes",
-          "network.github.title": "Agentes en 0.16.0 o anteriores",
-          "network.github.desc": "Estos se actualizan desde GitHub, no desde la CDN. Hasta que estén en 0.17.0, permita también <code>api.github.com</code>, <code>github.com</code>, <code>release-assets.githubusercontent.com</code> y <code>objects.githubusercontent.com</code> (los agentes de Linux obtienen de ahí la actualización a 0.17.0). Los agentes en 0.17.0 o posteriores nunca contactan con GitHub.",
           "upg.linux.title": "Linux: no hay nada que hacer",
-          "upg.linux.desc": "Los agentes de Linux en 0.16.x se actualizan solos a 0.17.0 en un día. Obtienen esta única actualización desde GitHub, así que mantenga permitidos los hosts de GitHub de <a href=\"#network\">Red</a> hasta que estén en 0.17.0.",
+          "upg.linux.desc": "Los agentes de Linux en 0.16.x se actualizan solos a 0.17.0 en un día. No tiene que hacer nada.",
           "upg.after.title": "Después de 0.17.0",
           "upg.after.desc": "Todos los sistemas operativos se actualizan solos desde la CDN. Para mantener un dispositivo en su versión actual, desactive sus actualizaciones con <code>AUTOUPDATE=0</code> (consulte <a href=\"#settings\">Ajustes</a>).",
           "uninstall.win.cmd": "Ejecute el comando de desinstalación (ejecuta <code>msiexec /x</code> por usted)",
