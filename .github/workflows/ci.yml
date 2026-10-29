@@ -107,7 +107,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       - name: Comment PR
-        uses: meysam81/comment-pr@88ed6f1bdbde6b97a4940a7aa33b24addb8e0744 # main
+        uses: meysam81/comment-pr@45a518b456b98d39f8ae59a0b20fea50f431e492 # v1.1.0
         with:
           title: "# Live preview"
           content: |
