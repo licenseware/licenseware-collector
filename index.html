@@ -1883,6 +1883,10 @@
         text-transform: uppercase;
       }
 
+      .card-header:has(.card-header-chip) {
+        flex-wrap: wrap;
+      }
+
       .card-header-chip {
         margin-left: auto;
       }
@@ -2384,6 +2388,43 @@
       @media (max-width: 781px) {
         :root {
           --header-h: 64px;
+        }
+
+        .header-inner {
+          gap: 12px;
+        }
+
+        .site-brand {
+          flex: 0 1 auto;
+        }
+
+        .header-right {
+          margin-left: auto;
+          gap: 8px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .brand-divider {
+          display: none;
+        }
+
+        .site-header .site-logo {
+          height: 30px;
+        }
+      }
+
+      @media (max-width: 359px) {
+        .site-brand {
+          gap: 8px;
+        }
+
+        .site-header .site-logo {
+          height: 24px;
+        }
+
+        .brand-product {
+          font-size: 11px;
         }
       }
 
