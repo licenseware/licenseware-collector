@@ -16,7 +16,9 @@ const translations = vm.runInNewContext(
 );
 
 const used = new Set(
-  [...html.matchAll(/data-i18n="([^"]+)"/gu)].map((match) => match[1]),
+  [...html.matchAll(/data-i18n(?:-aria)?="([^"]+)"/gu)].map(
+    (match) => match[1],
+  ),
 );
 const langs = Object.keys(translations);
 const problems = [];
