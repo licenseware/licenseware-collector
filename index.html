@@ -3842,7 +3842,7 @@
             <path class="cg-dots cg-dots-f" id="cgDots2" d="M284 122h0M235 134h0M291 144h0M257 162h0M337 143h0M179 149h0M307 175h0M209 185h0M343 181h0M159 172h0M272 207h0M180 206h0M345 210h0M230 230h0M386 199h0M295 245h0M149 233h0M355 245h0M249 267h0M147 255h0M347 270h0M201 284h0M388 265h0M248 300h0M126 277h0M340 303h0M245 319h0M127 295h0M283 330h0M176 327h0M344 331h0M280 347h0M142 330h0M335 350h0M208 361h0M288 372h0M345 370h0M241 386h0M299 392h0"/>
             <g id="cgHubs"><g class="cg-hub" data-n="45" transform="translate(347.1 270.5)" opacity="0.94"><circle r="10" fill="url(#cgHub)"/><circle class="cg-hub-core" r="2.6"/></g><g class="cg-hub" data-n="68" transform="translate(407 271.5)" opacity="0.62"><circle r="10" fill="url(#cgHub)"/><circle class="cg-hub-core" r="2.6"/></g><g class="cg-hub" data-n="83" transform="translate(243.3 263.1)" opacity="0.35"><circle r="10" fill="url(#cgHub)"/><circle class="cg-hub-core" r="2.6"/></g><g class="cg-hub" data-n="91" transform="translate(236.6 287.3)" opacity="0.36"><circle r="10" fill="url(#cgHub)"/><circle class="cg-hub-core" r="2.6"/></g><g class="cg-hub" data-n="92" transform="translate(345.2 369.5)" opacity="0.80"><circle r="10" fill="url(#cgHub)"/><circle class="cg-hub-core" r="2.6"/></g><g class="cg-hub" data-n="113" transform="translate(287.9 407.3)" opacity="0.69"><circle r="10" fill="url(#cgHub)"/><circle class="cg-hub-core" r="2.6"/></g><g class="cg-hub" data-n="114" transform="translate(199.2 386.7)" opacity="0.56"><circle r="10" fill="url(#cgHub)"/><circle class="cg-hub-core" r="2.6"/></g></g>
             <circle class="cg-haze" cx="260" cy="260" r="210" fill="url(#cgHaze)"/>
-            <g id="cgParts"><circle class="cg-p" cx="149.2" cy="241" r="1.10" opacity="0.07"/><circle class="cg-p" cx="224.8" cy="210.3" r="1.21" opacity="0.07"/><circle class="cg-p" cx="296.3" cy="387.1" r="1.31" opacity="0.17"/><circle class="cg-p" cx="270.3" cy="377.2" r="1.42" opacity="0.20"/><circle class="cg-p" cx="345.3" cy="144.3" r="1.53" opacity="0.21"/><circle class="cg-p" cx="235.3" cy="365.8" r="1.63" opacity="0.16"/><circle class="cg-p" cx="146.6" cy="316" r="1.74" opacity="0.19"/><circle class="cg-p" cx="121.9" cy="301.7" r="1.84" opacity="0.27"/><circle class="cg-p" cx="395.9" cy="203.4" r="1.95" opacity="0.37"/><circle class="cg-p" cx="239.5" cy="283.9" r="2.06" opacity="0.21"/><circle class="cg-p" cx="171.1" cy="312.8" r="2.16" opacity="0.48"/><circle class="cg-p" cx="220.3" cy="188.6" r="2.27" opacity="0.34"/><circle class="cg-p" cx="323.2" cy="287.7" r="2.38" opacity="0.40"/><circle class="cg-p" cx="314" cy="244.8" r="2.48" opacity="0.51"/><circle class="cg-p" cx="232.4" cy="283.9" r="2.59" opacity="0.68"/><circle class="cg-p" cx="268.4" cy="276.3" r="2.69" opacity="0.42"/></g>
+            <g id="cgParts"><circle class="cg-p" cx="149.2" cy="241" r="1.10" opacity="0.07"/><circle class="cg-p" cx="224.8" cy="210.3" r="1.21" opacity="0.07"/><circle class="cg-p" cx="296.3" cy="387.1" r="1.31" opacity="0.17"/><circle class="cg-p" cx="270.3" cy="377.2" r="1.42" opacity="0.20"/><circle class="cg-p" cx="345.3" cy="144.3" r="1.53" opacity="0.21"/><circle class="cg-p" cx="235.3" cy="365.8" r="1.63" opacity="0.16"/><circle class="cg-p" cx="146.6" cy="316" r="1.74" opacity="0.19"/><circle class="cg-p" cx="121.9" cy="301.7" r="1.84" opacity="0.27"/><circle class="cg-p" cx="395.9" cy="203.4" r="1.95" opacity="0.37"/><circle class="cg-p" cx="239.5" cy="283.9" r="2.06" opacity="0.21"/><circle class="cg-p" cx="171.1" cy="312.8" r="2.16" opacity="0.48"/><circle class="cg-p" cx="220.3" cy="188.6" r="2.27" opacity="0.34"/></g>
           </svg>
         </div>
       </div>
@@ -9896,13 +9896,13 @@ Start-Service licenseware-collector</code></pre>
           const dt = Math.min(t - last, 100);
           last = t; drawn = t;
           if (heroOn) {
-            yaw += dt * 0.0001047;
+            yaw += dt * 0.0000571;
             project(yaw);
             odd = !odd;
             if (odd || fps <= 30) drawNet();
             parts.forEach((el, i) => {
               const p = pk[i];
-              p[2] += dt * 0.00022;
+              p[2] += dt * 0.000132;
               if (p[2] >= 1) {
                 p[0] = (Math.random() * N) | 0;
                 p[1] = nb[p[0]][(Math.random() * nb[p[0]].length) | 0];
@@ -9922,7 +9922,7 @@ Start-Service licenseware-collector</code></pre>
           }
           if (footOn) {
             rise.forEach((el, i) => {
-              const k = (riseT[i] = (riseT[i] + dt * 0.00005) % 1);
+              const k = (riseT[i] = (riseT[i] + dt * 0.00003) % 1);
               el.setAttribute("cy", r1(94 - k * 120));
               el.setAttribute("opacity", (Math.sin(Math.PI * k) * 0.8).toFixed(2));
             });
