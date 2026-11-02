@@ -503,8 +503,10 @@
         position: sticky;
         top: 24px;
         align-self: start;
-        max-height: calc(100vh - 48px);
-        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100vh - var(--header-offset) - 24px);
+        overflow: hidden;
         background: var(--surface);
         border: 1px solid var(--line);
         border-radius: var(--radius-lg);
@@ -514,6 +516,44 @@
 
       .sidebar-nav {
         list-style: none;
+      }
+
+      .sidebar > nav {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--line-strong) transparent;
+      }
+
+      .sidebar-foot {
+        flex: none;
+        display: flex;
+        justify-content: center;
+        margin: 12px -12px -4px;
+        padding: 12px 12px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .sidebar-foot:empty {
+        display: none;
+      }
+
+      .sidebar-foot .theme-switcher {
+        position: static;
+        box-shadow: none;
+      }
+
+      .theme-switcher {
+        transition:
+          transform 200ms ease,
+          opacity 200ms ease;
+      }
+
+      .theme-switcher.is-tucked {
+        transform: translateY(calc(100% + 24px));
+        opacity: 0;
+        pointer-events: none;
       }
 
       .sidebar-nav a {
@@ -1175,7 +1215,7 @@
         background: var(--surface);
         border-top: 1px solid var(--line);
         margin-top: 48px;
-        padding: 40px 0 calc(var(--theme-pill) + 16px + 24px);
+        padding: 40px 0 32px;
         color: var(--text-secondary);
       }
 
@@ -1752,6 +1792,10 @@
         .cmd-grid {
           grid-template-columns: minmax(0, 1fr);
         }
+
+        .site-footer {
+          padding-bottom: calc(var(--theme-pill) + 16px + 24px);
+        }
       }
 
       @media (max-width: 640px) {
@@ -2093,6 +2137,7 @@
             </li>
           </ul>
         </nav>
+        <div class="sidebar-foot" id="sidebarFoot"></div>
       </aside>
 
       <!-- Main Content -->
@@ -6726,6 +6771,52 @@ Start-Service licenseware-collector</code></pre>
 
       applyTheme(readThemePref(), false);
 
+      // One theme control: docked at the foot of the sticky sidebar from
+      // 1024px, floating bottom right below that, where it tucks away while
+      // the reader scrolls down and returns on scroll up or after 1.5s.
+      const themeControl = document.querySelector(".theme-switcher");
+      const sidebarFoot = document.getElementById("sidebarFoot");
+      const wideLayout = window.matchMedia("(min-width: 1024px)");
+      function placeThemeControl() {
+        if (!themeControl || !sidebarFoot) return;
+        if (wideLayout.matches) {
+          themeControl.classList.remove("is-tucked");
+          if (themeControl.parentElement !== sidebarFoot) {
+            sidebarFoot.appendChild(themeControl);
+          }
+        } else if (themeControl.parentElement !== document.body) {
+          document.body.insertBefore(
+            themeControl,
+            document.getElementById("copyStatus"),
+          );
+        }
+      }
+      placeThemeControl();
+      wideLayout.addEventListener("change", placeThemeControl);
+
+      let lastScrollY = window.scrollY;
+      let tuckTimer = 0;
+      window.addEventListener(
+        "scroll",
+        () => {
+          const y = window.scrollY;
+          if (!themeControl || wideLayout.matches) {
+            lastScrollY = y;
+            return;
+          }
+          const down = y > lastScrollY;
+          lastScrollY = y;
+          if (themeControl.contains(document.activeElement)) return;
+          themeControl.classList.toggle("is-tucked", down && y > 80);
+          window.clearTimeout(tuckTimer);
+          tuckTimer = window.setTimeout(
+            () => themeControl.classList.remove("is-tucked"),
+            1500,
+          );
+        },
+        { passive: true },
+      );
+
       // Language Toggle Logic
       const translations = {
         en: {
@@ -7704,6 +7795,22 @@ Start-Service licenseware-collector</code></pre>
           }
         });
         if (tocMobileCurrent) tocMobileCurrent.textContent = label;
+        keepActiveInSidebar();
+      }
+
+      // Keep the active item visible inside the sidebar's own scroll area
+      // without moving the page.
+      function keepActiveInSidebar() {
+        const list = document.querySelector(".sidebar > nav");
+        const active = list && list.querySelector("a.active");
+        if (!active || list.scrollHeight <= list.clientHeight) return;
+        const top = active.offsetTop - list.offsetTop;
+        const pad = 48;
+        if (top < list.scrollTop + pad) {
+          list.scrollTop = Math.max(0, top - pad);
+        } else if (top + active.offsetHeight > list.scrollTop + list.clientHeight - pad) {
+          list.scrollTop = top + active.offsetHeight - list.clientHeight + pad;
+        }
       }
 
       // OS tabs. Sections split by operating system get a segmented tab
