@@ -8143,6 +8143,17 @@ Start-Service licenseware-collector</code></pre>
       // Sticky header: border once scrolled, menu panel below 1024px.
       const siteHeader = document.getElementById("siteHeader");
       const headerLinks = [...document.querySelectorAll(".site-nav-links a")];
+      const HEADER_GROUPS = {
+        downloads: "#downloads",
+        installation: "#installation",
+        "mdm-title": "#installation",
+        settings: "#settings",
+        proxy: "#settings",
+        "custom-ca": "#settings",
+        catalogs: "#catalogs",
+        paths: "#catalogs",
+        commands: "#commands",
+      };
       const menuToggle = document.getElementById("menuToggle");
       const siteNav = document.getElementById("siteNav");
       function setMenu(open) {
@@ -8222,22 +8233,10 @@ Start-Service licenseware-collector</code></pre>
         });
         if (tocMobileCurrent) tocMobileCurrent.textContent = label;
         keepActiveInSidebar();
-        // Header nav: the last of its sections whose top has crossed the line.
-        let headerActive = null;
-        headerLinks.forEach((link) => {
-          const target = document.getElementById(link.hash.slice(1));
-          if (target && target.getBoundingClientRect().top <= line) {
-            headerActive = link;
-          }
-        });
-        if (
-          headerActive &&
-          headerActive.hash !== "#commands" &&
-          window.innerHeight + window.scrollY >=
-            document.documentElement.scrollHeight - 4
-        ) {
-          headerActive = null;
-        }
+        // Header nav: only the link whose group holds the current section.
+        const group = current ? HEADER_GROUPS[current.id] : undefined;
+        const headerActive =
+          headerLinks.find((link) => link.hash === group) || null;
         headerLinks.forEach((link) => {
           link.classList.toggle("is-active", link === headerActive);
           if (link === headerActive) link.setAttribute("aria-current", "location");
