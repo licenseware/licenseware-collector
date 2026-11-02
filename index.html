@@ -14,7 +14,7 @@
       name="description"
       content="LICENSEWARE Collector is a lightweight agent that collects system and software inventory data from Windows, Linux, and macOS servers."
     />
-    <meta name="author" content="LICENSEWARE ™" />
+    <meta name="author" content="LICENSEWARE™" />
     <meta
       name="robots"
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -38,7 +38,7 @@
       property="og:image"
       content="https://licenseware-collector.com/lc.svg"
     />
-    <meta property="og:site_name" content="LICENSEWARE ™" />
+    <meta property="og:site_name" content="LICENSEWARE™" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Additional SEO Meta Tags -->
@@ -79,6 +79,7 @@
           dark ? "dark" : "light",
         );
         document.documentElement.setAttribute("data-theme-pref", pref);
+        document.documentElement.classList.add("js");
       })();
     </script>
     <style>
@@ -334,11 +335,6 @@
         filter: var(--logo-filter);
       }
 
-      footer .header-logo {
-        height: 24px;
-        opacity: 0.7;
-      }
-
       .lang-select {
         appearance: none;
         height: 40px;
@@ -542,7 +538,7 @@
         font-size: 12px;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
       }
 
       .port-badge {
@@ -554,6 +550,7 @@
         border-radius: var(--radius-pill);
         font-size: 12px;
         font-weight: 700;
+        letter-spacing: 1px;
         margin-left: 8px;
         vertical-align: middle;
       }
@@ -692,6 +689,7 @@
         border-radius: var(--radius-pill);
         font-size: 12px;
         font-weight: 700;
+        letter-spacing: 1px;
         font-family: var(--mono);
         border: 1px solid;
       }
@@ -710,11 +708,11 @@
 
       .endpoint {
         font-family: var(--mono);
-        font-size: 0.9em;
+        font-size: 14px;
         background: var(--surface-sunken);
         padding: 2px 8px;
         border-radius: var(--radius-sm);
-        word-break: break-all;
+        overflow-wrap: anywhere;
         color: var(--text);
         border: 1px solid var(--line);
       }
@@ -732,17 +730,15 @@
         border: 1px solid var(--line);
         border-radius: var(--radius-md);
         padding: 20px;
-        text-align: center;
       }
 
       .os-card h3 {
-        margin: 8px 0;
+        margin: 8px 0 0;
       }
 
       .os-card .icon {
         margin-bottom: 8px;
         display: flex;
-        justify-content: center;
         color: var(--text);
       }
 
@@ -759,14 +755,15 @@
       }
 
       .os-card ul {
-        list-style: none;
         font-size: 14px;
+        line-height: 1.5;
         color: var(--text-secondary);
         margin-top: 12px;
+        padding-left: 18px;
       }
 
-      .os-card li {
-        padding: 4px 0;
+      .os-card li + li {
+        margin-top: 8px;
       }
 
       /* --- Process flow --- */
@@ -827,10 +824,6 @@
         font-size: 14px;
       }
 
-      .req-list li div {
-        word-break: break-all;
-      }
-
       .req-list .check {
         color: var(--ok);
         flex-shrink: 0;
@@ -868,11 +861,6 @@
 
       .highlight-box.warning {
         --callout: var(--warn);
-      }
-
-      .main-content > .highlight-box:first-child {
-        margin-top: 0;
-        margin-bottom: 24px;
       }
 
       /* Licence agreement: long legal text, collapsed by default so it does
@@ -991,7 +979,7 @@
         display: inline-block;
         margin-top: 6px;
         color: var(--text-secondary);
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.5;
       }
 
@@ -1010,6 +998,8 @@
         background: var(--surface-chip);
         font-size: 12px;
         font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
         color: var(--text-secondary);
         white-space: nowrap;
       }
@@ -1040,20 +1030,81 @@
         color: var(--text-secondary);
       }
 
-      footer {
-        padding: 32px 0;
-        color: var(--text-secondary);
-        font-size: 14px;
+      /* --- Footer --- */
+      .site-footer {
+        background: var(--surface);
         border-top: 1px solid var(--line);
-        margin-top: 32px;
+        margin-top: 48px;
+        padding: 40px 0 32px;
+        color: var(--text-secondary);
       }
 
-      footer .container {
+      .footer-inner {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        gap: 16px;
+        align-items: flex-start;
+        gap: 32px 48px;
         flex-wrap: wrap;
+      }
+
+      .footer-logo-link {
+        display: inline-flex;
+        border-radius: var(--radius-sm);
+      }
+
+      .footer-logo {
+        display: block;
+        height: 32px;
+        width: auto;
+        filter: var(--logo-filter);
+      }
+
+      .footer-cols {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px 64px;
+      }
+
+      .footer-title {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+      }
+
+      .footer-col ul {
+        list-style: none;
+      }
+
+      .footer-col li + li {
+        margin-top: 4px;
+      }
+
+      .footer-col a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+
+      .footer-col a:hover {
+        color: var(--accent-text);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+      }
+
+      .footer-copy {
+        margin-top: 32px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        font-size: 13px;
+        color: var(--text-secondary);
       }
 
       /* --- Code --- */
@@ -1197,6 +1248,397 @@
         width: 100%;
         height: 100%;
         border: 0;
+      }
+
+      /* --- Readable sizes and rhythm inside cards --- */
+      main small {
+        font-size: 15px;
+        line-height: 1.55;
+      }
+
+      .card h3 {
+        margin: 28px 0 8px;
+      }
+
+      .card h4 {
+        margin: 24px 0 8px;
+      }
+
+      .card :is(h3, h4):first-child,
+      .card .card-header + :is(h3, h4),
+      .card h3.section-title:first-child {
+        margin-top: 0;
+      }
+
+      .card .section-title {
+        margin: 28px 0 12px;
+      }
+
+      .card p + p,
+      .card p + .code-block,
+      .card .code-block + p {
+        margin-top: 12px;
+      }
+
+      .card :is(ol, ul):not([class]) {
+        padding-left: 20px;
+      }
+
+      .card :is(ol, ul):not([class]) > li + li {
+        margin-top: 8px;
+      }
+
+      .card :is(p, ul, ol, .table-wrap) + :is(ol, ul, .table-wrap) {
+        margin-top: 12px;
+      }
+
+      .card > .os-tabs,
+      .card > .stat-row,
+      .card > .demo {
+        margin-top: 24px;
+      }
+
+      .note {
+        margin-top: 16px;
+        font-size: 15px;
+        color: var(--text-secondary);
+      }
+
+      /* --- Intro --- */
+      .intro {
+        padding: 8px 0 40px;
+      }
+
+      .eyebrow {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent-text);
+        margin-bottom: 12px;
+      }
+
+      .lede {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        max-width: 60ch;
+      }
+
+      .lede strong {
+        color: var(--text);
+      }
+
+      .intro-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .btn-lg {
+        min-height: 48px;
+        padding: 12px 20px;
+        font-size: 16px;
+      }
+
+      .version-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 32px;
+        padding: 4px 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-pill);
+        background: var(--surface-chip);
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .version-chip strong {
+        color: var(--text);
+        font-family: var(--mono);
+        letter-spacing: 0;
+        font-size: 13px;
+      }
+
+      /* --- Stat cards --- */
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .stat {
+        background: var(--surface-sunken);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+      }
+
+      .stat dt {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+
+      .stat dd {
+        margin-top: 6px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text);
+      }
+
+      /* --- Command cards --- */
+      .cmd-grid {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .cmd-card {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        background: var(--surface-sunken);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 14px 56px 14px 16px;
+        min-height: 72px;
+      }
+
+      .cmd-text > code {
+        display: block;
+        font-size: 14px;
+        color: var(--text);
+      }
+
+      .cmd-desc {
+        display: block;
+        margin-top: 4px;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+      }
+
+      .cmd-card .copy-btn {
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+      }
+
+      /* --- OS tabs (segmented control). Without script every panel shows,
+         stacked; the script reveals the tablist and hides inactive panels. */
+      .segmented {
+        display: none;
+      }
+
+      .js .segmented {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 4px;
+        margin-bottom: 20px;
+        background: var(--surface-sunken);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-md);
+        max-width: 100%;
+      }
+
+      .js .segmented:empty {
+        display: none;
+      }
+
+      .segmented [role="tab"] {
+        min-height: 40px;
+        min-width: 88px;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text-secondary);
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .segmented [role="tab"]:hover {
+        color: var(--text);
+      }
+
+      .segmented [role="tab"][aria-selected="true"] {
+        background: var(--surface-raised);
+        border-color: var(--line-strong);
+        color: var(--text);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+      }
+
+      .os-panel + .os-panel {
+        margin-top: 24px;
+      }
+
+      .os-panel[hidden] {
+        display: none;
+      }
+
+      .js .os-panel + .os-panel {
+        margin-top: 0;
+      }
+
+      .os-box {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 20px;
+      }
+
+      .os-panel-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .js .os-tabs--paths .os-panel-head {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
+      .path-list {
+        display: grid;
+        gap: 16px;
+        font-size: 15px;
+      }
+
+      .path-list code {
+        font-size: 14px;
+        color: var(--text);
+      }
+
+      /* --- Arcade demo facade --- */
+      .demo {
+        margin: 0 0 32px;
+      }
+
+      .demo-frame {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        background: var(--surface-sunken);
+        overflow: hidden;
+      }
+
+      .demo-frame iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        color-scheme: light;
+      }
+
+      .demo-facade {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 24px;
+        text-align: center;
+        color: var(--text);
+        text-decoration: none;
+        border-radius: var(--radius-lg);
+      }
+
+      .demo-facade:focus-visible {
+        outline-offset: -4px;
+      }
+
+      .demo-play {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 64px;
+        height: 64px;
+        border-radius: var(--radius-pill);
+        background: var(--accent);
+        color: #ffffff;
+        padding-left: 4px;
+        transition: transform 150ms ease, background-color 150ms ease;
+      }
+
+      .demo-facade:hover .demo-play {
+        background: var(--accent-hover);
+        transform: scale(1.06);
+      }
+
+      .demo-title {
+        font-size: 16px;
+        font-weight: 600;
+        max-width: 40ch;
+      }
+
+      .demo-sub {
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .demo figcaption {
+        margin-top: 12px;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 1023px) {
+        .cmd-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .stat-row {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .intro {
+          padding-bottom: 32px;
+        }
+
+        .lede {
+          font-size: 17px;
+        }
+
+        .segmented [role="tab"] {
+          min-width: 0;
+          padding: 8px 12px;
+        }
+
+        .os-box {
+          padding: 16px;
+        }
+
+        .demo-frame {
+          aspect-ratio: 4 / 3;
+        }
       }
 
       /* --- Below 1024px: the sidebar becomes a sticky "On this page" pill --- */
@@ -1403,11 +1845,11 @@
             href="https://www.licenseware.io"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Visit LICENSEWARE ™ Homepage"
+            aria-label="Visit LICENSEWARE™ Homepage"
           >
             <img
               src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
-              alt="LICENSEWARE ™"
+              alt="LICENSEWARE™"
               class="header-logo"
               height="40"
               loading="eager"
@@ -1514,21 +1956,15 @@
       <!-- Main Content -->
       <main class="main-content" role="main">
         <!-- Quick Overview -->
-        <section
-          class="highlight-box"
-          id="overview"
-          aria-labelledby="overview-title"
-        >
-          <h2 id="overview-title" class="visually-hidden">Product Overview</h2>
-          <strong data-i18n="overview.title"
-            >What is LICENSEWARE Collector?</strong
-          ><br />
-          <span data-i18n="overview.desc"
-            >A <strong>free</strong> lightweight agent that collects system and
-            software inventory data from your servers and securely transmits it
-            to the LICENSEWARE ™ platform for software license compliance
-            analysis.</span
-          >
+        <section class="intro" id="overview" aria-labelledby="overview-title">
+          <p class="eyebrow" data-i18n="intro.eyebrow">Software inventory agent</p>
+          <h2 id="overview-title" class="visually-hidden" data-i18n="overview.title">What is LICENSEWARE Collector?</h2>
+          <p class="lede" data-i18n="overview.desc">A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE™ platform for software license compliance analysis.</p>
+          <div class="intro-actions">
+            <a class="btn btn-primary btn-lg" href="#downloads"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span data-i18n="intro.download">Download</span></a>
+            <a class="btn btn-secondary btn-lg" href="#installation"><span data-i18n="intro.guide">Installation guide</span></a>
+            <span class="version-chip"><span data-i18n="intro.version">Current release</span> <strong>0.17.0</strong></span>
+          </div>
         </section>
 
         <!-- Operating System Compatibility -->
@@ -1647,8 +2083,7 @@
           </aside>
         </section>
 
-        <div class="grid">
-          <!-- Network Requirements -->
+        <!-- Network Requirements -->
           <section class="card" id="network" aria-labelledby="network-title">
             <div class="card-header">
               <div class="card-icon network" aria-hidden="true">
@@ -1801,87 +2236,21 @@
               </h2>
             </div>
 
-            <ul class="req-list" role="list">
-              <li>
-                <span class="check" aria-hidden="true">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </span>
-                <div>
-                  <strong data-i18n="system.arch.title">Architecture</strong
-                  ><br />
-                  <small
-                    style="color: var(--text-secondary)"
-                    data-i18n="system.arch.desc"
-                    >64-bit only (32-bit not supported)</small
-                  >
-                </div>
-              </li>
-              <li>
-                <span class="check" aria-hidden="true">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </span>
-                <div>
-                  <strong data-i18n="system.disk.title">Disk Space</strong
-                  ><br />
-                  <small
-                    style="color: var(--text-secondary)"
-                    data-i18n="system.disk.desc"
-                    >~100 MB for binaries and temp files</small
-                  >
-                </div>
-              </li>
-              <li>
-                <span class="check" aria-hidden="true">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </span>
-                <div>
-                  <strong data-i18n="system.mem.title">Memory</strong><br />
-                  <small
-                    style="color: var(--text-secondary)"
-                    data-i18n="system.mem.desc"
-                    >Minimal (~50 MB during operation)</small
-                  >
-                </div>
-              </li>
-            </ul>
+            <dl class="stat-row">
+              <div class="stat">
+                <dt data-i18n="system.arch.title">Architecture</dt>
+                <dd data-i18n="system.arch.desc">64-bit only (32-bit not supported)</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="system.disk.title">Disk Space</dt>
+                <dd data-i18n="system.disk.desc">~100 MB for binaries and temp files</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="system.mem.title">Memory</dt>
+                <dd data-i18n="system.mem.desc">Minimal (~50 MB during operation)</dd>
+              </div>
+            </dl>
           </section>
-        </div>
 
         <!-- Upgrading to 0.17.0 -->
         <section class="card" id="upgrading" aria-labelledby="upgrading-title">
@@ -1909,23 +2278,23 @@
           </div>
           <p data-i18n="upg.intro">From 0.17.0 every agent updates itself from <code>cdn.licenseware-collector.com</code>: signed updates, a staged rollout, and an automatic rollback if a new version fails to start. How a device gets to 0.17.0 depends on its OS.</p>
 
-          <h3 data-i18n="upg.win.title" style="margin-top: 1.5rem">Windows: upgrade with the 0.17.0 MSI</h3>
+          <h3 data-i18n="upg.win.title">Windows: upgrade with the 0.17.0 MSI</h3>
 
           <p data-i18n="upg.win.desc">Windows agents on 0.16.x do not update themselves to 0.17.0; they keep running until you upgrade them. In Intune, SCCM or your other tool, replace the 0.16.x package with the 0.17.0 MSI and deploy it as an in-place upgrade with the same command line. An enrolled device needs no token. Do not configure an uninstall followed by an install. If a service is stopped afterwards, run <code>Restart-Service licenseware-collector</code>.</p>
 
-          <h3 data-i18n="upg.mac.title" style="margin-top: 1.5rem">macOS: update privacy rules, then deploy the 0.17.0 pkg</h3>
+          <h3 data-i18n="upg.mac.title">macOS: update privacy rules, then deploy the 0.17.0 pkg</h3>
 
           <p data-i18n="upg.mac.desc">Macs on 0.16.x do not update themselves. From 0.17.0 the collector's code-signing identifier is <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>); earlier builds used <code>licenseware-collector</code>, <code>LicensewareCollector</code> and <code>osqueryi</code>. If your MDM has PPPC or other privacy rules that name the collector by identifier, add the new identifiers first and keep the old ones until every Mac is upgraded. Rules that use the Team ID <code>8MD7XA4CF3</code> need no change. Then deploy <code>LicensewareCollector.pkg</code> 0.17.0 through your MDM; an enrolled Mac needs no token.</p>
 
-          <h3 data-i18n="upg.linux.title" style="margin-top: 1.5rem">Linux: nothing to do</h3>
+          <h3 data-i18n="upg.linux.title">Linux: nothing to do</h3>
 
           <p data-i18n="upg.linux.desc">Linux agents on 0.16.x update themselves to 0.17.0 within a day. Nothing to do.</p>
 
-          <h3 data-i18n="upg.old.title" style="margin-top: 1.5rem">Agents on 0.11.0 or older</h3>
+          <h3 data-i18n="upg.old.title">Agents on 0.11.0 or older</h3>
 
           <p data-i18n="upg.old.desc">These never update to 0.17.0. Reinstall them with the current package from <a href="#downloads">Downloads</a>.</p>
 
-          <h3 data-i18n="upg.after.title" style="margin-top: 1.5rem">After 0.17.0</h3>
+          <h3 data-i18n="upg.after.title">After 0.17.0</h3>
 
           <p data-i18n="upg.after.desc">Every OS updates itself from the CDN. To keep one device on its current version, turn its updates off with <code>AUTOUPDATE=0</code> (see <a href="#settings">Settings</a>).</p>
         </section>
@@ -2032,7 +2401,7 @@
                   display: block;
                   margin-top: 0.75rem;
                   color: var(--text-secondary);
-                  font-size: 0.75rem;
+                  font-size: 0.9375rem;
                 "
                 data-i18n="downloads.win.exe_note"
                 >The standalone <code>.exe</code> is deprecated and no longer
@@ -2046,7 +2415,7 @@
                   margin-top: auto;
                   padding-top: 0.75rem;
                   margin-bottom: 0;
-                  font-size: 0.75rem;
+                  font-size: 0.875rem;
                   color: var(--text-secondary);
                   text-align: center;
                 "
@@ -2175,7 +2544,7 @@
                   margin-top: auto;
                   padding-top: 0.75rem;
                   margin-bottom: 0;
-                  font-size: 0.75rem;
+                  font-size: 0.875rem;
                   color: var(--text-secondary);
                   text-align: center;
                 "
@@ -2240,7 +2609,7 @@
                   margin-top: auto;
                   padding-top: 0.75rem;
                   margin-bottom: 0;
-                  font-size: 0.75rem;
+                  font-size: 0.875rem;
                   color: var(--text-secondary);
                   text-align: center;
                 "
@@ -2251,7 +2620,7 @@
                 href="https://cdn.licenseware-collector.com/d/latest/uninstall.command"
                 style="
                   display: block;
-                  font-size: 0.7rem;
+                  font-size: 0.875rem;
                   color: var(--text-secondary);
                   text-align: center;
                   margin-top: 0.25rem;
@@ -2267,7 +2636,7 @@
           <p
             style="
               color: var(--text-secondary);
-              font-size: 0.85rem;
+              font-size: 0.9375rem;
               margin-top: 1.25rem;
               margin-bottom: 0;
             "
@@ -2280,7 +2649,7 @@
           <p
             style="
               color: var(--text-secondary);
-              font-size: 0.85rem;
+              font-size: 0.9375rem;
               margin-top: 1.5rem;
               margin-bottom: 0;
             "
@@ -2322,38 +2691,16 @@
             </h2>
           </div>
 
-          <!-- Interactive Demo -->
-          <div style="margin-bottom: 1.5rem">
-            <!--ARCADE EMBED START-->
-            <div
-              style="
-                position: relative;
-                padding-bottom: calc(55.4722% + 41px);
-                height: 0px;
-                width: 100%;
-              "
-            >
-              <iframe
-                src="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-                title="Generate and Manage API Keys in LICENSEWARE Collector"
-                frameborder="0"
-                loading="lazy"
-                webkitallowfullscreen
-                mozallowfullscreen
-                allowfullscreen
-                allow="clipboard-write"
-                style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  color-scheme: light;
-                "
-              ></iframe>
+          <figure class="demo">
+            <div class="demo-frame" id="arcadeDemo" data-src="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true" data-title="Generate and Manage API Keys in LICENSEWARE Collector">
+              <a class="demo-facade" href="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true" target="_blank" rel="noopener noreferrer" aria-describedby="demoCaption">
+                <span class="demo-play" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.9-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14z"></path></svg></span>
+                <span class="demo-title" data-i18n="demo.title">Generate and Manage API Keys in LICENSEWARE Collector</span>
+                <span class="demo-sub" data-i18n="demo.sub">Interactive demo &middot; click to load</span>
+              </a>
             </div>
-            <!--ARCADE EMBED END-->
-          </div>
+            <figcaption id="demoCaption" data-i18n="demo.caption">Step 1 as an interactive walkthrough: create an API key (enrolment token) in the LICENSEWARE app. Loads from demo.arcade.software when you start it.</figcaption>
+          </figure>
 
           <!-- Common Step: Get Your Token -->
           <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
@@ -2413,9 +2760,12 @@
             </h3>
           </div>
 
-<div style="border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem">
+          <div class="os-tabs" data-os-tabs>
+            <div class="segmented" role="tablist" aria-label="Operating system" data-i18n-aria="os.tabs.label"></div>
+            <div class="os-panel" data-os="linux" data-tab-label="Linux">
+<div class="os-box">
 <h3 style="margin: 0 0 0.75rem 0">Linux (.deb / .rpm)</h3>
-<p style="margin: 0 0 1rem 0; color: var(--warn); font-size: 0.85rem" data-i18n="install.unix.root">⚠️ Requires root privileges</p>
+<p style="margin: 0 0 1rem 0; color: var(--warn); font-size: 0.9375rem" data-i18n="install.unix.root">⚠️ Requires root privileges</p>
 <ol style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary); line-height: 1.7">
 <li style="margin-bottom: 0.75rem">
 <strong style="color: var(--text)" data-i18n="install.linux.step1">Install and enrol in one step</strong>
@@ -2423,7 +2773,7 @@
 <pre><code>curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.oneliner.note">The script picks the right package, checks its <code>SHA256SUMS</code>, installs it, waits for registration and removes what it installed if the machine does not register. Extra options: <code>--proxy URL</code>, <code>--version V</code>, <code>--dry-run</code>. If your sudo rules refuse <code>TOKEN=</code>, save the token in a file and use <code>... | sudo sh -s -- --token-file /root/lc-token</code>.</p>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.linux.oneliner.note">The script picks the right package, checks its <code>SHA256SUMS</code>, installs it, waits for registration and removes what it installed if the machine does not register. Extra options: <code>--proxy URL</code>, <code>--version V</code>, <code>--dry-run</code>. If your sudo rules refuse <code>TOKEN=</code>, save the token in a file and use <code>... | sudo sh -s -- --token-file /root/lc-token</code>.</p>
 </li>
 <li style="margin-bottom: 0.75rem">
 <strong style="color: var(--text)" data-i18n="install.linux.step2">Or download the package and install it yourself</strong>
@@ -2435,8 +2785,8 @@
 <pre><code>sudo TOKEN=&lt;enrolment-token&gt; apt install ./licenseware-collector_amd64.deb</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.step2.note">On RHEL / Fedora / SUSE use <code>sudo TOKEN=&lt;enrolment-token&gt; dnf install ./licenseware-collector_amd64.rpm</code>. Put <code>TOKEN=</code> after <code>sudo</code>, not before it (<code>TOKEN=... sudo apt</code> loses the variable). The package waits up to a minute and says whether registration finished.</p>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.env.note">If sudo refuses <code>TOKEN=</code>, use <code>sudo env TOKEN=&lt;enrolment-token&gt; apt install ...</code>, or create <code>/etc/default/licenseware-collector</code> (mode 0600) containing <code>TOKEN=&lt;enrolment-token&gt;</code> and install without the variable. A fresh install without a token is refused before anything is written.</p>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.linux.step2.note">On RHEL / Fedora / SUSE use <code>sudo TOKEN=&lt;enrolment-token&gt; dnf install ./licenseware-collector_amd64.rpm</code>. Put <code>TOKEN=</code> after <code>sudo</code>, not before it (<code>TOKEN=... sudo apt</code> loses the variable). The package waits up to a minute and says whether registration finished.</p>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.linux.env.note">If sudo refuses <code>TOKEN=</code>, use <code>sudo env TOKEN=&lt;enrolment-token&gt; apt install ...</code>, or create <code>/etc/default/licenseware-collector</code> (mode 0600) containing <code>TOKEN=&lt;enrolment-token&gt;</code> and install without the variable. A fresh install without a token is refused before anything is written.</p>
 </li>
 <li>
 <strong style="color: var(--text)" data-i18n="install.linux.step3">Check it works</strong>
@@ -2444,13 +2794,13 @@
 <pre><code>licenseware-collector status</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.check.note">Exit code 0 and <code>registered</code> in the output mean the machine is enrolled.</p>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.linux.check.note">Exit code 0 and <code>registered</code> in the output mean the machine is enrolled.</p>
 </li>
 </ol>
 
 <div style="margin-top: 1.5rem; border-top: 1px solid var(--line); padding-top: 1.25rem">
 <h4 style="margin: 0 0 0.5rem 0" data-i18n="install.unix.ref.title">Full Command Reference</h4>
-<p style="margin: 0 0 0.75rem 0; font-size: 0.85rem; color: var(--text-secondary)" data-i18n="install.unix.ref.desc">The command is on your <code>PATH</code> on Linux and macOS (run it with <code>sudo</code> where it changes something). Proxy, custom CA certificate and the other settings are described in <a href="#settings">Settings</a>; change them at any time with <code>sudo licenseware-collector set</code>.</p>
+<p style="margin: 0 0 0.75rem 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.unix.ref.desc">The command is on your <code>PATH</code> on Linux and macOS (run it with <code>sudo</code> where it changes something). Proxy, custom CA certificate and the other settings are described in <a href="#settings">Settings</a>; change them at any time with <code>sudo licenseware-collector set</code>.</p>
 <div class="table-wrap" role="region" tabindex="0" aria-label="Full Command Reference">
 <table>
 <thead>
@@ -2477,9 +2827,11 @@
 </div>
 </div>
 
-<div style="border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem">
+            </div>
+            <div class="os-panel" data-os="macos" data-tab-label="macOS">
+<div class="os-box">
 <h3 style="margin: 0 0 0.75rem 0">macOS (.pkg)</h3>
-<p style="margin: 0 0 1rem 0; color: var(--warn); font-size: 0.85rem" data-i18n="install.macos.root">⚠️ Requires root privileges</p>
+<p style="margin: 0 0 1rem 0; color: var(--warn); font-size: 0.9375rem" data-i18n="install.macos.root">⚠️ Requires root privileges</p>
 <ol style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary); line-height: 1.7">
 <li style="margin-bottom: 0.75rem">
 <strong style="color: var(--text)" data-i18n="install.macos.step1">Install and enrol in one step</strong>
@@ -2487,7 +2839,7 @@
 <pre><code>curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.macos.oneliner.note">Downloads the package, checks its <code>SHA256SUMS</code>, installs it and waits for registration (up to 3 minutes).</p>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.macos.oneliner.note">Downloads the package, checks its <code>SHA256SUMS</code>, installs it and waits for registration (up to 3 minutes).</p>
 </li>
 <li style="margin-bottom: 0.75rem">
 <strong style="color: var(--text)" data-i18n="install.macos.step2">Or install by hand</strong>
@@ -2501,7 +2853,7 @@ echo 'TOKEN=&lt;enrolment-token&gt;' | sudo tee /usr/local/etc/licenseware-colle
 sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.macos.step2.note"><code>installer</code> does not pass environment variables to the package, so the token goes in the env file first. If it fails, the reason is in <code>/var/log/install.log</code>.</p>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.macos.step2.note"><code>installer</code> does not pass environment variables to the package, so the token goes in the env file first. If it fails, the reason is in <code>/var/log/install.log</code>.</p>
 </li>
 <li>
 <strong style="color: var(--text)" data-i18n="install.macos.step3">Check it works</strong>
@@ -2509,23 +2861,18 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
 <pre><code>licenseware-collector status</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.macos.check.note">Exit code 0 and <code>registered</code> in the output mean the Mac is enrolled.</p>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.9375rem; color: var(--text-secondary)" data-i18n="install.macos.check.note">Exit code 0 and <code>registered</code> in the output mean the Mac is enrolled.</p>
 </li>
 </ol>
 
 <aside class="highlight-box" style="margin-top: 1rem" role="note">
-<span style="font-size: 0.85rem" data-i18n="install.macos.note">Deploying with an MDM? See <a href="#mdm-macos-title">MDM Deployment</a>. To upgrade an enrolled Mac, run the <code>installer</code> step again; no token is needed.</span>
+<span style="font-size: 0.9375rem" data-i18n="install.macos.note">Deploying with an MDM? See <a href="#mdm-macos-title">MDM Deployment</a>. To upgrade an enrolled Mac, run the <code>installer</code> step again; no token is needed.</span>
 </aside>
 </div>
 
-          <!-- Windows Installation -->
-          <div
-            style="
-              border: 1px solid var(--line);
-              border-radius: 12px;
-              padding: 1.25rem;
-            "
-          >
+            </div>
+            <div class="os-panel" data-os="windows" data-tab-label="Windows">
+          <div class="os-box">
             <h3
               style="margin: 0 0 0.75rem 0"
             >
@@ -2535,7 +2882,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               style="
                 margin: 0 0 1rem 0;
                 color: var(--warn);
-                font-size: 0.85rem;
+                font-size: 0.9375rem;
               "
               data-i18n="install.win.admin"
             >
@@ -2557,8 +2904,8 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
 <pre><code>msiexec /i LicensewareCollector.msi /qn TOKEN=&lt;enrolment-token&gt;</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.note">The token is marked as a secure property, so it is never written to the MSI log. To keep it off the command line, put it on the first line of a file and pass <code>TOKENFILE=C:\path\token.txt</code> instead. Run the same command with a newer <code>.msi</code> to upgrade in place; an enrolled machine needs no token.</span>
-<span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.result">Exit code 0 means the machine is registered and the service is running (the installer waits up to 3 minutes). On failure it exits with 1603, rolls back completely and leaves <code>%ProgramData%\Licenseware\setup.log</code> with the reason. Installing without a token is refused.</span>
+<span style="font-size: 0.9375rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.note">The token is marked as a secure property, so it is never written to the MSI log. To keep it off the command line, put it on the first line of a file and pass <code>TOKENFILE=C:\path\token.txt</code> instead. Run the same command with a newer <code>.msi</code> to upgrade in place; an enrolled machine needs no token.</span>
+<span style="font-size: 0.9375rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.result">Exit code 0 means the machine is registered and the service is running (the installer waits up to 3 minutes). On failure it exits with 1603, rolls back completely and leaves <code>%ProgramData%\Licenseware\setup.log</code> with the reason. Installing without a token is refused.</span>
 </li>
 <li>
 <strong style="color: var(--text)" data-i18n="install.win.step3">Check it works</strong>
@@ -2566,11 +2913,15 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
 <pre><code>LicensewareCollector status</code></pre>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
-<span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.check.note">In a new elevated prompt (so the updated <code>PATH</code> is loaded). Exit code 0 and <code>registered</code> in the output mean the machine is enrolled.</span>
+<span style="font-size: 0.9375rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.check.note">In a new elevated prompt (so the updated <code>PATH</code> is loaded). Exit code 0 and <code>registered</code> in the output mean the machine is enrolled.</span>
 </li>
 </ol>
 
-            <h3 id="mdm-title" data-i18n="mdm.title" style="margin-top: 2rem">
+          </div>
+            </div>
+            <div class="os-panel" data-os="mdm" data-tab-label="MDM">
+          <div class="os-box">
+            <h3 id="mdm-title" data-i18n="mdm.title">
               Unattended / MDM deployment (Intune, SCCM)
             </h3>
 
@@ -2591,7 +2942,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               deploying organisation.
             </p>
 
-            <h4 data-i18n="mdm.codes.title" style="margin-top: 1.5rem">
+            <h4 data-i18n="mdm.codes.title">
               Exit codes
             </h4>
 
@@ -2649,7 +3000,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               vendor-specific values.
             </p>
 
-            <h4 data-i18n="mdm.props.title" style="margin-top: 1.5rem">
+            <h4 data-i18n="mdm.props.title">
               MSI properties
             </h4>
 
@@ -2734,7 +3085,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               </table>
             </div>
 
-            <h4 data-i18n="mdm.upgrade.title" style="margin-top: 1.5rem">
+            <h4 data-i18n="mdm.upgrade.title">
               Upgrades
             </h4>
 
@@ -2745,7 +3096,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               token, and a stopped service is started.
             </p>
 
-            <h4 data-i18n="mdm.detect.title" style="margin-top: 1.5rem">
+            <h4 data-i18n="mdm.detect.title">
               Detecting a registered agent
             </h4>
 
@@ -2812,7 +3163,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
             </p>
 
             <div class="code-block">
-              <pre><code style="font-size: 0.85rem"
+              <pre><code
 >licenseware-collector status --json
 jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json</code></pre>
               <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
@@ -2853,7 +3204,7 @@ jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json
               <p
                 style="
                   margin: 0 0 0.75rem 0;
-                  font-size: 0.85rem;
+                  font-size: 0.9375rem;
                   color: var(--text-secondary);
                 "
                 data-i18n="install.win.ref.desc"
@@ -2862,7 +3213,7 @@ jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json
                 prompt:
               </p>
               <div class="code-block" style="margin-bottom: 1rem">
-                <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                <pre><code style="white-space: pre-wrap;"
                   >$env:TOKEN = "&lt;enrolment-token&gt;"
 LicensewareCollector register</code></pre>
                 <button
@@ -2900,7 +3251,7 @@ LicensewareCollector register</code></pre>
               <p
                 style="
                   margin: 0 0 0.75rem 0;
-                  font-size: 0.85rem;
+                  font-size: 0.9375rem;
                   color: var(--text-secondary);
                 "
                 data-i18n="install.win.ref.token"
@@ -2915,7 +3266,7 @@ LicensewareCollector register</code></pre>
               <p
                 style="
                   margin: 0;
-                  font-size: 0.85rem;
+                  font-size: 0.9375rem;
                   color: var(--text-secondary);
                 "
                 data-i18n="install.win.ref.settings"
@@ -2928,7 +3279,7 @@ LicensewareCollector register</code></pre>
               </p>
             </div>
 
-            <h3 id="mdm-macos-title" data-i18n="mdm.macos.title" style="margin-top: 2rem">
+            <h3 id="mdm-macos-title" data-i18n="mdm.macos.title">
               macOS (Jamf, Intune, Kandji)
             </h3>
 
@@ -2977,6 +3328,8 @@ LicensewareCollector register</code></pre>
               identifier-based PPPC rules. Rules based on the Team ID are
               unaffected.
             </p>
+          </div>
+            </div>
           </div>
         </section>
 
@@ -3044,7 +3397,7 @@ LicensewareCollector register</code></pre>
           </table>
           </div>
 
-          <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="settings.where.title">Where to set them</h3>
+          <h3 class="section-title" data-i18n="settings.where.title">Where to set them</h3>
 
           <ul>
             <li data-i18n="settings.where.msi"><strong>Windows MSI:</strong> properties <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code> and <code>LOG_LEVEL</code> on the <code>msiexec</code> command line.</li>
@@ -3055,7 +3408,7 @@ LicensewareCollector register</code></pre>
           <div style="margin-top: 0.5rem">
             <strong style="color: var(--text)">Linux / macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem"
+              <pre><code
                 >sudo licenseware-collector set
 sudo licenseware-collector set LOG_LEVEL=debug
 sudo licenseware-collector set PROXY=</code></pre>
@@ -3078,7 +3431,7 @@ sudo licenseware-collector set PROXY=</code></pre>
           <div style="margin-top: 0.75rem">
             <strong style="color: var(--text)">Windows (elevated prompt)</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem"
+              <pre><code
                 >LicensewareCollector set LOG_LEVEL=debug</code></pre>
               <button
                 type="button"
@@ -3113,13 +3466,13 @@ sudo licenseware-collector set PROXY=</code></pre>
 
           <p data-i18n="proxy.desc">If your network requires an HTTP proxy for outbound connections, the collector sends all its traffic through it.</p>
 
-          <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="proxy.detect.title">System proxy detection</h3>
+          <h3 class="section-title" data-i18n="proxy.detect.title">System proxy detection</h3>
 
           <p data-i18n="proxy.detect.desc">On Windows (the machine WinHTTP proxy, or the Internet Explorer proxy when it is set per machine by policy) and on macOS (System Settings &gt; Network &gt; Proxies) the collector finds the proxy by itself. It does not detect PAC/WPAD scripts, per-user proxies, or any proxy on Linux: set <code>PROXY</code> there. <code>PROXY=direct</code> forces a direct connection.</p>
 
           <p style="margin-top: 1rem; color: var(--text-secondary)" data-i18n="proxy.auth_note">Basic authentication goes in the URL: <code>http://user:password@proxy.corp.com:8080</code>. NTLM and Kerberos proxies are not supported.</p>
 
-          <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="proxy.setup.title">Set it at install</h3>
+          <h3 class="section-title" data-i18n="proxy.setup.title">Set it at install</h3>
 
           <ul>
             <li data-i18n="proxy.setup.sh"><strong>install.sh:</strong> add <code>--proxy http://proxy.corp.com:8080</code> (<code>... | sudo TOKEN=&lt;enrolment-token&gt; sh -s -- --proxy URL</code>).</li>
@@ -3128,14 +3481,14 @@ sudo licenseware-collector set PROXY=</code></pre>
             <li data-i18n="proxy.setup.linux"><strong>Linux package:</strong> before installing, create <code>/etc/default/licenseware-collector</code> (mode 0600) with a <code>PROXY=</code> line.</li>
           </ul>
 
-          <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="proxy.apply.title">Change it afterwards</h3>
+          <h3 class="section-title" data-i18n="proxy.apply.title">Change it afterwards</h3>
 
           <p style="color: var(--text-secondary); margin-bottom: 1rem" data-i18n="proxy.apply.desc">Use <code>set</code>. It checks the value, stores it and restarts the service.</p>
 
           <div style="margin-top: 0.5rem">
             <strong style="color: var(--text)">Linux / macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem"
+              <pre><code
                 >sudo licenseware-collector set PROXY=http://proxy.corp.com:8080
 sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code></pre>
               <button
@@ -3155,7 +3508,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <div style="margin-top: 0.75rem">
             <strong style="color: var(--text)">Windows (elevated prompt)</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem"
+              <pre><code
                 >LicensewareCollector set PROXY=http://proxy.corp.com:8080</code></pre>
               <button
                 type="button"
@@ -3188,7 +3541,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
           <p style="margin-top: 1rem; color: var(--text-secondary)" data-i18n="customca.append_note">Custom certificates are added to the system certificate pool, not replacing it. All standard system CAs remain trusted.</p>
 
-          <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="customca.setup.title">Set it at install</h3>
+          <h3 class="section-title" data-i18n="customca.setup.title">Set it at install</h3>
 
           <ul>
             <li data-i18n="customca.setup.msi"><strong>Windows MSI:</strong> add <code>CA_CERT=C:\path\corp-ca.pem</code> to the <code>msiexec</code> command. The file is copied to <code>%ProgramData%\Licenseware\ca.pem</code>, so the original can go.</li>
@@ -3196,12 +3549,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <li data-i18n="customca.setup.linux"><strong>Linux package:</strong> before installing, create <code>/etc/default/licenseware-collector</code> (mode 0600) with <code>CA_CERT=/etc/ssl/certs/corp-ca.pem</code>.</li>
           </ul>
 
-          <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="customca.apply.title">Change it afterwards</h3>
+          <h3 class="section-title" data-i18n="customca.apply.title">Change it afterwards</h3>
 
           <div style="margin-top: 0.5rem">
             <strong style="color: var(--text)">Linux / macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem"
+              <pre><code
                 >sudo licenseware-collector set CA_CERT=/etc/ssl/certs/corp-ca.pem</code></pre>
               <button
                 type="button"
@@ -3220,7 +3573,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <div style="margin-top: 0.75rem">
             <strong style="color: var(--text)">Windows (elevated prompt)</strong>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem"
+              <pre><code
                 >LicensewareCollector set CA_CERT=C:\ProgramData\Licenseware\ca.pem</code></pre>
               <button
                 type="button"
@@ -3277,15 +3630,9 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             >
           </aside>
 
-          <!-- Linux / macOS -->
-          <div
-            style="
-              border: 1px solid var(--line);
-              border-radius: 12px;
-              padding: 1.25rem;
-              margin-top: 1rem;
-            "
-          >
+          <div class="os-tabs" data-os-tabs>
+          <div class="segmented" role="tablist" aria-label="Operating system" data-i18n-aria="os.tabs.label"></div>
+          <div class="os-panel os-box" data-os="linux" data-tab-label="Linux">
             <h3
               style="margin: 0 0 0.75rem 0"
               data-i18n="uninstall.linux.title"
@@ -3300,7 +3647,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >Debian / Ubuntu</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
+                  <code
                     >sudo apt remove licenseware-collector</code
                   >
                   <button
@@ -3342,7 +3689,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >RHEL / Fedora / SUSE</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
+                  <code
                     >sudo dnf remove licenseware-collector</code
                   >
                   <button
@@ -3381,7 +3728,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <p
               style="
                 margin: 0.75rem 0 0 0;
-                font-size: 0.8rem;
+                font-size: 0.9375rem;
                 color: var(--text-secondary);
               "
               data-i18n="uninstall.linux.note"
@@ -3390,15 +3737,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </p>
           </div>
 
-          <!-- macOS -->
-          <div
-            style="
-              border: 1px solid var(--line);
-              border-radius: 12px;
-              padding: 1.25rem;
-              margin-top: 1rem;
-            "
-          >
+          <div class="os-panel os-box" data-os="macos" data-tab-label="macOS">
             <h3
               style="margin: 0 0 0.75rem 0"
               data-i18n="uninstall.macos.title"
@@ -3408,7 +3747,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <p
               style="
                 margin: 0 0 0.5rem 0;
-                font-size: 0.85rem;
+                font-size: 0.9375rem;
                 color: var(--text-secondary);
               "
               data-i18n="uninstall.macos.desc"
@@ -3416,7 +3755,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               Run this in Terminal, or download <code>uninstall.command</code> from the Downloads section and double-click it:
             </p>
             <div class="code-block" style="margin-top: 0.5rem">
-              <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+              <pre><code style="white-space: pre-wrap;"
                 >sudo licenseware-collector uninstall --force</code></pre>
               <button
                 type="button"
@@ -3444,15 +3783,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </div>
           </div>
 
-          <!-- Windows -->
-          <div
-            style="
-              border: 1px solid var(--line);
-              border-radius: 12px;
-              padding: 1.25rem;
-              margin-top: 1rem;
-            "
-          >
+          <div class="os-panel os-box" data-os="windows" data-tab-label="Windows">
             <h3
               style="margin: 0 0 0.75rem 0"
               data-i18n="uninstall.win.title"
@@ -3467,7 +3798,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >Run the uninstall command (it runs <code>msiexec /x</code> for you)</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
+                  <code
                     >LicensewareCollector uninstall --force</code
                   >
                   <button
@@ -3509,7 +3840,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >Or uninstall the package directly</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
+                  <pre><code style="white-space: pre-wrap;"
                     >msiexec /x LicensewareCollector.msi</code></pre>
                   <button
                     type="button"
@@ -3550,7 +3881,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >Or remove it from the UI:</strong
                 >
                 <div class="code-block" style="margin-top: 0.5rem">
-                  <code style="font-size: 0.85rem"
+                  <code
                     >Settings &gt; Apps &gt; Installed apps</code
                   >
                   <button
@@ -3587,10 +3918,11 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               </li>
             </ol>
           </div>
+          </div>
 
           <span
             style="
-              font-size: 0.8rem;
+              font-size: 0.9375rem;
               color: var(--text-secondary);
               display: block;
               margin-top: 0.75rem;
@@ -3728,7 +4060,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <div class="flow-diagram">
             <div
               class="flow-step"
-              style="border-color: var(--line); font-size: 0.8rem"
+              style="border-color: var(--line); font-size: 0.9375rem"
               data-i18n="process.step3"
             >
               Fetch Query<br />Catalogs
@@ -3736,7 +4068,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
             <div
               class="flow-step"
-              style="border-color: var(--line); font-size: 0.8rem"
+              style="border-color: var(--line); font-size: 0.9375rem"
               data-i18n="process.step4"
             >
               Execute<br />Queries
@@ -3744,10 +4076,10 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
             <div
               class="flow-step"
-              style="border-color: var(--line); font-size: 0.8rem"
+              style="border-color: var(--line); font-size: 0.9375rem"
               data-i18n="process.step5"
             >
-              Upload to<br />LICENSEWARE ™
+              Upload to<br />LICENSEWARE™
             </div>
           </div>
         </section>
@@ -3800,7 +4132,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <p
             style="
               color: var(--text-secondary);
-              font-size: 0.85rem;
+              font-size: 0.9375rem;
               margin-top: 0.75rem;
             "
             data-i18n="catalogs.lang"
@@ -3883,7 +4215,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </div>
             <p
               style="
-                font-size: 0.9rem;
+                font-size: 0.9375rem;
                 color: var(--text-secondary);
                 margin: 0.75rem 0 0;
               "
@@ -4177,7 +4509,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </div>
             <p
               style="
-                font-size: 0.9rem;
+                font-size: 0.9375rem;
                 color: var(--text-secondary);
                 margin: 0.75rem 0 0;
               "
@@ -4309,7 +4641,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           </table>
           </div>
           <p
-            style="color: var(--text-secondary); font-size: 0.85rem"
+            style="color: var(--text-secondary); font-size: 0.9375rem"
             data-i18n="catalogs.notify"
           >
             Additions to this specification are notified to registered customer
@@ -4341,21 +4673,11 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <h2 id="paths-title" data-i18n="paths.title">Installation Paths</h2>
           </div>
 
-          <div class="os-grid">
+          <div class="os-tabs os-tabs--paths" data-os-tabs>
+          <div class="segmented" role="tablist" aria-label="Operating system" data-i18n-aria="os.tabs.label"></div>
             <!-- Linux -->
-            <div
-              class="download-card"
-            >
-              <div
-                style="
-                  display: flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                  margin-bottom: 1rem;
-                  padding-bottom: 0.75rem;
-                  border-bottom: 1px solid var(--line);
-                "
-              >
+            <div class="download-card os-panel" data-os="linux" data-tab-label="Linux">
+              <div class="os-panel-head">
                 <span style="font-size: 1.5rem; display: flex">
                   <!-- Terminal / Command Line Icon -->
                   <svg
@@ -4372,7 +4694,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                 </span>
                 <h3 style="margin: 0">Linux</h3>
               </div>
-              <div style="font-size: 0.8rem">
+              <div class="path-list">
                 <div class="path-container">
                   <div
                     style="
@@ -4384,12 +4706,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Binary
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/usr/libexec/licenseware-collector/licenseware-collector</code
                   >
                   <!-- SVG Copy Icon -->
@@ -4434,12 +4751,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Service File
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/etc/systemd/system/licenseware-collector.service</code
                   >
                   <button
@@ -4483,12 +4795,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Environment File
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/etc/default/licenseware-collector</code
                   >
                   <button
@@ -4533,12 +4840,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Registration state (no secrets, world-readable)
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/var/lib/licenseware-collector/registration.json</code
                   >
                   <button
@@ -4576,19 +4878,8 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </div>
 
             <!-- Windows -->
-            <div
-              class="download-card"
-            >
-              <div
-                style="
-                  display: flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                  margin-bottom: 1rem;
-                  padding-bottom: 0.75rem;
-                  border-bottom: 1px solid var(--line);
-                "
-              >
+            <div class="download-card os-panel" data-os="windows" data-tab-label="Windows">
+              <div class="os-panel-head">
                 <span style="font-size: 1.5rem; display: flex">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -4604,7 +4895,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                 </span>
                 <h3 style="margin: 0">Windows</h3>
               </div>
-              <div style="font-size: 0.8rem">
+              <div class="path-list">
                 <div class="path-container">
                   <div
                     style="
@@ -4616,12 +4907,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Seed binary (installer-owned)
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >%ProgramFiles%\Licenseware\LicensewareCollector.exe</code
                   >
                   <button
@@ -4666,12 +4952,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Runtime binary (service + self-update)
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >C:\ProgramData\Licenseware\bin\LicensewareCollector.exe</code
                   >
                   <button
@@ -4715,12 +4996,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Environment File
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >C:\ProgramData\Licenseware\collector.env</code
                   >
                   <button
@@ -4765,12 +5041,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Registration state (no secrets, world-readable)
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >C:\ProgramData\Licenseware\registration.json</code
                   >
                   <button
@@ -4815,12 +5086,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Registry mirror
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >HKLM\SOFTWARE\Licenseware\Collector</code
                   >
                   <button
@@ -4871,19 +5137,8 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </div>
 
             <!-- macOS -->
-            <div
-              class="download-card"
-            >
-              <div
-                style="
-                  display: flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                  margin-bottom: 1rem;
-                  padding-bottom: 0.75rem;
-                  border-bottom: 1px solid var(--line);
-                "
-              >
+            <div class="download-card os-panel" data-os="macos" data-tab-label="macOS">
+              <div class="os-panel-head">
                 <span style="font-size: 1.5rem; display: flex">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -4899,7 +5154,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                 </span>
                 <h3 style="margin: 0">macOS</h3>
               </div>
-              <div style="font-size: 0.8rem">
+              <div class="path-list">
                 <div class="path-container">
                   <div
                     style="
@@ -4911,12 +5166,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Binary
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/usr/local/libexec/licenseware-collector/licenseware-collector</code
                   >
                   <button
@@ -4960,12 +5210,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     LaunchAgent/LaunchDaemon
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/Library/LaunchDaemons/io.licenseware.licenseware-collector.plist</code
                   >
                   <button
@@ -5009,12 +5254,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Environment File
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/usr/local/etc/licenseware-collector</code
                   >
                   <button
@@ -5059,12 +5299,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   >
                     Registration state (no secrets, world-readable)
                   </div>
-                  <code
-                    style="
-                      font-size: 0.75rem;
-                      word-break: break-all;
-                      color: var(--text);
-                    "
+                  <code style="color: var(--text);"
                     >/usr/local/libexec/licenseware-collector/registration.json</code
                   >
                   <button
@@ -5125,190 +5360,84 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <h2 id="commands-title" data-i18n="quick.title">Quick Reference</h2>
           </div>
 
-          <div class="grid" style="margin-top: 1rem">
-            <div>
-              <h3 class="section-title" data-i18n="quick.intervals">
-                Agent Intervals
-              </h3>
-              <ul class="req-list compact" role="list">
-                <li>
-                  <span class="check" aria-hidden="true">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                  </span>
-                  <div>
-                    <span data-i18n="quick.config">Config Refresh:</span>
-                    <strong>30 mins</strong>
-                  </div>
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                  </span>
-                  <div>
-                    <span data-i18n="quick.catalog">Catalog Check:</span>
-                    <strong>30 mins</strong>
-                  </div>
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                  </span>
-                  <div>
-                    <span data-i18n="quick.cleanup">Failed File Cleanup:</span>
-                    <strong>6 hours</strong>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="section-title" data-i18n="quick.service">
-                Service Commands
-              </h3>
-<ul class="req-list compact" role="list" id="commands-list">
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.register">Enrol this machine (or repair an enrolled one)</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+          <h3 class="section-title" data-i18n="quick.intervals">Agent Intervals</h3>
+          <dl class="stat-row">
+            <div class="stat"><dt data-i18n="quick.config">Config Refresh</dt><dd>30 mins</dd></div>
+            <div class="stat"><dt data-i18n="quick.catalog">Catalog Check</dt><dd>30 mins</dd></div>
+            <div class="stat"><dt data-i18n="quick.cleanup">Failed File Cleanup</dt><dd>6 hours</dd></div>
+          </dl>
+          <h3 class="section-title" data-i18n="quick.service">Service Commands</h3>
+          <ul class="cmd-grid" role="list" id="commands-list">
+            <li class="cmd-card">
+              <div class="cmd-text"><code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code><span class="cmd-desc" data-i18n="quick.cmd.register">Enrol this machine (or repair an enrolled one)</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>licenseware-collector status</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.status">Show service and registration state</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>licenseware-collector status</code><span class="cmd-desc" data-i18n="quick.cmd.status">Show service and registration state</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>sudo licenseware-collector set</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.set">List or change settings (restarts the service)</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>sudo licenseware-collector set</code><span class="cmd-desc" data-i18n="quick.cmd.set">List or change settings (restarts the service)</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>sudo licenseware-collector restart</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.restart">Restart the service</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>sudo licenseware-collector restart</code><span class="cmd-desc" data-i18n="quick.cmd.restart">Restart the service</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>sudo licenseware-collector stop</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.stop">Stop the service</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>sudo licenseware-collector stop</code><span class="cmd-desc" data-i18n="quick.cmd.stop">Stop the service</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>licenseware-collector diagnose</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.diagnose">Write a redacted support zip in the current directory</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>licenseware-collector diagnose</code><span class="cmd-desc" data-i18n="quick.cmd.diagnose">Write a redacted support zip in the current directory</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>sudo licenseware-collector update</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.update">Check for and apply an agent update (<code>-c</code> checks only)</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>sudo licenseware-collector update</code><span class="cmd-desc" data-i18n="quick.cmd.update">Check for and apply an agent update (<code>-c</code> checks only)</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>sudo licenseware-collector uninstall --force</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.uninstall">Remove the collector</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>sudo licenseware-collector uninstall --force</code><span class="cmd-desc" data-i18n="quick.cmd.uninstall">Remove the collector</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>sudo licenseware-collector run-once</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.run-once">Run every query once (for testing)</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>sudo licenseware-collector run-once</code><span class="cmd-desc" data-i18n="quick.cmd.run-once">Run every query once (for testing)</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>licenseware-collector system-info</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.system-info">Print this machine's identifiers as JSON</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>licenseware-collector system-info</code><span class="cmd-desc" data-i18n="quick.cmd.system-info">Print this machine's identifiers as JSON</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-<li>
-<span class="check" aria-hidden="true">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</span>
-<div><code>licenseware-collector licence</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.licence">Print the licence agreement and third-party notices</small></div>
-<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+            </li>
+            <li class="cmd-card">
+              <div class="cmd-text"><code>licenseware-collector licence</code><span class="cmd-desc" data-i18n="quick.cmd.licence">Print the licence agreement and third-party notices</span></div>
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
-</li>
-</ul>
-<p style="margin: 0.75rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="quick.path_note">
+            </li>
+          </ul>
+          <p class="note" data-i18n="quick.path_note">
 On Linux and macOS use <code>licenseware-collector</code>; on Windows use <code>LicensewareCollector</code> from an elevated prompt. It is on the <code>PATH</code>: <code>/usr/bin/licenseware-collector</code> on Linux, a link at <code>/usr/local/bin/licenseware-collector</code> on macOS, and <code>%ProgramData%\Licenseware\bin</code> in the machine <code>Path</code> on Windows (open a new elevated prompt after installing).
 </p>
-            </div>
-          </div>
         </section>
 
         <!-- Logs & Troubleshooting -->
@@ -5340,7 +5469,7 @@ On Linux and macOS use <code>licenseware-collector</code>; on Windows use <code>
             </h2>
           </div>
 
-<h3 class="section-title" style="margin-top: 1.5rem" data-i18n="logs.first.title">First steps</h3>
+<h3 class="section-title" data-i18n="logs.first.title">First steps</h3>
 <p data-i18n="logs.first.desc">
 Run <code>status</code> first. It says whether the service is running and when the last collection and upload happened. If something is wrong, run <code>diagnose</code> and send us the zip it writes in the current directory. It is redacted: it holds no tokens and no query output.
 </p>
@@ -5370,7 +5499,7 @@ Below is where to read the collector's logs. It writes them to standard error; t
 
           <h3
             class="section-title"
-            style="margin-top: 1.5rem"
+           
             data-i18n="logs.level.title"
           >
             Log Level
@@ -5419,7 +5548,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
           </table>
           </div>
 
-          <h3 class="section-title" style="margin-top: 1.5rem">Linux</h3>
+          <h3 class="section-title">Linux</h3>
 
           <p data-i18n="logs.linux.desc">
             On systemd-based systems, logs are captured by the journal
@@ -5433,7 +5562,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
               >Follow logs in real time:</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem"
+              <code
                 >journalctl -u licenseware-collector -f</code
               >
               <button
@@ -5469,7 +5598,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
               >View logs from the last hour:</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem"
+              <code
                 >journalctl -u licenseware-collector --since "1 hour ago"</code
               >
               <button
@@ -5498,7 +5627,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
             </div>
           </div>
 
-          <h3 class="section-title" style="margin-top: 1.5rem">macOS</h3>
+          <h3 class="section-title">macOS</h3>
 
           <p data-i18n="logs.macos.desc">
             The launchd service writes both stdout and stderr to a single log
@@ -5512,7 +5641,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
               >Follow logs in real time:</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem"
+              <code
                 >tail -f /var/log/licenseware-collector.log</code
               >
               <button
@@ -5548,7 +5677,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
               >View full log file:</small
             >
             <div class="code-block" style="margin-top: 0.5rem">
-              <code style="font-size: 0.85rem"
+              <code
                 >cat /var/log/licenseware-collector.log</code
               >
               <button
@@ -5577,7 +5706,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
             </div>
           </div>
 
-          <h3 class="section-title" style="margin-top: 1.5rem">Windows</h3>
+          <h3 class="section-title">Windows</h3>
 
 <p data-i18n="logs.win.desc">
 The Windows service writes the collector's own log to the Windows Event Log under the <code>licenseware-collector</code> provider; it writes no log file. Run these in an elevated PowerShell.
@@ -5586,7 +5715,7 @@ The Windows service writes the collector's own log to the Windows Event Log unde
 <div style="margin-top: 0.75rem">
 <small style="color: var(--text-secondary)" data-i18n="logs.win.install">1. Read the collector's log (the last 50 events):</small>
 <div class="code-block" style="margin-top: 0.5rem">
-<code style="font-size: 0.85rem">Get-WinEvent -ProviderName "licenseware-collector" -MaxEvents 50</code>
+<code>Get-WinEvent -ProviderName "licenseware-collector" -MaxEvents 50</code>
 <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
@@ -5685,7 +5814,7 @@ Start-Service licenseware-collector</code></pre>
           </p>
 
           <p
-            style="color: var(--text-secondary); font-size: 0.85rem"
+            style="color: var(--text-secondary); font-size: 0.9375rem"
             data-i18n="licence.lang"
           >
             The agreement is published in English. The English text is the
@@ -6357,39 +6486,34 @@ Start-Service licenseware-collector</code></pre>
       </main>
     </div>
 
-    <footer role="contentinfo">
-      <div class="container">
-        <div style="text-align: left">
-          <p data-i18n="footer.copyright">
-            © 2026 LICENSEWARE®. All rights reserved.
-          </p>
-          <p style="font-size: 0.85rem; margin-top: 0.25rem">
-            <a href="#licence-agreement" data-i18n="footer.licence"
-              >Licence Agreement</a
-            >
-            &middot;
-            <a
-              href="https://licenseware.io/legal/"
-              target="_blank"
-              rel="noopener"
-              data-i18n="footer.legal"
-              >Legal</a
-            >
-          </p>
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <a class="footer-logo-link" href="https://www.licenseware.io" target="_blank" rel="noopener noreferrer" aria-label="LICENSEWARE™">
+            <img src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png" alt="LICENSEWARE™" class="footer-logo" height="32" loading="lazy" />
+          </a>
         </div>
-        <!-- Simple link to homepage via logo -->
-        <a
-          href="https://www.licenseware.io"
-          target="_blank"
-          aria-label="LICENSEWARE ™"
-        >
-          <img
-            src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
-            alt="LICENSEWARE ™"
-            class="header-logo"
-            loading="lazy"
-          />
-        </a>
+        <nav class="footer-cols" aria-label="Footer">
+          <div class="footer-col">
+            <h2 class="footer-title" data-i18n="footer.col.resources">Resources</h2>
+            <ul role="list">
+              <li><a href="https://www.licenseware.io" target="_blank" rel="noopener noreferrer">licenseware.io</a></li>
+              <li><a href="https://wiki.licenseware.io" target="_blank" rel="noopener noreferrer" data-i18n="footer.wiki">LICENSEWARE Wiki</a></li>
+              <li><a href="https://success.licenseware.io" target="_blank" rel="noopener noreferrer" data-i18n="footer.help">Help</a></li>
+              <li><a href="https://status.licenseware.io" target="_blank" rel="noopener noreferrer" data-i18n="footer.status">Status</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-title" data-i18n="footer.col.legal">Legal</h2>
+            <ul role="list">
+              <li><a href="#licence-agreement" data-i18n="footer.licence">Licence Agreement</a></li>
+              <li><a href="https://licenseware.io/legal/" target="_blank" rel="noopener" data-i18n="footer.legal">Legal</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="container">
+        <p class="footer-copy" data-i18n="footer.copyright">© 2026 LICENSEWARE®. All rights reserved.</p>
       </div>
     </footer>
 
@@ -6479,7 +6603,7 @@ Start-Service licenseware-collector</code></pre>
           "nav.commands": "Commands",
           "overview.title": "What is LICENSEWARE Collector?",
           "overview.desc":
-            "A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE ™ platform for software license compliance analysis.",
+            "A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE™ platform for software license compliance analysis.",
           "compat.title": "Operating System Compatibility",
           "compat.linux.1": "x86_64 and arm64 (64-bit)",
           "compat.linux.2": "systemd required",
@@ -6531,7 +6655,7 @@ Start-Service licenseware-collector</code></pre>
           "process.auto": "What the Collector Does",
           "process.step3": "Fetch Query<br />Catalogs",
           "process.step4": "Execute<br />Queries",
-          "process.step5": "Upload to<br />LICENSEWARE ™",
+          "process.step5": "Upload to<br />LICENSEWARE™",
           "catalogs.title": "Data Collection Specification",
           "catalogs.lead":
             'This section lists every query the Collector runs, the operating systems it runs on, how often, the exact fields collected and why. It is the same specification published as Schedule 3 of the <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Licenseware Data Processing Addendum</a>, which governs all data transmitted by the Collector. Nothing outside this list is collected.',
@@ -6656,9 +6780,9 @@ Start-Service licenseware-collector</code></pre>
           "quick.title": "Quick Reference",
           "quick.intervals": "Agent Intervals",
           "quick.service": "Service Commands",
-          "quick.config": "Config Refresh:",
-          "quick.catalog": "Catalog Check:",
-          "quick.cleanup": "Failed File Cleanup:",
+          "quick.config": "Config Refresh",
+          "quick.catalog": "Catalog Check",
+          "quick.cleanup": "Failed File Cleanup",
           "quick.path_note": "On Linux and macOS use <code>licenseware-collector</code>; on Windows use <code>LicensewareCollector</code> from an elevated prompt. It is on the <code>PATH</code>: <code>/usr/bin/licenseware-collector</code> on Linux, a link at <code>/usr/local/bin/licenseware-collector</code> on macOS, and <code>%ProgramData%\\Licenseware\\bin</code> in the machine <code>Path</code> on Windows (open a new elevated prompt after installing).",
           "nav.proxy": "Proxy",
           "proxy.title": "Proxy Configuration",
@@ -6729,6 +6853,19 @@ Start-Service licenseware-collector</code></pre>
           "footer.copyright": "© 2026 LICENSEWARE®. All rights reserved.",
           "footer.licence": "Licence Agreement",
           "footer.legal": "Legal",
+          "intro.eyebrow": "Software inventory agent",
+          "intro.download": "Download",
+          "intro.guide": "Installation guide",
+          "intro.version": "Current release",
+          "demo.title": "Generate and Manage API Keys in LICENSEWARE Collector",
+          "demo.sub": "Interactive demo &middot; click to load",
+          "demo.caption": "Step 1 as an interactive walkthrough: create an API key (enrolment token) in the LICENSEWARE app. Loads from demo.arcade.software when you start it.",
+          "os.tabs.label": "Operating system",
+          "footer.col.resources": "Resources",
+          "footer.col.legal": "Legal",
+          "footer.wiki": "LICENSEWARE Wiki",
+          "footer.help": "Help",
+          "footer.status": "Status",
           "install.linux.oneliner.note": "The script picks the right package, checks its <code>SHA256SUMS</code>, installs it, waits for registration and removes what it installed if the machine does not register. Extra options: <code>--proxy URL</code>, <code>--version V</code>, <code>--dry-run</code>. If your sudo rules refuse <code>TOKEN=</code>, save the token in a file and use <code>... | sudo sh -s -- --token-file /root/lc-token</code>.",
           "install.linux.env.note": "If sudo refuses <code>TOKEN=</code>, use <code>sudo env TOKEN=&lt;enrolment-token&gt; apt install ...</code>, or create <code>/etc/default/licenseware-collector</code> (mode 0600) containing <code>TOKEN=&lt;enrolment-token&gt;</code> and install without the variable. A fresh install without a token is refused before anything is written.",
           "install.linux.check.note": "Exit code 0 and <code>registered</code> in the output mean the machine is enrolled.",
@@ -6852,7 +6989,7 @@ Start-Service licenseware-collector</code></pre>
           "nav.commands": "Comandos",
           "overview.title": "¿Qué es LICENSEWARE Collector?",
           "overview.desc":
-            "Un agente <strong>gratuito</strong> y ligero que recopila datos de inventario de software y sistemas de sus servidores y los transmite de forma segura a la plataforma LICENSEWARE ™ para el análisis de cumplimiento de licencias.",
+            "Un agente <strong>gratuito</strong> y ligero que recopila datos de inventario de software y sistemas de sus servidores y los transmite de forma segura a la plataforma LICENSEWARE™ para el análisis de cumplimiento de licencias.",
           "compat.title": "Compatibilidad del Sistema Operativo",
           "compat.linux.1": "x86_64 y arm64 (64-bit)",
           "compat.linux.2": "systemd requerido",
@@ -6904,7 +7041,7 @@ Start-Service licenseware-collector</code></pre>
           "process.auto": "Lo que hace el Collector",
           "process.step3": "Obtener catálogos<br />de consultas",
           "process.step4": "Ejecutar<br />Consultas",
-          "process.step5": "Subir a<br />LICENSEWARE ™",
+          "process.step5": "Subir a<br />LICENSEWARE™",
           "catalogs.title": "Especificación de Recopilación de Datos",
           "catalogs.lead":
             'Esta sección enumera todas las consultas que ejecuta el Collector, los sistemas operativos en los que se ejecutan, con qué frecuencia, los campos exactos que se recopilan y con qué finalidad. Es la misma especificación publicada como Anexo 3 del <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Anexo de Tratamiento de Datos de Licenseware</a>, que rige todos los datos transmitidos por el Collector. No se recopila nada fuera de esta lista.',
@@ -7030,9 +7167,9 @@ Start-Service licenseware-collector</code></pre>
           "quick.title": "Referencia Rápida",
           "quick.intervals": "Intervalos del Agente",
           "quick.service": "Comandos del Servicio",
-          "quick.config": "Refrescar Config:",
-          "quick.catalog": "Comprobar Catálogo:",
-          "quick.cleanup": "Limpieza de Archivos:",
+          "quick.config": "Refrescar Config",
+          "quick.catalog": "Comprobar Catálogo",
+          "quick.cleanup": "Limpieza de Archivos",
           "quick.path_note": "En Linux y macOS use <code>licenseware-collector</code>; en Windows use <code>LicensewareCollector</code> desde un símbolo del sistema elevado. Está en el <code>PATH</code>: <code>/usr/bin/licenseware-collector</code> en Linux, un enlace en <code>/usr/local/bin/licenseware-collector</code> en macOS y <code>%ProgramData%\\Licenseware\\bin</code> en el <code>Path</code> del equipo en Windows (abra un nuevo símbolo del sistema elevado después de instalar).",
           "nav.proxy": "Proxy",
           "proxy.title": "Configuración de proxy",
@@ -7105,6 +7242,19 @@ Start-Service licenseware-collector</code></pre>
             "© 2026 LICENSEWARE®. Todos los derechos reservados.",
           "footer.licence": "Acuerdo de Licencia",
           "footer.legal": "Legal",
+          "intro.eyebrow": "Agente de inventario de software",
+          "intro.download": "Descargar",
+          "intro.guide": "Guía de instalación",
+          "intro.version": "Versión actual",
+          "demo.title": "Generar y gestionar claves API en LICENSEWARE Collector",
+          "demo.sub": "Demo interactiva &middot; clic para cargar",
+          "demo.caption": "El paso 1 como demo interactiva: crear una clave API (token de inscripción) en la app LICENSEWARE. Se carga desde demo.arcade.software al iniciarla.",
+          "os.tabs.label": "Sistema operativo",
+          "footer.col.resources": "Recursos",
+          "footer.col.legal": "Legal",
+          "footer.wiki": "Wiki de LICENSEWARE",
+          "footer.help": "Ayuda",
+          "footer.status": "Estado",
           "install.linux.oneliner.note": "El script elige el paquete adecuado, comprueba su <code>SHA256SUMS</code>, lo instala, espera al registro y elimina lo que instaló si la máquina no se registra. Opciones adicionales: <code>--proxy URL</code>, <code>--version V</code>, <code>--dry-run</code>. Si sus reglas de sudo rechazan <code>TOKEN=</code>, guarde el token en un archivo y use <code>... | sudo sh -s -- --token-file /root/lc-token</code>.",
           "install.linux.env.note": "Si sudo rechaza <code>TOKEN=</code>, use <code>sudo env TOKEN=&lt;enrolment-token&gt; apt install ...</code>, o cree <code>/etc/default/licenseware-collector</code> (modo 0600) con <code>TOKEN=&lt;enrolment-token&gt;</code> e instale sin la variable. Una instalación nueva sin token se rechaza antes de escribir nada.",
           "install.linux.check.note": "El código de salida 0 y <code>registered</code> en la salida significan que la máquina está inscrita.",
@@ -7228,6 +7378,10 @@ Start-Service licenseware-collector</code></pre>
             el.innerHTML = translations[currentLang][key];
           }
         });
+        document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+          const text = translations[currentLang][el.getAttribute("data-i18n-aria")];
+          if (text) el.setAttribute("aria-label", text);
+        });
         scrollSpy();
       }
 
@@ -7297,12 +7451,16 @@ Start-Service licenseware-collector</code></pre>
         .filter(Boolean);
 
       function scrollSpy() {
+        // The reading line sits ~120px below the top on desktop (96px below
+        // the scroll offset), lower below 1024px where the drawer is sticky.
         const line =
           parseFloat(
             getComputedStyle(document.documentElement).scrollPaddingTop,
-          ) + 16;
+          ) + 96;
         let current = spyTargets[0];
         spyTargets.forEach((target) => {
+          // Skip targets inside an inactive OS tab: they have no box.
+          if (target.getClientRects().length === 0) return;
           if (target.getBoundingClientRect().top <= line) current = target;
         });
         if (
@@ -7324,6 +7482,152 @@ Start-Service licenseware-collector</code></pre>
           }
         });
         if (tocMobileCurrent) tocMobileCurrent.textContent = label;
+      }
+
+      // OS tabs. Sections split by operating system get a segmented tab
+      // control; one choice (detected OS, then the visitor's pick) drives every
+      // set on the page. Without script all panels stay visible, stacked.
+      const OS_ORDER = ["linux", "windows", "macos", "mdm"];
+      const SHARED_OS = ["linux", "windows", "macos"];
+
+      function detectOS() {
+        try {
+          const saved = localStorage.getItem("lc-os");
+          if (SHARED_OS.includes(saved)) return saved;
+        } catch (e) {}
+        const platform =
+          (navigator.userAgentData && navigator.userAgentData.platform) ||
+          navigator.platform ||
+          "";
+        const hint = `${platform} ${navigator.userAgent}`;
+        if (/win/i.test(platform) || /Windows/.test(hint)) return "windows";
+        if (/mac|iphone|ipad|ipod/i.test(hint)) return "macos";
+        return "linux";
+      }
+
+      const osTabSets = [...document.querySelectorAll("[data-os-tabs]")].map(
+        (root, setIndex) => {
+          const list = root.querySelector('[role="tablist"]');
+          const panels = [...root.querySelectorAll(":scope > .os-panel")].sort(
+            (a, b) =>
+              OS_ORDER.indexOf(a.dataset.os) - OS_ORDER.indexOf(b.dataset.os),
+          );
+          const tabs = panels.map((panel) => {
+            const os = panel.dataset.os;
+            const tab = document.createElement("button");
+            tab.type = "button";
+            tab.setAttribute("role", "tab");
+            tab.id = `ostab-${setIndex}-${os}`;
+            tab.dataset.os = os;
+            tab.textContent = panel.dataset.tabLabel;
+            if (!panel.id) panel.id = `ospanel-${setIndex}-${os}`;
+            tab.setAttribute("aria-controls", panel.id);
+            panel.setAttribute("role", "tabpanel");
+            panel.setAttribute("aria-labelledby", tab.id);
+            panel.tabIndex = 0;
+            list.appendChild(tab);
+            return tab;
+          });
+          const set = { root, panels, tabs };
+          tabs.forEach((tab, i) => {
+            tab.addEventListener("click", () => chooseOS(tab.dataset.os, set));
+            tab.addEventListener("keydown", (event) => {
+              let next = -1;
+              if (event.key === "ArrowRight") next = (i + 1) % tabs.length;
+              else if (event.key === "ArrowLeft")
+                next = (i - 1 + tabs.length) % tabs.length;
+              else if (event.key === "Home") next = 0;
+              else if (event.key === "End") next = tabs.length - 1;
+              if (next < 0) return;
+              event.preventDefault();
+              chooseOS(tabs[next].dataset.os, set);
+              tabs[next].focus();
+            });
+          });
+          return set;
+        },
+      );
+
+      function selectInSet(set, os) {
+        if (!set.tabs.some((tab) => tab.dataset.os === os)) return;
+        set.tabs.forEach((tab) => {
+          const on = tab.dataset.os === os;
+          tab.setAttribute("aria-selected", String(on));
+          tab.tabIndex = on ? 0 : -1;
+        });
+        set.panels.forEach((panel) => {
+          panel.hidden = panel.dataset.os !== os;
+        });
+      }
+
+      // An OS choice applies to every set; MDM exists only in Installation.
+      function chooseOS(os, set) {
+        if (SHARED_OS.includes(os)) {
+          osTabSets.forEach((each) => selectInSet(each, os));
+          try {
+            localStorage.setItem("lc-os", os);
+          } catch (e) {}
+        } else if (set) {
+          selectInSet(set, os);
+        }
+        scrollSpy();
+      }
+
+      chooseOS(detectOS());
+      osTabSets.forEach((set) => {
+        if (!set.tabs.some((tab) => tab.getAttribute("aria-selected") === "true")) {
+          selectInSet(set, set.tabs[0].dataset.os);
+        }
+      });
+
+      // A link to something inside an inactive tab opens that tab first, so
+      // deep links (#mdm-title, #mdm-macos-title) still land.
+      function revealTarget(id) {
+        const target = id && document.getElementById(id);
+        const panel = target && target.closest(".os-panel[hidden]");
+        if (!panel) return false;
+        const set = osTabSets.find((each) => each.panels.includes(panel));
+        chooseOS(panel.dataset.os, set);
+        return true;
+      }
+
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest('a[href^="#"]');
+        if (link) revealTarget(decodeURIComponent(link.hash.slice(1)));
+      });
+      window.addEventListener("hashchange", () => {
+        const id = decodeURIComponent(window.location.hash.slice(1));
+        if (revealTarget(id)) document.getElementById(id).scrollIntoView();
+      });
+      if (revealTarget(decodeURIComponent(window.location.hash.slice(1)))) {
+        window.addEventListener("load", () =>
+          document.getElementById(window.location.hash.slice(1)).scrollIntoView(),
+        );
+      }
+
+      // Arcade demo: a facade until the visitor asks for it, so nothing is
+      // requested from demo.arcade.software before the click.
+      const arcade = document.getElementById("arcadeDemo");
+      if (arcade) {
+        const facade = arcade.querySelector(".demo-facade");
+        facade.setAttribute("role", "button");
+        const loadDemo = (event) => {
+          event.preventDefault();
+          const frame = document.createElement("iframe");
+          frame.src = arcade.dataset.src;
+          frame.title = arcade.dataset.title;
+          frame.setAttribute("frameborder", "0");
+          frame.setAttribute("allowfullscreen", "");
+          frame.setAttribute("webkitallowfullscreen", "");
+          frame.setAttribute("mozallowfullscreen", "");
+          frame.setAttribute("allow", "clipboard-write");
+          facade.replaceWith(frame);
+          frame.focus();
+        };
+        facade.addEventListener("click", loadDemo);
+        facade.addEventListener("keydown", (event) => {
+          if (event.key === " " || event.key === "Spacebar") loadDemo(event);
+        });
       }
 
       let spyQueued = false;
