@@ -119,7 +119,10 @@
         --mono:
           ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
           monospace;
-        --header-offset: 24px;
+        --header-h: 84px;
+        --header-offset: calc(var(--header-h) + 16px);
+        --header-bg: rgba(16, 16, 16, 0.88);
+        --brand-logo-filter: none;
         --theme-pill: 50px;
         --table-head-bg: #373737;
         --table-head-line: #515151;
@@ -153,6 +156,8 @@
         --error: #b8322a;
         --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
         --logo-filter: none;
+        --header-bg: rgba(229, 229, 229, 0.88);
+        --brand-logo-filter: invert(1);
         --table-head-bg: #ffffff;
         --table-head-line: #bbbbbb;
         --table-row: #efefef;
@@ -186,6 +191,8 @@
           --error: #b8322a;
           --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
           --logo-filter: none;
+          --header-bg: rgba(229, 229, 229, 0.88);
+          --brand-logo-filter: invert(1);
           --table-head-bg: #ffffff;
           --table-head-line: #bbbbbb;
           --table-row: #efefef;
@@ -288,71 +295,137 @@
         padding: 0 32px;
       }
 
-      /* --- Header --- */
+      /* --- Header (licenseware.io and the wiki): sticky, blurred --- */
       .site-header {
-        background: var(--bg);
-        border-bottom: 1px solid var(--line);
-        padding: 24px 0;
-        margin-bottom: 32px;
+        position: sticky;
+        top: 0;
+        z-index: 80;
+        height: var(--header-h);
+        background: var(--header-bg);
+        -webkit-backdrop-filter: blur(18px) saturate(1.6);
+        backdrop-filter: blur(18px) saturate(1.6);
+        border-bottom: 1px solid transparent;
+        transition: border-color 150ms ease;
+      }
+
+      .site-header.is-scrolled {
+        border-bottom-color: var(--line);
       }
 
       .header-inner {
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 24px;
-        flex-wrap: wrap;
       }
 
-      .brand {
+      .site-brand {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 12px;
         min-width: 0;
       }
 
-      .brand h1 {
-        font-size: 34px;
-        line-height: 1.15;
+      .site-logo-link {
+        display: inline-flex;
+        flex: none;
+        border-radius: 4px;
       }
 
-      .app-icon {
-        width: 64px;
-        height: 64px;
-        border-radius: var(--radius-md);
-        overflow: hidden;
-        flex-shrink: 0;
-      }
-
-      .app-icon img {
+      .site-logo {
         display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+        height: 36px;
+        width: auto;
+        filter: var(--brand-logo-filter);
       }
 
-      .header-actions {
+      .brand-divider {
+        flex: none;
+        width: 1px;
+        height: 20px;
+        background: var(--line-strong);
+      }
+
+      .brand-product {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .site-nav {
         display: flex;
         align-items: center;
         gap: 24px;
-        margin-left: auto;
       }
 
-      .header-logo-link {
+      .site-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        list-style: none;
+      }
+
+      .site-nav-links a {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
-        min-width: 40px;
-        height: 40px;
-        border-radius: var(--radius-sm);
+        min-height: 40px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 4px;
       }
 
-      .header-logo {
-        display: block;
+      .site-nav-links a:hover,
+      .site-nav-links a.is-active {
+        color: var(--accent-text);
+      }
+
+      .site-nav .btn-signin {
+        min-height: 32px;
+        height: 32px;
+        padding: 0 14px;
+        border-radius: var(--radius-sm);
+        background: var(--accent);
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .site-nav .btn-signin:hover {
+        background: var(--accent-hover);
+      }
+
+      .menu-toggle {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
         height: 40px;
-        width: auto;
-        object-fit: contain;
-        filter: var(--logo-filter);
+        flex: none;
+        border: 0;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .menu-toggle:hover {
+        background: var(--surface-chip);
+      }
+
+      .menu-toggle .icon-close,
+      .menu-toggle[aria-expanded="true"] .icon-open {
+        display: none;
+      }
+
+      .menu-toggle[aria-expanded="true"] .icon-close {
+        display: block;
       }
 
       /* Language: the website's text menu */
@@ -371,8 +444,8 @@
         background: transparent;
         color: var(--text-secondary);
         font-family: var(--font);
-        font-size: 15px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 700;
         cursor: pointer;
       }
 
@@ -501,11 +574,11 @@
 
       .sidebar {
         position: sticky;
-        top: 24px;
+        top: calc(var(--header-h) + 24px);
         align-self: start;
         display: flex;
         flex-direction: column;
-        max-height: calc(100vh - var(--header-offset) - 24px);
+        max-height: calc(100vh - var(--header-h) - 48px);
         overflow: hidden;
         background: var(--surface);
         border: 1px solid var(--line);
@@ -1210,81 +1283,111 @@
         color: var(--text-secondary);
       }
 
-      /* --- Footer --- */
+      /* --- Footer (licenseware.io and the wiki) --- */
       .site-footer {
-        background: var(--surface);
         border-top: 1px solid var(--line);
-        margin-top: 48px;
-        padding: 40px 0 32px;
+        margin-top: 64px;
+        padding: 64px 0 0;
         color: var(--text-secondary);
       }
 
-      .footer-inner {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 32px 48px;
-        flex-wrap: wrap;
-      }
-
-      .footer-logo-link {
-        display: inline-flex;
-        border-radius: var(--radius-sm);
+      .footer-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+        gap: 48px;
       }
 
       .footer-logo {
-        display: block;
         height: 32px;
-        width: auto;
-        filter: var(--logo-filter);
+      }
+
+      .footer-tagline {
+        margin-top: 16px;
+        max-width: 36ch;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+
+      .footer-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .footer-actions .btn {
+        min-height: 40px;
       }
 
       .footer-cols {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 32px 64px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 32px;
       }
 
       .footer-title {
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 800;
         letter-spacing: 1px;
         text-transform: uppercase;
-        color: var(--text-secondary);
+        color: var(--text);
         margin-bottom: 12px;
       }
 
-      .footer-col ul {
+      .footer-col ul,
+      .footer-bottom-links {
         list-style: none;
-      }
-
-      .footer-col li + li {
-        margin-top: 4px;
       }
 
       .footer-col a {
         display: inline-flex;
         align-items: center;
         min-height: 32px;
-        color: var(--text);
-        font-size: 15px;
+        color: var(--text-secondary);
+        font-size: 14px;
         font-weight: 600;
         text-decoration: none;
+        text-underline-offset: 3px;
         border-radius: 4px;
+        overflow-wrap: anywhere;
       }
 
-      .footer-col a:hover {
-        color: var(--accent-text);
+      .footer-col a:hover,
+      .footer-bottom-links a:hover {
+        color: var(--text);
         text-decoration: underline;
         text-decoration-thickness: 1px;
       }
 
-      .footer-copy {
-        margin-top: 32px;
-        padding-top: 20px;
+      .footer-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 24px;
+        margin-top: 48px;
+        padding: 24px 0;
         border-top: 1px solid var(--line);
-        font-size: 13px;
+      }
+
+      .footer-copy {
+        font-size: 12.5px;
+        font-weight: 500;
         color: var(--text-secondary);
+      }
+
+      .footer-bottom-links {
+        display: flex;
+        gap: 24px;
+      }
+
+      .footer-bottom-links a {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-decoration: none;
+        text-underline-offset: 3px;
       }
 
       /* --- Code --- */
@@ -1484,18 +1587,37 @@
         color: var(--text-secondary);
       }
 
-      /* --- Intro --- */
-      .intro {
-        padding: 8px 0 40px;
+      /* --- Hero (licenseware.io and the wiki) --- */
+      .hero {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 96px 32px 0;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+        gap: 48px;
+        align-items: start;
       }
 
       .eyebrow {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 1px;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        line-height: 1.3;
         text-transform: uppercase;
         color: var(--accent-text);
-        margin-bottom: 12px;
+        margin: 0 0 14px;
+      }
+
+      .hero-title {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        line-height: 1.2;
+        color: var(--text);
+        margin: 0 0 20px;
       }
 
       .lede {
@@ -1503,25 +1625,118 @@
         font-weight: 500;
         line-height: 1.6;
         color: var(--text-secondary);
-        max-width: 60ch;
+        max-width: 560px;
       }
 
       .lede strong {
         color: var(--text);
       }
 
-      .intro-actions {
+      .hero-actions {
         display: flex;
-        align-items: center;
         flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 24px;
+        align-items: center;
+        gap: 26px;
+        margin-top: 28px;
       }
 
-      .btn-lg {
-        min-height: 48px;
-        padding: 12px 20px;
-        font-size: 16px;
+      .hero-actions .btn {
+        min-height: 40px;
+        font-size: 15px;
+      }
+
+      .hero-meta {
+        margin-top: 16px;
+      }
+
+      .hero-visual {
+        position: relative;
+        width: min(420px, 100%);
+        aspect-ratio: 1;
+        justify-self: center;
+      }
+
+      .hero-glow {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse farthest-side,
+          color-mix(in srgb, var(--accent) 18%, transparent),
+          transparent
+        );
+      }
+
+      .hero-rings {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        fill: none;
+      }
+
+      .hero-rings .ring {
+        stroke: var(--line);
+        stroke-width: 1;
+      }
+
+      .hero-rings .ring-strong {
+        stroke: var(--line-strong);
+        stroke-width: 1;
+      }
+
+      .hero-rings .ring-dots circle {
+        fill: var(--accent-text);
+      }
+
+      .hero-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 120px;
+        height: 120px;
+        transform: translate(-50%, -50%);
+        border-radius: var(--radius-lg);
+      }
+
+      .hero-tile {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        transform: translate(-50%, -50%);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        color: var(--text);
+      }
+
+      .hero-stats {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 8px 24px;
+        margin-top: 48px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .hero-stats strong {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .hero-stats span {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .hero + .main-layout {
+        margin-top: 80px;
       }
 
       .version-chip {
@@ -1803,10 +2018,6 @@
           grid-template-columns: minmax(0, 1fr);
         }
 
-        .intro {
-          padding-bottom: 32px;
-        }
-
         .lede {
           font-size: 17px;
         }
@@ -1837,7 +2048,7 @@
       /* --- Below 1024px: the sidebar becomes a sticky "On this page" pill --- */
       @media (max-width: 1023px) {
         :root {
-          --header-offset: 76px;
+          --header-offset: calc(var(--header-h) + 68px);
         }
 
         .main-layout {
@@ -1852,7 +2063,7 @@
         .toc-mobile {
           display: block;
           position: sticky;
-          top: 8px;
+          top: calc(var(--header-h) + 8px);
           z-index: 50;
           margin-bottom: 16px;
         }
@@ -1923,27 +2134,6 @@
           padding: 0 16px;
         }
 
-        .site-header {
-          padding: 16px 0;
-          margin-bottom: 16px;
-        }
-
-        .header-inner {
-          gap: 12px;
-        }
-
-        .brand {
-          gap: 12px;
-        }
-
-        .app-icon {
-          width: 52px;
-          height: 52px;
-        }
-
-        .brand h1 {
-          font-size: 26px;
-        }
 
         .card {
           padding: 20px 16px;
@@ -1974,8 +2164,7 @@
           height: 44px;
         }
 
-        .lang-trigger,
-        .header-logo-link {
+        .lang-trigger {
           height: 44px;
         }
 
@@ -1994,56 +2183,206 @@
           scroll-behavior: auto !important;
         }
       }
+      /* --- Header, hero and footer below the desktop layout --- */
+      @media (max-width: 1023px) {
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .site-nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+          padding: 8px 16px 16px;
+          max-height: calc(100vh - var(--header-h));
+          overflow-y: auto;
+          background: var(--surface);
+          border-bottom: 1px solid var(--line-strong);
+          box-shadow: var(--popover-shadow);
+        }
+
+        .site-nav.is-open {
+          display: flex;
+        }
+
+        .site-nav-links {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+
+        .site-nav-links a {
+          display: flex;
+          min-height: 48px;
+          padding: 0 8px;
+          border-radius: var(--radius-sm);
+        }
+
+        .site-nav-links a:hover {
+          background: var(--surface-chip);
+        }
+
+        .site-nav .lang-menu {
+          align-self: flex-start;
+        }
+
+        .site-nav .lang-list {
+          left: 0;
+          right: auto;
+        }
+
+        .site-nav .btn-signin {
+          align-self: flex-start;
+          height: 40px;
+          min-height: 40px;
+          padding: 0 18px;
+        }
+
+        .hero-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 40px;
+        }
+
+        .hero-visual {
+          width: 300px;
+        }
+
+        .footer-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .footer-cols {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 781px) {
+        :root {
+          --header-h: 64px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding: 36px 16px 0;
+        }
+
+        .hero-title {
+          font-size: 26px;
+        }
+
+        .hero-actions {
+          gap: 12px;
+        }
+
+        .hero-visual {
+          width: 240px;
+        }
+
+        .hero-icon {
+          width: 88px;
+          height: 88px;
+        }
+
+        .hero + .main-layout {
+          margin-top: 56px;
+        }
+
+      }
+
+      @media (max-width: 599px) {
+        .footer-cols {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 374px) {
+        .hero-visual {
+          display: none;
+        }
+      }
     </style>
 
     <script async src="/posthog.js"></script>
   </head>
   <body>
-    <header class="site-header">
+    <header class="site-header" id="siteHeader">
       <div class="container header-inner">
-        <div class="brand">
-          <div class="app-icon">
-            <img
-              src="/lc.svg"
-              alt="LICENSEWARE Collector Logo"
-              width="64"
-              height="64"
-              loading="eager"
-            />
-          </div>
-          <h1 data-i18n="app.title">LICENSEWARE Collector</h1>
-        </div>
-
-        <div class="header-actions">
-          <div class="lang-menu" id="langMenu">
-            <button type="button" class="lang-trigger" id="langButton" aria-haspopup="menu" aria-expanded="false" aria-controls="langList">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="visually-hidden">Language: </span><span id="langCode">EN</span><svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
-            </button>
-            <ul class="lang-list" id="langList" role="menu" aria-labelledby="langButton" hidden>
-              <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en" aria-current="true"><span>English</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
-              <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es"><span>Español</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
-            </ul>
-          </div>
-
-
-          <a
-            class="header-logo-link"
-            href="https://www.licenseware.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit LICENSEWARE™ Homepage"
-          >
-            <img
-              src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
-              alt="LICENSEWARE™"
-              class="header-logo"
-              height="40"
-              loading="eager"
-            />
+        <div class="site-brand">
+          <a class="site-logo-link" href="https://licenseware.io/" target="_blank" rel="noopener noreferrer">
+            <img class="site-logo" src="/licenseware-logo.png" alt="LICENSEWARE" width="157" height="36" loading="eager" />
           </a>
+          <span class="brand-divider" aria-hidden="true"></span>
+          <span class="brand-product">Collector</span>
         </div>
+        <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu" data-i18n-aria="hdr.menu">
+          <svg class="icon-open" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+        </button>
+        <nav class="site-nav" id="siteNav" aria-label="Main">
+          <ul class="site-nav-links" role="list">
+              <li><a href="#downloads" data-i18n="nav.h.downloads">Downloads</a></li>
+              <li><a href="#installation" data-i18n="nav.h.install">Installation</a></li>
+              <li><a href="#settings" data-i18n="nav.h.settings">Settings</a></li>
+              <li><a href="#catalogs" data-i18n="nav.h.catalogs">Data collection</a></li>
+              <li><a href="#commands" data-i18n="nav.h.commands">Commands</a></li>
+          </ul>
+            <div class="lang-menu" id="langMenu">
+              <button type="button" class="lang-trigger" id="langButton" aria-haspopup="menu" aria-expanded="false" aria-controls="langList">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="visually-hidden">Language: </span><span id="langCode">EN</span><svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <ul class="lang-list" id="langList" role="menu" aria-labelledby="langButton" hidden>
+                <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en" aria-current="true"><span>English</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+                <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es"><span>Español</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+              </ul>
+            </div>
+          <a class="btn btn-signin" href="https://app.licenseware.io/" target="_blank" rel="noopener noreferrer"><span data-i18n="hdr.signin">Sign in</span></a>
+        </nav>
       </div>
     </header>
+
+    <section class="hero" id="overview" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow" data-i18n="intro.eyebrow">Software inventory agent</p>
+          <h1 class="hero-title" id="hero-title" data-i18n="app.title">LICENSEWARE Collector</h1>
+          <h2 id="overview-title" class="visually-hidden" data-i18n="overview.title">What is LICENSEWARE Collector?</h2>
+          <p class="lede" data-i18n="overview.desc">A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE™ platform for software license compliance analysis.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#downloads"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span data-i18n="intro.download">Download</span></a>
+            <a class="btn btn-secondary" href="#installation"><span data-i18n="intro.guide">Installation guide</span></a>
+          </div>
+          <div class="hero-meta">
+            <span class="version-chip"><span data-i18n="intro.version">Current release</span> <strong>0.17.0</strong></span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-glow"></div>
+          <svg class="hero-rings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" focusable="false">
+            <circle class="ring-strong" cx="210" cy="210" r="180" />
+            <circle class="ring" cx="210" cy="210" r="130" />
+            <circle class="ring" cx="210" cy="210" r="84" />
+            <g class="ring-dots"><circle cx="379.1" cy="271.6" r="3.5" /><circle cx="94.3" cy="347.9" r="3.5" /><circle cx="210.0" cy="30.0" r="3.5" /><circle cx="87.8" cy="254.5" r="3.5" /><circle cx="254.5" cy="87.8" r="3.5" /><circle cx="269.4" cy="269.4" r="3.5" /></g>
+          </svg>
+          <img class="hero-icon" src="/lc.svg" alt="" width="120" height="120" />
+          <span class="hero-tile is-linux" style="left: 9.73%; top: 35.34%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg></span>
+          <span class="hero-tile is-windows" style="left: 82.83%; top: 22.45%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" width="18" height="18" fill="currentColor" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg></span>
+          <span class="hero-tile is-apple" style="left: 57.44%; top: 92.21%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="currentColor" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg></span>
+        </div>
+      </div>
+      <ul class="hero-stats" role="list">
+        <li><strong>3</strong> <span data-i18n="stats.platforms">platforms (Linux, Windows, macOS)</span></li>
+        <li><strong>x86_64 + arm64</strong> <span data-i18n="stats.arch">64-bit only</span></li>
+        <li><strong>~50 MB</strong> <span data-i18n="stats.memory">memory in operation</span></li>
+        <li><strong>HTTPS 443</strong> <span data-i18n="stats.https">outbound only</span></li>
+        <li><strong>30 min</strong> <span data-i18n="stats.refresh">config refresh</span></li>
+      </ul>
+    </section>
 
     <div class="main-layout">
       <details class="toc-mobile" id="tocMobile">
@@ -2143,16 +2482,6 @@
       <!-- Main Content -->
       <main class="main-content" role="main">
         <!-- Quick Overview -->
-        <section class="intro" id="overview" aria-labelledby="overview-title">
-          <p class="eyebrow" data-i18n="intro.eyebrow">Software inventory agent</p>
-          <h2 id="overview-title" class="visually-hidden" data-i18n="overview.title">What is LICENSEWARE Collector?</h2>
-          <p class="lede" data-i18n="overview.desc">A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE™ platform for software license compliance analysis.</p>
-          <div class="intro-actions">
-            <a class="btn btn-primary btn-lg" href="#downloads"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span data-i18n="intro.download">Download</span></a>
-            <a class="btn btn-secondary btn-lg" href="#installation"><span data-i18n="intro.guide">Installation guide</span></a>
-            <span class="version-chip"><span data-i18n="intro.version">Current release</span> <strong>0.17.0</strong></span>
-          </div>
-        </section>
 
         <!-- Operating System Compatibility -->
         <section
@@ -6676,33 +7005,61 @@ Start-Service licenseware-collector</code></pre>
     </div>
 
     <footer class="site-footer" role="contentinfo">
-      <div class="container footer-inner">
+      <div class="container footer-grid">
         <div class="footer-brand">
-          <a class="footer-logo-link" href="https://www.licenseware.io" target="_blank" rel="noopener noreferrer" aria-label="LICENSEWARE™">
-            <img src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png" alt="LICENSEWARE™" class="footer-logo" height="32" loading="lazy" />
+          <a class="site-logo-link" href="https://licenseware.io/" target="_blank" rel="noopener noreferrer">
+            <img class="site-logo footer-logo" src="/licenseware-logo.png" alt="LICENSEWARE" width="139" height="32" loading="lazy" />
           </a>
+          <p class="footer-tagline" data-i18n="footer.tagline">A free agent that sends system and software inventory to LICENSEWARE.</p>
+          <div class="footer-actions">
+            <a class="btn btn-primary" href="#downloads"><span data-i18n="intro.download">Download</span></a>
+            <a class="btn btn-secondary" href="https://app.licenseware.io/" target="_blank" rel="noopener noreferrer"><span data-i18n="hdr.signin">Sign in</span></a>
+          </div>
         </div>
         <nav class="footer-cols" aria-label="Footer">
           <div class="footer-col">
-            <h2 class="footer-title" data-i18n="footer.col.resources">Resources</h2>
+            <h2 class="footer-title">Collector</h2>
             <ul role="list">
-              <li><a href="https://www.licenseware.io" target="_blank" rel="noopener noreferrer">licenseware.io</a></li>
-              <li><a href="https://wiki.licenseware.io" target="_blank" rel="noopener noreferrer" data-i18n="footer.wiki">LICENSEWARE Wiki</a></li>
-              <li><a href="https://success.licenseware.io" target="_blank" rel="noopener noreferrer" data-i18n="footer.help">Help</a></li>
-              <li><a href="https://status.licenseware.io" target="_blank" rel="noopener noreferrer" data-i18n="footer.status">Status</a></li>
+              <li><a href="#downloads" data-i18n="nav.h.downloads">Downloads</a></li>
+              <li><a href="#installation" data-i18n="nav.h.install">Installation</a></li>
+              <li><a href="#settings" data-i18n="nav.h.settings">Settings</a></li>
+              <li><a href="#catalogs" data-i18n="nav.h.catalogs">Data collection</a></li>
+              <li><a href="#commands" data-i18n="nav.h.commands">Commands</a></li>
+              <li><a href="#licence-agreement" data-i18n="footer.licence">Licence agreement</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-title">LICENSEWARE</h2>
+            <ul role="list">
+              <li><a href="https://licenseware.io/" target="_blank" rel="noopener noreferrer" data-i18n="footer.website">Website</a></li>
+              <li><a href="https://wiki.licenseware.io/" target="_blank" rel="noopener noreferrer" data-i18n="footer.wiki">Wiki</a></li>
+              <li><a href="https://success.licenseware.io/" target="_blank" rel="noopener noreferrer" data-i18n="footer.help">Help</a></li>
+              <li><a href="https://status.licenseware.io/" target="_blank" rel="noopener noreferrer" data-i18n="footer.status">Status</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-title" data-i18n="footer.col.contact">Get in touch</h2>
+            <ul role="list">
+              <li><a href="mailto:contact@licenseware.io">contact@licenseware.io</a></li>
             </ul>
           </div>
           <div class="footer-col">
             <h2 class="footer-title" data-i18n="footer.col.legal">Legal</h2>
             <ul role="list">
-              <li><a href="#licence-agreement" data-i18n="footer.licence">Licence Agreement</a></li>
               <li><a href="https://licenseware.io/legal/" target="_blank" rel="noopener" data-i18n="footer.legal">Legal</a></li>
+              <li><a href="#licence-agreement" data-i18n="footer.licence">Licence agreement</a></li>
             </ul>
           </div>
         </nav>
       </div>
       <div class="container">
-        <p class="footer-copy" data-i18n="footer.copyright">© 2026 LICENSEWARE®. All rights reserved.</p>
+        <div class="footer-bottom">
+          <p class="footer-copy" data-i18n="footer.copyright">© 2026 LICENSEWARE. All rights reserved.</p>
+          <ul class="footer-bottom-links" role="list">
+            <li><a href="https://licenseware.io/legal/" target="_blank" rel="noopener" data-i18n="footer.legal">Legal</a></li>
+            <li><a href="#licence-agreement" data-i18n="footer.licence">Licence agreement</a></li>
+          </ul>
+        </div>
       </div>
     </footer>
 
@@ -7097,9 +7454,24 @@ Start-Service licenseware-collector</code></pre>
             'By downloading you accept the <a href="#licence-agreement">Collector Licence Agreement</a>.',
           "mdm.licence":
             'Deployment of the Collector through automated tools such as Intune or SCCM constitutes acceptance of the <a href="#licence-agreement">Collector Licence Agreement</a> by the deploying organisation.',
-          "footer.copyright": "© 2026 LICENSEWARE®. All rights reserved.",
-          "footer.licence": "Licence Agreement",
+          "footer.copyright": "© 2026 LICENSEWARE. All rights reserved.",
+          "footer.licence": "Licence agreement",
           "footer.legal": "Legal",
+          "nav.h.downloads": "Downloads",
+          "nav.h.install": "Installation",
+          "nav.h.settings": "Settings",
+          "nav.h.catalogs": "Data collection",
+          "nav.h.commands": "Commands",
+          "hdr.signin": "Sign in",
+          "hdr.menu": "Menu",
+          "stats.platforms": "platforms (Linux, Windows, macOS)",
+          "stats.arch": "64-bit only",
+          "stats.memory": "memory in operation",
+          "stats.https": "outbound only",
+          "stats.refresh": "config refresh",
+          "footer.tagline": "A free agent that sends system and software inventory to LICENSEWARE.",
+          "footer.website": "Website",
+          "footer.col.contact": "Get in touch",
           "intro.eyebrow": "Software inventory agent",
           "intro.download": "Download",
           "intro.guide": "Installation guide",
@@ -7108,9 +7480,8 @@ Start-Service licenseware-collector</code></pre>
           "demo.sub": "Interactive demo &middot; click to load",
           "demo.caption": "Step 1 as an interactive walkthrough: create an API key (enrolment token) in the LICENSEWARE app. Loads from demo.arcade.software when you start it.",
           "os.tabs.label": "Operating system",
-          "footer.col.resources": "Resources",
           "footer.col.legal": "Legal",
-          "footer.wiki": "LICENSEWARE Wiki",
+          "footer.wiki": "Wiki",
           "footer.help": "Help",
           "footer.status": "Status",
           "install.linux.oneliner.note": "The script picks the right package, checks its <code>SHA256SUMS</code>, installs it, waits for registration and removes what it installed if the machine does not register. Extra options: <code>--proxy URL</code>, <code>--version V</code>, <code>--dry-run</code>. If your sudo rules refuse <code>TOKEN=</code>, save the token in a file and use <code>... | sudo sh -s -- --token-file /root/lc-token</code>.",
@@ -7486,9 +7857,24 @@ Start-Service licenseware-collector</code></pre>
           "mdm.licence":
             'El despliegue del Collector mediante herramientas automatizadas como Intune o SCCM constituye la aceptación del <a href="#licence-agreement">Acuerdo de Licencia del Collector</a> por parte de la organización que lo despliega.',
           "footer.copyright":
-            "© 2026 LICENSEWARE®. Todos los derechos reservados.",
-          "footer.licence": "Acuerdo de Licencia",
+            "© 2026 LICENSEWARE. Todos los derechos reservados.",
+          "footer.licence": "Acuerdo de licencia",
           "footer.legal": "Legal",
+          "nav.h.downloads": "Descargas",
+          "nav.h.install": "Instalación",
+          "nav.h.settings": "Configuración",
+          "nav.h.catalogs": "Recopilación de datos",
+          "nav.h.commands": "Comandos",
+          "hdr.signin": "Iniciar sesión",
+          "hdr.menu": "Menú",
+          "stats.platforms": "plataformas (Linux, Windows, macOS)",
+          "stats.arch": "solo 64 bits",
+          "stats.memory": "de memoria en uso",
+          "stats.https": "solo saliente",
+          "stats.refresh": "refresco de config",
+          "footer.tagline": "Un agente gratuito que envía el inventario de sistemas y software a LICENSEWARE.",
+          "footer.website": "Sitio web",
+          "footer.col.contact": "Contacto",
           "intro.eyebrow": "Agente de inventario de software",
           "intro.download": "Descargar",
           "intro.guide": "Guía de instalación",
@@ -7497,9 +7883,8 @@ Start-Service licenseware-collector</code></pre>
           "demo.sub": "Demo interactiva &middot; clic para cargar",
           "demo.caption": "El paso 1 como demo interactiva: crear una clave API (token de inscripción) en la app LICENSEWARE. Se carga desde demo.arcade.software al iniciarla.",
           "os.tabs.label": "Sistema operativo",
-          "footer.col.resources": "Recursos",
           "footer.col.legal": "Legal",
-          "footer.wiki": "Wiki de LICENSEWARE",
+          "footer.wiki": "Wiki",
           "footer.help": "Ayuda",
           "footer.status": "Estado",
           "install.linux.oneliner.note": "El script elige el paquete adecuado, comprueba su <code>SHA256SUMS</code>, lo instala, espera al registro y elimina lo que instaló si la máquina no se registra. Opciones adicionales: <code>--proxy URL</code>, <code>--version V</code>, <code>--dry-run</code>. Si sus reglas de sudo rechazan <code>TOKEN=</code>, guarde el token en un archivo y use <code>... | sudo sh -s -- --token-file /root/lc-token</code>.",
@@ -7755,6 +8140,47 @@ Start-Service licenseware-collector</code></pre>
         });
       }
 
+      // Sticky header: border once scrolled, menu panel below 1024px.
+      const siteHeader = document.getElementById("siteHeader");
+      const headerLinks = [...document.querySelectorAll(".site-nav-links a")];
+      const menuToggle = document.getElementById("menuToggle");
+      const siteNav = document.getElementById("siteNav");
+      function setMenu(open) {
+        siteNav.classList.toggle("is-open", open);
+        menuToggle.setAttribute("aria-expanded", String(open));
+        if (open) {
+          const first = siteNav.querySelector("a");
+          if (first) first.focus();
+        }
+      }
+      menuToggle.addEventListener("click", () =>
+        setMenu(!siteNav.classList.contains("is-open")),
+      );
+      siteNav.addEventListener("click", (event) => {
+        if (event.target.closest(".site-nav-links a, .btn-signin")) setMenu(false);
+      });
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          siteNav.classList.contains("is-open") &&
+          !event.target.closest("#langMenu")
+        ) {
+          setMenu(false);
+          menuToggle.focus();
+        }
+      });
+      document.addEventListener("click", (event) => {
+        if (
+          siteNav.classList.contains("is-open") &&
+          !event.target.closest("#siteHeader")
+        ) {
+          setMenu(false);
+        }
+      });
+      window.matchMedia("(min-width: 1024px)").addEventListener("change", () =>
+        setMenu(false),
+      );
+
       // Scroll spy: the last section whose top has passed the offset line.
       const navLinks = document.querySelectorAll(".sidebar-nav a");
       const spyTargets = [
@@ -7796,6 +8222,28 @@ Start-Service licenseware-collector</code></pre>
         });
         if (tocMobileCurrent) tocMobileCurrent.textContent = label;
         keepActiveInSidebar();
+        // Header nav: the last of its sections whose top has crossed the line.
+        let headerActive = null;
+        headerLinks.forEach((link) => {
+          const target = document.getElementById(link.hash.slice(1));
+          if (target && target.getBoundingClientRect().top <= line) {
+            headerActive = link;
+          }
+        });
+        if (
+          headerActive &&
+          headerActive.hash !== "#commands" &&
+          window.innerHeight + window.scrollY >=
+            document.documentElement.scrollHeight - 4
+        ) {
+          headerActive = null;
+        }
+        headerLinks.forEach((link) => {
+          link.classList.toggle("is-active", link === headerActive);
+          if (link === headerActive) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+        siteHeader.classList.toggle("is-scrolled", window.scrollY > 0);
       }
 
       // Keep the active item visible inside the sidebar's own scroll area
