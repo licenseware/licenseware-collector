@@ -3733,6 +3733,27 @@
           font-size: 15px;
         }
       }
+      /* --- Header nav: grey at rest, text colour on hover and when active --- */
+      .site-nav-links a {
+        color: var(--text-secondary);
+      }
+
+      .site-nav-links a:hover,
+      .site-nav-links a.is-active {
+        color: var(--text);
+        box-shadow: none;
+        text-decoration: none;
+      }
+
+      .site-nav-links a.is-active {
+        background: none;
+      }
+
+      @media (max-width: 1023px) {
+        .site-nav-links a.is-active {
+          font-weight: 600;
+        }
+      }
     </style>
 
     <script async src="/posthog.js"></script>
