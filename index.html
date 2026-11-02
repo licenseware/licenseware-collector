@@ -124,12 +124,14 @@
         --header-bg: rgba(16, 16, 16, 0.88);
         --brand-logo-filter: none;
         --cg-glow-o: 1;
-        --cg-link-o: 0.45;
-        --cg-sphere: rgba(14, 22, 20, 0.82);
+        --cg-blue-o: 1;
         --cg-grid: #d2d8e4;
         --cg-grid-f: 0.16;
         --cg-grid-b: 0.05;
+        --cg-dot: #c9d4ee;
+        --cg-particle: var(--bright);
         --cg-shell-o: 1;
+        --hz-glow-o: 1;
         --table-head-bg: #373737;
         --table-head-line: #515151;
         --table-row: #1d1d1d;
@@ -165,12 +167,14 @@
         --header-bg: rgba(229, 229, 229, 0.88);
         --brand-logo-filter: invert(1);
         --cg-glow-o: 0.66;
-        --cg-link-o: 0.4;
-        --cg-sphere: rgba(255, 255, 255, 0.7);
+        --cg-blue-o: 0.5;
         --cg-grid: #ababab;
-        --cg-grid-f: 0.85;
-        --cg-grid-b: 0.3;
-        --cg-shell-o: 0.4;
+        --cg-grid-f: 0.8;
+        --cg-grid-b: 0.28;
+        --cg-dot: #808080;
+        --cg-particle: var(--accent);
+        --cg-shell-o: 0.35;
+        --hz-glow-o: 0.2;
         --table-head-bg: #ffffff;
         --table-head-line: #bbbbbb;
         --table-row: #efefef;
@@ -207,12 +211,14 @@
           --header-bg: rgba(229, 229, 229, 0.88);
           --brand-logo-filter: invert(1);
           --cg-glow-o: 0.66;
-          --cg-link-o: 0.4;
-          --cg-sphere: rgba(255, 255, 255, 0.7);
+          --cg-blue-o: 0.5;
           --cg-grid: #ababab;
-          --cg-grid-f: 0.85;
-          --cg-grid-b: 0.3;
-          --cg-shell-o: 0.4;
+          --cg-grid-f: 0.8;
+          --cg-grid-b: 0.28;
+          --cg-dot: #808080;
+          --cg-particle: var(--accent);
+          --cg-shell-o: 0.35;
+          --hz-glow-o: 0.2;
           --table-head-bg: #ffffff;
           --table-head-line: #bbbbbb;
           --table-row: #efefef;
@@ -1286,8 +1292,7 @@
 
       /* --- Footer (licenseware.io and the wiki) --- */
       .site-footer {
-        border-top: 1px solid var(--line);
-        margin-top: 64px;
+        margin-top: 160px;
         padding: 64px 0 0;
         color: var(--text-secondary);
       }
@@ -1590,9 +1595,21 @@
 
       /* --- Hero (licenseware.io and the wiki) --- */
       .hero {
+        position: relative;
+        overflow: hidden;
+        margin-top: calc(-1 * var(--header-h));
+        padding-top: calc(var(--header-h) + 96px);
+      }
+
+      .hero-inner {
         max-width: 1320px;
         margin: 0 auto;
-        padding: 96px 32px 0;
+        padding: 0 32px;
+      }
+
+      .hero-text {
+        position: relative;
+        z-index: 2;
       }
 
       .hero-grid {
@@ -1652,6 +1669,7 @@
 
       .hero-visual {
         position: relative;
+        z-index: 1;
         width: min(520px, 100%);
         aspect-ratio: 1;
         justify-self: center;
@@ -1659,40 +1677,103 @@
       }
 
       .cg {
+        position: absolute;
+        left: -20%;
+        top: -20%;
+        width: 140%;
+        height: 140%;
+        -webkit-mask-image: radial-gradient(closest-side, #000 58%, transparent 100%);
+        mask-image: radial-gradient(closest-side, #000 58%, transparent 100%);
+        pointer-events: none;
+      }
+
+      .cg-haze {
+        opacity: var(--cg-glow-o);
+      }
+
+      .site-footer {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .site-footer > .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-horizon {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -150px;
+        height: 220px;
+        z-index: 0;
+        pointer-events: none;
+        -webkit-mask-image:
+          linear-gradient(to right, transparent, #000 18%, #000 82%, transparent),
+          linear-gradient(to bottom, transparent, #000 40%, #000 62%, transparent);
+        -webkit-mask-composite: source-in;
+        mask-image:
+          linear-gradient(to right, transparent, #000 18%, #000 82%, transparent),
+          linear-gradient(to bottom, transparent, #000 40%, #000 62%, transparent);
+        mask-composite: intersect;
+      }
+
+      .footer-horizon svg {
         display: block;
         width: 100%;
         height: 100%;
-        overflow: visible;
+      }
+
+      .hz-glow {
+        opacity: var(--hz-glow-o);
+      }
+
+      .footer-horizon .cg-grid-f {
+        stroke-opacity: calc(var(--cg-grid-f) * 1.8);
+      }
+
+      .footer-horizon .cg-grid-b {
+        stroke-opacity: calc(var(--cg-grid-b) * 2);
+      }
+
+      .hz-body {
+        fill: var(--bg);
+      }
+
+      .hz-rim {
+        fill: none;
+        stroke: var(--cg-particle);
+        stroke-opacity: 0.45;
+        stroke-width: 1;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .hz-p {
+        fill: var(--cg-particle);
       }
 
       .cg-glow {
         opacity: var(--cg-glow-o);
       }
 
+      .cg-blue {
+        opacity: var(--cg-blue-o);
+      }
+
       .cg-orbit {
         fill: none;
-        stroke: var(--accent-text);
-        stroke-opacity: 0.35;
+        stroke: var(--line);
         stroke-width: 1;
-        stroke-dasharray: 1 7;
-        stroke-linecap: round;
         vector-effect: non-scaling-stroke;
       }
 
-      .cg-link {
+      .cg-stream {
         fill: none;
-        stroke: var(--accent);
-        stroke-opacity: var(--cg-link-o);
+        stroke: var(--cg-particle);
+        stroke-opacity: 0.07;
         stroke-width: 1;
         vector-effect: non-scaling-stroke;
-      }
-
-      .cg-pulse {
-        fill: var(--bright);
-      }
-
-      .cg-sphere {
-        fill: var(--cg-sphere);
       }
 
       .cg-grid {
@@ -1710,6 +1791,27 @@
         stroke-opacity: var(--cg-grid-b);
       }
 
+      .cg-dots {
+        fill: none;
+        stroke: var(--cg-dot);
+        stroke-linecap: round;
+      }
+
+      .cg-dots-b {
+        stroke-width: 2.2;
+        stroke-opacity: 0.25;
+      }
+
+      .cg-dots-m {
+        stroke-width: 2.8;
+        stroke-opacity: 0.5;
+      }
+
+      .cg-dots-f {
+        stroke-width: 3.4;
+        stroke-opacity: 0.85;
+      }
+
       .cg-shell {
         opacity: var(--cg-shell-o);
       }
@@ -1717,72 +1819,26 @@
       .cg-rim {
         fill: none;
         stroke: var(--cg-grid);
-        stroke-opacity: 0.3;
+        stroke-opacity: 0.22;
         stroke-width: 1;
         vector-effect: non-scaling-stroke;
       }
 
-      .cg-tile {
-        fill: var(--surface);
-        stroke: var(--line-strong);
-        stroke-width: 1;
-        vector-effect: non-scaling-stroke;
+      .cg-p {
+        fill: var(--cg-particle);
       }
 
-      .cg-glyph * {
-        fill: none;
-        stroke: var(--text);
-        stroke-width: 1.5;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        vector-effect: non-scaling-stroke;
-      }
-
-      .cg-badge {
-        fill: var(--surface-raised);
-        stroke: var(--line-strong);
-        stroke-width: 1;
-        vector-effect: non-scaling-stroke;
-      }
-
-      .cg-mark {
-        fill: var(--text);
-      }
-
-      .cg-platform {
-        position: absolute;
-        left: 50%;
-        top: 13%;
+      .hero-head {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        transform: translate(-50%, calc(-100% + 20px));
+        align-items: flex-start;
+        gap: 20px;
       }
 
-      .cg-platform-label {
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 1.2;
-        color: var(--text-secondary);
-        white-space: nowrap;
-      }
-
-      .cg-platform-tile {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: var(--surface);
-        border: 1px solid var(--line-strong);
+      .hero-app-icon {
+        flex: none;
+        width: 72px;
+        height: 72px;
         border-radius: var(--radius-md);
-      }
-
-      .cg-platform-tile svg {
-        width: 22px;
-        height: auto;
-        filter: var(--brand-logo-filter);
       }
 
       .hero-stats {
@@ -2334,7 +2390,20 @@
 
       @media (max-width: 640px) {
         .hero {
-          padding: 36px 16px 0;
+          padding-top: calc(var(--header-h) + 36px);
+        }
+
+        .hero-inner {
+          padding: 0 16px;
+        }
+
+        .footer-horizon {
+          top: -96px;
+          height: 140px;
+        }
+
+        .site-footer {
+          margin-top: 112px;
         }
 
         .hero-title {
@@ -2346,20 +2415,16 @@
         }
 
         .hero-visual {
-          width: 280px;
+          width: 260px;
         }
 
-        .cg-platform {
-          transform: translate(-50%, calc(-100% + 16px));
+        .hero-app-icon {
+          width: 56px;
+          height: 56px;
         }
 
-        .cg-platform-tile {
-          width: 32px;
-          height: 32px;
-        }
-
-        .cg-platform-tile svg {
-          width: 18px;
+        .hero-head {
+          gap: 16px;
         }
 
         .hero + .main-layout {
@@ -2374,6 +2439,184 @@
         }
       }
 
+      /* --- Premium cards (licenseware.io glow-tile, faint) --- */
+      :root {
+        --card-bg:
+          radial-gradient(
+            ellipse 560px 380px at 0 0,
+            rgba(29, 78, 210, 0.09),
+            rgba(29, 78, 210, 0.03) 45%,
+            transparent 75%
+          ),
+          radial-gradient(
+            ellipse 420px 300px at 0 0,
+            rgba(27, 122, 90, 0.05),
+            transparent 70%
+          ),
+          linear-gradient(180deg, #212121, var(--surface) 240px);
+        --card-border: rgb(255 255 255 / 0.08);
+        --card-border-hover: rgb(255 255 255 / 0.14);
+        --card-shadow-premium: inset 0 1px 0 rgb(255 255 255 / 0.05);
+        --nest-bg: rgb(255 255 255 / 0.03);
+        --icon-tile-bg: linear-gradient(
+          180deg,
+          rgba(27, 122, 90, 0.22),
+          rgba(27, 122, 90, 0.08)
+        );
+        --icon-tile-line: rgba(87, 209, 108, 0.25);
+        --icon-tile-fg: var(--bright);
+      }
+
+      :root[data-theme="light"] {
+        --card-bg: #ffffff;
+        --card-border: #dcdcdc;
+        --card-border-hover: #c4c4c4;
+        --card-shadow-premium:
+          0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+        --nest-bg: #f7f7f7;
+        --icon-tile-bg: rgba(36, 126, 93, 0.1);
+        --icon-tile-line: rgba(36, 126, 93, 0.25);
+        --icon-tile-fg: var(--accent-text);
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root:not([data-theme]) {
+          --card-bg: #ffffff;
+          --card-border: #dcdcdc;
+          --card-border-hover: #c4c4c4;
+          --card-shadow-premium:
+            0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+          --nest-bg: #f7f7f7;
+          --icon-tile-bg: rgba(36, 126, 93, 0.1);
+          --icon-tile-line: rgba(36, 126, 93, 0.25);
+          --icon-tile-fg: var(--accent-text);
+        }
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--card-shadow-premium);
+        padding: 32px;
+        margin-bottom: 28px;
+        transition: border-color 200ms ease;
+      }
+
+      .card:hover {
+        border-color: var(--card-border-hover);
+      }
+
+      .card-header {
+        gap: 14px;
+        margin-bottom: 24px;
+        padding-bottom: 20px;
+        border-bottom: 0;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--line) 12%,
+            var(--line) 88%,
+            transparent
+          )
+          bottom / 100% 1px no-repeat;
+      }
+
+      .card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--icon-tile-bg);
+        border: 1px solid var(--icon-tile-line);
+        color: var(--icon-tile-fg);
+      }
+
+      .card-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .card h2 {
+        font-size: 25px;
+        font-weight: 800;
+      }
+
+      .req-list li,
+      .os-card,
+      .stat,
+      .cmd-card,
+      .download-card,
+      .os-box,
+      .flow-diagram {
+        background: var(--nest-bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+      }
+
+      .req-list li {
+        margin-bottom: 12px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .os-card,
+      .download-card,
+      .os-box {
+        padding: 20px;
+      }
+
+      .stat {
+        padding: 16px 20px;
+      }
+
+      .os-grid,
+      .stat-row,
+      .cmd-grid {
+        gap: 12px;
+      }
+
+      .step-num {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+        background: var(--icon-tile-bg);
+        border: 1px solid var(--icon-tile-line);
+        color: var(--icon-tile-fg);
+      }
+
+      .highlight-box {
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+      }
+
+      .code-block {
+        background: var(--surface-sunken);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+
+      .code-block .copy-btn {
+        opacity: 0;
+        transition: opacity 150ms ease;
+      }
+
+      .code-block:hover .copy-btn,
+      .code-block:focus-within .copy-btn,
+      .code-block .copy-btn.is-copied {
+        opacity: 1;
+      }
+
+      @media (hover: none) {
+        .code-block .copy-btn {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .card {
+          padding: 24px;
+        }
+      }
     </style>
 
     <script async src="/posthog.js"></script>
@@ -2427,10 +2670,16 @@
     </header>
 
     <section class="hero" id="overview" aria-labelledby="hero-title">
+      <div class="hero-inner">
       <div class="hero-grid">
         <div class="hero-text">
-          <p class="eyebrow" data-i18n="intro.eyebrow">IT Asset Inventory Agent</p>
-          <h1 class="hero-title" id="hero-title" data-i18n="app.title">LICENSEWARE Collector</h1>
+          <div class="hero-head">
+            <img class="hero-app-icon" src="/lc.svg" alt="" width="72" height="72" />
+            <div>
+              <p class="eyebrow" data-i18n="intro.eyebrow">IT Asset Inventory Agent</p>
+              <h1 class="hero-title" id="hero-title" data-i18n="app.title">LICENSEWARE Collector</h1>
+            </div>
+          </div>
           <h2 id="overview-title" class="visually-hidden" data-i18n="overview.title">What is LICENSEWARE Collector?</h2>
           <p class="lede" data-i18n="overview.desc">A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE™ platform for software license compliance analysis.</p>
           <div class="hero-actions">
@@ -2438,33 +2687,30 @@
             <a class="btn btn-secondary" href="#installation"><span data-i18n="intro.guide">Installation guide</span></a>
           </div>
         </div>
-        <div class="hero-visual" role="img" aria-label="The Collector gathers inventory from servers, laptops and cloud machines and sends it to the LICENSEWARE platform" data-i18n-aria="hero.visual">
-          <svg class="cg" id="collectorGraphic" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <div class="hero-visual" role="img" aria-label="Abstract illustration of inventory data flowing into LICENSEWARE" data-i18n-aria="hero.visual">
+          <svg class="cg" id="collectorGraphic" viewBox="-104 -104 728 728" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <defs>
-              <radialGradient id="cgGlow"><stop offset="0" stop-color="#1b7a5a" stop-opacity=".32"/><stop offset=".5" stop-color="#1b7a5a" stop-opacity=".1"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
-              <radialGradient id="cgCore"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".5"/><stop offset=".55" stop-color="#228b22" stop-opacity=".22"/><stop offset="1" stop-color="#228b22" stop-opacity="0"/></radialGradient>
-              <radialGradient id="cgShell" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset=".6" stop-color="#fff" stop-opacity=".01"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></radialGradient>
+              <radialGradient id="cgGreen"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".55"/><stop offset=".35" stop-color="#228b22" stop-opacity=".2"/><stop offset=".7" stop-color="#1b7a5a" stop-opacity=".06"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgBlue"><stop offset="0" stop-color="#1d4ed2" stop-opacity=".2"/><stop offset=".5" stop-color="#1d4ed2" stop-opacity=".06"/><stop offset="1" stop-color="#1d4ed2" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgHaze"><stop offset=".72" stop-color="#57d16c" stop-opacity="0"/><stop offset=".82" stop-color="#57d16c" stop-opacity=".07"/><stop offset="1" stop-color="#57d16c" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgShell" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".06"/><stop offset=".6" stop-color="#fff" stop-opacity=".01"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></radialGradient>
             </defs>
-            <circle class="cg-glow" cx="260" cy="290" r="250" fill="url(#cgGlow)"/>
-            <path class="cg-orbit" d="M48 290A212 86.4 0 0 1 472 290"/>
-            <g id="cgBack"><g class="cg-dev" data-i="2" transform="translate(76.4 246.8) scale(0.812)" opacity="0.62"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="3" y="3.5" width="18" height="17" rx="2"/><path d="M3 7.5h18"/><rect x="7" y="10.5" width="10" height="6.5" rx="1" stroke-dasharray="2 2"/></g></g><g class="cg-dev" data-i="3" transform="translate(260 203.6) scale(0.750)" opacity="0.50"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M9 15.5h6"/></g></g><g class="cg-dev" data-i="4" transform="translate(443.6 246.8) scale(0.812)" opacity="0.62"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="4" y="3.5" width="16" height="7" rx="1.5"/><rect x="4" y="13.5" width="16" height="7" rx="1.5"/><path d="M7.5 7h.01M7.5 17h.01M11 7h5.5M11 17h5.5"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 88 88"><path class="cg-mark" d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg></g></g></g>
-            <path class="cg-link" id="cgLinks" d="M260 376.4L260 290M76.4 333.2L260 290M76.4 246.8L260 290M260 203.6L260 290M443.6 246.8L260 290M443.6 333.2L260 290"/>
-            <path class="cg-link cg-link-up" d="M260 182L260 67.6"/>
-            <g id="cgPulses"><circle class="cg-pulse" r="3.5" cx="260" cy="363.5" opacity="0.45"/><circle class="cg-pulse" r="3.5" cx="164.5" cy="312.5" opacity="0.84"/><circle class="cg-pulse" r="3.5" cx="225.1" cy="281.8" opacity="0.29"/><circle class="cg-pulse" r="3.5" cx="260" cy="229.5" opacity="0.28"/><circle class="cg-pulse" r="3.5" cx="327.9" cy="274" opacity="0.47"/><circle class="cg-pulse" r="3.5" cx="267.3" cy="291.7" opacity="0.10"/><circle class="cg-pulse" id="cgUp" r="3.5" cx="260" cy="124.8" opacity="1.00"/></g>
-            <circle class="cg-sphere" cx="260" cy="290" r="108"/>
-            <path class="cg-grid cg-grid-b" id="cgGridB" d="M314 375.4L312.2 381.1L306.8 386.4L298.2 391M221.8 391L213.2 386.4L207.8 381.1L206 375.4L207.8 369.7L213.2 364.4L221.8 359.8L233 356.3L246 354.1L260 353.4L274 354.1L287 356.3L298.2 359.8L306.8 364.4L312.2 369.7L314 375.4M353.5 339.3L350.3 349.2M169.7 349.2L166.5 339.3L169.7 329.4L179 320.2L193.9 312.3L213.2 306.3L235.8 302.5L260 301.2L284.2 302.5L306.8 306.3L326.1 312.3L341 320.2L350.3 329.4L353.5 339.3M152 290L155.7 278.6L166.5 268L183.6 258.9L206 251.9L232 247.5L260 246L288 247.5L314 251.9L336.4 258.9L353.5 268L364.3 278.6L368 290M169.7 230.8L179 221.6L193.9 213.7L213.2 207.7L235.8 203.9L260 202.6L284.2 203.9L306.8 207.7L326.1 213.7L341 221.6L350.3 230.8M221.8 189L233 185.5L246 183.3L260 182.6L274 183.3L287 185.5L298.2 189M152 290L155.7 315.5L166.5 339.3L183.6 359.7L206 375.4L232 385.3L260 388.6L288 385.3L314 375.4L336.4 359.7L353.5 339.3L364.3 315.5L368 290M193.9 204.7L179 221.6L169.7 243.2L166.5 268L169.7 294.3L179 320.2L193.9 344.2L213.2 364.4L235.8 379.6L260 388.6L284.2 391L306.8 386.4L326.1 375.3M233 185.5L221.8 193.3L213.2 207.7L207.8 227.6L206 251.9L207.8 278.7L213.2 306.3L221.8 332.8L233 356.3L246 375.4L260 388.6L274 395.1L287 394.5M260 182.6L260 189.1L260 202.6L260 221.9L260 246L260 273L260 301.2L260 328.6L260 353.4L260 373.9L260 388.6L260 396.7L260 397.4M287 185.5L298.2 193.3L306.8 207.7L312.2 227.6L314 251.9L312.2 278.7L306.8 306.3L298.2 332.8L287 356.3L274 375.4L260 388.6L246 395.1L233 394.5M326.1 204.7L341 221.6L350.3 243.2L353.5 268L350.3 294.3L341 320.2L326.1 344.2L306.8 364.4L284.2 379.6L260 388.6L235.8 391L213.2 386.4L193.9 375.3"/>
-            <circle cx="260" cy="290" r="108" fill="url(#cgCore)"/>
-            <path class="cg-grid cg-grid-f" id="cgGridF" d="M298.2 391L287 394.5L274 396.7L260 397.4L246 396.7L233 394.5L221.8 391M350.3 349.2L341 358.4L326.1 366.3L306.8 372.3L284.2 376.1L260 377.4L235.8 376.1L213.2 372.3L193.9 366.3L179 358.4L169.7 349.2M368 290L364.3 301.4L353.5 312L336.4 321.1L314 328.1L288 332.5L260 334L232 332.5L206 328.1L183.6 321.1L166.5 312L155.7 301.4L152 290M353.5 240.7L350.3 250.6L341 259.8L326.1 267.7L306.8 273.7L284.2 277.5L260 278.8L235.8 277.5L213.2 273.7L193.9 267.7L179 259.8L169.7 250.6L166.5 240.7L169.7 230.8M350.3 230.8L353.5 240.7M314 204.6L312.2 210.3L306.8 215.6L298.2 220.2L287 223.7L274 225.9L260 226.6L246 225.9L233 223.7L221.8 220.2L213.2 215.6L207.8 210.3L206 204.6L207.8 198.9L213.2 193.6L221.8 189M298.2 189L306.8 193.6L312.2 198.9L314 204.6M368 290L364.3 264.5L353.5 240.7L336.4 220.3L314 204.6L288 194.7L260 191.4L232 194.7L206 204.6L183.6 220.3L166.5 240.7L155.7 264.5L152 290M353.5 312L350.3 285.7L341 259.8L326.1 235.8L306.8 215.6L284.2 200.4L260 191.4L235.8 189L213.2 193.6L193.9 204.7M326.1 375.3L341 358.4L350.3 336.8L353.5 312M314 328.1L312.2 301.3L306.8 273.7L298.2 247.2L287 223.7L274 204.6L260 191.4L246 184.9L233 185.5M287 394.5L298.2 386.7L306.8 372.3L312.2 352.4L314 328.1M260 334L260 307L260 278.8L260 251.4L260 226.6L260 206.1L260 191.4L260 183.3L260 182.6M260 397.4L260 390.9L260 377.4L260 358.1L260 334M206 328.1L207.8 301.3L213.2 273.7L221.8 247.2L233 223.7L246 204.6L260 191.4L274 184.9L287 185.5M233 394.5L221.8 386.7L213.2 372.3L207.8 352.4L206 328.1M166.5 312L169.7 285.7L179 259.8L193.9 235.8L213.2 215.6L235.8 200.4L260 191.4L284.2 189L306.8 193.6L326.1 204.7M193.9 375.3L179 358.4L169.7 336.8L166.5 312"/>
-            <circle class="cg-shell" cx="260" cy="290" r="108" fill="url(#cgShell)"/>
-            <circle class="cg-rim" cx="260" cy="290" r="108"/>
-            <svg x="192" y="222" width="136" height="136" viewBox="0 0 70 70"><g transform="translate(-651 -369)"><rect width="70" height="70" rx="6" style="fill: rgb(0, 191, 165);" transform="translate(651 369)"/><g><path d="M246.243 61.115h-2.36v8.4h5.832v-1.941h-3.471z" transform="translate(434.933 355.908)" style="fill:#fff"/><path d="M245.52 4635.469a4.538 4.538 0 0 1-2.239-.525 3.625 3.625 0 0 1-1.46-1.478 4.612 4.612 0 0 1-.513-2.222 4.538 4.538 0 0 1 .513-2.2 3.632 3.632 0 0 1 1.46-1.473 4.548 4.548 0 0 1 2.239-.523 5.033 5.033 0 0 1 1.564.243 3.291 3.291 0 0 1 1.218.657l-.658 1.535a4.008 4.008 0 0 0-1.039-.553 3.179 3.179 0 0 0-1.039-.174 1.9 1.9 0 0 0-1.518.623 2.8 2.8 0 0 0-.537 1.869 2.853 2.853 0 0 0 .537 1.882 1.882 1.882 0 0 0 1.518.635 3.218 3.218 0 0 0 1.039-.174 4.071 4.071 0 0 0 1.039-.554l.658 1.535a3.327 3.327 0 0 1-1.218.657 5.107 5.107 0 0 1-1.564.24z" transform="translate(444.937 -4210.022)" style="fill:#fff"/><g><path d="M0 19.73 2.6 2.7.132 0z" transform="rotate(-115 464.357 -11.65)" style="stroke-miterlimit:10;fill:#fff"/><path d="M7.549 19.489 7.7 0 0 4.5zM7.2 17.953.475 4.642 7.339.629z" transform="rotate(-115 468.414 -8.987)" style="stroke-miterlimit:10;fill:#fff"/><path d="m0 16.084 5.95 7.59L20.4 0zm5.913 6.961L.5 16.144l18.553-14.62z" transform="rotate(-157.97 386.048 135.591)" style="stroke-miterlimit:10;fill:#fff"/><path d="M0 24.359 5.214 10.99 1.493 0z" transform="rotate(-130.02 430.426 42.112)" style="stroke-miterlimit:10;fill:#fff"/><path d="M0 18.833 2.478 2.575.126 0z" transform="rotate(65 33.406 749.157)" style="stroke-miterlimit:10;fill:#fff"/><path d="M7.206 18.6 7.353 0 0 4.3zm-.331-1.466L.453 4.431 7.006.6z" transform="rotate(65 37.395 743.079)" style="stroke-miterlimit:10;fill:#fff"/></g></g></g></svg>
-            <path class="cg-orbit" d="M48 290A212 86.4 0 0 0 472 290"/>
-            <g id="cgFront"><g class="cg-dev" data-i="0" transform="translate(260 376.4) scale(1.000)" opacity="1.00"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="4" y="3.5" width="16" height="7" rx="1.5"/><rect x="4" y="13.5" width="16" height="7" rx="1.5"/><path d="M7.5 7h.01M7.5 17h.01M11 7h5.5M11 17h5.5"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 24 24"><path class="cg-mark" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg></g></g><g class="cg-dev" data-i="1" transform="translate(76.4 333.2) scale(0.938)" opacity="0.88"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M2.5 19h19M10 17h4"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 88 88"><path class="cg-mark" d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg></g></g><g class="cg-dev" data-i="5" transform="translate(443.6 333.2) scale(0.938)" opacity="0.88"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="3" y="3.5" width="18" height="13" rx="1.5"/><path d="M9.5 20.5h5M12 16.5v4"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 384 512"><path class="cg-mark" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg></g></g></g>
+            <circle class="cg-blue" cx="210" cy="190" r="330" fill="url(#cgBlue)"/>
+            <circle class="cg-glow" cx="260" cy="260" r="360" fill="url(#cgGreen)"/>
+            <ellipse class="cg-orbit" cx="260" cy="260" rx="250" ry="68" transform="rotate(-16 260 260)"/><ellipse class="cg-orbit" cx="260" cy="260" rx="226" ry="92" transform="rotate(22 260 260)"/><ellipse class="cg-orbit" cx="260" cy="260" rx="268" ry="46" transform="rotate(6 260 260)"/>
+            <path class="cg-stream" d="M362.6 -21.9Q450.7 219.5 273.7 256.9M555.4 207.9Q333 79.2 265.4 247.1M472.1 472.1Q216.1 450 257 273.7M157.4 541.9Q380.1 413.7 268.5 271.1M-35.4 312.1Q129.5 115.1 250.5 249.7M67.2 30.2Q66.9 287.1 246.1 261.8"/>
+            <g id="cgPartsB"><circle class="cg-p" data-i="3" cx="500.2" cy="179.5" r="1.35" opacity="0.12"/><circle class="cg-p" data-i="4" cx="382.6" cy="152.3" r="1.95" opacity="0.30"/><circle class="cg-p" data-i="5" cx="299.3" cy="191.1" r="2.56" opacity="0.58"/><circle class="cg-p" data-i="9" cx="280.2" cy="439.7" r="1.82" opacity="0.25"/><circle class="cg-p" data-i="10" cx="304.6" cy="348.9" r="2.43" opacity="0.51"/><circle class="cg-p" data-i="11" cx="181.6" cy="527.3" r="1.21" opacity="0.10"/><circle class="cg-p" data-i="15" cx="142.6" cy="244.9" r="2.29" opacity="0.44"/><circle class="cg-p" data-i="16" cx="240.2" cy="262.5" r="2.90" opacity="0.11"/><circle class="cg-p" data-i="17" cx="85" cy="164.6" r="1.69" opacity="0.21"/></g>
+            <path class="cg-grid cg-grid-b" id="cgGridB" d="M335 380.6L333.4 386.4L328.5 392L320.7 397L310.2 401.3M209.8 401.3L199.3 397L191.5 392L186.6 386.4L185 380.6L186.6 374.9L191.5 369.3L199.3 364.3L209.8 360L222.5 356.5L236.8 354.2L252.2 353L267.8 353L283.2 354.2L297.5 356.5L310.2 360L320.7 364.3L328.5 369.3L333.4 374.9L335 380.6M389.9 329.6L387.1 339.7M132.9 339.7L130.1 329.6L132.9 319.6L141.3 310.1L154.9 301.3L173.1 293.8L195 287.9L219.9 283.8L246.4 281.7L273.6 281.7L300.1 283.8L325 287.9L346.9 293.8L365.1 301.3L378.7 310.1L387.1 319.6L389.9 329.6M110 260L113.3 248.4L123 237.4L138.6 227.3L159.6 218.7L185 211.8L213.6 207.1L244.3 204.7L275.7 204.7L306.4 207.1L335 211.8L360.4 218.7L381.4 227.3L397 237.4L406.7 248.4L410 260M132.9 180.3L141.3 170.8L154.9 162L173.1 154.5L195 148.6L219.9 144.5L246.4 142.4L273.6 142.4L300.1 144.5L325 148.6L346.9 154.5L365.1 162L378.7 170.8L387.1 180.3M209.8 118.7L222.5 115.3L236.8 112.9L252.2 111.7L267.8 111.7L283.2 112.9L297.5 115.3L310.2 118.7M110 260L113.3 289L123 316.7L138.6 341.9L159.6 363.5L185 380.6L213.6 392.5L244.3 398.5L275.7 398.5L306.4 392.5L335 380.6L360.4 363.5L381.4 341.9L397 316.7L406.7 289L410 260M146 162.7L131.2 186L122.1 212.4L119 241L122.1 270.3L131.2 299.3L146 326.5L165.7 350.8L189.5 371.1L216.4 386.6L245.3 396.5L274.7 400.5L303.6 398.4L330.5 390.2L354.3 376.3L374 357.3M202.5 121.5L183.1 132.5L167 149.2L155 170.7L147.6 196.1L145.1 224.2L147.6 254L155 284L167 312.9L183.1 339.6L202.5 362.8L224.5 381.4L248 394.8L272 402.3L295.5 403.5L317.5 398.5M222.5 115.3L209.8 124.2L199.3 139.1L191.5 159.3L186.6 183.9L185 211.8L186.6 241.8L191.5 272.6L199.3 302.9L209.8 331.3L222.5 356.5L236.8 377.6L252.2 393.5L267.8 403.6L283.2 407.4L297.5 404.7M252 110.6L247 112L242.6 119.8L238.9 133.8L236.2 153.3L234.5 177.4L234 205.2L234.5 235.4L236.2 266.6L238.9 297.5L242.6 326.9L247 353.2L252 375.5L257.3 392.8L262.7 404.3L268 409.4M268 110.6L273 112L277.4 119.8L281.1 133.8L283.8 153.3L285.5 177.4L286 205.2L285.5 235.4L283.8 266.6L281.1 297.5L277.4 326.9L273 353.2L268 375.5L262.7 392.8L257.3 404.3L252 409.4M297.5 115.3L310.2 124.2L320.7 139.1L328.5 159.3L333.4 183.9L335 211.8L333.4 241.8L328.5 272.6L320.7 302.9L310.2 331.3L297.5 356.5L283.2 377.6L267.8 393.5L252.2 403.6L236.8 407.4L222.5 404.7M317.5 121.5L336.9 132.5L353 149.2L365 170.7L372.4 196.1L374.9 224.2L372.4 254L365 284L353 312.9L336.9 339.6L317.5 362.8L295.5 381.4L272 394.8L248 402.3L224.5 403.5L202.5 398.5M374 162.7L388.8 186L397.9 212.4L401 241L397.9 270.3L388.8 299.3L374 326.5L354.3 350.8L330.5 371.1L303.6 386.6L274.7 396.5L245.3 400.5L216.4 398.4L189.5 390.2L165.7 376.3L146 357.3"/>
+            <path class="cg-dots cg-dots-b" id="cgDots0" d="M335 380.6h0M185 380.6h0M195 366.7h0M222.5 356.5h0M260 352.8h0M297.5 356.5h0M325 366.7h0M147.5 305.6h0M195 287.9h0M260 281.5h0M325 287.9h0M372.5 305.6h0M130.1 232.2h0M185 211.8h0M260 204.4h0M335 211.8h0M389.9 232.2h0M147.5 166.3h0M195 148.6h0M260 142.2h0M325 148.6h0M372.5 166.3h0"/>
+            <circle class="cg-glow" cx="260" cy="260" r="150" fill="url(#cgGreen)"/>
+            <circle class="cg-shell" cx="260" cy="260" r="150" fill="url(#cgShell)"/>
+            <path class="cg-grid cg-grid-f" id="cgGridF" d="M310.2 401.3L297.5 404.7L283.2 407.1L267.8 408.3L252.2 408.3L236.8 407.1L222.5 404.7L209.8 401.3M387.1 339.7L378.7 349.2L365.1 358L346.9 365.5L325 371.4L300.1 375.5L273.6 377.6L246.4 377.6L219.9 375.5L195 371.4L173.1 365.5L154.9 358L141.3 349.2L132.9 339.7M410 260L406.7 271.6L397 282.6L381.4 292.7L360.4 301.3L335 308.2L306.4 312.9L275.7 315.3L244.3 315.3L213.6 312.9L185 308.2L159.6 301.3L138.6 292.7L123 282.6L113.3 271.6L110 260M389.9 190.4L387.1 200.4L378.7 209.9L365.1 218.7L346.9 226.2L325 232.1L300.1 236.2L273.6 238.3L246.4 238.3L219.9 236.2L195 232.1L173.1 226.2L154.9 218.7L141.3 209.9L132.9 200.4L130.1 190.4L132.9 180.3M387.1 180.3L389.9 190.4M335 139.4L333.4 145.1L328.5 150.7L320.7 155.7L310.2 160L297.5 163.5L283.2 165.8L267.8 167L252.2 167L236.8 165.8L222.5 163.5L209.8 160L199.3 155.7L191.5 150.7L186.6 145.1L185 139.4L186.6 133.6L191.5 128L199.3 123L209.8 118.7M310.2 118.7L320.7 123L328.5 128L333.4 133.6L335 139.4M410 260L406.7 231L397 203.3L381.4 178.1L360.4 156.5L335 139.4L306.4 127.5L275.7 121.5L244.3 121.5L213.6 127.5L185 139.4L159.6 156.5L138.6 178.1L123 203.3L113.3 231L110 260M401 279L397.9 249.7L388.8 220.7L374 193.5L354.3 169.2L330.5 148.9L303.6 133.4L274.7 123.5L245.3 119.5L216.4 121.6L189.5 129.8L165.7 143.7L146 162.7M374 357.3L388.8 334L397.9 307.6L401 279M374.9 295.8L372.4 266L365 236L353 207.1L336.9 180.4L317.5 157.2L295.5 138.6L272 125.2L248 117.7L224.5 116.5L202.5 121.5M317.5 398.5L336.9 387.5L353 370.8L365 349.3L372.4 323.9L374.9 295.8M335 308.2L333.4 278.2L328.5 247.4L320.7 217.1L310.2 188.7L297.5 163.5L283.2 142.4L267.8 126.5L252.2 116.4L236.8 112.6L222.5 115.3M297.5 404.7L310.2 395.8L320.7 380.9L328.5 360.7L333.4 336.1L335 308.2M286 314.8L285.5 284.6L283.8 253.4L281.1 222.5L277.4 193.1L273 166.8L268 144.5L262.7 127.2L257.3 115.7L252 110.6M268 409.4L273 408L277.4 400.2L281.1 386.2L283.8 366.7L285.5 342.6L286 314.8M234 314.8L234.5 284.6L236.2 253.4L238.9 222.5L242.6 193.1L247 166.8L252 144.5L257.3 127.2L262.7 115.7L268 110.6M252 409.4L247 408L242.6 400.2L238.9 386.2L236.2 366.7L234.5 342.6L234 314.8M185 308.2L186.6 278.2L191.5 247.4L199.3 217.1L209.8 188.7L222.5 163.5L236.8 142.4L252.2 126.5L267.8 116.4L283.2 112.6L297.5 115.3M222.5 404.7L209.8 395.8L199.3 380.9L191.5 360.7L186.6 336.1L185 308.2M145.1 295.8L147.6 266L155 236L167 207.1L183.1 180.4L202.5 157.2L224.5 138.6L248 125.2L272 117.7L295.5 116.5L317.5 121.5M202.5 398.5L183.1 387.5L167 370.8L155 349.3L147.6 323.9L145.1 295.8M119 279L122.1 249.7L131.2 220.7L146 193.5L165.7 169.2L189.5 148.9L216.4 133.4L245.3 123.5L274.7 119.5L303.6 121.6L330.5 129.8L354.3 143.7L374 162.7M146 357.3L131.2 334L122.1 307.6L119 279"/>
+            <path class="cg-dots cg-dots-m" id="cgDots1" d="M325 394.5h0M297.5 404.7h0M260 408.5h0M222.5 404.7h0M195 394.5h0M389.9 329.6h0M372.5 353.7h0M147.5 353.7h0M130.1 329.6h0M410 260h0M110 260h0M389.9 190.4h0M130.1 190.4h0M335 139.4h0M185 139.4h0M195 125.5h0M222.5 115.3h0M260 111.5h0M297.5 115.3h0M325 125.5h0"/>
+            <path class="cg-dots cg-dots-f" id="cgDots2" d="M325 371.4h0M260 377.8h0M195 371.4h0M389.9 287.8h0M335 308.2h0M260 315.6h0M185 308.2h0M130.1 287.8h0M372.5 214.4h0M325 232.1h0M260 238.5h0M195 232.1h0M147.5 214.4h0M325 153.3h0M297.5 163.5h0M260 167.2h0M222.5 163.5h0M195 153.3h0"/>
+            <circle class="cg-rim" cx="260" cy="260" r="150"/>
+            <circle class="cg-haze" cx="260" cy="260" r="210" fill="url(#cgHaze)"/>
+            <g id="cgPartsF"><circle class="cg-p" data-i="0" cx="362.6" cy="-21.9" r="1.32" opacity="0.12"/><circle class="cg-p" data-i="1" cx="391.9" cy="116.3" r="2.04" opacity="0.27"/><circle class="cg-p" data-i="2" cx="362.2" cy="209.3" r="2.76" opacity="0.58"/><circle class="cg-p" data-i="6" cx="359.1" cy="450.2" r="1.88" opacity="0.22"/><circle class="cg-p" data-i="7" cx="272.9" cy="391.6" r="2.60" opacity="0.50"/><circle class="cg-p" data-i="8" cx="252.6" cy="298.7" r="3.32" opacity="0.55"/><circle class="cg-p" data-i="12" cx="124.2" cy="196.9" r="2.44" opacity="0.43"/><circle class="cg-p" data-i="13" cx="214.1" cy="217.4" r="3.16" opacity="0.80"/><circle class="cg-p" data-i="14" cx="24.6" cy="250.1" r="1.72" opacity="0.18"/></g>
           </svg>
-          <div class="cg-platform" aria-hidden="true">
-            <span class="cg-platform-label" data-i18n="hero.platform">LICENSEWARE platform</span>
-            <span class="cg-platform-tile"><svg viewBox="0 0 190 166" focusable="false"><image href="/licenseware-logo.png" width="722" height="166"/></svg></span>
-          </div>
         </div>
       </div>
       <ul class="hero-stats" role="list">
@@ -2474,6 +2720,7 @@
         <li><strong>HTTPS 443</strong> <span data-i18n="stats.https">outbound only</span></li>
         <li><strong>30 min</strong> <span data-i18n="stats.refresh">config refresh</span></li>
       </ul>
+      </div>
     </section>
 
     <div class="main-layout">
@@ -7097,6 +7344,23 @@ Start-Service licenseware-collector</code></pre>
     </div>
 
     <footer class="site-footer" role="contentinfo">
+      <div class="footer-horizon" aria-hidden="true">
+        <svg id="horizonGraphic" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <defs>
+            <radialGradient id="hzGreen" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".5"/><stop offset=".45" stop-color="#1b7a5a" stop-opacity=".16"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
+            <radialGradient id="hzBlue"><stop offset="0" stop-color="#1d4ed2" stop-opacity=".14"/><stop offset="1" stop-color="#1d4ed2" stop-opacity="0"/></radialGradient>
+          </defs>
+          <ellipse class="cg-blue" cx="460" cy="84" rx="620" ry="150" fill="url(#hzBlue)"/>
+          <ellipse class="hz-glow" cx="720" cy="74" rx="820" ry="130" fill="url(#hzGreen)"/>
+          <circle class="hz-body" cx="720" cy="1564" r="1500"/>
+          <path class="cg-grid cg-grid-b" d="M61 221L77 212L94 203L111 194L129 186L148 177M1292 177L1311 186L1329 194L1346 203L1363 212L1379 221M147 228L154 220L163 212L172 204L181 196L192 188L203 181L214 174L226 167L239 160L253 153L267 146L281 140L296 134L312 128L328 122L344 117L361 112L379 107L397 102L415 97L434 93L453 89L472 86L491 82L511 79L531 76L552 74L572 71L593 69L614 68L635 66L656 65L677 65L699 64L720 64L741 64L763 65L784 65L805 66L826 68L847 69L868 71L888 74L909 76L929 79L949 82L968 86L987 89L1006 93L1025 97L1043 102L1061 107L1079 112L1096 117L1112 122L1128 128L1144 134L1159 140L1173 146L1187 153L1201 160L1214 167L1226 174L1237 181L1248 188L1259 196L1268 204L1277 212L1286 220L1293 228M309 230L311 224L313 218L316 212L319 207L323 201L327 195L331 190L337 184L342 179L348 174L355 168L362 163L369 158L377 153L386 148L394 144L403 139L413 135L423 130L433 126L443 122L454 118L465 115L477 111L489 108L501 104L513 101L526 99L539 96L552 93L565 91L579 89L592 87L606 85L620 84L634 83L648 81L662 80L677 80L691 79L706 79L720 79L734 79L749 79L763 80L778 80L792 81L806 83L820 84L834 85L848 87L861 89L875 91L888 93L901 96L914 99L927 101L939 104L951 108L963 111L975 115L986 118L997 122L1007 126L1017 130L1027 135L1037 139L1046 144L1054 148L1063 153L1071 158L1078 163L1085 168L1092 174L1098 179L1103 184L1109 190L1113 195L1117 201L1121 207L1124 212L1127 218L1129 224L1131 230M929 208L929 211L928 214L928 217L927 220L926 222L924 225L923 228M517 228L516 225L514 222L513 220L512 217L512 214L511 211L511 208L511 205L512 202L512 199L513 196L514 193L516 190L517 187L519 184L521 181L524 179L526 176L529 173L532 170L536 168L539 165L543 163L547 160L551 158L555 155L560 153L565 151L570 149L575 146L580 144L586 142L591 141L597 139L603 137L609 136L616 134L622 133L628 131L635 130L642 129L649 128L655 127L662 126L669 125L677 124L684 124L691 123L698 123L705 123L713 123L720 123L727 123L735 123L742 123L749 123L756 124L763 124L771 125L778 126L785 127L791 128L798 129L805 130L812 131L818 133L824 134L831 136L837 137L843 139L849 141L854 142L860 144L865 146L870 149L875 151L880 153L885 155L889 158L893 160L897 163L901 165L904 168L908 170L911 173L914 176L916 179L919 181L921 184L923 187L924 190L926 193L927 196L928 199L928 202L929 205L929 208M1032 224L980 215L929 208L877 202L825 198L772 195L720 194M926 222L874 213L823 205L772 199L720 194M867 224L818 212L769 203L720 194M811 219L765 206L720 194M800 225L760 209L720 194M754 212L720 194M746 214L720 194M738 215L720 194M729 216L720 194M720 217L720 194M711 216L720 194M702 215L720 194M694 214L720 194M686 212L720 194M640 225L680 209L720 194M629 219L675 206L720 194M573 224L622 212L671 203L720 194M514 222L566 213L617 205L668 199L720 194M408 224L460 215L511 208L563 202L615 198L668 195L720 194M264 229L313 218L363 209L413 202L463 197L514 193L566 191L617 190L668 191L720 194M147 228L192 216L238 205L284 197L331 190L379 184L427 181L475 179L524 179L573 180L622 183L671 188L720 194M70 225L110 211L151 199L192 188L233 180L276 172L319 167L362 163L406 161L450 161L494 162L539 165L584 170L629 176L675 185L720 194M77 209L111 194L145 181L181 170L216 161L253 153L290 147L327 142L365 140L403 139L442 140L481 143L520 147L560 153L600 161L640 170L680 181L720 194M238 144L267 135L297 128L328 122L359 119L390 117L422 117L454 118L487 122L520 127L553 134L586 142L619 153L653 165L686 179L720 194M391 101L415 97L439 96L463 96L488 98L513 101L539 107L564 114L590 123L616 134L642 147L668 161L694 177L720 194M511 79L528 79L545 80L561 84L579 89L596 96L613 105L631 115L649 128L666 142L684 158L702 175L720 194M614 68L622 68L631 71L640 75L648 81L657 89L666 99L675 111L684 124L693 139L702 156L711 174L720 194M720 64L720 65L720 68L720 72L720 79L720 87L720 97L720 109L720 123L720 138L720 155L720 174L720 194M826 68L818 68L809 71L800 75L792 81L783 89L774 99L765 111L756 124L747 139L738 156L729 174L720 194M929 79L912 79L895 80L879 84L861 89L844 96L827 105L809 115L791 128L774 142L756 158L738 175L720 194M1049 101L1025 97L1001 96L977 96L952 98L927 101L901 107L876 114L850 123L824 134L798 147L772 161L746 177L720 194M1202 144L1173 135L1143 128L1112 122L1081 119L1050 117L1018 117L986 118L953 122L920 127L887 134L854 142L821 153L787 165L754 179L720 194M1363 209L1329 194L1295 181L1259 170L1224 161L1187 153L1150 147L1113 142L1075 140L1037 139L998 140L959 143L920 147L880 153L840 161L800 170L760 181L720 194M1370 225L1330 211L1289 199L1248 188L1207 180L1164 172L1121 167L1078 163L1034 161L990 161L946 162L901 165L856 170L811 176L765 185L720 194M1293 228L1248 216L1202 205L1156 197L1109 190L1061 184L1013 181L965 179L916 179L867 180L818 183L769 188L720 194M1176 229L1127 218L1077 209L1027 202L977 197L926 193L874 191L823 190L772 191L720 194"/>
+          <path class="cg-grid cg-grid-f" d=""/>
+          <path class="cg-dots cg-dots-b" d="M111 194h0M1329 194h0M147 228h0M192 188h0M253 153h0M328 122h0M415 97h0M511 79h0M614 68h0M720 64h0M826 68h0M929 79h0M1025 97h0M1112 122h0M1187 153h0M1248 188h0M1293 228h0M313 218h0M331 190h0M362 163h0M403 139h0M454 118h0M513 101h0M579 89h0M648 81h0M720 79h0M792 81h0M861 89h0M927 101h0M986 118h0M1037 139h0M1078 163h0M1109 190h0M1127 218h0M929 208h0M926 222h0M514 222h0M511 208h0M514 193h0M524 179h0M539 165h0M560 153h0M586 142h0M616 134h0M649 128h0M684 124h0M720 123h0M756 124h0M791 128h0M824 134h0M854 142h0M880 153h0M901 165h0M916 179h0M926 193h0"/>
+          <path class="cg-dots cg-dots-m" d=""/>
+          <circle class="hz-rim" cx="720" cy="1564" r="1500"/>
+          <g id="hzParts"><circle class="hz-p" cx="170" cy="94" r="1.6" opacity="0.00"/><circle class="hz-p" cx="330" cy="43.6" r="1.6" opacity="0.77"/><circle class="hz-p" cx="520" cy="72.4" r="1.6" opacity="0.43"/><circle class="hz-p" cx="660" cy="10" r="1.6" opacity="0.65"/><circle class="hz-p" cx="790" cy="58" r="1.6" opacity="0.65"/><circle class="hz-p" cx="930" cy="-9.2" r="1.6" opacity="0.34"/><circle class="hz-p" cx="1090" cy="84.4" r="1.6" opacity="0.20"/><circle class="hz-p" cx="1270" cy="28" r="1.6" opacity="0.79"/></g>
+        </svg>
+      </div>
       <div class="container footer-grid">
         <div class="footer-brand">
           <a class="site-logo-link" href="https://licenseware.io/" target="_blank" rel="noopener noreferrer">
@@ -7498,8 +7762,7 @@ Start-Service licenseware-collector</code></pre>
           "theme.light": "Light",
           "theme.dark": "Dark",
           "theme.system": "System",
-          "hero.platform": "LICENSEWARE platform",
-          "hero.visual": "The Collector gathers inventory from servers, laptops and cloud machines and sends it to the LICENSEWARE platform",
+          "hero.visual": "Abstract illustration of inventory data flowing into LICENSEWARE",
           "nav.h.downloads": "Downloads",
           "nav.h.install": "Installation",
           "nav.h.settings": "Settings",
@@ -7906,8 +8169,7 @@ Start-Service licenseware-collector</code></pre>
           "theme.light": "Claro",
           "theme.dark": "Oscuro",
           "theme.system": "Sistema",
-          "hero.platform": "Plataforma LICENSEWARE",
-          "hero.visual": "El Collector recopila el inventario de servidores, portátiles y máquinas en la nube y lo envía a la plataforma LICENSEWARE",
+          "hero.visual": "Ilustración abstracta de datos de inventario que fluyen hacia LICENSEWARE",
           "nav.h.downloads": "Descargas",
           "nav.h.install": "Instalación",
           "nav.h.settings": "Configuración",
@@ -8548,47 +8810,40 @@ Start-Service licenseware-collector</code></pre>
       window.addEventListener("load", clampCells);
       window.addEventListener("resize", clampCells);
 
-      // Hero graphic: devices orbit the Collector and inventory flows in.
-      // The markup is the first frame; this only animates it.
+      // Hero and footer graphics: an abstract sphere turning slowly with
+      // particles streaming into its core, and a horizon whose particles rise
+      // while it is on screen. The markup is the first frame of both.
       (function () {
         const svg = document.getElementById("collectorGraphic");
+        const hz = document.getElementById("horizonGraphic");
         if (!svg || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        const CX = 260, CY = 290, RS = 108, RO = 212, ST = Math.sin(0.42), CT = Math.cos(0.42);
-        const PLY = 67.6;
-        const A0 = [90, 150, 210, 270, 330, 30];
-        const devs = [...svg.querySelectorAll(".cg-dev")].sort((a, b) => a.dataset.i - b.dataset.i);
-        const back = svg.querySelector("#cgBack"), front = svg.querySelector("#cgFront");
-        const links = svg.querySelector("#cgLinks");
-        const gridF = svg.querySelector("#cgGridF"), gridB = svg.querySelector("#cgGridB");
-        const pulses = [...svg.querySelectorAll("#cgPulses .cg-pulse:not(#cgUp)")];
-        const up = svg.querySelector("#cgUp");
-        const pt = [0.15, 0.48, 0.81, 0.3, 0.63, 0.96];
-        let upT = 0.5;
+        const C = 260, R = 150, CT = Math.cos(0.38), ST = Math.sin(0.38), rad = Math.PI / 180;
+        const $ = (id) => document.getElementById(id);
+        const gridF = $("cgGridF"), gridB = $("cgGridB");
+        const dotEls = [$("cgDots0"), $("cgDots1"), $("cgDots2")];
+        const parts = [...svg.querySelectorAll(".cg-p")].sort((a, b) => a.dataset.i - b.dataset.i);
         const r1 = (v) => Math.round(v * 10) / 10;
-        const rad = Math.PI / 180;
-        const grid = [];
-        for (const lat of [-60, -30, 0, 30, 60]) {
-          const line = [];
-          for (let l = 0; l <= 360; l += 15) line.push([lat * rad, l * rad, 0]);
-          grid.push(line);
+        const lines = [];
+        for (const la of [-60, -30, 0, 30, 60]) {
+          const l = [];
+          for (let lo = 0; lo <= 360; lo += 12) l.push([la * rad, lo * rad]);
+          lines.push(l);
         }
-        for (let lon = 0; lon < 180; lon += 30) {
-          const line = [];
-          for (let t = 0; t <= 360; t += 15) line.push([t * rad, lon * rad, 1]);
-          grid.push(line);
+        for (let lo = 0; lo < 180; lo += 20) {
+          const l = [];
+          for (let t = 0; t <= 360; t += 12) l.push([t * rad, lo * rad]);
+          lines.push(l);
         }
+        const P = (u, v) => {
+          const X = Math.cos(u) * Math.cos(v), Y = Math.sin(u), Z = Math.cos(u) * Math.sin(v);
+          return [C + R * X, C - R * (Y * CT - Z * ST), Z * CT + Y * ST];
+        };
         function sphere(yaw) {
           let pf = "", pb = "";
-          for (const line of grid) {
+          for (const l of lines) {
             let prev = null, was = -1;
-            for (const [u, v, m] of line) {
-              let X, Y, Z;
-              if (m) {
-                X = Math.cos(u) * Math.cos(v + yaw); Y = Math.sin(u); Z = Math.cos(u) * Math.sin(v + yaw);
-              } else {
-                X = Math.cos(u) * Math.cos(v + yaw); Y = Math.sin(u); Z = Math.cos(u) * Math.sin(v + yaw);
-              }
-              const q = [CX + RS * X, CY - RS * (Y * CT - Z * ST), Z * CT + Y * ST];
+            for (const [u, v] of l) {
+              const q = P(u, v + yaw);
               if (prev) {
                 const f = prev[2] + q[2] > 0 ? 1 : 0;
                 const seg = (f === was ? "" : `M${r1(prev[0])} ${r1(prev[1])}`) + `L${r1(q[0])} ${r1(q[1])}`;
@@ -8600,39 +8855,51 @@ Start-Service licenseware-collector</code></pre>
           }
           gridF.setAttribute("d", pf);
           gridB.setAttribute("d", pb);
+          const d = ["", "", ""];
+          for (let la = -60; la <= 60; la += 30) {
+            for (let lo = 0; lo < 360; lo += 30) {
+              const q = P(la * rad, lo * rad + yaw);
+              d[q[2] < -0.2 ? 0 : q[2] < 0.45 ? 1 : 2] += `M${r1(q[0])} ${r1(q[1])}h0`;
+            }
+          }
+          d.forEach((v, i) => dotEls[i].setAttribute("d", v));
         }
+        const streams = [[362.6, -21.9, 450.7, 219.5, 273.7, 256.9, 1.0], [555.4, 207.9, 333.0, 79.2, 265.4, 247.1, 0.62], [472.1, 472.1, 216.1, 450.0, 257.0, 273.7, 1.0], [157.4, 541.9, 380.1, 413.7, 268.5, 271.1, 0.62], [-35.4, 312.1, 129.5, 115.1, 250.5, 249.7, 1.0], [67.2, 30.2, 66.9, 287.1, 246.1, 261.8, 0.62]];
+        const ts = parts.map((_, i) => ((i % 3) / 3 + Math.floor(i / 3) * 0.13) % 1);
+        const rise = hz ? [...hz.querySelectorAll(".hz-p")] : [];
+        const riseT = [0.0, 0.42, 0.18, 0.7, 0.3, 0.86, 0.08, 0.55];
         const fps = window.innerWidth < 782 ? 20 : 60, step = 1000 / fps - 2;
-        let yaw = 0, last = 0, drawn = -1e9, visible = true;
-        new IntersectionObserver((e) => { visible = e[e.length - 1].isIntersecting; }).observe(svg);
+        let yaw = 0, last = 0, drawn = -1e9, odd = false, heroOn = true, footOn = false;
+        new IntersectionObserver((e) => { heroOn = e[e.length - 1].isIntersecting; }).observe(svg);
+        if (hz) new IntersectionObserver((e) => { footOn = e[e.length - 1].isIntersecting; }).observe(hz);
         function frame(t) {
           requestAnimationFrame(frame);
-          if (!visible || document.hidden) { last = t; return; }
+          if ((!heroOn && !footOn) || document.hidden) { last = t; return; }
           if (t - drawn < step) return;
           const dt = Math.min(t - last, 100);
           last = t; drawn = t;
-          yaw += dt * 0.006;
-          let d = "";
-          devs.forEach((el, i) => {
-            const a = (A0[i] + yaw) * rad, dep = (Math.sin(a) + 1) / 2;
-            const x = CX + RO * Math.cos(a), y = CY + RO * Math.sin(a) * ST;
-            el.setAttribute("transform", `translate(${r1(x)} ${r1(y)}) scale(${(0.75 + 0.25 * dep).toFixed(3)})`);
-            el.setAttribute("opacity", (0.5 + 0.5 * dep).toFixed(2));
-            const layer = dep >= 0.5 ? front : back;
-            if (el.parentNode !== layer) layer.appendChild(el);
-            d += `M${r1(x)} ${r1(y)}L${CX} ${CY}`;
-            pt[i] += dt * 0.00034;
-            if (pt[i] >= 1) pt[i] -= 1;
-            const p = pulses[i], k = pt[i];
-            p.setAttribute("cx", r1(x + (CX - x) * k));
-            p.setAttribute("cy", r1(y + (CY - y) * k));
-            p.setAttribute("opacity", (Math.sin(Math.PI * k) * (0.35 + 0.65 * dep)).toFixed(2));
-          });
-          links.setAttribute("d", d);
-          upT += dt * 0.0004;
-          if (upT >= 1) upT -= 1;
-          up.setAttribute("cy", r1(CY - RS + (PLY - (CY - RS)) * upT));
-          up.setAttribute("opacity", Math.sin(Math.PI * upT).toFixed(2));
-          sphere(yaw * rad);
+          if (heroOn) {
+            yaw += dt * 0.006;
+            parts.forEach((el, i) => {
+              const k = (ts[i] = (ts[i] + dt * 0.00022) % 1);
+              const [ax, ay, bx, by, cx, cy, dep] = streams[Math.floor(i / 3)];
+              const u = 1 - k;
+              el.setAttribute("cx", r1(u * u * ax + 2 * u * k * bx + k * k * cx));
+              el.setAttribute("cy", r1(u * u * ay + 2 * u * k * by + k * k * cy));
+              el.setAttribute("r", ((1.1 + 1.8 * k) * (0.7 + 0.5 * dep)).toFixed(2));
+              const o = (0.12 + 0.88 * Math.pow(k, 1.6)) * (k < 0.88 ? 1 : Math.max(0, (1 - k) / 0.12)) * (0.45 + 0.55 * dep);
+              el.setAttribute("opacity", o.toFixed(2));
+            });
+            odd = !odd;
+            if (odd || fps <= 30) sphere(yaw * rad);
+          }
+          if (footOn) {
+            rise.forEach((el, i) => {
+              const k = (riseT[i] = (riseT[i] + dt * 0.00005) % 1);
+              el.setAttribute("cy", r1(94 - k * 120));
+              el.setAttribute("opacity", (Math.sin(Math.PI * k) * 0.8).toFixed(2));
+            });
+          }
         }
         requestAnimationFrame((t) => { last = t; frame(t); });
       })();
