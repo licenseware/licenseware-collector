@@ -1908,8 +1908,7 @@
 
       .hero-stats {
         list-style: none;
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        display: flex;
         margin-top: 56px;
         padding: 20px 0;
         border-top: 1px solid var(--line);
@@ -1918,6 +1917,7 @@
 
       .hero-stats li {
         position: relative;
+        flex: 1 1 auto;
         display: grid;
         grid-template-columns: auto 1fr;
         align-items: center;
@@ -1951,6 +1951,7 @@
 
       .hero-stats span {
         grid-column: 1 / -1;
+        white-space: nowrap;
         font-size: 13px;
         font-weight: 500;
         line-height: 1.4;
@@ -1959,8 +1960,13 @@
 
       @media (max-width: 1023px) {
         .hero-stats {
+          display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           padding: 0;
+        }
+
+        .hero-stats span {
+          white-space: normal;
         }
 
         .hero-stats li {
