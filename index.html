@@ -169,7 +169,7 @@
         --logo-filter: none;
         --header-bg: rgba(229, 229, 229, 0.88);
         --brand-logo-filter: invert(1);
-        --cg-glow-o: 0.66;
+        --cg-glow-o: 0.55;
         --cg-blue-o: 0.5;
         --cg-grid: #ababab;
         --cg-grid-f: 0.8;
@@ -216,7 +216,7 @@
           --logo-filter: none;
           --header-bg: rgba(229, 229, 229, 0.88);
           --brand-logo-filter: invert(1);
-          --cg-glow-o: 0.66;
+          --cg-glow-o: 0.55;
           --cg-blue-o: 0.5;
           --cg-grid: #ababab;
           --cg-grid-f: 0.8;
@@ -1619,9 +1619,19 @@
       }
 
       /* --- Hero (licenseware.io and the wiki) --- */
+      body {
+        overflow-x: clip;
+      }
+
+      .hero-stats,
+      .hero + .main-layout {
+        position: relative;
+        z-index: 2;
+      }
+
       .hero {
         position: relative;
-        overflow: hidden;
+        overflow-x: clip;
         margin-top: calc(-1 * var(--header-h));
         padding-top: calc(var(--header-h) + 96px);
       }
@@ -1901,40 +1911,46 @@
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         margin-top: 56px;
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--card-shadow-premium);
-        overflow: hidden;
+        padding: 20px 0;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
       }
 
       .hero-stats li {
-        display: flex;
-        flex-direction: column;
+        position: relative;
+        display: grid;
+        grid-template-columns: auto 1fr;
         align-items: center;
-        justify-content: center;
-        gap: 4px;
-        padding: 20px 12px;
-        text-align: center;
+        column-gap: 8px;
+        row-gap: 2px;
+        padding: 0 20px;
       }
 
-      .hero-stats li + li {
-        border-left: 1px solid var(--line);
+      .hero-stats li + li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        bottom: 6px;
+        width: 1px;
+        background: var(--line);
       }
 
       .stat-icon {
-        color: var(--icon-tile-fg);
-        margin-bottom: 4px;
+        width: 16px;
+        height: 16px;
+        color: var(--text-secondary);
       }
 
       .hero-stats strong {
-        font-size: 20px;
-        font-weight: 800;
-        line-height: 1.25;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.3;
         color: var(--text);
       }
 
       .hero-stats span {
+        grid-column: 1 / -1;
         font-size: 13px;
         font-weight: 500;
         line-height: 1.4;
@@ -1944,18 +1960,29 @@
       @media (max-width: 1023px) {
         .hero-stats {
           grid-template-columns: repeat(2, minmax(0, 1fr));
+          padding: 0;
         }
 
-        .hero-stats li + li {
-          border-left: 0;
+        .hero-stats li {
+          padding: 16px;
+        }
+
+        .hero-stats li + li::before {
+          display: none;
         }
 
         .hero-stats li:nth-child(n + 3) {
           border-top: 1px solid var(--line);
         }
 
-        .hero-stats li:nth-child(even) {
-          border-left: 1px solid var(--line);
+        .hero-stats li:nth-child(even)::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 12px;
+          bottom: 12px;
+          width: 1px;
+          background: var(--line);
         }
 
         .hero-stats li:last-child {
@@ -2669,18 +2696,22 @@
           bottom / 100% 1px no-repeat;
       }
 
+      .card-header {
+        gap: 12px;
+      }
+
       .card-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        background: var(--icon-tile-bg);
-        border: 1px solid var(--icon-tile-line);
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        background: none;
+        border: 0;
         color: var(--icon-tile-fg);
       }
 
       .card-icon svg {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
       }
 
       .card h2 {
@@ -3170,137 +3201,93 @@
         font-weight: 700;
         line-height: 1.3;
         color: var(--text);
+        white-space: nowrap;
       }
 
-      .stepper-cap,
-      .loop-cap {
+      .stepper-cap {
         font-size: 14px;
         line-height: 1.5;
         color: var(--text-secondary);
       }
 
-      .loop {
-        position: relative;
-        margin-top: 8px;
-      }
-
-      .loop-steps {
+      .pflow {
         list-style: none;
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 40px;
+        grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr) 16px minmax(0, 1fr);
+        gap: 16px;
+        align-items: stretch;
       }
 
-      .loop-card {
-        position: relative;
+      .flow-card {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 8px;
         padding: 20px;
         background: var(--nest-bg);
         border: 1px solid var(--line);
         border-radius: var(--radius-md);
       }
 
-      .loop-card + .loop-card::before {
-        content: "";
-        position: absolute;
-        left: -40px;
-        top: 39px;
-        width: 40px;
-        height: 2px;
-        background: repeating-linear-gradient(
-          90deg,
-          var(--accent-text) 0 6px,
-          transparent 6px 12px
-        );
-        background-size: 12px 2px;
-      }
-
-      .loop-card + .loop-card::after {
-        content: "";
-        position: absolute;
-        left: -9px;
-        top: 35px;
-        border: 5px solid transparent;
-        border-left-color: var(--accent-text);
-      }
-
-      .loop.is-live .loop-card + .loop-card::before,
-      .loop.is-live .loop-return-line {
-        animation: loop-dash 900ms linear infinite;
-      }
-
-      @keyframes loop-dash {
-        to {
-          background-position: 12px 0;
-        }
-      }
-
-      .loop-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        margin-bottom: 6px;
-        border-radius: 10px;
-        background: var(--icon-tile-bg);
-        border: 1px solid var(--icon-tile-line);
-        color: var(--icon-tile-fg);
-      }
-
-      .loop-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--text);
-      }
-
-      .loop-return {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        margin: 12px 0 0;
-        height: 36px;
-      }
-
-      .loop-return-line {
-        position: absolute;
-        left: 16.6%;
-        right: 16.6%;
-        top: 0;
-        height: 18px;
-        border: 2px solid transparent;
-        border-top: 0;
-        border-radius: 0 0 14px 14px;
-        background:
-          repeating-linear-gradient(90deg, var(--accent-text) 0 6px, transparent 6px 12px)
-            bottom / 12px 2px repeat-x,
-          linear-gradient(var(--accent-text), var(--accent-text)) left / 2px 100% no-repeat,
-          linear-gradient(var(--accent-text), var(--accent-text)) right / 2px 100% no-repeat;
-        opacity: 0.6;
-      }
-
-      .loop-return-label {
-        position: relative;
-        top: 8px;
-        padding: 2px 10px;
-        border-radius: var(--radius-pill);
-        background: var(--surface-chip);
-        border: 1px solid var(--line-strong);
+      .flow-step-label {
         font-size: 12px;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
         color: var(--text-secondary);
       }
 
-      @media (max-width: 781px) {
-        .stepper,
-        .loop-steps {
-          grid-template-columns: minmax(0, 1fr);
-        }
+      .flow-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
+      .flow-head + .flow-title {
+        margin-top: 2px;
+      }
+
+      .flow-icon {
+        display: inline-flex;
+        flex: none;
+        color: var(--icon-tile-fg);
+      }
+
+      .flow-title {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--text);
+      }
+
+      .flow-cap {
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+      }
+
+      .flow-sep {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+      }
+
+      .flow-repeat {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .flow-repeat svg {
+        flex: none;
+      }
+
+      @media (max-width: 781px) {
         .stepper {
+          grid-template-columns: minmax(0, 1fr);
           gap: 24px;
         }
 
@@ -3314,28 +3301,13 @@
           background: linear-gradient(180deg, var(--accent), var(--ok));
         }
 
-        .loop-steps {
-          gap: 32px;
+        .pflow {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 8px;
         }
 
-        .loop-card + .loop-card::before {
-          left: 39px;
-          top: -32px;
-          width: 2px;
-          height: 32px;
-          background: repeating-linear-gradient(180deg, var(--accent-text) 0 6px, transparent 6px 12px);
-          background-size: 2px 12px;
-        }
-
-        .loop-card + .loop-card::after {
-          left: 35px;
-          top: -9px;
-          border-left-color: transparent;
-          border-top-color: var(--accent-text);
-        }
-
-        .loop-return-line {
-          display: none;
+        .flow-sep svg {
+          transform: rotate(90deg);
         }
       }
 
@@ -3406,12 +3378,9 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        background: var(--surface-chip);
-        border: 1px solid var(--line);
-        color: var(--text);
+        width: 24px;
+        height: 32px;
+        color: var(--icon-tile-fg);
       }
 
       .upg-pill {
@@ -3560,13 +3529,13 @@
         <div class="hero-visual" role="img" aria-label="Abstract illustration of inventory data flowing into LICENSEWARE" data-i18n-aria="hero.visual">
           <svg class="cg" id="collectorGraphic" viewBox="-104 -104 728 728" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <defs>
-              <radialGradient id="cgGreen"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".55"/><stop offset=".35" stop-color="#228b22" stop-opacity=".2"/><stop offset=".7" stop-color="#1b7a5a" stop-opacity=".06"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
-              <radialGradient id="cgBlue"><stop offset="0" stop-color="#1d4ed2" stop-opacity=".2"/><stop offset=".5" stop-color="#1d4ed2" stop-opacity=".06"/><stop offset="1" stop-color="#1d4ed2" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgGreen"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".33"/><stop offset=".2" stop-color="#2f8f4f" stop-opacity=".22"/><stop offset=".4" stop-color="#228b22" stop-opacity=".11"/><stop offset=".6" stop-color="#1b7a5a" stop-opacity=".045"/><stop offset=".8" stop-color="#1b7a5a" stop-opacity=".012"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgBlue"><stop offset="0" stop-color="#1d4ed2" stop-opacity=".12"/><stop offset=".3" stop-color="#1d4ed2" stop-opacity=".07"/><stop offset=".6" stop-color="#1d4ed2" stop-opacity=".025"/><stop offset="1" stop-color="#1d4ed2" stop-opacity="0"/></radialGradient>
               <radialGradient id="cgHaze"><stop offset=".72" stop-color="#57d16c" stop-opacity="0"/><stop offset=".82" stop-color="#57d16c" stop-opacity=".07"/><stop offset="1" stop-color="#57d16c" stop-opacity="0"/></radialGradient>
               <radialGradient id="cgHub"><stop offset="0" stop-color="#57d16c" stop-opacity=".55"/><stop offset=".4" stop-color="#57d16c" stop-opacity=".18"/><stop offset="1" stop-color="#57d16c" stop-opacity="0"/></radialGradient>
             </defs>
-            <circle class="cg-blue" cx="210" cy="190" r="330" fill="url(#cgBlue)"/>
-            <circle class="cg-glow" cx="260" cy="260" r="360" fill="url(#cgGreen)"/>
+            <circle class="cg-blue" cx="225" cy="245" r="205" fill="url(#cgBlue)"/>
+            <circle class="cg-glow" cx="260" cy="260" r="225" fill="url(#cgGreen)"/>
             <circle class="cg-glow" cx="260" cy="260" r="150" fill="url(#cgGreen)"/>
             <circle class="cg-rim" cx="260" cy="260" r="150"/>
             <path class="cg-net cg-net-b" id="cgNet0" d="M221 115L203 132M293 116L260 120M293 116L320 130M191 127L203 132M320 130L302 134M320 130L325 152M203 132L196 146M302 134L325 152M325 152L367 178M325 152L309 173M325 152L326 193M243 155L204 168M243 155L205 185M367 178L326 193M204 168L205 185M204 168L167 204M309 173L326 193M309 173L324 222M126 207L111 254M404 220L405 247M205 185L240 200M205 185L223 212M326 193L324 222M167 204L149 261M240 200L223 212M240 200L280 230M111 254L119 274M405 247L407 272M405 247L386 265M223 212L243 263M324 222L280 230M149 241L149 261M149 241L160 295M280 230L265 250M119 274L124 321M386 265L384 286M386 265L386 315M149 261L160 295M265 250L243 263M265 250L237 287M122 299L124 321M384 286L334 279M384 286L386 315M243 263L237 287M124 321L142 323M334 279L286 312M160 295L142 323M160 295L162 340M386 315L376 325M386 315L376 352M386 315L362 348M237 287L286 312M237 287L248 326M142 323L162 340M376 325L362 348M205 306L248 326M205 306L218 348M376 352L341 372M286 312L248 326M286 312L289 357M362 348L327 347M362 348L341 372M167 374L199 387M327 347L341 372M327 347L289 357M341 372L306 377M289 357L246 377M199 387L246 377M306 377L292 399M251 410L240 401M292 399L240 401"/><path class="cg-net cg-net-bh" id="cgNet1" d="M260 120L203 132M260 120L302 134M376 166L367 178M196 146L243 155M196 146L204 168M143 174L126 207M243 155L240 200M205 185L167 204M167 204L149 241M111 254L122 299M324 222L334 279M280 230L243 263M119 274L122 299M122 299L142 323M384 286L376 325M237 287L205 306M376 352L362 348M162 340L167 374M248 326L218 348M327 347L306 377M218 348L246 377M289 357L306 377M199 387L240 401M246 377L240 401"/><path class="cg-net cg-net-m" id="cgNet2" d="M284 122L267 111M267 111L221 115M267 111L293 116M202 129L191 127M312 120L337 143M312 120L293 116M337 143L354 145M337 143L375 166M354 145L375 166M159 172L130 195M375 166L376 166M375 166L386 199M375 166L396 203M137 177L130 195M137 177L143 174M376 166L396 203M130 195L122 201M130 195L112 243M143 174L122 201M396 203L401 229M122 201L112 243M404 220L409 253M404 220L407 272M112 243L111 254M409 253L405 247M409 253L407 272M401 288L396 317M142 330L150 356M150 356L148 358M150 356L191 390M345 370L328 392M148 358L167 374M299 392L328 392M191 390L210 401M328 392L288 407M167 374L210 401M210 401L251 410M288 407L251 410M288 407L292 399"/><path class="cg-net cg-net-mh" id="cgNet3" d="M284 122L312 120M267 111L312 120M221 115L191 127M354 145L376 166M159 172L137 177M137 177L122 201M386 199L396 203M386 199L401 229M396 203L404 220M122 201L126 207M401 229L409 253M409 253L401 288M401 288L378 343M396 317L378 343M396 317L376 352M378 343L345 370M124 321L148 358M191 390L238 404M238 404L210 401M238 404L251 410"/><path class="cg-net cg-net-f" id="cgNet4" d="M284 122L235 134M284 122L291 144M235 134L202 129M235 134L257 162M235 134L179 149M291 144L257 162M179 149L159 172M307 175L343 181M307 175L272 207M307 175L345 210M209 185L180 206M343 181L345 210M272 207L230 230M180 206L147 255M345 210L355 245M355 245L347 270M249 267L201 284M249 267L248 300M401 229L388 265M147 255L126 277M201 284L248 300M388 265L401 288M248 300L245 319M126 277L127 295M126 277L142 330M340 303L344 331M245 319L283 330M245 319L280 347M245 319L208 361M127 295L142 330M283 330L280 347M176 327L142 330M176 327L208 361M344 331L345 370M280 347L288 372M335 350L288 372M208 361L241 386M288 372L241 386M288 372L299 392M241 386L238 404"/><path class="cg-net cg-net-fh" id="cgNet5" d="M291 144L307 175M202 129L179 149M257 162L307 175M257 162L209 185M337 143L343 181M209 185L230 230M272 207L295 245M180 206L149 233M230 230L249 267M295 245L249 267M295 245L347 270M149 233L147 255M149 233L126 277M355 245L388 265M147 255L127 295M347 270L388 265M347 270L340 303M201 284L245 319M201 284L176 327M248 300L283 330M340 303L335 350M344 331L335 350M335 350L345 370M345 370L299 392"/>
@@ -5759,22 +5728,22 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
           <p class="section-title" data-i18n="process.user">What You Do</p>
           <ol class="stepper" role="list">
-            <li class="stepper-step"><span class="stepper-disc" aria-hidden="true">1</span><span class="stepper-title" data-i18n="process.step1">Download<br />Collector</span><span class="stepper-cap" data-i18n="process.cap1">The installer for your OS, from Downloads.</span></li>
-            <li class="stepper-step"><span class="stepper-disc" aria-hidden="true">2</span><span class="stepper-title" data-i18n="process.step2">Register<br />Collector</span><span class="stepper-cap" data-i18n="process.cap2">With your enrolment token.</span></li>
-            <li class="stepper-step is-done"><span class="stepper-disc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><span class="stepper-title" data-i18n="process.done">✓ Done!</span><span class="stepper-cap" data-i18n="process.cap3">The service runs in the background.</span></li>
+            <li class="stepper-step"><span class="stepper-disc" aria-hidden="true">1</span><span class="stepper-title" data-i18n="process.step1">Download Collector</span><span class="stepper-cap" data-i18n="process.cap1">The installer for your OS, from Downloads.</span></li>
+            <li class="stepper-step"><span class="stepper-disc" aria-hidden="true">2</span><span class="stepper-title" data-i18n="process.step2">Register Collector</span><span class="stepper-cap" data-i18n="process.cap2">With your enrolment token.</span></li>
+            <li class="stepper-step is-done"><span class="stepper-disc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><span class="stepper-title" data-i18n="process.done">Done</span><span class="stepper-cap" data-i18n="process.cap3">The service runs in the background.</span></li>
           </ol>
 
           <p class="section-title" data-i18n="process.auto">
             What the Collector Does
           </p>
-          <div class="loop" id="processLoop">
-            <ol class="loop-steps" role="list">
-              <li class="loop-card"><span class="loop-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 13v8"/><path d="m8 17 4 4 4-4"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg></span><span class="loop-title" data-i18n="process.step3">Fetch Query<br />Catalogs</span><span class="loop-cap" data-i18n="process.cap4">Catalogue definitions are fetched every 30 minutes.</span></li>
-              <li class="loop-card"><span class="loop-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m7 10 3 2-3 2"/><path d="M13 14h4"/></svg></span><span class="loop-title" data-i18n="process.step4">Execute<br />Queries</span><span class="loop-cap" data-i18n="process.cap5">Queries run locally through osquery.</span></li>
-              <li class="loop-card"><span class="loop-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg></span><span class="loop-title" data-i18n="process.step5">Upload to<br />LICENSEWARE™</span><span class="loop-cap" data-i18n="process.cap6">Results are sent over TLS (HTTPS 443) to the regional instance.</span></li>
-            </ol>
-            <p class="loop-return"><span class="loop-return-line" aria-hidden="true"></span><span class="loop-return-label"><span data-i18n="quick.catalog">Catalog Check</span> · 30 mins</span></p>
-          </div>
+          <ol class="pflow" role="list">
+            <li class="flow-card"><span class="flow-head"><span class="flow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 13v8"/><path d="m8 17 4 4 4-4"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg></span><span class="flow-step-label"><span data-i18n="process.stepword">Step</span> 1</span></span><span class="flow-title" data-i18n="process.step3">Fetch query catalogs</span><span class="flow-cap" data-i18n="process.cap4">Catalogue definitions are fetched every 30 minutes.</span></li>
+            <li class="flow-sep" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></li>
+            <li class="flow-card"><span class="flow-head"><span class="flow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m7 10 3 2-3 2"/><path d="M13 14h4"/></svg></span><span class="flow-step-label"><span data-i18n="process.stepword">Step</span> 2</span></span><span class="flow-title" data-i18n="process.step4">Execute queries</span><span class="flow-cap" data-i18n="process.cap5">Queries run locally through osquery.</span></li>
+            <li class="flow-sep" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></li>
+            <li class="flow-card"><span class="flow-head"><span class="flow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg></span><span class="flow-step-label"><span data-i18n="process.stepword">Step</span> 3</span></span><span class="flow-title" data-i18n="process.step5">Upload to LICENSEWARE™</span><span class="flow-cap" data-i18n="process.cap6">Results are sent over TLS (HTTPS 443) to the regional instance.</span></li>
+          </ol>
+          <p class="flow-repeat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg><span data-i18n="process.repeat">Repeats automatically: catalog check every 30 minutes</span></p>
         </section>
 
         <!-- Data Collection Specification -->
@@ -8260,13 +8229,13 @@ Start-Service licenseware-collector</code></pre>
           "time.30m": "Every 30m",
           "process.title": "Data Collection Process",
           "process.user": "What You Do",
-          "process.step1": "Download<br />Collector",
-          "process.step2": "Register<br />Collector",
-          "process.done": "✓ Done!",
+          "process.step1": "Download Collector",
+          "process.step2": "Register Collector",
+          "process.done": "Done",
           "process.auto": "What the Collector Does",
-          "process.step3": "Fetch Query<br />Catalogs",
-          "process.step4": "Execute<br />Queries",
-          "process.step5": "Upload to<br />LICENSEWARE™",
+          "process.step3": "Fetch query catalogs",
+          "process.step4": "Execute queries",
+          "process.step5": "Upload to LICENSEWARE™",
           "catalogs.title": "Data Collection Specification",
           "catalogs.lead":
             'This section lists every query the Collector runs, the operating systems it runs on, how often, the exact fields collected and why. It is the same specification published as Schedule 3 of the <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Licenseware Data Processing Addendum</a>, which governs all data transmitted by the Collector. Nothing outside this list is collected.',
@@ -8481,6 +8450,8 @@ Start-Service licenseware-collector</code></pre>
           "process.cap4": "Catalogue definitions are fetched every 30 minutes.",
           "process.cap5": "Queries run locally through osquery.",
           "process.cap6": "Results are sent over TLS (HTTPS 443) to the regional instance.",
+          "process.stepword": "Step",
+          "process.repeat": "Repeats automatically: catalog check every 30 minutes",
           "upg.f1": "Signed updates",
           "upg.f2": "Staged rollout",
           "upg.f3": "Automatic rollback",
@@ -8687,13 +8658,13 @@ Start-Service licenseware-collector</code></pre>
           "time.30m": "Cada 30m",
           "process.title": "Proceso de Recopilación de Datos",
           "process.user": "Lo que usted hace",
-          "process.step1": "Descargar<br />Collector",
-          "process.step2": "Registrar<br />Collector",
-          "process.done": "✓ ¡Listo!",
+          "process.step1": "Descargar Collector",
+          "process.step2": "Registrar Collector",
+          "process.done": "Listo",
           "process.auto": "Lo que hace el Collector",
-          "process.step3": "Obtener catálogos<br />de consultas",
-          "process.step4": "Ejecutar<br />Consultas",
-          "process.step5": "Subir a<br />LICENSEWARE™",
+          "process.step3": "Obtener catálogos de consultas",
+          "process.step4": "Ejecutar consultas",
+          "process.step5": "Subir a LICENSEWARE™",
           "catalogs.title": "Especificación de Recopilación de Datos",
           "catalogs.lead":
             'Esta sección enumera todas las consultas que ejecuta el Collector, los sistemas operativos en los que se ejecutan, con qué frecuencia, los campos exactos que se recopilan y con qué finalidad. Es la misma especificación publicada como Anexo 3 del <a href="https://licenseware.io/legal/#data-protection-agreement" target="_blank" rel="noopener">Anexo de Tratamiento de Datos de Licenseware</a>, que rige todos los datos transmitidos por el Collector. No se recopila nada fuera de esta lista.',
@@ -8911,6 +8882,8 @@ Start-Service licenseware-collector</code></pre>
           "process.cap4": "Las definiciones de los catálogos se obtienen cada 30 minutos.",
           "process.cap5": "Las consultas se ejecutan localmente con osquery.",
           "process.cap6": "Los resultados se envían por TLS (HTTPS 443) a la instancia regional.",
+          "process.stepword": "Paso",
+          "process.repeat": "Se repite automáticamente: comprobación del catálogo cada 30 minutos",
           "upg.f1": "Actualizaciones firmadas",
           "upg.f2": "Despliegue escalonado",
           "upg.f3": "Reversión automática",
@@ -9736,15 +9709,6 @@ Start-Service licenseware-collector</code></pre>
           apply();
         });
         apply();
-      })();
-
-      // Process loop: the connector dashes move only while it is on screen.
-      (function () {
-        const loop = document.getElementById("processLoop");
-        if (!loop || !("IntersectionObserver" in window)) return;
-        new IntersectionObserver((e) => {
-          loop.classList.toggle("is-live", e[e.length - 1].isIntersecting);
-        }).observe(loop);
       })();
 
       let spyQueued = false;
