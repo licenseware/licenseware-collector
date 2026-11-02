@@ -2764,6 +2764,729 @@
           padding: 24px;
         }
       }
+      /* --- Data Collection Specification: query list --- */
+      .q-toolbar {
+        display: none;
+      }
+
+      .js .q-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 16px;
+        margin-top: 24px;
+        padding: 16px;
+        background: var(--nest-bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+      }
+
+      .q-search {
+        position: relative;
+        flex: 1 1 260px;
+        display: flex;
+        align-items: center;
+      }
+
+      .q-search > svg {
+        position: absolute;
+        left: 12px;
+        color: var(--text-secondary);
+        pointer-events: none;
+      }
+
+      .q-search input {
+        width: 100%;
+        height: 40px;
+        padding: 0 40px 0 40px;
+        border: 1px solid var(--line-field);
+        border-radius: var(--radius-sm);
+        background: var(--surface-sunken);
+        color: var(--text);
+        font-family: var(--font);
+        font-size: 15px;
+      }
+
+      .q-search input::placeholder {
+        color: var(--text-secondary);
+        opacity: 1;
+      }
+
+      .q-search input::-webkit-search-cancel-button {
+        display: none;
+      }
+
+      .q-clear {
+        position: absolute;
+        right: 4px;
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+      }
+
+      .q-clear:hover {
+        background: var(--surface-chip);
+        color: var(--text);
+      }
+
+      .q-clear[hidden] {
+        display: none;
+      }
+
+      .js .q-os-filter {
+        margin: 0;
+      }
+
+      .q-os-filter button[aria-pressed="true"] {
+        background: var(--surface-raised);
+        border-color: var(--line-strong);
+        color: var(--text);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+      }
+
+      .q-os-filter button {
+        min-height: 36px;
+        min-width: 0;
+        padding: 6px 14px;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text-secondary);
+        font-family: var(--font);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .q-toggle-all,
+      .q-reset {
+        border: 0;
+        background: transparent;
+        color: var(--accent-text);
+        font-family: var(--font);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 8px 4px;
+        border-radius: 6px;
+      }
+
+      .q-toggle-all:hover,
+      .q-reset:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .q-count {
+        margin: 0 0 0 auto;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .q-empty {
+        margin-top: 16px;
+        padding: 16px 20px;
+        border: 1px dashed var(--line-strong);
+        border-radius: var(--radius-md);
+        color: var(--text-secondary);
+      }
+
+      .q-list {
+        margin-top: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+
+      .q-row {
+        background: var(--table-row);
+        border-top: 1px solid var(--line);
+      }
+
+      .q-row:first-child {
+        border-top: 0;
+      }
+
+      .q-row:nth-child(even of :not([hidden])) {
+        background: var(--table-row-alt);
+      }
+
+      .q-row[hidden] {
+        display: none;
+      }
+
+      .q-sum {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 56px;
+        padding: 8px 18px;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .q-sum::-webkit-details-marker {
+        display: none;
+      }
+
+      .q-sum:hover {
+        background: color-mix(in srgb, var(--surface-chip) 60%, transparent);
+      }
+
+      .q-chev {
+        display: inline-flex;
+        flex: none;
+        color: var(--text-secondary);
+        transition: transform 150ms ease;
+      }
+
+      .q-row[open] .q-chev {
+        transform: rotate(90deg);
+      }
+
+      .q-sum .spec-q {
+        flex: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--accent-text);
+        background: none;
+        padding: 0;
+        overflow-wrap: normal;
+      }
+
+      .q-os {
+        display: inline-flex;
+        flex: none;
+        gap: 4px;
+      }
+
+      .os-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        background: var(--surface-chip);
+        color: var(--text);
+      }
+
+      .q-purpose {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 15px;
+        color: var(--text-secondary);
+      }
+
+      .q-pd {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 2px 10px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--line-strong);
+        background: var(--surface-chip);
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+
+      .q-pd--yes {
+        color: var(--warn);
+        border-color: color-mix(in srgb, var(--warn) 45%, transparent);
+        background: color-mix(in srgb, var(--warn) 12%, transparent);
+      }
+
+      .q-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 20px 32px;
+        padding: 16px 20px 20px;
+        background: var(--surface-sunken);
+        border-top: 1px solid var(--line);
+      }
+
+      .q-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+
+      .q-text + .q-label {
+        margin-top: 16px;
+      }
+
+      .q-text {
+        font-size: 15px;
+        color: var(--text);
+      }
+
+      .q-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        line-height: 1.4;
+      }
+
+      .q-chips code {
+        background: var(--surface-chip);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-size: 13px;
+        white-space: nowrap;
+        color: var(--text);
+      }
+
+      .q-chips .spec-scope {
+        flex-basis: 100%;
+      }
+
+      .q-sep {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
+      @media (max-width: 1023px) {
+        .q-panel {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .q-sum {
+          flex-wrap: wrap;
+          row-gap: 6px;
+          padding: 10px 14px;
+        }
+
+        .q-purpose {
+          flex-basis: 100%;
+          order: 5;
+          padding-left: 28px;
+        }
+
+        .q-count {
+          margin-left: 0;
+          flex-basis: 100%;
+        }
+      }
+
+      @media print {
+        .q-toolbar,
+        .q-empty {
+          display: none !important;
+        }
+
+        .q-row[hidden] {
+          display: block;
+        }
+
+        details.q-row::details-content {
+          content-visibility: visible;
+          display: block;
+        }
+      }
+
+      /* --- Data Collection Process --- */
+      .stepper {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 8px;
+        counter-reset: none;
+      }
+
+      .stepper-step {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+        padding: 0 8px;
+      }
+
+      .stepper-step + .stepper-step::before {
+        content: "";
+        position: absolute;
+        top: 16px;
+        right: calc(50% + 24px);
+        width: calc(100% - 48px + 16px);
+        height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--ok));
+        opacity: 0.8;
+      }
+
+      .stepper-disc {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-pill);
+        background: var(--icon-tile-bg);
+        border: 1px solid var(--icon-tile-line);
+        color: var(--icon-tile-fg);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .stepper-step.is-done .stepper-disc {
+        background: color-mix(in srgb, var(--ok) 18%, transparent);
+        border-color: color-mix(in srgb, var(--ok) 50%, transparent);
+        color: var(--ok);
+      }
+
+      .stepper-title {
+        margin-top: 6px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--text);
+      }
+
+      .stepper-cap,
+      .loop-cap {
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+      }
+
+      .loop {
+        position: relative;
+        margin-top: 8px;
+      }
+
+      .loop-steps {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 40px;
+      }
+
+      .loop-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 20px;
+        background: var(--nest-bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+      }
+
+      .loop-card + .loop-card::before {
+        content: "";
+        position: absolute;
+        left: -40px;
+        top: 39px;
+        width: 40px;
+        height: 2px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--accent-text) 0 6px,
+          transparent 6px 12px
+        );
+        background-size: 12px 2px;
+      }
+
+      .loop-card + .loop-card::after {
+        content: "";
+        position: absolute;
+        left: -9px;
+        top: 35px;
+        border: 5px solid transparent;
+        border-left-color: var(--accent-text);
+      }
+
+      .loop.is-live .loop-card + .loop-card::before,
+      .loop.is-live .loop-return-line {
+        animation: loop-dash 900ms linear infinite;
+      }
+
+      @keyframes loop-dash {
+        to {
+          background-position: 12px 0;
+        }
+      }
+
+      .loop-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 6px;
+        border-radius: 10px;
+        background: var(--icon-tile-bg);
+        border: 1px solid var(--icon-tile-line);
+        color: var(--icon-tile-fg);
+      }
+
+      .loop-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .loop-return {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin: 12px 0 0;
+        height: 36px;
+      }
+
+      .loop-return-line {
+        position: absolute;
+        left: 16.6%;
+        right: 16.6%;
+        top: 0;
+        height: 18px;
+        border: 2px solid transparent;
+        border-top: 0;
+        border-radius: 0 0 14px 14px;
+        background:
+          repeating-linear-gradient(90deg, var(--accent-text) 0 6px, transparent 6px 12px)
+            bottom / 12px 2px repeat-x,
+          linear-gradient(var(--accent-text), var(--accent-text)) left / 2px 100% no-repeat,
+          linear-gradient(var(--accent-text), var(--accent-text)) right / 2px 100% no-repeat;
+        opacity: 0.6;
+      }
+
+      .loop-return-label {
+        position: relative;
+        top: 8px;
+        padding: 2px 10px;
+        border-radius: var(--radius-pill);
+        background: var(--surface-chip);
+        border: 1px solid var(--line-strong);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 781px) {
+        .stepper,
+        .loop-steps {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .stepper {
+          gap: 24px;
+        }
+
+        .stepper-step + .stepper-step::before {
+          top: auto;
+          bottom: calc(100% + 2px);
+          right: auto;
+          left: 50%;
+          width: 2px;
+          height: 22px;
+          background: linear-gradient(180deg, var(--accent), var(--ok));
+        }
+
+        .loop-steps {
+          gap: 32px;
+        }
+
+        .loop-card + .loop-card::before {
+          left: 39px;
+          top: -32px;
+          width: 2px;
+          height: 32px;
+          background: repeating-linear-gradient(180deg, var(--accent-text) 0 6px, transparent 6px 12px);
+          background-size: 2px 12px;
+        }
+
+        .loop-card + .loop-card::after {
+          left: 35px;
+          top: -9px;
+          border-left-color: transparent;
+          border-top-color: var(--accent-text);
+        }
+
+        .loop-return-line {
+          display: none;
+        }
+      }
+
+      /* --- Upgrading to 0.17.0 --- */
+      .upg-lede {
+        font-size: 17px;
+        line-height: 1.6;
+      }
+
+      .upg-feats {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .upg-feats li {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: var(--radius-pill);
+        background: var(--nest-bg);
+        border: 1px solid var(--line);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .upg-feats svg {
+        color: var(--icon-tile-fg);
+      }
+
+      .upg-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .upg-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px;
+        background: var(--nest-bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+      }
+
+      .upg-card-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .card .upg-card-head h3 {
+        flex: 1 1 auto;
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.35;
+        padding-top: 8px;
+      }
+
+      .upg-icon {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--surface-chip);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+
+      .upg-pill {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 8px;
+        padding: 2px 10px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--line-strong);
+        background: var(--surface-chip);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+
+      .upg-pill::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: var(--radius-pill);
+        background: currentColor;
+      }
+
+      .upg-pill--warn::before {
+        background: var(--warn);
+      }
+
+      .upg-pill--ok::before {
+        background: var(--ok);
+      }
+
+      .upg-pill--error::before {
+        background: var(--error);
+      }
+
+      .upg-pill--warn {
+        border-color: color-mix(in srgb, var(--warn) 45%, transparent);
+      }
+
+      .upg-pill--ok {
+        border-color: color-mix(in srgb, var(--ok) 45%, transparent);
+      }
+
+      .upg-pill--error {
+        border-color: color-mix(in srgb, var(--error) 50%, transparent);
+      }
+
+      .upg-card > p {
+        font-size: 15px;
+      }
+
+      .highlight-box.info {
+        --callout: var(--info);
+      }
+
+      .card .upg-after h3 {
+        margin: 0 0 6px;
+        font-size: 17px;
+      }
+
+      @media (max-width: 1023px) {
+        .upg-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .upg-card-head {
+          flex-wrap: wrap;
+        }
+      }
     </style>
 
     <script async src="/posthog.js"></script>
@@ -3273,27 +3996,27 @@
             </div>
             <h2 id="upgrading-title" data-i18n="upg.title">Upgrading to 0.17.0</h2>
           </div>
-          <p data-i18n="upg.intro">From 0.17.0 every agent updates itself from <code>cdn.licenseware-collector.com</code>: signed updates, a staged rollout, and an automatic rollback if a new version fails to start. How a device gets to 0.17.0 depends on its OS.</p>
-
-          <h3 data-i18n="upg.win.title">Windows: upgrade with the 0.17.0 MSI</h3>
-
-          <p data-i18n="upg.win.desc">Windows agents on 0.16.x do not update themselves to 0.17.0; they keep running until you upgrade them. In Intune, SCCM or your other tool, replace the 0.16.x package with the 0.17.0 MSI and deploy it as an in-place upgrade with the same command line. An enrolled device needs no token. Do not configure an uninstall followed by an install. If a service is stopped afterwards, run <code>Restart-Service licenseware-collector</code>.</p>
-
-          <h3 data-i18n="upg.mac.title">macOS: update privacy rules, then deploy the 0.17.0 pkg</h3>
-
-          <p data-i18n="upg.mac.desc">Macs on 0.16.x do not update themselves. From 0.17.0 the collector's code-signing identifier is <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>); earlier builds used <code>licenseware-collector</code>, <code>LicensewareCollector</code> and <code>osqueryi</code>. If your MDM has PPPC or other privacy rules that name the collector by identifier, add the new identifiers first and keep the old ones until every Mac is upgraded. Rules that use the Team ID <code>8MD7XA4CF3</code> need no change. Then deploy <code>LicensewareCollector.pkg</code> 0.17.0 through your MDM; an enrolled Mac needs no token.</p>
-
-          <h3 data-i18n="upg.linux.title">Linux: nothing to do</h3>
-
-          <p data-i18n="upg.linux.desc">Linux agents on 0.16.x update themselves to 0.17.0 within a day. Nothing to do.</p>
-
-          <h3 data-i18n="upg.old.title">Agents on 0.11.0 or older</h3>
-
-          <p data-i18n="upg.old.desc">These never update to 0.17.0. Reinstall them with the current package from <a href="#downloads">Downloads</a>.</p>
-
-          <h3 data-i18n="upg.after.title">After 0.17.0</h3>
-
-          <p data-i18n="upg.after.desc">Every OS updates itself from the CDN. To keep one device on its current version, turn its updates off with <code>AUTOUPDATE=0</code> (see <a href="#settings">Settings</a>).</p>
+          <p class="upg-lede" data-i18n="upg.intro">From 0.17.0 every agent updates itself from <code>cdn.licenseware-collector.com</code>: signed updates, a staged rollout, and an automatic rollback if a new version fails to start. How a device gets to 0.17.0 depends on its OS.</p>
+          <ul class="upg-feats" role="list"><li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="upg.f1">Signed updates</span></li><li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg><span data-i18n="upg.f2">Staged rollout</span></li><li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span data-i18n="upg.f3">Automatic rollback</span></li></ul>
+          <div class="upg-grid">
+<article class="upg-card">
+  <div class="upg-card-head"><span class="upg-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg></span><h3 data-i18n="upg.win.title">Windows: upgrade with the 0.17.0 MSI</h3><span class="upg-pill upg-pill--warn" data-i18n="upg.pill.action">Action needed</span></div>
+  <p data-i18n="upg.win.desc">Windows agents on 0.16.x do not update themselves to 0.17.0; they keep running until you upgrade them. In Intune, SCCM or your other tool, replace the 0.16.x package with the 0.17.0 MSI and deploy it as an in-place upgrade with the same command line. An enrolled device needs no token. Do not configure an uninstall followed by an install. If a service is stopped afterwards, run <code>Restart-Service licenseware-collector</code>.</p>
+</article>
+<article class="upg-card">
+  <div class="upg-card-head"><span class="upg-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg></span><h3 data-i18n="upg.mac.title">macOS: update privacy rules, then deploy the 0.17.0 pkg</h3><span class="upg-pill upg-pill--warn" data-i18n="upg.pill.action">Action needed</span></div>
+  <p data-i18n="upg.mac.desc">Macs on 0.16.x do not update themselves. From 0.17.0 the collector's code-signing identifier is <code>io.licenseware.collector</code> (osquery: <code>io.licenseware.collector.osqueryi</code>); earlier builds used <code>licenseware-collector</code>, <code>LicensewareCollector</code> and <code>osqueryi</code>. If your MDM has PPPC or other privacy rules that name the collector by identifier, add the new identifiers first and keep the old ones until every Mac is upgraded. Rules that use the Team ID <code>8MD7XA4CF3</code> need no change. Then deploy <code>LicensewareCollector.pkg</code> 0.17.0 through your MDM; an enrolled Mac needs no token.</p>
+</article>
+<article class="upg-card">
+  <div class="upg-card-head"><span class="upg-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg></span><h3 data-i18n="upg.linux.title">Linux: nothing to do</h3><span class="upg-pill upg-pill--ok" data-i18n="upg.pill.none">Nothing to do</span></div>
+  <p data-i18n="upg.linux.desc">Linux agents on 0.16.x update themselves to 0.17.0 within a day. Nothing to do.</p>
+</article>
+<article class="upg-card">
+  <div class="upg-card-head"><span class="upg-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg></span><h3 data-i18n="upg.old.title">Agents on 0.11.0 or older</h3><span class="upg-pill upg-pill--error" data-i18n="upg.pill.reinstall">Reinstall</span></div>
+  <p data-i18n="upg.old.desc">These never update to 0.17.0. Reinstall them with the current package from <a href="#downloads">Downloads</a>.</p>
+</article>
+          </div>
+          <aside class="highlight-box info upg-after" role="note"><h3 data-i18n="upg.after.title">After 0.17.0</h3><p data-i18n="upg.after.desc">Every OS updates itself from the CDN. To keep one device on its current version, turn its updates off with <code>AUTOUPDATE=0</code> (see <a href="#settings">Settings</a>).</p></aside>
         </section>
 
         <!-- Direct Downloads -->
@@ -5035,51 +5758,22 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           </div>
 
           <p class="section-title" data-i18n="process.user">What You Do</p>
-          <div class="flow-diagram">
-            <div class="flow-step">
-              <span data-i18n="process.step1">Download<br />Collector</span>
-            </div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-step">
-              <span data-i18n="process.step2">Register<br />Collector</span>
-            </div>
-            <span class="flow-arrow">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--ok); color: var(--ok)"
-              data-i18n="process.done"
-            >
-              ✓ Done!
-            </div>
-          </div>
+          <ol class="stepper" role="list">
+            <li class="stepper-step"><span class="stepper-disc" aria-hidden="true">1</span><span class="stepper-title" data-i18n="process.step1">Download<br />Collector</span><span class="stepper-cap" data-i18n="process.cap1">The installer for your OS, from Downloads.</span></li>
+            <li class="stepper-step"><span class="stepper-disc" aria-hidden="true">2</span><span class="stepper-title" data-i18n="process.step2">Register<br />Collector</span><span class="stepper-cap" data-i18n="process.cap2">With your enrolment token.</span></li>
+            <li class="stepper-step is-done"><span class="stepper-disc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><span class="stepper-title" data-i18n="process.done">✓ Done!</span><span class="stepper-cap" data-i18n="process.cap3">The service runs in the background.</span></li>
+          </ol>
 
           <p class="section-title" data-i18n="process.auto">
             What the Collector Does
           </p>
-          <div class="flow-diagram">
-            <div
-              class="flow-step"
-              style="border-color: var(--line); font-size: 0.9375rem"
-              data-i18n="process.step3"
-            >
-              Fetch Query<br />Catalogs
-            </div>
-            <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--line); font-size: 0.9375rem"
-              data-i18n="process.step4"
-            >
-              Execute<br />Queries
-            </div>
-            <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
-            <div
-              class="flow-step"
-              style="border-color: var(--line); font-size: 0.9375rem"
-              data-i18n="process.step5"
-            >
-              Upload to<br />LICENSEWARE™
-            </div>
+          <div class="loop" id="processLoop">
+            <ol class="loop-steps" role="list">
+              <li class="loop-card"><span class="loop-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 13v8"/><path d="m8 17 4 4 4-4"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg></span><span class="loop-title" data-i18n="process.step3">Fetch Query<br />Catalogs</span><span class="loop-cap" data-i18n="process.cap4">Catalogue definitions are fetched every 30 minutes.</span></li>
+              <li class="loop-card"><span class="loop-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m7 10 3 2-3 2"/><path d="M13 14h4"/></svg></span><span class="loop-title" data-i18n="process.step4">Execute<br />Queries</span><span class="loop-cap" data-i18n="process.cap5">Queries run locally through osquery.</span></li>
+              <li class="loop-card"><span class="loop-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg></span><span class="loop-title" data-i18n="process.step5">Upload to<br />LICENSEWARE™</span><span class="loop-cap" data-i18n="process.cap6">Results are sent over TLS (HTTPS 443) to the regional instance.</span></li>
+            </ol>
+            <p class="loop-return"><span class="loop-return-line" aria-hidden="true"></span><span class="loop-return-label"><span data-i18n="quick.catalog">Catalog Check</span> · 30 mins</span></p>
           </div>
         </section>
 
@@ -5189,6 +5883,22 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </p>
           </aside>
 
+          <div class="q-toolbar" id="qToolbar">
+            <div class="q-search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input type="search" id="qSearch" autocomplete="off" spellcheck="false" placeholder="Search queries or fields" data-i18n-placeholder="catalogs.search" aria-label="Search queries or fields" data-i18n-aria="catalogs.search" />
+              <button type="button" class="q-clear" id="qClear" aria-label="Clear search" data-i18n-aria="catalogs.clear" hidden><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+            </div>
+            <div class="segmented q-os-filter" role="group" aria-label="Operating system" data-i18n-aria="os.tabs.label" id="qOs">
+              <button type="button" data-os="all" aria-pressed="true"><span data-i18n="catalogs.all">All</span></button>
+              <button type="button" data-os="linux" aria-pressed="false">Linux</button>
+              <button type="button" data-os="windows" aria-pressed="false">Windows</button>
+              <button type="button" data-os="macos" aria-pressed="false">macOS</button>
+            </div>
+            <button type="button" class="q-toggle-all" id="qToggleAll" data-i18n="catalogs.expand">Expand all</button>
+            <p class="q-count" id="qCount" aria-live="polite"></p>
+          </div>
+          <p class="q-empty" id="qEmpty" hidden><span data-i18n="catalogs.empty">No queries match.</span> <button type="button" class="q-reset" id="qReset" data-i18n="catalogs.reset">Reset filters</button></p>
           <!-- Catalogue A -->
           <div style="margin-top: 1.5rem">
             <div
@@ -5224,263 +5934,151 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               inventory, plus a point-in-time view of running processes,
               services and logged-in users.
             </p>
-            <div class="table-wrap" role="region" tabindex="0" aria-label="Catalogue A: Inventory and processes">
-              <table class="spec">
-                <caption class="visually-hidden">
-                  Catalogue A: inventory and processes, collected every 60
-                  minutes
-                </caption>
-                <thead>
-                  <tr>
-                    <th data-i18n="table.query">Query</th>
-                    <th data-i18n="table.os">OS</th>
-                    <th data-i18n="table.fields">Fields collected</th>
-                    <th data-i18n="table.purpose">Purpose</th>
-                    <th data-i18n="table.pd">Personal data relevance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><code class="spec-q">system_info</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>hostname</code>, <code>uuid</code>, <code>computer_name</code>, <code>local_hostname</code>, <code>cpu_type</code>, <code>cpu_subtype</code>, <code>cpu_brand</code>, <code>cpu_physical_cores</code>, <code>cpu_logical_cores</code>, <code>cpu_sockets</code>, <code>cpu_microcode</code>, <code>physical_memory</code>, <code>hardware_vendor</code>, <code>hardware_model</code>, <code>hardware_version</code>, <code>hardware_serial</code>, <code>board_vendor</code>, <code>board_model</code>, <code>board_version</code>, <code>board_serial</code>
-                  </td>
-                  <td>Device identity and hardware spec for asset matching and per-device licensing</td>
-                  <td>Durable device identifiers (UUID, hardware serial, board serial). No user data.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">os_version</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>version</code>, <code>major</code>, <code>minor</code>, <code>patch</code>, <code>build</code>, <code>platform</code>, <code>platform_like</code>, <code>codename</code>, <code>arch</code>, <code>install_date</code>, <code>revision</code>
-                  </td>
-                  <td>OS edition and version for OS licensing and support-lifecycle reporting</td>
-                  <td class="spec-none">None.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">kernel_info</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>version</code>, <code>arguments</code>, <code>path</code>, <code>device</code>
-                  </td>
-                  <td>Kernel version for platform reporting</td>
-                  <td>Kernel boot arguments may reveal host configuration. No user data.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">users</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>uid</code>, <code>gid</code>, <code>uid_signed</code>, <code>gid_signed</code>, <code>username</code>, <code>directory</code>, <code>shell</code>, <code>uuid</code>, <code>type</code>
-                  </td>
-                  <td>Local account enumeration for per-user licence attribution and user counts</td>
-                  <td>Usernames, UIDs and home directory paths of all local accounts, including service accounts. Personal data.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">programs</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-windows">Windows</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>version</code>, <code>install_location</code>, <code>install_source</code>, <code>language</code>, <code>publisher</code>, <code>uninstall_string</code>, <code>install_date</code>, <code>identifying_number</code>
-                  </td>
-                  <td>Primary Windows installed-software inventory</td>
-                  <td>Install paths and product identifiers only. No user data.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">deb_packages</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>version</code>, <code>source</code>, <code>size</code>, <code>arch</code>, <code>revision</code>, <code>status</code>, <code>maintainer</code>, <code>section</code>, <code>priority</code>
-                  </td>
-                  <td>Debian/Ubuntu installed-package inventory</td>
-                  <td class="spec-none">None.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">rpm_packages</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>version</code>, <code>release</code>, <code>source</code>, <code>size</code>, <code>sha1</code>, <code>arch</code>, <code>epoch</code>, <code>install_time</code>, <code>vendor</code>, <code>package_group</code>
-                  </td>
-                  <td>RHEL/SUSE installed-package inventory</td>
-                  <td class="spec-none">None.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">startup_items</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>path</code>, <code>type</code>, <code>source</code>, <code>status</code>, <code>username</code>
-                  </td>
-                  <td>Detect software configured to auto-start</td>
-                  <td>Username associated with each startup item; file paths. Command-line arguments are not collected.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">npm_packages</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>version</code>, <code>description</code>, <code>author</code>, <code>license</code>, <code>homepage</code>, <code>path</code>, <code>directory</code>
-                  </td>
-                  <td>OSS dependency inventory for licence compliance</td>
-                  <td>Package path and directory may reveal internal project and repository names on developer machines.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">python_packages</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>version</code>, <code>summary</code>, <code>author</code>, <code>license</code>, <code>path</code>, <code>directory</code>
-                  </td>
-                  <td>OSS dependency inventory for licence compliance</td>
-                  <td>Package path and directory may reveal internal project and repository names on developer machines.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">chocolatey_packages</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-windows">Windows</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>version</code>, <code>summary</code>, <code>author</code>, <code>license</code>, <code>path</code>
-                  </td>
-                  <td>Windows package-manager inventory</td>
-                  <td class="spec-none">None.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">homebrew_packages</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>path</code>, <code>version</code>
-                  </td>
-                  <td>macOS package-manager inventory</td>
-                  <td class="spec-none">None.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">darwin_apps</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>path</code>, <code>bundle_executable</code>, <code>bundle_identifier</code>, <code>bundle_name</code>, <code>bundle_short_version</code>, <code>bundle_version</code>, <code>bundle_package_type</code>, <code>compiler</code>, <code>development_region</code>, <code>display_name</code>, <code>info_string</code>, <code>minimum_system_version</code>, <code>category</code>, <code>applescript_enabled</code>, <code>copyright</code>, <code>last_opened_time</code>
-                  </td>
-                  <td>Primary macOS installed-software inventory</td>
-                  <td>last_opened_time is a per-application usage signal, not attributed to a user.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">darwin_plist</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>app name</code>, <code>app path</code>, <code>plist key</code>, <code>plist value</code>
-                    <span class="spec-scope">restricted to CFBundleGetInfoString NSHumanReadableCopyright CFBundleIdentifier under /Applications only</span>
-                  </td>
-                  <td>Publisher and edition resolution for macOS apps</td>
-                  <td class="spec-none">None. Restricted to three named keys for apps under /Applications.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">running_processes_windows</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-windows">Windows</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>pid</code>, <code>name</code>, <code>path</code>, <code>state</code>, <code>cwd</code>, <code>root</code>, <code>uid</code>, <code>gid</code>, <code>euid</code>, <code>egid</code>, <code>suid</code>, <code>sgid</code>, <code>on_disk</code>, <code>wired_size</code>, <code>resident_size</code>, <code>total_size</code>, <code>user_time</code>, <code>system_time</code>, <code>disk_bytes_read</code>, <code>disk_bytes_written</code>, <code>start_time</code>, <code>parent</code>, <code>pgroup</code>, <code>threads</code>, <code>nice</code>, <code>elevated_token</code>, <code>secure_process</code>, <code>protection_type</code>, <code>virtual_process</code>, <code>elapsed_time</code>, <code>handle_count</code>
-                  </td>
-                  <td>Join running processes to installed software for last-used inference</td>
-                  <td>Process owner identifiers (uid, euid) and working and root directory paths, which may include user home and project directories. An hourly process list is an activity signal. Command-line arguments are not collected.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">running_processes_posix</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>pid</code>, <code>name</code>, <code>path</code>, <code>state</code>, <code>cwd</code>, <code>root</code>, <code>uid</code>, <code>gid</code>, <code>euid</code>, <code>egid</code>, <code>suid</code>, <code>sgid</code>, <code>on_disk</code>, <code>wired_size</code>, <code>resident_size</code>, <code>total_size</code>, <code>user_time</code>, <code>system_time</code>, <code>disk_bytes_read</code>, <code>disk_bytes_written</code>, <code>start_time</code>, <code>parent</code>, <code>pgroup</code>, <code>threads</code>, <code>nice</code>
-                  </td>
-                  <td>Join running processes to installed software for last-used inference</td>
-                  <td>Process owner identifiers (uid, euid) and working and root directory paths, which may include user home and project directories. An hourly process list is an activity signal. Command-line arguments are not collected.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">windows_services_running</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-windows">Windows</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>name</code>, <code>service_type</code>, <code>display_name</code>, <code>status</code>, <code>pid</code>, <code>path</code>, <code>module_path</code>, <code>description</code>, <code>user_account</code>, <code>start_type</code>, <code>win32_exit_code</code>, <code>service_exit_code</code>
-                  </td>
-                  <td>Detect server software running as a service</td>
-                  <td>Service account names.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">systemd_units_running</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>id</code>, <code>description</code>, <code>load_state</code>, <code>active_state</code>, <code>sub_state</code>, <code>following</code>, <code>object_path</code>, <code>job_id</code>, <code>job_type</code>, <code>job_path</code>, <code>fragment_path</code>, <code>user</code>, <code>source_path</code>
-                  </td>
-                  <td>Detect Linux server software running as a unit</td>
-                  <td>Unit user. Paths only; no command lines.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">launchd_services</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>path</code>, <code>name</code>, <code>label</code>, <code>program</code>, <code>run_at_load</code>, <code>keep_alive</code>, <code>on_demand</code>, <code>disabled</code>, <code>username</code>, <code>groupname</code>, <code>stdout_path</code>, <code>stderr_path</code>, <code>start_interval</code>, <code>watch_paths</code>, <code>queue_directories</code>, <code>inetd_compatibility</code>, <code>start_on_mount</code>, <code>root_directory</code>, <code>working_directory</code>, <code>process_type</code>
-                  </td>
-                  <td>Detect macOS software running as a daemon or agent</td>
-                  <td>Username and group under which the daemon runs; file paths. Command-line arguments (program_arguments) are not collected.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">logged_in_users</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                    <span class="os-badge os-windows">Windows</span>
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>type</code>, <code>user</code>, <code>tty</code>, <code>host</code>, <code>time</code>, <code>pid</code>, <code>sid</code>, <code>registry_hive</code>
-                  </td>
-                  <td>Attribute device usage to a named user</td>
-                  <td>Identifies which user accounts are logged in to a device, and when. Personal data.</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+            <p class="visually-hidden">Catalogue A: inventory and processes, collected every 60
+                  minutes</p>
+<div class="q-list" role="list" aria-label="Catalogue A: Inventory and processes">
+<details class="q-row" data-q="system_info" data-os="linux windows macos" data-fields="hostname uuid computer_name local_hostname cpu_type cpu_subtype cpu_brand cpu_physical_cores cpu_logical_cores cpu_sockets cpu_microcode physical_memory hardware_vendor hardware_model hardware_version hardware_serial board_vendor board_model board_version board_serial">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">system_info</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Device identity and hardware spec for asset matching and per-device licensing</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>hostname</code><span class="q-sep">, </span><code>uuid</code><span class="q-sep">, </span><code>computer_name</code><span class="q-sep">, </span><code>local_hostname</code><span class="q-sep">, </span><code>cpu_type</code><span class="q-sep">, </span><code>cpu_subtype</code><span class="q-sep">, </span><code>cpu_brand</code><span class="q-sep">, </span><code>cpu_physical_cores</code><span class="q-sep">, </span><code>cpu_logical_cores</code><span class="q-sep">, </span><code>cpu_sockets</code><span class="q-sep">, </span><code>cpu_microcode</code><span class="q-sep">, </span><code>physical_memory</code><span class="q-sep">, </span><code>hardware_vendor</code><span class="q-sep">, </span><code>hardware_model</code><span class="q-sep">, </span><code>hardware_version</code><span class="q-sep">, </span><code>hardware_serial</code><span class="q-sep">, </span><code>board_vendor</code><span class="q-sep">, </span><code>board_model</code><span class="q-sep">, </span><code>board_version</code><span class="q-sep">, </span><code>board_serial</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Device identity and hardware spec for asset matching and per-device licensing</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Durable device identifiers (UUID, hardware serial, board serial). No user data.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="os_version" data-os="linux windows macos" data-fields="name version major minor patch build platform platform_like codename arch install_date revision">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">os_version</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">OS edition and version for OS licensing and support-lifecycle reporting</span><span class="q-pd q-pd--no" data-i18n="catalogs.pd.no">No personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>version</code><span class="q-sep">, </span><code>major</code><span class="q-sep">, </span><code>minor</code><span class="q-sep">, </span><code>patch</code><span class="q-sep">, </span><code>build</code><span class="q-sep">, </span><code>platform</code><span class="q-sep">, </span><code>platform_like</code><span class="q-sep">, </span><code>codename</code><span class="q-sep">, </span><code>arch</code><span class="q-sep">, </span><code>install_date</code><span class="q-sep">, </span><code>revision</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">OS edition and version for OS licensing and support-lifecycle reporting</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text spec-none">None.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="kernel_info" data-os="linux windows macos" data-fields="version arguments path device">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">kernel_info</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Kernel version for platform reporting</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>version</code><span class="q-sep">, </span><code>arguments</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>device</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Kernel version for platform reporting</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Kernel boot arguments may reveal host configuration. No user data.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="users" data-os="linux windows macos" data-fields="uid gid uid_signed gid_signed username directory shell uuid type">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">users</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Local account enumeration for per-user licence attribution and user counts</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>uid</code><span class="q-sep">, </span><code>gid</code><span class="q-sep">, </span><code>uid_signed</code><span class="q-sep">, </span><code>gid_signed</code><span class="q-sep">, </span><code>username</code><span class="q-sep">, </span><code>directory</code><span class="q-sep">, </span><code>shell</code><span class="q-sep">, </span><code>uuid</code><span class="q-sep">, </span><code>type</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Local account enumeration for per-user licence attribution and user counts</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Usernames, UIDs and home directory paths of all local accounts, including service accounts. Personal data.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="programs" data-os="windows" data-fields="name version install_location install_source language publisher uninstall_string install_date identifying_number">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">programs</code><span class="q-os"><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span></span><span class="q-purpose" aria-hidden="true">Primary Windows installed-software inventory</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>version</code><span class="q-sep">, </span><code>install_location</code><span class="q-sep">, </span><code>install_source</code><span class="q-sep">, </span><code>language</code><span class="q-sep">, </span><code>publisher</code><span class="q-sep">, </span><code>uninstall_string</code><span class="q-sep">, </span><code>install_date</code><span class="q-sep">, </span><code>identifying_number</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Primary Windows installed-software inventory</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Install paths and product identifiers only. No user data.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="deb_packages" data-os="linux" data-fields="name version source size arch revision status maintainer section priority">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">deb_packages</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span></span><span class="q-purpose" aria-hidden="true">Debian/Ubuntu installed-package inventory</span><span class="q-pd q-pd--no" data-i18n="catalogs.pd.no">No personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>version</code><span class="q-sep">, </span><code>source</code><span class="q-sep">, </span><code>size</code><span class="q-sep">, </span><code>arch</code><span class="q-sep">, </span><code>revision</code><span class="q-sep">, </span><code>status</code><span class="q-sep">, </span><code>maintainer</code><span class="q-sep">, </span><code>section</code><span class="q-sep">, </span><code>priority</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Debian/Ubuntu installed-package inventory</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text spec-none">None.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="rpm_packages" data-os="linux" data-fields="name version release source size sha1 arch epoch install_time vendor package_group">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">rpm_packages</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span></span><span class="q-purpose" aria-hidden="true">RHEL/SUSE installed-package inventory</span><span class="q-pd q-pd--no" data-i18n="catalogs.pd.no">No personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>version</code><span class="q-sep">, </span><code>release</code><span class="q-sep">, </span><code>source</code><span class="q-sep">, </span><code>size</code><span class="q-sep">, </span><code>sha1</code><span class="q-sep">, </span><code>arch</code><span class="q-sep">, </span><code>epoch</code><span class="q-sep">, </span><code>install_time</code><span class="q-sep">, </span><code>vendor</code><span class="q-sep">, </span><code>package_group</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">RHEL/SUSE installed-package inventory</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text spec-none">None.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="startup_items" data-os="linux windows macos" data-fields="name path type source status username">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">startup_items</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Detect software configured to auto-start</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>type</code><span class="q-sep">, </span><code>source</code><span class="q-sep">, </span><code>status</code><span class="q-sep">, </span><code>username</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Detect software configured to auto-start</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Username associated with each startup item; file paths. Command-line arguments are not collected.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="npm_packages" data-os="linux windows macos" data-fields="name version description author license homepage path directory">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">npm_packages</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">OSS dependency inventory for licence compliance</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>version</code><span class="q-sep">, </span><code>description</code><span class="q-sep">, </span><code>author</code><span class="q-sep">, </span><code>license</code><span class="q-sep">, </span><code>homepage</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>directory</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">OSS dependency inventory for licence compliance</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Package path and directory may reveal internal project and repository names on developer machines.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="python_packages" data-os="linux windows macos" data-fields="name version summary author license path directory">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">python_packages</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">OSS dependency inventory for licence compliance</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>version</code><span class="q-sep">, </span><code>summary</code><span class="q-sep">, </span><code>author</code><span class="q-sep">, </span><code>license</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>directory</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">OSS dependency inventory for licence compliance</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Package path and directory may reveal internal project and repository names on developer machines.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="chocolatey_packages" data-os="windows" data-fields="name version summary author license path">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">chocolatey_packages</code><span class="q-os"><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span></span><span class="q-purpose" aria-hidden="true">Windows package-manager inventory</span><span class="q-pd q-pd--no" data-i18n="catalogs.pd.no">No personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>version</code><span class="q-sep">, </span><code>summary</code><span class="q-sep">, </span><code>author</code><span class="q-sep">, </span><code>license</code><span class="q-sep">, </span><code>path</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Windows package-manager inventory</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text spec-none">None.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="homebrew_packages" data-os="macos" data-fields="name path version">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">homebrew_packages</code><span class="q-os"><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">macOS package-manager inventory</span><span class="q-pd q-pd--no" data-i18n="catalogs.pd.no">No personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>version</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">macOS package-manager inventory</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text spec-none">None.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="darwin_apps" data-os="macos" data-fields="name path bundle_executable bundle_identifier bundle_name bundle_short_version bundle_version bundle_package_type compiler development_region display_name info_string minimum_system_version category applescript_enabled copyright last_opened_time">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">darwin_apps</code><span class="q-os"><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Primary macOS installed-software inventory</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>bundle_executable</code><span class="q-sep">, </span><code>bundle_identifier</code><span class="q-sep">, </span><code>bundle_name</code><span class="q-sep">, </span><code>bundle_short_version</code><span class="q-sep">, </span><code>bundle_version</code><span class="q-sep">, </span><code>bundle_package_type</code><span class="q-sep">, </span><code>compiler</code><span class="q-sep">, </span><code>development_region</code><span class="q-sep">, </span><code>display_name</code><span class="q-sep">, </span><code>info_string</code><span class="q-sep">, </span><code>minimum_system_version</code><span class="q-sep">, </span><code>category</code><span class="q-sep">, </span><code>applescript_enabled</code><span class="q-sep">, </span><code>copyright</code><span class="q-sep">, </span><code>last_opened_time</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Primary macOS installed-software inventory</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">last_opened_time is a per-application usage signal, not attributed to a user.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="darwin_plist" data-os="macos" data-fields="app name app path plist key plist value">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">darwin_plist</code><span class="q-os"><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Publisher and edition resolution for macOS apps</span><span class="q-pd q-pd--no" data-i18n="catalogs.pd.no">No personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>app name</code><span class="q-sep">, </span><code>app path</code><span class="q-sep">, </span><code>plist key</code><span class="q-sep">, </span><code>plist value</code>
+                    <span class="spec-scope">restricted to CFBundleGetInfoString NSHumanReadableCopyright CFBundleIdentifier under /Applications only</span></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Publisher and edition resolution for macOS apps</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text spec-none">None. Restricted to three named keys for apps under /Applications.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="running_processes_windows" data-os="windows" data-fields="pid name path state cwd root uid gid euid egid suid sgid on_disk wired_size resident_size total_size user_time system_time disk_bytes_read disk_bytes_written start_time parent pgroup threads nice elevated_token secure_process protection_type virtual_process elapsed_time handle_count">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">running_processes_windows</code><span class="q-os"><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span></span><span class="q-purpose" aria-hidden="true">Join running processes to installed software for last-used inference</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>pid</code><span class="q-sep">, </span><code>name</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>state</code><span class="q-sep">, </span><code>cwd</code><span class="q-sep">, </span><code>root</code><span class="q-sep">, </span><code>uid</code><span class="q-sep">, </span><code>gid</code><span class="q-sep">, </span><code>euid</code><span class="q-sep">, </span><code>egid</code><span class="q-sep">, </span><code>suid</code><span class="q-sep">, </span><code>sgid</code><span class="q-sep">, </span><code>on_disk</code><span class="q-sep">, </span><code>wired_size</code><span class="q-sep">, </span><code>resident_size</code><span class="q-sep">, </span><code>total_size</code><span class="q-sep">, </span><code>user_time</code><span class="q-sep">, </span><code>system_time</code><span class="q-sep">, </span><code>disk_bytes_read</code><span class="q-sep">, </span><code>disk_bytes_written</code><span class="q-sep">, </span><code>start_time</code><span class="q-sep">, </span><code>parent</code><span class="q-sep">, </span><code>pgroup</code><span class="q-sep">, </span><code>threads</code><span class="q-sep">, </span><code>nice</code><span class="q-sep">, </span><code>elevated_token</code><span class="q-sep">, </span><code>secure_process</code><span class="q-sep">, </span><code>protection_type</code><span class="q-sep">, </span><code>virtual_process</code><span class="q-sep">, </span><code>elapsed_time</code><span class="q-sep">, </span><code>handle_count</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Join running processes to installed software for last-used inference</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Process owner identifiers (uid, euid) and working and root directory paths, which may include user home and project directories. An hourly process list is an activity signal. Command-line arguments are not collected.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="running_processes_posix" data-os="linux macos" data-fields="pid name path state cwd root uid gid euid egid suid sgid on_disk wired_size resident_size total_size user_time system_time disk_bytes_read disk_bytes_written start_time parent pgroup threads nice">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">running_processes_posix</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Join running processes to installed software for last-used inference</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>pid</code><span class="q-sep">, </span><code>name</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>state</code><span class="q-sep">, </span><code>cwd</code><span class="q-sep">, </span><code>root</code><span class="q-sep">, </span><code>uid</code><span class="q-sep">, </span><code>gid</code><span class="q-sep">, </span><code>euid</code><span class="q-sep">, </span><code>egid</code><span class="q-sep">, </span><code>suid</code><span class="q-sep">, </span><code>sgid</code><span class="q-sep">, </span><code>on_disk</code><span class="q-sep">, </span><code>wired_size</code><span class="q-sep">, </span><code>resident_size</code><span class="q-sep">, </span><code>total_size</code><span class="q-sep">, </span><code>user_time</code><span class="q-sep">, </span><code>system_time</code><span class="q-sep">, </span><code>disk_bytes_read</code><span class="q-sep">, </span><code>disk_bytes_written</code><span class="q-sep">, </span><code>start_time</code><span class="q-sep">, </span><code>parent</code><span class="q-sep">, </span><code>pgroup</code><span class="q-sep">, </span><code>threads</code><span class="q-sep">, </span><code>nice</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Join running processes to installed software for last-used inference</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Process owner identifiers (uid, euid) and working and root directory paths, which may include user home and project directories. An hourly process list is an activity signal. Command-line arguments are not collected.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="windows_services_running" data-os="windows" data-fields="name service_type display_name status pid path module_path description user_account start_type win32_exit_code service_exit_code">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">windows_services_running</code><span class="q-os"><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span></span><span class="q-purpose" aria-hidden="true">Detect server software running as a service</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>name</code><span class="q-sep">, </span><code>service_type</code><span class="q-sep">, </span><code>display_name</code><span class="q-sep">, </span><code>status</code><span class="q-sep">, </span><code>pid</code><span class="q-sep">, </span><code>path</code><span class="q-sep">, </span><code>module_path</code><span class="q-sep">, </span><code>description</code><span class="q-sep">, </span><code>user_account</code><span class="q-sep">, </span><code>start_type</code><span class="q-sep">, </span><code>win32_exit_code</code><span class="q-sep">, </span><code>service_exit_code</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Detect server software running as a service</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Service account names.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="systemd_units_running" data-os="linux" data-fields="id description load_state active_state sub_state following object_path job_id job_type job_path fragment_path user source_path">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">systemd_units_running</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span></span><span class="q-purpose" aria-hidden="true">Detect Linux server software running as a unit</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>id</code><span class="q-sep">, </span><code>description</code><span class="q-sep">, </span><code>load_state</code><span class="q-sep">, </span><code>active_state</code><span class="q-sep">, </span><code>sub_state</code><span class="q-sep">, </span><code>following</code><span class="q-sep">, </span><code>object_path</code><span class="q-sep">, </span><code>job_id</code><span class="q-sep">, </span><code>job_type</code><span class="q-sep">, </span><code>job_path</code><span class="q-sep">, </span><code>fragment_path</code><span class="q-sep">, </span><code>user</code><span class="q-sep">, </span><code>source_path</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Detect Linux server software running as a unit</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Unit user. Paths only; no command lines.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="launchd_services" data-os="macos" data-fields="path name label program run_at_load keep_alive on_demand disabled username groupname stdout_path stderr_path start_interval watch_paths queue_directories inetd_compatibility start_on_mount root_directory working_directory process_type">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">launchd_services</code><span class="q-os"><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Detect macOS software running as a daemon or agent</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>path</code><span class="q-sep">, </span><code>name</code><span class="q-sep">, </span><code>label</code><span class="q-sep">, </span><code>program</code><span class="q-sep">, </span><code>run_at_load</code><span class="q-sep">, </span><code>keep_alive</code><span class="q-sep">, </span><code>on_demand</code><span class="q-sep">, </span><code>disabled</code><span class="q-sep">, </span><code>username</code><span class="q-sep">, </span><code>groupname</code><span class="q-sep">, </span><code>stdout_path</code><span class="q-sep">, </span><code>stderr_path</code><span class="q-sep">, </span><code>start_interval</code><span class="q-sep">, </span><code>watch_paths</code><span class="q-sep">, </span><code>queue_directories</code><span class="q-sep">, </span><code>inetd_compatibility</code><span class="q-sep">, </span><code>start_on_mount</code><span class="q-sep">, </span><code>root_directory</code><span class="q-sep">, </span><code>working_directory</code><span class="q-sep">, </span><code>process_type</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Detect macOS software running as a daemon or agent</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Username and group under which the daemon runs; file paths. Command-line arguments (program_arguments) are not collected.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="logged_in_users" data-os="linux windows macos" data-fields="type user tty host time pid sid registry_hive">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">logged_in_users</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Attribute device usage to a named user</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>type</code><span class="q-sep">, </span><code>user</code><span class="q-sep">, </span><code>tty</code><span class="q-sep">, </span><code>host</code><span class="q-sep">, </span><code>time</code><span class="q-sep">, </span><code>pid</code><span class="q-sep">, </span><code>sid</code><span class="q-sep">, </span><code>registry_hive</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Attribute device usage to a named user</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Identifies which user accounts are logged in to a device, and when. Personal data.</p></div>
+  </div>
+</details>
+</div>
           </div>
 
           <!-- Catalogue B -->
@@ -5517,81 +6115,46 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               Execution history used to work out when software was last used,
               for licence reclamation and audit evidence.
             </p>
-            <div class="table-wrap" role="region" tabindex="0" aria-label="Catalogue B: Software usage">
-              <table class="spec">
-                <caption class="visually-hidden">
-                  Catalogue B: software usage, collected every 240 minutes
-                </caption>
-                <thead>
-                  <tr>
-                    <th data-i18n="table.query">Query</th>
-                    <th data-i18n="table.os">OS</th>
-                    <th data-i18n="table.fields">Fields collected</th>
-                    <th data-i18n="table.purpose">Purpose</th>
-                    <th data-i18n="table.pd">Personal data relevance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><code class="spec-q">prefetch_metadata</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-windows">Windows</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>path</code>, <code>filename</code>, <code>hash</code>, <code>last_run_time</code>, <code>other_run_times</code>, <code>run_count</code>, <code>size</code>, <code>volume_serial</code>, <code>volume_creation</code>, <code>accessed_files_count</code>, <code>accessed_directories_count</code>
-                  </td>
-                  <td>Last-used and run-count evidence for licence reclaim</td>
-                  <td>Per-binary execution history (last run time, other run times, run count). Not attributed to a user. Accessed files and directories are counts only; no filenames.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">userassist_registry</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-windows">Windows</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>path</code>, <code>last_execution_time</code>, <code>sid</code>
-                  </td>
-                  <td>Per-user last-used evidence for licence reclaim</td>
-                  <td>Per-user program execution history keyed to the Windows user SID. Direct evidence of which user account ran which program and when.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">bam_registry</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-windows">Windows</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>path</code>, <code>last_execution_time</code>, <code>sid</code>
-                  </td>
-                  <td>Per-user last-used evidence for licence reclaim</td>
-                  <td>Per-user program execution history keyed to the Windows user SID, as UserAssist.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">darwin_app_file_times</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-macos">macOS</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>path</code>, <code>filename</code>, <code>atime</code>, <code>mtime</code>
-                    <span class="spec-scope">restricted to /Applications</span>
-                  </td>
-                  <td>Last-used inference for macOS apps</td>
-                  <td>File metadata only (access and modification times), restricted to /Applications. Not attributed to a user.</td>
-                </tr>
-                <tr>
-                  <td><code class="spec-q">linux_binary_file_times</code></td>
-                  <td class="spec-os">
-                    <span class="os-badge os-linux">Linux</span>
-                  </td>
-                  <td class="spec-fields">
-                    <code>path</code>, <code>filename</code>, <code>atime</code>, <code>mtime</code>
-                    <span class="spec-scope">restricted to /usr/bin /usr/sbin /usr/local/bin /opt /opt/*/bin</span>
-                  </td>
-                  <td>Last-used inference for Linux binaries</td>
-                  <td>File metadata only (access and modification times), restricted to named binary directories. Not attributed to a user.</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+            <p class="visually-hidden">Catalogue B: software usage, collected every 240 minutes</p>
+<div class="q-list" role="list" aria-label="Catalogue B: Software usage">
+<details class="q-row" data-q="prefetch_metadata" data-os="windows" data-fields="path filename hash last_run_time other_run_times run_count size volume_serial volume_creation accessed_files_count accessed_directories_count">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">prefetch_metadata</code><span class="q-os"><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span></span><span class="q-purpose" aria-hidden="true">Last-used and run-count evidence for licence reclaim</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>path</code><span class="q-sep">, </span><code>filename</code><span class="q-sep">, </span><code>hash</code><span class="q-sep">, </span><code>last_run_time</code><span class="q-sep">, </span><code>other_run_times</code><span class="q-sep">, </span><code>run_count</code><span class="q-sep">, </span><code>size</code><span class="q-sep">, </span><code>volume_serial</code><span class="q-sep">, </span><code>volume_creation</code><span class="q-sep">, </span><code>accessed_files_count</code><span class="q-sep">, </span><code>accessed_directories_count</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Last-used and run-count evidence for licence reclaim</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Per-binary execution history (last run time, other run times, run count). Not attributed to a user. Accessed files and directories are counts only; no filenames.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="userassist_registry" data-os="windows" data-fields="path last_execution_time sid">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">userassist_registry</code><span class="q-os"><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span></span><span class="q-purpose" aria-hidden="true">Per-user last-used evidence for licence reclaim</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>path</code><span class="q-sep">, </span><code>last_execution_time</code><span class="q-sep">, </span><code>sid</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Per-user last-used evidence for licence reclaim</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Per-user program execution history keyed to the Windows user SID. Direct evidence of which user account ran which program and when.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="bam_registry" data-os="windows" data-fields="path last_execution_time sid">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">bam_registry</code><span class="q-os"><span class="os-chip os-chip--windows" title="Windows"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 88 88" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg><span class="visually-hidden">Windows</span></span></span><span class="q-purpose" aria-hidden="true">Per-user last-used evidence for licence reclaim</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>path</code><span class="q-sep">, </span><code>last_execution_time</code><span class="q-sep">, </span><code>sid</code></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Per-user last-used evidence for licence reclaim</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">Per-user program execution history keyed to the Windows user SID, as UserAssist.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="darwin_app_file_times" data-os="macos" data-fields="path filename atime mtime">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">darwin_app_file_times</code><span class="q-os"><span class="os-chip os-chip--macos" title="macOS"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg><span class="visually-hidden">macOS</span></span></span><span class="q-purpose" aria-hidden="true">Last-used inference for macOS apps</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>path</code><span class="q-sep">, </span><code>filename</code><span class="q-sep">, </span><code>atime</code><span class="q-sep">, </span><code>mtime</code>
+                    <span class="spec-scope">restricted to /Applications</span></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Last-used inference for macOS apps</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">File metadata only (access and modification times), restricted to /Applications. Not attributed to a user.</p></div>
+  </div>
+</details>
+<details class="q-row" data-q="linux_binary_file_times" data-os="linux" data-fields="path filename atime mtime">
+  <summary class="q-sum"><span class="q-chev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></span><code class="spec-q">linux_binary_file_times</code><span class="q-os"><span class="os-chip os-chip--linux" title="Linux"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg><span class="visually-hidden">Linux</span></span></span><span class="q-purpose" aria-hidden="true">Last-used inference for Linux binaries</span><span class="q-pd q-pd--yes" data-i18n="catalogs.pd.yes">Personal data</span></summary>
+  <div class="q-panel">
+    <div class="q-col"><span class="q-label" data-i18n="table.fields">Fields collected</span><div class="spec-fields q-chips"><code>path</code><span class="q-sep">, </span><code>filename</code><span class="q-sep">, </span><code>atime</code><span class="q-sep">, </span><code>mtime</code>
+                    <span class="spec-scope">restricted to /usr/bin /usr/sbin /usr/local/bin /opt /opt/*/bin</span></div></div>
+    <div class="q-col"><span class="q-label" data-i18n="table.purpose">Purpose</span><p class="q-text">Last-used inference for Linux binaries</p><span class="q-label" data-i18n="table.pd">Personal data relevance</span><p class="q-text">File metadata only (access and modification times), restricted to named binary directories. Not attributed to a user.</p></div>
+  </div>
+</details>
+</div>
           </div>
 
           <!-- Operational logs -->
@@ -7901,6 +8464,28 @@ Start-Service licenseware-collector</code></pre>
           "footer.copyright": "© 2026 LICENSEWARE. All rights reserved.",
           "footer.licence": "Licence agreement",
           "footer.legal": "Legal",
+          "catalogs.search": "Search queries or fields",
+          "catalogs.clear": "Clear search",
+          "catalogs.all": "All",
+          "catalogs.expand": "Expand all",
+          "catalogs.collapse": "Collapse all",
+          "catalogs.count": "{n} of {total} queries",
+          "catalogs.empty": "No queries match.",
+          "catalogs.reset": "Reset filters",
+          "catalogs.pd.yes": "Personal data",
+          "catalogs.pd.no": "No personal data",
+          "process.cap1": "The installer for your OS, from Downloads.",
+          "process.cap2": "With your enrolment token.",
+          "process.cap3": "The service runs in the background.",
+          "process.cap4": "Catalogue definitions are fetched every 30 minutes.",
+          "process.cap5": "Queries run locally through osquery.",
+          "process.cap6": "Results are sent over TLS (HTTPS 443) to the regional instance.",
+          "upg.f1": "Signed updates",
+          "upg.f2": "Staged rollout",
+          "upg.f3": "Automatic rollback",
+          "upg.pill.action": "Action needed",
+          "upg.pill.none": "Nothing to do",
+          "upg.pill.reinstall": "Reinstall",
           "theme.label": "Theme",
           "theme.light": "Light",
           "theme.dark": "Dark",
@@ -8308,6 +8893,28 @@ Start-Service licenseware-collector</code></pre>
             "© 2026 LICENSEWARE. Todos los derechos reservados.",
           "footer.licence": "Acuerdo de licencia",
           "footer.legal": "Legal",
+          "catalogs.search": "Buscar consultas o campos",
+          "catalogs.clear": "Borrar búsqueda",
+          "catalogs.all": "Todos",
+          "catalogs.expand": "Expandir todo",
+          "catalogs.collapse": "Contraer todo",
+          "catalogs.count": "{n} de {total} consultas",
+          "catalogs.empty": "Ninguna consulta coincide.",
+          "catalogs.reset": "Restablecer filtros",
+          "catalogs.pd.yes": "Datos personales",
+          "catalogs.pd.no": "Sin datos personales",
+          "process.cap1": "El instalador para su sistema, desde Descargas.",
+          "process.cap2": "Con su token de inscripción.",
+          "process.cap3": "El servicio se ejecuta en segundo plano.",
+          "process.cap4": "Las definiciones de los catálogos se obtienen cada 30 minutos.",
+          "process.cap5": "Las consultas se ejecutan localmente con osquery.",
+          "process.cap6": "Los resultados se envían por TLS (HTTPS 443) a la instancia regional.",
+          "upg.f1": "Actualizaciones firmadas",
+          "upg.f2": "Despliegue escalonado",
+          "upg.f3": "Reversión automática",
+          "upg.pill.action": "Acción necesaria",
+          "upg.pill.none": "Nada que hacer",
+          "upg.pill.reinstall": "Reinstalar",
           "theme.label": "Tema",
           "theme.light": "Claro",
           "theme.dark": "Oscuro",
@@ -8596,6 +9203,11 @@ Start-Service licenseware-collector</code></pre>
             el.innerHTML = translations[currentLang][key];
           }
         });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          const text = translations[currentLang][el.getAttribute("data-i18n-placeholder")];
+          if (text) el.setAttribute("placeholder", text);
+        });
+        if (window.updateQueryList) window.updateQueryList();
         document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
           const text = translations[currentLang][el.getAttribute("data-i18n-aria")];
           if (text) el.setAttribute("aria-label", text);
@@ -9060,6 +9672,77 @@ Start-Service licenseware-collector</code></pre>
         if ("ResizeObserver" in window) new ResizeObserver(place).observe(text);
         window.addEventListener("resize", place);
         place();
+      })();
+
+      // Data Collection Specification: search, OS filter, expand all.
+      (function () {
+        const rows = [...document.querySelectorAll(".q-row")];
+        const search = document.getElementById("qSearch");
+        if (!rows.length || !search) return;
+        const clear = document.getElementById("qClear");
+        const count = document.getElementById("qCount");
+        const empty = document.getElementById("qEmpty");
+        const toggle = document.getElementById("qToggleAll");
+        const osButtons = [...document.querySelectorAll("#qOs [data-os]")];
+        let os = "all";
+        const t = (k) => translations[currentLang][k];
+        function apply() {
+          const term = search.value.trim().toLowerCase();
+          let shown = 0;
+          rows.forEach((row) => {
+            const hit =
+              (!term || row.dataset.q.includes(term) || row.dataset.fields.includes(term)) &&
+              (os === "all" || row.dataset.os.split(" ").includes(os));
+            row.hidden = !hit;
+            if (hit) shown++;
+          });
+          count.textContent = t("catalogs.count").replace("{n}", shown).replace("{total}", rows.length);
+          empty.hidden = shown > 0;
+          clear.hidden = !search.value;
+          const anyClosed = rows.some((r) => !r.hidden && !r.open);
+          toggle.textContent = t(anyClosed ? "catalogs.expand" : "catalogs.collapse");
+        }
+        window.updateQueryList = apply;
+        search.addEventListener("input", apply);
+        clear.addEventListener("click", () => { search.value = ""; apply(); search.focus(); });
+        osButtons.forEach((b) => b.addEventListener("click", () => {
+          os = b.dataset.os;
+          osButtons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+          apply();
+        }));
+        toggle.addEventListener("click", () => {
+          const open = rows.some((r) => !r.hidden && !r.open);
+          rows.forEach((r) => { if (!r.hidden) r.open = open; });
+          apply();
+        });
+        rows.forEach((r) => r.addEventListener("toggle", apply));
+        document.getElementById("qReset").addEventListener("click", () => {
+          search.value = "";
+          os = "all";
+          osButtons.forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.os === "all")));
+          apply();
+          search.focus();
+        });
+        // Printing shows every query open, then restores the reader's state.
+        let wasOpen = [];
+        window.addEventListener("beforeprint", () => {
+          wasOpen = rows.map((r) => r.open);
+          rows.forEach((r) => { r.hidden = false; r.open = true; });
+        });
+        window.addEventListener("afterprint", () => {
+          rows.forEach((r, i) => { r.open = wasOpen[i]; });
+          apply();
+        });
+        apply();
+      })();
+
+      // Process loop: the connector dashes move only while it is on screen.
+      (function () {
+        const loop = document.getElementById("processLoop");
+        if (!loop || !("IntersectionObserver" in window)) return;
+        new IntersectionObserver((e) => {
+          loop.classList.toggle("is-live", e[e.length - 1].isIntersecting);
+        }).observe(loop);
       })();
 
       let spyQueued = false;
