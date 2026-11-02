@@ -120,6 +120,13 @@
           ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
           monospace;
         --header-offset: 24px;
+        --theme-pill: 50px;
+        --table-head-bg: #373737;
+        --table-head-line: #515151;
+        --table-row: #1d1d1d;
+        --table-row-alt: #2c2c2c;
+        --table-text: #f2f2f2;
+        --popover-shadow: 0 12px 32px rgb(0 0 0 / 0.4);
       }
 
       :root[data-theme="light"] {
@@ -146,6 +153,12 @@
         --error: #b8322a;
         --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
         --logo-filter: none;
+        --table-head-bg: #ffffff;
+        --table-head-line: #bbbbbb;
+        --table-row: #efefef;
+        --table-row-alt: #e7e7e7;
+        --table-text: #1a1a1a;
+        --popover-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
       }
 
       @media (prefers-color-scheme: light) {
@@ -173,6 +186,12 @@
           --error: #b8322a;
           --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
           --logo-filter: none;
+          --table-head-bg: #ffffff;
+          --table-head-line: #bbbbbb;
+          --table-row: #efefef;
+          --table-row-alt: #e7e7e7;
+          --table-text: #1a1a1a;
+          --popover-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
         }
       }
 
@@ -315,7 +334,8 @@
       .header-actions {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 24px;
+        margin-left: auto;
       }
 
       .header-logo-link {
@@ -335,34 +355,110 @@
         filter: var(--logo-filter);
       }
 
-      .lang-select {
-        appearance: none;
-        height: 40px;
-        background-color: var(--surface);
-        border: 1px solid var(--line-field);
-        color: var(--text);
-        padding: 0 36px 0 14px;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        font-family: var(--font);
-        font-weight: 700;
-        font-size: 14px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a9a9a9' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 12px center;
+      /* Language: the website's text menu */
+      .lang-menu {
+        position: relative;
       }
 
-      .lang-select:hover {
-        border-color: var(--accent-text);
-      }
-
-      .theme-switcher {
+      .lang-trigger {
         display: inline-flex;
         align-items: center;
-        padding: 0;
-        border: 1px solid var(--line-field);
-        border-radius: var(--radius-pill);
+        gap: 6px;
+        height: 40px;
+        padding: 0 8px;
+        border: 0;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text-secondary);
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .lang-trigger:hover,
+      .lang-trigger[aria-expanded="true"] {
+        color: var(--text);
+      }
+
+      .lang-chevron {
+        transition: transform 150ms ease;
+      }
+
+      .lang-trigger[aria-expanded="true"] .lang-chevron {
+        transform: rotate(180deg);
+      }
+
+      .lang-list {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        z-index: 100;
+        min-width: 180px;
+        list-style: none;
+        padding: 8px;
         background: var(--surface);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-md);
+        box-shadow: var(--popover-shadow);
+      }
+
+      .lang-list[hidden] {
+        display: none;
+      }
+
+      .lang-list [role="menuitem"] {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        min-height: 40px;
+        padding: 8px 12px;
+        border: 0;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text-secondary);
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 500;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .lang-list [role="menuitem"]:hover,
+      .lang-list [role="menuitem"]:focus-visible {
+        background: var(--surface-chip);
+        color: var(--text);
+      }
+
+      .lang-list [role="menuitem"][aria-current="true"] {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .lang-check {
+        color: var(--accent-text);
+        visibility: hidden;
+      }
+
+      [aria-current="true"] > .lang-check {
+        visibility: visible;
+      }
+
+      /* Theme: the app's floating control, bottom right */
+      .theme-switcher {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 90;
+        display: inline-flex;
+        gap: 4px;
+        padding: 4px;
+        background: var(--surface);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-md);
+        box-shadow: var(--popover-shadow);
       }
 
       .theme-switcher button {
@@ -372,13 +468,14 @@
         align-items: center;
         justify-content: center;
         border: 0;
-        border-radius: var(--radius-pill);
+        border-radius: var(--radius-sm);
         background: transparent;
         color: var(--text-secondary);
         cursor: pointer;
       }
 
       .theme-switcher button:hover {
+        background: var(--surface-chip);
         color: var(--text);
       }
 
@@ -635,12 +732,44 @@
         flex-direction: column;
       }
 
-      /* --- Tables --- */
+      /* --- Tables (the app's table: edge to edge in a 16px card) --- */
+      .table-card,
       .table-wrap {
-        overflow-x: auto;
         border: 1px solid var(--line);
         border-radius: var(--radius-lg);
+        overflow: hidden;
+        background: var(--table-row);
         margin-top: 16px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      :is(.table-card, .table-wrap) + :is(p, .note, aside) {
+        margin-top: 16px;
+      }
+
+      .table-card > .table-wrap {
+        border: 0;
+        border-radius: 0;
+        margin: 0;
+      }
+
+      .table-card-head {
+        display: flex;
+        align-items: center;
+        min-height: 56px;
+        padding: 12px 18px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .card .table-card-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.35;
       }
 
       table {
@@ -654,33 +783,51 @@
 
       th,
       td {
-        padding: 12px 16px;
+        padding: 8px 18px;
         text-align: left;
-        vertical-align: top;
-        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+        border: 0;
+        color: var(--table-text);
+        line-height: 1.5;
       }
 
-      tbody tr:last-child td {
-        border-bottom: 0;
+      thead tr {
+        height: 45px;
+      }
+
+      tbody tr {
+        height: 40px;
       }
 
       th {
-        background: var(--surface-head);
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--th-text);
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        background: var(--table-head-bg);
+        border-bottom: 1px solid var(--table-head-line);
+        font-size: 16px;
+        font-weight: 600;
       }
 
       td {
         font-size: 15px;
         font-weight: 500;
-        color: var(--text);
+        background: var(--table-row);
       }
 
       tbody tr:nth-child(even) td {
-        background: color-mix(in srgb, var(--surface-chip) 50%, transparent);
+        background: var(--table-row-alt);
+      }
+
+      td:empty::before {
+        content: "\2013";
+        color: var(--text-secondary);
+      }
+
+      .cell-clamp {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .method-badge {
@@ -909,9 +1056,8 @@
         line-height: 1.65;
       }
 
-      .licence-body td,
-      .licence-body th {
-        font-size: 14px;
+      .licence-body td {
+        font-size: 15px;
       }
 
       /* Data collection specification: 25 queries described across five
@@ -928,14 +1074,8 @@
         table-layout: fixed;
       }
 
-      table.spec th,
       table.spec td {
-        padding: 12px 14px;
-        font-size: 14px;
-      }
-
-      table.spec th {
-        font-size: 12px;
+        font-size: 15px;
       }
 
       table.spec th:nth-child(1) {
@@ -979,7 +1119,7 @@
         display: inline-block;
         margin-top: 6px;
         color: var(--text-secondary);
-        font-size: 14px;
+        font-size: 15px;
         line-height: 1.5;
       }
 
@@ -1035,7 +1175,7 @@
         background: var(--surface);
         border-top: 1px solid var(--line);
         margin-top: 48px;
-        padding: 40px 0 32px;
+        padding: 40px 0 calc(var(--theme-pill) + 16px + 24px);
         color: var(--text-secondary);
       }
 
@@ -1636,6 +1776,15 @@
           padding: 16px;
         }
 
+        .theme-switcher {
+          right: 16px;
+          bottom: 16px;
+        }
+
+        .site-footer {
+          padding-bottom: calc(var(--theme-pill) + 16px + 16px);
+        }
+
         .demo-frame {
           aspect-ratio: 4 / 3;
         }
@@ -1766,18 +1915,22 @@
 
         th,
         td {
-          padding: 10px 12px;
+          padding: 8px 14px;
         }
       }
 
       @media (pointer: coarse) {
+        :root {
+          --theme-pill: 58px;
+        }
+
         .theme-switcher button,
         .copy-btn {
           width: 44px;
           height: 44px;
         }
 
-        .lang-select,
+        .lang-trigger,
         .header-logo-link {
           height: 44px;
         }
@@ -1818,27 +1971,16 @@
         </div>
 
         <div class="header-actions">
-          <select
-            class="lang-select"
-            id="langSelect"
-            onchange="changeLanguage()"
-            aria-label="Select Language"
-          >
-            <option value="en">🇺🇸 EN</option>
-            <option value="es">🇪🇸 ES</option>
-          </select>
-
-          <div class="theme-switcher" role="group" aria-label="Theme">
-            <button type="button" data-theme-value="light" aria-pressed="false" aria-label="Light theme" title="Light">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+          <div class="lang-menu" id="langMenu">
+            <button type="button" class="lang-trigger" id="langButton" aria-haspopup="menu" aria-expanded="false" aria-controls="langList">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="visually-hidden">Language: </span><span id="langCode">EN</span><svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
-            <button type="button" data-theme-value="dark" aria-pressed="false" aria-label="Dark theme" title="Dark">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </button>
-            <button type="button" data-theme-value="system" aria-pressed="true" aria-label="System theme" title="System">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
-            </button>
+            <ul class="lang-list" id="langList" role="menu" aria-labelledby="langButton" hidden>
+              <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en" aria-current="true"><span>English</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+              <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es"><span>Español</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+            </ul>
           </div>
+
 
           <a
             class="header-logo-link"
@@ -2804,22 +2946,22 @@
 <div class="table-wrap" role="region" tabindex="0" aria-label="Full Command Reference">
 <table>
 <thead>
-<tr style="text-align: left; border-bottom: 1px solid var(--line)">
-<th style="padding: 0.5rem 0.75rem">Flag / Variable</th>
-<th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.required">Required</th>
-<th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.flagdesc">Description</th>
+<tr>
+<th>Flag / Variable</th>
+<th data-i18n="install.win.ref.required">Required</th>
+<th data-i18n="install.win.ref.flagdesc">Description</th>
 </tr>
 </thead>
-<tbody style="color: var(--text-secondary)">
-<tr style="border-bottom: 1px solid var(--line)">
-<td style="padding: 0.5rem 0.75rem"><code>TOKEN</code></td>
-<td style="padding: 0.5rem 0.75rem"><strong style="color: var(--warn)">Yes</strong></td>
-<td style="padding: 0.5rem 0.75rem" data-i18n="install.unix.ref.token.desc">Enrolment token from the LICENSEWARE platform, given at install time. <code>LICENSEWARE_ENROLL_TOKEN</code> is deprecated and prints a warning; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> and <code>--enroll-token</code> are no longer accepted.</td>
+<tbody>
+<tr>
+<td><code>TOKEN</code></td>
+<td><strong style="color: var(--warn)">Yes</strong></td>
+<td data-i18n="install.unix.ref.token.desc">Enrolment token from the LICENSEWARE platform, given at install time. <code>LICENSEWARE_ENROLL_TOKEN</code> is deprecated and prints a warning; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> and <code>--enroll-token</code> are no longer accepted.</td>
 </tr>
-<tr style="border-bottom: 1px solid var(--line)">
-<td style="padding: 0.5rem 0.75rem"><code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code></td>
-<td style="padding: 0.5rem 0.75rem">No</td>
-<td style="padding: 0.5rem 0.75rem" data-i18n="install.unix.ref.settings.desc">Optional settings for a proxy and a custom CA certificate. See <a href="#settings">Settings</a>.</td>
+<tr>
+<td><code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code></td>
+<td>No</td>
+<td data-i18n="install.unix.ref.settings.desc">Optional settings for a proxy and a custom CA certificate. See <a href="#settings">Settings</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -2942,11 +3084,11 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               deploying organisation.
             </p>
 
-            <h4 data-i18n="mdm.codes.title">
+            <div class="table-card">
+<div class="table-card-head"><h4 class="table-card-title" data-i18n="mdm.codes.title">
               Exit codes
-            </h4>
-
-            <div class="table-wrap" role="region" tabindex="0" aria-label="Exit codes">
+            </h4></div>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Exit codes">
               <table>
                 <thead>
                   <tr>
@@ -2994,6 +3136,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
                 </tbody>
               </table>
             </div>
+</div>
 
             <p data-i18n="mdm.codes.note">
               These are standard Windows Installer codes. There are no
@@ -4612,13 +4755,13 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           </p>
 
           <!-- Change history -->
-          <h3
-            style="margin: 2rem 0 0.5rem"
+          <div class="table-card">
+<div class="table-card-head"><h3 class="table-card-title"
             data-i18n="catalogs.history.title"
           >
             Change history
-          </h3>
-          <div class="table-wrap" role="region" tabindex="0" aria-label="Change history">
+          </h3></div>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Change history">
           <table class="spec-history">
             <tbody>
               <tr>
@@ -4640,6 +4783,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             </tbody>
           </table>
           </div>
+</div>
           <p
             style="color: var(--text-secondary); font-size: 0.9375rem"
             data-i18n="catalogs.notify"
@@ -6517,6 +6661,18 @@ Start-Service licenseware-collector</code></pre>
       </div>
     </footer>
 
+    <div class="theme-switcher" role="group" aria-label="Theme">
+      <button type="button" data-theme-value="light" aria-pressed="false" aria-label="Light theme" title="Light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+      <button type="button" data-theme-value="dark" aria-pressed="false" aria-label="Dark theme" title="Dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button type="button" data-theme-value="system" aria-pressed="true" aria-label="System theme" title="System">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+      </button>
+    </div>
+
     <div id="copyStatus" class="visually-hidden" aria-live="polite"></div>
 
     <script>
@@ -7351,11 +7507,76 @@ Start-Service licenseware-collector</code></pre>
 
       let currentLang = "en";
 
-      function changeLanguage() {
-        const select = document.getElementById("langSelect");
-        currentLang = select.value;
+      const langButton = document.getElementById("langButton");
+      const langList = document.getElementById("langList");
+      const langItems = [...langList.querySelectorAll('[role="menuitem"]')];
+
+      function changeLanguage(lang) {
+        if (translations[lang]) currentLang = lang;
+        document.getElementById("langCode").textContent =
+          currentLang.toUpperCase();
+        langItems.forEach((item) => {
+          if (item.dataset.lang === currentLang) {
+            item.setAttribute("aria-current", "true");
+          } else {
+            item.removeAttribute("aria-current");
+          }
+        });
         updateContent();
       }
+
+      function setLangMenu(open, focusIndex) {
+        langList.hidden = !open;
+        langButton.setAttribute("aria-expanded", String(open));
+        if (open) {
+          const start =
+            focusIndex !== undefined
+              ? focusIndex
+              : Math.max(
+                  0,
+                  langItems.findIndex((item) => item.dataset.lang === currentLang),
+                );
+          langItems[start].focus();
+        }
+      }
+
+      langButton.addEventListener("click", () => setLangMenu(langList.hidden));
+      langButton.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+          event.preventDefault();
+          setLangMenu(true, event.key === "ArrowUp" ? langItems.length - 1 : 0);
+        }
+      });
+      langItems.forEach((item, i) => {
+        item.addEventListener("click", () => {
+          changeLanguage(item.dataset.lang);
+          setLangMenu(false);
+          langButton.focus();
+        });
+        item.addEventListener("keydown", (event) => {
+          let next = -1;
+          if (event.key === "ArrowDown") next = (i + 1) % langItems.length;
+          else if (event.key === "ArrowUp")
+            next = (i - 1 + langItems.length) % langItems.length;
+          else if (event.key === "Home") next = 0;
+          else if (event.key === "End") next = langItems.length - 1;
+          else if (event.key === "Tab") setLangMenu(false);
+          if (next < 0) return;
+          event.preventDefault();
+          langItems[next].focus();
+        });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !langList.hidden) {
+          setLangMenu(false);
+          langButton.focus();
+        }
+      });
+      document.addEventListener("click", (event) => {
+        if (!langList.hidden && !event.target.closest("#langMenu")) {
+          setLangMenu(false);
+        }
+      });
 
       // The agreement is collapsed by default so it does not dominate the page,
       // but every link to it (sidebar, downloads, MDM, footer) is a request to
@@ -7383,6 +7604,7 @@ Start-Service licenseware-collector</code></pre>
           if (text) el.setAttribute("aria-label", text);
         });
         scrollSpy();
+        clampCells();
       }
 
       function copyToClipboard(btn) {
@@ -7629,6 +7851,31 @@ Start-Service licenseware-collector</code></pre>
           if (event.key === " " || event.key === "Spacebar") loadDemo(event);
         });
       }
+
+      // Key cells (first column) that would wrap past two lines end in an
+      // ellipsis and carry their full value as a tooltip; prose cells wrap.
+      function clampCells() {
+        document
+          .querySelectorAll(".main-content td:first-child:not(:only-child)")
+          .forEach((cell) => {
+            if (cell.closest(".licence-body") || !cell.textContent.trim()) return;
+            let box = cell.querySelector(":scope > .cell-clamp");
+            if (!box) {
+              box = document.createElement("div");
+              box.className = "cell-clamp";
+              while (cell.firstChild) box.appendChild(cell.firstChild);
+              cell.appendChild(box);
+            }
+            if (box.scrollHeight > box.clientHeight + 1) {
+              box.title = box.textContent.replace(/\s+/g, " ").trim();
+            } else {
+              box.removeAttribute("title");
+            }
+          });
+      }
+      clampCells();
+      window.addEventListener("load", clampCells);
+      window.addEventListener("resize", clampCells);
 
       let spyQueued = false;
       window.addEventListener(
