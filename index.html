@@ -42,118 +42,137 @@
     <meta property="og:locale" content="en_US" />
 
     <!-- Additional SEO Meta Tags -->
-    <meta name="theme-color" content="#191919" />
+    <meta
+      name="theme-color"
+      content="#101010"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#e5e5e5"
+      media="(prefers-color-scheme: light)"
+    />
 
     <!-- Fonts: Mulish -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap"
       rel="stylesheet"
     />
 
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="favicon.webp" />
     <link rel="apple-touch-icon" href="favicon.webp" />
+    <script>
+      (function () {
+        var pref = "system";
+        try {
+          pref = localStorage.getItem("lc-theme") || "system";
+        } catch (e) {}
+        var dark =
+          pref === "dark" ||
+          (pref !== "light" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.setAttribute(
+          "data-theme",
+          dark ? "dark" : "light",
+        );
+        document.documentElement.setAttribute("data-theme-pref", pref);
+      })();
+    </script>
     <style>
+      /* LICENSEWARE design system tokens. Dark is the default; the light set
+         applies from html[data-theme="light"], or from the OS preference when
+         the theme script has not run. */
       :root {
-        /* --- Color Palette Definition --- */
-        --palette-dark-bg: #191919;
-        --palette-light-bg: #ffffff;
-        --palette-dark-text: #ffffff;
-        --palette-light-text: #191919;
-
-        --palette-accent: #1d4ed2; /* Blue - Reserved for Active State */
-        --palette-accent-sec: #00bfa5; /* Teal */
-
-        --palette-yellow: #efbe53;
-        --palette-pink: #e063e6;
-        --palette-cyan: #25c9e6;
-        --palette-purple: #8867f4;
-        --palette-green: #57d16c;
-        --palette-red: #f76157;
-        --palette-grey: #dbdee8;
-        --palette-blue: #3b82f6;
-
-        /* --- Default Theme (Dark Mode) --- */
-        --bg-main: var(--palette-dark-bg);
-        --bg-card: var(--palette-dark-bg);
-        --bg-highlight: rgba(219, 222, 232, 0.05); /* Low opacity grey */
-
-        --text-primary: var(--palette-dark-text);
-        --text-secondary: var(--palette-grey);
-
-        /* Dark Mode: Green Primary */
-        --primary: var(--palette-green);
-        --secondary: var(--palette-grey);
-
-        --success: var(--palette-green);
-        --warning: var(--palette-yellow);
-        --danger: var(--palette-red);
-        --info: var(--palette-cyan);
-        --purple: var(--palette-purple);
-
-        --border: rgba(219, 222, 232, 0.2); /* Grey with opacity */
-        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-
-        --code-bg: rgba(0, 0, 0, 0.3);
-        --code-text: var(--palette-green);
+        color-scheme: dark;
+        --bg: #101010;
+        --surface: #1d1d1d;
+        --surface-sunken: #171717;
+        --surface-raised: #2d2d2d;
+        --surface-chip: #292929;
+        --surface-head: #373737;
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --line-field: #868686;
+        --text: #efefef;
+        --text-secondary: #a9a9a9;
+        --th-text: var(--text-secondary);
+        --accent: #1b7a5a;
+        --accent-hover: #16684c;
+        --accent-text: #65ba9d;
+        --bright: #57d16c;
+        --focus-ring: #57d16c;
+        --ok: #57d06c;
+        --info: #52b6e0;
+        --warn: #b08f46;
+        --error: #b24c48;
+        --card-shadow: none;
+        --logo-filter: invert(1);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-pill: 9999px;
+        --font: "Mulish", sans-serif;
+        --mono:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+        --header-offset: 24px;
       }
 
-      /* --- Bright Mode Overrides (manual toggle) --- */
-      body.light-mode {
-        --bg-main: var(--palette-light-bg);
-        --bg-card: var(--palette-light-bg);
-        --bg-highlight: #f8fafc;
-
-        --text-primary: var(--palette-light-text);
-        --text-secondary: #555;
-
-        --primary: var(--palette-green);
-
-        --border: var(--palette-grey);
-        --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-        --code-bg: #f9fafb;
-        --code-text: #166534;
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --bg: #e5e5e5;
+        --surface: #efefef;
+        --surface-sunken: #efefef;
+        --surface-raised: #f6f6f6;
+        --surface-chip: #e7e7e7;
+        --surface-head: #ffffff;
+        --line: #d3d3d3;
+        --line-strong: #ababab;
+        --line-field: #808080;
+        --text: #212121;
+        --text-secondary: #5c5c5c;
+        --th-text: var(--text);
+        --accent: #247e5d;
+        --accent-hover: #1e6a4e;
+        --accent-text: #326552;
+        --focus-ring: #17694d;
+        --ok: #016b28;
+        --info: #016a89;
+        --warn: #8a5a00;
+        --error: #b8322a;
+        --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+        --logo-filter: none;
       }
 
-      /* --- Auto Light Mode based on OS preference --- */
       @media (prefers-color-scheme: light) {
-        :root {
-          --bg-main: var(--palette-light-bg);
-          --bg-card: var(--palette-light-bg);
-          --bg-highlight: #f8fafc;
-
-          --text-primary: var(--palette-light-text);
-          --text-secondary: #555;
-
-          --primary: var(--palette-green);
-
-          --border: var(--palette-grey);
-          --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-          --code-bg: #f9fafb;
-          --code-text: #166534;
+        :root:not([data-theme]) {
+          color-scheme: light;
+          --bg: #e5e5e5;
+          --surface: #efefef;
+          --surface-sunken: #efefef;
+          --surface-raised: #f6f6f6;
+          --surface-chip: #e7e7e7;
+          --surface-head: #ffffff;
+          --line: #d3d3d3;
+          --line-strong: #ababab;
+          --line-field: #808080;
+          --text: #212121;
+          --text-secondary: #5c5c5c;
+          --th-text: var(--text);
+          --accent: #247e5d;
+          --accent-hover: #1e6a4e;
+          --accent-text: #326552;
+          --focus-ring: #17694d;
+          --ok: #016b28;
+          --info: #016a89;
+          --warn: #8a5a00;
+          --error: #b8322a;
+          --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+          --logo-filter: none;
         }
-      }
-
-      /* Force dark mode when manually toggled */
-      body.dark-mode {
-        --bg-main: var(--palette-dark-bg);
-        --bg-card: var(--palette-dark-bg);
-        --bg-highlight: rgba(219, 222, 232, 0.05);
-
-        --text-primary: var(--palette-dark-text);
-        --text-secondary: var(--palette-grey);
-
-        --primary: var(--palette-green);
-
-        --border: rgba(219, 222, 232, 0.2);
-        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-
-        --code-bg: rgba(0, 0, 0, 0.3);
-        --code-text: var(--palette-green);
       }
 
       * {
@@ -162,340 +181,569 @@
         box-sizing: border-box;
       }
 
+      html {
+        scroll-padding-top: var(--header-offset);
+        -webkit-text-size-adjust: 100%;
+      }
+
       body {
-        font-family:
-          "Mulish",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
-        background: var(--bg-main);
-        color: var(--text-primary);
-        line-height: 1.6;
+        font-family: var(--font);
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.65;
+        background: var(--bg);
+        color: var(--text);
+        overflow-wrap: break-word;
+      }
+
+      html.theme-transition,
+      html.theme-transition *,
+      html.theme-transition *::before,
+      html.theme-transition *::after {
         transition:
-          background-color 0.3s ease,
-          color 0.3s ease;
+          background-color 150ms ease,
+          color 150ms ease,
+          border-color 150ms ease,
+          fill 150ms ease,
+          stroke 150ms ease !important;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 800;
+        letter-spacing: 0;
+        line-height: 1.25;
+        text-wrap: balance;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      h4 {
+        font-size: 17px;
+      }
+
+      p,
+      li {
+        text-wrap: pretty;
+      }
+
+      main p {
+        max-width: 70ch;
+      }
+
+      main td p,
+      main th p {
+        max-width: none;
+      }
+
+      strong,
+      b,
+      th {
+        font-weight: 700;
+      }
+
+      a {
+        color: var(--accent-text);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 3px;
       }
 
       .container {
         max-width: 1320px;
         margin: 0 auto;
-        padding: 2rem;
+        padding: 0 32px;
       }
 
+      /* --- Header --- */
+      .site-header {
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        padding: 24px 0;
+        margin-bottom: 32px;
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        min-width: 0;
+      }
+
+      .brand h1 {
+        font-size: 34px;
+        line-height: 1.15;
+      }
+
+      .app-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .app-icon img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .header-logo-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        height: 40px;
+        border-radius: var(--radius-sm);
+      }
+
+      .header-logo {
+        display: block;
+        height: 40px;
+        width: auto;
+        object-fit: contain;
+        filter: var(--logo-filter);
+      }
+
+      footer .header-logo {
+        height: 24px;
+        opacity: 0.7;
+      }
+
+      .lang-select {
+        appearance: none;
+        height: 40px;
+        background-color: var(--surface);
+        border: 1px solid var(--line-field);
+        color: var(--text);
+        padding: 0 36px 0 14px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-family: var(--font);
+        font-weight: 700;
+        font-size: 14px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a9a9a9' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+      }
+
+      .lang-select:hover {
+        border-color: var(--accent-text);
+      }
+
+      .theme-switcher {
+        display: inline-flex;
+        align-items: center;
+        padding: 0;
+        border: 1px solid var(--line-field);
+        border-radius: var(--radius-pill);
+        background: var(--surface);
+      }
+
+      .theme-switcher button {
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: var(--radius-pill);
+        background: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+      }
+
+      .theme-switcher button:hover {
+        color: var(--text);
+      }
+
+      .theme-switcher button[aria-pressed="true"] {
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .theme-switcher svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* --- Layout --- */
       .main-layout {
         display: grid;
-        grid-template-columns: 220px 1fr;
-        gap: 2rem;
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 32px;
         max-width: 1320px;
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 0 32px;
       }
 
       .sidebar {
         position: sticky;
-        top: 2rem;
-        height: fit-content;
-        padding: 1rem 0;
+        top: 24px;
+        align-self: start;
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 16px 12px;
+        box-shadow: var(--card-shadow);
       }
 
       .sidebar-nav {
         list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .sidebar-nav li {
-        margin-bottom: 0.25rem;
       }
 
       .sidebar-nav a {
-        display: block;
-        padding: 0.5rem 1rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 8px 12px 8px 16px;
         color: var(--text-secondary);
         text-decoration: none;
-        font-size: 0.875rem;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-        border-left: 3px solid transparent;
+        font-size: 14px;
         font-weight: 500;
+        line-height: 1.35;
+        border-radius: var(--radius-sm);
       }
 
       .sidebar-nav a:hover {
-        background: var(--bg-highlight);
-        color: var(--text-primary);
+        background: var(--surface-chip);
+        color: var(--text);
       }
 
-      /* Active State for Sidebar (Scroll Spy) - BLUE */
       .sidebar-nav a.active {
-        color: var(--palette-blue);
-        background: rgba(59, 130, 246, 0.1);
-        border-left-color: var(--palette-blue);
-        font-weight: 700;
+        color: var(--text);
+        font-weight: 600;
+        background: var(--surface-chip);
+      }
+
+      .sidebar-nav a.active::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 10px;
+        bottom: 10px;
+        width: 3px;
+        border-radius: var(--radius-pill);
+        background: var(--accent-text);
       }
 
       .sidebar-title {
-        font-size: 0.7rem;
+        font-size: 12px;
         font-weight: 700;
         color: var(--text-secondary);
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        padding: 0.5rem 1rem;
-        margin-top: 1rem;
+        letter-spacing: 1px;
+        padding: 16px 12px 6px 16px;
       }
 
       .sidebar-title:first-child {
-        margin-top: 0;
+        padding-top: 4px;
+      }
+
+      .toc-mobile {
+        display: none;
       }
 
       .main-content {
         min-width: 0;
       }
 
-      @media (max-width: 900px) {
-        .main-layout {
-          grid-template-columns: 1fr;
-        }
-
-        .sidebar {
-          display: none;
-        }
-      }
-
-      header {
-        background: var(--bg-main);
-        color: var(--text-primary);
-        padding: 2rem 0;
-        margin-bottom: 2rem;
-        border-bottom: 1px solid var(--border);
-        transition: border-color 0.3s ease;
-      }
-
-      header .container {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 2rem;
-      }
-
-      .header-content {
-        display: flex;
-        align-items: flex-start;
-        gap: 1.25rem;
-      }
-
-      .header-content h1 {
-        margin: 0 0 0.25rem 0;
-        font-weight: 800;
-      }
-
-      .header-content p {
-        margin: 0 0 0.5rem 0;
-      }
-
-      .app-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 10px;
-        overflow: hidden;
-        flex-shrink: 0;
-      }
-
-      .app-icon img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-
-      .header-logo {
-        max-height: 48px;
-        object-fit: contain;
-        filter: invert(1);
-        transition: filter 0.3s ease;
-      }
-
-      /* Force white logo in dark mode */
-      body.dark-mode .header-logo {
-        filter: invert(1) !important;
-      }
-
-      /* Black logo in light mode */
-      body.light-mode .header-logo {
-        filter: invert(0) !important;
-      }
-
-      /* Auto-detect OS preference for logo (only when no class set) */
-      @media (prefers-color-scheme: light) {
-        body:not(.dark-mode):not(.light-mode) .header-logo {
-          filter: invert(0);
-        }
-      }
-
-      header h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-      }
-
-      header p {
-        color: var(--text-secondary);
-        font-size: 1.1rem;
-      }
-
-      .badge {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-top: 0.5rem;
-      }
-
-      .badge-version {
-        background: transparent;
-        color: var(--text-secondary);
-        border: 1px solid var(--border);
-      }
-
+      /* --- Cards --- */
       .card {
-        background: var(--bg-card);
-        border-radius: 12px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
         box-shadow: var(--card-shadow);
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border: 1px solid var(--border);
-        transition:
-          border-color 0.3s ease,
-          background-color 0.3s ease;
+        padding: 24px;
+        margin-bottom: 24px;
       }
 
       .card-header {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--border);
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
       }
 
       .card-icon {
         width: 40px;
         height: 40px;
-        border-radius: 10px;
+        flex-shrink: 0;
+        border-radius: var(--radius-md);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.25rem;
-        /* Default subtle background */
-        background: var(--bg-highlight);
-        color: var(--palette-blue) !important; /* All header icons BLUE */
+        background: var(--surface-chip);
+        color: var(--accent-text);
       }
 
       .card-icon svg {
-        width: 24px;
-        height: 24px;
-        stroke-width: 2;
+        width: 22px;
+        height: 22px;
       }
 
       .card h2 {
-        font-size: 1.25rem;
-        font-weight: 700;
+        font-size: 25px;
       }
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+        gap: 24px;
+      }
+
+      .section-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 24px 0 12px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: var(--radius-pill);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .port-badge {
+        display: inline-block;
+        background: var(--surface-chip);
+        color: var(--text);
+        border: 1px solid var(--line-strong);
+        padding: 2px 10px;
+        border-radius: var(--radius-pill);
+        font-size: 12px;
+        font-weight: 700;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .port-badge.is-ok {
+        color: var(--ok);
+        border-color: color-mix(in srgb, var(--ok) 40%, transparent);
+        background: color-mix(in srgb, var(--ok) 8%, transparent);
+        margin-left: 0;
+      }
+
+      .step-num {
+        width: 32px;
+        height: 32px;
+        background: var(--accent);
+        color: #ffffff;
+        border-radius: var(--radius-pill);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 15px;
+        flex-shrink: 0;
+      }
+
+      /* --- Buttons --- */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 8px 16px;
+        border-radius: var(--radius-sm);
+        border: 1px solid transparent;
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-hover);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border-color: var(--accent);
+        color: var(--text);
+      }
+
+      .btn-secondary:hover {
+        background: var(--surface-chip);
+      }
+
+      .btn svg {
+        flex-shrink: 0;
+      }
+
+      .btn > span {
+        flex: 1;
+        text-align: center;
+      }
+
+      .download-card {
+        background: var(--surface-sunken);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- Tables --- */
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        margin-top: 16px;
       }
 
       table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 1rem;
+      }
+
+      .table-wrap > table {
+        margin: 0;
       }
 
       th,
       td {
-        padding: 0.75rem;
+        padding: 12px 16px;
         text-align: left;
-        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+        border-bottom: 1px solid var(--line);
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
       }
 
       th {
-        background: var(--bg-highlight);
+        background: var(--surface-head);
+        font-size: 12px;
         font-weight: 700;
-        font-size: 0.875rem;
-        color: var(--text-secondary);
+        color: var(--th-text);
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 1px;
       }
 
       td {
-        font-size: 0.9375rem;
-        color: var(--text-primary);
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      tbody tr:nth-child(even) td {
+        background: color-mix(in srgb, var(--surface-chip) 50%, transparent);
       }
 
       .method-badge {
         display: inline-block;
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: var(--radius-pill);
+        font-size: 12px;
         font-weight: 700;
-        font-family: "Monaco", "Consolas", monospace;
+        font-family: var(--mono);
+        border: 1px solid;
       }
 
       .method-get {
-        background: rgba(59, 130, 246, 0.15);
-        color: var(--palette-blue);
-        border: 1px solid var(--palette-blue);
+        color: var(--info);
+        border-color: color-mix(in srgb, var(--info) 40%, transparent);
+        background: color-mix(in srgb, var(--info) 8%, transparent);
       }
+
       .method-post {
-        background: rgba(87, 209, 108, 0.15);
-        color: var(--success);
-        border: 1px solid var(--success);
+        color: var(--ok);
+        border-color: color-mix(in srgb, var(--ok) 40%, transparent);
+        background: color-mix(in srgb, var(--ok) 8%, transparent);
       }
 
       .endpoint {
-        font-family: "Monaco", "Consolas", monospace;
-        font-size: 0.8125rem;
-        background: var(--bg-highlight);
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
+        font-family: var(--mono);
+        font-size: 0.9em;
+        background: var(--surface-sunken);
+        padding: 2px 8px;
+        border-radius: var(--radius-sm);
         word-break: break-all;
-        color: var(--text-primary);
-        border: 1px solid var(--border);
+        color: var(--text);
+        border: 1px solid var(--line);
       }
 
+      /* --- OS cards --- */
       .os-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-        margin-top: 1rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 16px;
       }
 
       .os-card {
-        background: var(--bg-highlight);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1.25rem;
+        background: var(--surface-sunken);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 20px;
         text-align: center;
       }
 
       .os-card h3 {
-        font-size: 1rem;
-        margin: 0.5rem 0;
-        font-weight: 700;
+        margin: 8px 0;
       }
 
       .os-card .icon {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 8px;
         display: flex;
         justify-content: center;
-        color: var(--text-primary);
+        color: var(--text);
       }
 
       .os-card .icon svg {
@@ -504,7 +752,6 @@
         fill: currentColor;
       }
 
-      /* Linux icon (No Fill/Stroke) override */
       .os-card .icon.linux svg {
         fill: none;
         stroke: currentColor;
@@ -513,85 +760,71 @@
 
       .os-card ul {
         list-style: none;
-        font-size: 0.875rem;
+        font-size: 14px;
         color: var(--text-secondary);
-        margin-top: 0.75rem;
+        margin-top: 12px;
       }
 
       .os-card li {
-        padding: 0.25rem 0;
+        padding: 4px 0;
       }
 
+      /* --- Process flow --- */
       .flow-diagram {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        padding: 1.5rem;
-        background: var(--bg-highlight);
-        border-radius: 8px;
-        margin-top: 1rem;
-        border: 1px solid var(--border);
+        gap: 8px;
+        padding: 24px;
+        background: var(--surface-sunken);
+        border-radius: var(--radius-md);
+        margin-top: 16px;
+        border: 1px solid var(--line);
       }
 
       .flow-step {
-        background: var(--bg-card);
-        border: 2px solid var(--border);
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
-        font-size: 0.875rem;
+        background: var(--surface-raised);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-sm);
+        padding: 12px 16px;
+        font-size: 14px;
         font-weight: 600;
         text-align: center;
         min-width: 120px;
-        color: var(--text-primary);
+        color: var(--text);
       }
 
       .flow-arrow {
         color: var(--text-secondary);
-        font-size: 1.5rem;
-        font-weight: bold;
+        font-size: 24px;
+        font-weight: 700;
       }
 
+      /* --- Requirement lists --- */
       .req-list {
         list-style: none;
-        margin-top: 1rem;
+        margin-top: 16px;
       }
 
       .req-list li {
-        padding: 0.75rem;
-        background: var(--bg-highlight);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        margin-bottom: 0.5rem;
+        padding: 12px 52px 12px 12px;
+        background: var(--surface-sunken);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        margin-bottom: 8px;
         display: flex;
         align-items: flex-start;
-        gap: 0.75rem;
+        gap: 12px;
         position: relative;
-        padding-right: 2.5rem;
+        min-height: 48px;
       }
 
-      /* compact version for quick reference */
       .req-list.compact li {
-        padding: 0.5rem 0.75rem;
-        padding-right: 2rem;
-        margin-bottom: 0.35rem;
-        gap: 0.5rem;
-        font-size: 0.8rem;
-      }
-
-      .req-list.compact code {
-        font-size: 0.75rem;
-      }
-
-      .req-list.compact .copy-btn {
-        top: 0.35rem;
-        right: 0.35rem;
-      }
-
-      .req-list.compact .copy-btn svg {
-        width: 14px;
-        height: 14px;
+        padding: 8px 48px 8px 12px;
+        margin-bottom: 6px;
+        gap: 8px;
+        font-size: 14px;
       }
 
       .req-list li div {
@@ -599,8 +832,7 @@
       }
 
       .req-list .check {
-        color: var(--success);
-        font-weight: bold;
+        color: var(--ok);
         flex-shrink: 0;
         display: flex;
         align-items: center;
@@ -610,26 +842,6 @@
         width: 18px;
         height: 18px;
         stroke-width: 3;
-      }
-
-      .port-badge {
-        display: inline-block;
-        background: var(--primary);
-        color: #fff;
-        padding: 0.125rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        margin-left: 0.5rem;
-      }
-
-      .section-title {
-        font-size: 0.875rem;
-        font-weight: 700;
-        color: var(--text-secondary);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin: 1.5rem 0 1rem;
       }
 
       .visually-hidden {
@@ -644,96 +856,80 @@
         border: 0;
       }
 
-      /* Highlight Box Styling */
+      /* --- Callouts --- */
       .highlight-box {
-        background: linear-gradient(
-          135deg,
-          rgba(87, 209, 108, 0.05) 0%,
-          rgba(87, 209, 108, 0.02) 100%
-        );
-        border: 1px solid var(--primary);
-        border-left: 4px solid var(--primary);
-        padding: 1rem 1.25rem;
-        border-radius: 4px;
-        margin: 1rem 0;
+        --callout: var(--ok);
+        background: color-mix(in srgb, var(--callout) 8%, transparent);
+        border: 1px solid color-mix(in srgb, var(--callout) 40%, transparent);
+        border-radius: var(--radius-lg);
+        padding: 20px 24px;
+        margin: 16px 0;
       }
 
-      body.light-mode .highlight-box {
-        background: linear-gradient(
-          135deg,
-          rgba(29, 78, 210, 0.1) 0%,
-          rgba(29, 78, 210, 0.05) 100%
-        );
+      .highlight-box.warning {
+        --callout: var(--warn);
+      }
+
+      .main-content > .highlight-box:first-child {
+        margin-top: 0;
+        margin-bottom: 24px;
       }
 
       /* Licence agreement: long legal text, collapsed by default so it does
          not dominate the page. Opened automatically when a link points at it,
          otherwise a reader following "read the agreement" lands on nothing. */
       .licence-details {
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        background: var(--bg-highlight);
-        margin-top: 1rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        background: var(--surface-sunken);
+        margin-top: 16px;
       }
 
       .licence-details > summary {
         cursor: pointer;
-        padding: 0.85rem 1.25rem;
+        min-height: 48px;
+        padding: 12px 20px;
         font-weight: 600;
         list-style: revert;
+        border-radius: var(--radius-md);
       }
 
       .licence-details[open] > summary {
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--line);
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
       }
 
       .licence-body {
-        padding: 0.5rem 1.25rem 1.25rem;
+        padding: 8px 20px 20px;
         max-height: 32rem;
         overflow-y: auto;
       }
 
       .licence-body h3 {
-        margin-top: 1.75rem;
-        font-size: 1.05rem;
+        margin-top: 28px;
+        font-size: 17px;
       }
 
       .licence-body h4 {
-        margin-top: 1.5rem;
-        font-size: 0.95rem;
+        margin-top: 24px;
+        font-size: 15px;
       }
 
       .licence-body p {
-        margin: 0.75rem 0;
-        font-size: 0.9rem;
+        margin: 12px 0;
+        font-size: 15px;
         line-height: 1.65;
       }
 
       .licence-body td,
       .licence-body th {
-        font-size: 0.85rem;
-      }
-
-      .highlight-box.warning {
-        background: linear-gradient(
-          135deg,
-          rgba(239, 190, 83, 0.1) 0%,
-          rgba(239, 190, 83, 0.05) 100%
-        );
-        border-color: var(--warning);
-        border-left-color: var(--warning);
+        font-size: 14px;
       }
 
       /* Data collection specification: 25 queries described across five
          columns of legal-grade detail. Narrowing the field lists to fit a
          phone would make them unreadable, so each table keeps a usable width
          and scrolls sideways inside its own wrapper instead. */
-      .spec-wrap {
-        overflow-x: auto;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        margin-top: 1rem;
-      }
 
       /* Fixed layout: under auto layout the nowrap field chips drive the
          column widths, so the percentages below are ignored and the table
@@ -746,13 +942,12 @@
 
       table.spec th,
       table.spec td {
-        padding: 0.6rem 0.75rem;
-        vertical-align: top;
-        font-size: 0.85rem;
+        padding: 12px 14px;
+        font-size: 14px;
       }
 
-      table.spec tbody tr:last-child td {
-        border-bottom: 0;
+      table.spec th {
+        font-size: 12px;
       }
 
       table.spec th:nth-child(1) {
@@ -777,26 +972,26 @@
 
       .spec-q {
         font-weight: 700;
-        color: var(--code-text);
+        color: var(--accent-text);
         overflow-wrap: anywhere;
       }
 
       .spec-fields {
-        line-height: 1.8;
+        line-height: 1.9;
       }
 
       .spec-fields code {
-        background: var(--code-bg);
-        border-radius: 3px;
-        padding: 0.05rem 0.3rem;
+        background: var(--surface-chip);
+        border-radius: 6px;
+        padding: 1px 6px;
         white-space: nowrap;
       }
 
       .spec-scope {
         display: inline-block;
-        margin-top: 0.4rem;
+        margin-top: 6px;
         color: var(--text-secondary);
-        font-size: 0.8rem;
+        font-size: 13px;
         line-height: 1.5;
       }
 
@@ -805,28 +1000,38 @@
       }
 
       .os-badge {
-        display: inline-block;
-        padding: 0.1rem 0.4rem;
-        margin: 0 0.25rem 0.25rem 0;
-        border: 1px solid var(--border);
-        border-left-width: 3px;
-        border-radius: 4px;
-        font-size: 0.7rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 1px 8px;
+        margin: 0 4px 4px 0;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-pill);
+        background: var(--surface-chip);
+        font-size: 12px;
         font-weight: 700;
         color: var(--text-secondary);
         white-space: nowrap;
       }
 
-      .os-linux {
-        border-left-color: var(--palette-yellow);
+      .os-badge::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: var(--radius-pill);
+        background: currentColor;
       }
 
-      .os-windows {
-        border-left-color: var(--palette-blue);
+      .os-linux::before {
+        background: var(--warn);
       }
 
-      .os-macos {
-        border-left-color: var(--palette-purple);
+      .os-windows::before {
+        background: var(--info);
+      }
+
+      .os-macos::before {
+        background: var(--accent-text);
       }
 
       table.spec-history td:first-child {
@@ -836,30 +1041,52 @@
       }
 
       footer {
-        padding: 2rem 0;
+        padding: 32px 0;
         color: var(--text-secondary);
-        font-size: 0.875rem;
-        border-top: 1px solid var(--border);
-        margin-top: 2rem;
+        font-size: 14px;
+        border-top: 1px solid var(--line);
+        margin-top: 32px;
       }
 
-      /* Code blocks */
-      code {
-        font-family: "Monaco", "Consolas", monospace;
+      footer .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      /* --- Code --- */
+      code,
+      pre,
+      kbd,
+      samp {
+        font-family: var(--mono);
+        font-size: 0.9em;
+      }
+
+      pre code,
+      .code-block code {
+        font-size: inherit;
+      }
+
+      :not(pre) > code {
+        overflow-wrap: anywhere;
       }
 
       .code-block {
-        background: var(--code-bg);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1rem;
-        position: relative; /* For Copy Button */
+        background: var(--surface-sunken);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 12px 56px 12px 16px;
+        min-height: 50px;
+        position: relative;
+        font-size: 14px;
       }
 
       .code-block code {
-        color: var(--code-text);
+        color: var(--text);
         display: block;
-        padding-right: 2rem;
         white-space: pre-wrap;
         word-break: break-word;
       }
@@ -870,217 +1097,97 @@
         font: inherit;
       }
 
-      #commands code {
-        font-size: 0.75rem;
-      }
-
-      /* Copy Button Styles (Minimalist) */
       .copy-btn {
         position: absolute;
-        top: 0.75rem;
-        right: 0.75rem;
+        top: 4px;
+        right: 4px;
+        width: 40px;
+        height: 40px;
         background: transparent;
-        border: none;
+        border: 0;
         color: var(--text-secondary);
         cursor: pointer;
-        padding: 0.25rem;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-        opacity: 0.7;
+        border-radius: var(--radius-sm);
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
-      .req-list .copy-btn {
-        top: 0.5rem;
-        right: 0.5rem;
-      }
-
       .copy-btn:hover {
-        color: var(--primary);
-        opacity: 1;
-        background: rgba(128, 128, 128, 0.1);
+        color: var(--text);
+        background: var(--surface-chip);
       }
 
-      /* Inline Code Copy Button Override for Paths */
+      .copy-btn.is-copied {
+        color: var(--ok);
+      }
+
       .path-container {
         position: relative;
-        padding-right: 2rem;
+        padding-right: 48px;
+        min-height: 40px;
       }
+
       .path-container .copy-btn {
-        top: 0;
+        top: 50%;
         right: 0;
+        transform: translateY(-50%);
       }
 
       /* Details/Summary for Video */
       details.video-details {
-        margin-bottom: 1.5rem;
-        border: 1px solid var(--border);
-        border-radius: 8px;
+        margin-bottom: 24px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
         overflow: hidden;
-        background: var(--bg-card);
+        background: var(--surface);
       }
+
       details.video-details summary {
-        padding: 0.75rem 1rem;
-        background: var(--bg-highlight);
+        min-height: 48px;
+        padding: 12px 16px;
+        background: var(--surface-sunken);
         cursor: pointer;
         font-weight: 700;
         color: var(--text-secondary);
-        list-style: none; /* Hide default triangle */
+        list-style: none;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 1rem;
+        font-size: 16px;
       }
+
       details.video-details summary::-webkit-details-marker {
         display: none;
       }
+
       details.video-details[open] summary {
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--line);
       }
+
       details.video-details .video-content {
-        padding: 1rem;
-        background: var(--bg-card);
+        padding: 16px;
+        background: var(--surface);
       }
-      /* Icon rotation */
+
       details.video-details summary svg {
         transition: transform 0.3s ease;
         color: var(--text-secondary);
       }
+
       details.video-details[open] summary svg {
         transform: rotate(180deg);
       }
 
-      @media (max-width: 768px) {
-        .os-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .flow-diagram {
-          flex-direction: column;
-        }
-
-        .flow-arrow {
-          transform: rotate(90deg);
-        }
-
-        header .container {
-          flex-direction: column;
-          text-align: center;
-        }
-      }
-
-      /* --- Control Panel (Language & Theme) --- */
-      .controls {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-
-      /* Language Dropdown */
-      .lang-select {
-        appearance: none;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        color: var(--text-primary);
-        padding: 0.5rem 2rem 0.5rem 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        font-family: "Mulish", sans-serif;
-        font-weight: 700;
-        font-size: 0.75rem;
-        box-shadow: var(--card-shadow);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        outline: none;
-        transition: border-color 0.2s;
-      }
-
-      .lang-select:hover,
-      .lang-select:focus {
-        border-color: var(--primary);
-      }
-
-      /* Theme Switch (Toggle) */
-      .theme-switch {
-        position: relative;
-        display: inline-block;
-        width: 50px;
-        height: 26px;
-      }
-
-      .theme-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: var(--bg-card);
-        border: 1px solid var(--border);
-        transition: 0.4s;
-        border-radius: 34px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 5px;
-        box-shadow: var(--card-shadow);
-      }
-
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 3px;
-        bottom: 3px;
-        background-color: var(--primary);
-        transition: 0.4s;
-        border-radius: 50%;
-        z-index: 2;
-      }
-
-      input:checked + .slider:before {
-        transform: translateX(24px);
-      }
-
-      .icon-sun,
-      .icon-moon {
-        font-size: 12px;
-        z-index: 1;
-        line-height: 1;
-      }
-
-      a {
-        color: var(--primary);
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-
-      /* Video Wrapper */
       .video-wrapper {
         position: relative;
         padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
         height: 0;
-        border-radius: 8px;
+        border-radius: var(--radius-md);
         overflow: hidden;
-        margin-bottom: 1.5rem;
+        margin-bottom: 24px;
         background: #000;
-        border: 1px solid var(--border);
+        border: 1px solid var(--line);
       }
 
       .video-wrapper iframe {
@@ -1091,112 +1198,233 @@
         height: 100%;
         border: 0;
       }
+
+      /* --- Below 1024px: the sidebar becomes a sticky "On this page" pill --- */
+      @media (max-width: 1023px) {
+        :root {
+          --header-offset: 76px;
+        }
+
+        .main-layout {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 0;
+        }
+
+        .sidebar {
+          display: none;
+        }
+
+        .toc-mobile {
+          display: block;
+          position: sticky;
+          top: 8px;
+          z-index: 50;
+          margin-bottom: 16px;
+        }
+
+        .toc-mobile > summary {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          min-height: 44px;
+          max-width: 100%;
+          padding: 8px 18px;
+          border-radius: var(--radius-pill);
+          background: var(--surface-raised);
+          border: 1px solid var(--line-strong);
+          color: var(--text);
+          font-weight: 700;
+          font-size: 15px;
+          cursor: pointer;
+          list-style: none;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+        }
+
+        .toc-mobile > summary::-webkit-details-marker {
+          display: none;
+        }
+
+        .toc-mobile-current {
+          color: var(--text-secondary);
+          font-weight: 600;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .toc-mobile-panel {
+          margin-top: 8px;
+          max-height: min(70vh, 560px);
+          overflow-y: auto;
+          background: var(--surface);
+          border: 1px solid var(--line-strong);
+          border-radius: var(--radius-lg);
+          padding: 12px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .toc-mobile .sidebar-nav a {
+          min-height: 44px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .os-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .flow-diagram {
+          flex-direction: column;
+        }
+
+        .flow-arrow {
+          transform: rotate(90deg);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .container,
+        .main-layout {
+          padding: 0 16px;
+        }
+
+        .site-header {
+          padding: 16px 0;
+          margin-bottom: 16px;
+        }
+
+        .header-inner {
+          gap: 12px;
+        }
+
+        .brand {
+          gap: 12px;
+        }
+
+        .app-icon {
+          width: 52px;
+          height: 52px;
+        }
+
+        .brand h1 {
+          font-size: 26px;
+        }
+
+        .card {
+          padding: 20px 16px;
+        }
+
+        .card h2 {
+          font-size: 22px;
+        }
+
+        .highlight-box {
+          padding: 16px;
+        }
+
+        th,
+        td {
+          padding: 10px 12px;
+        }
+      }
+
+      @media (pointer: coarse) {
+        .theme-switcher button,
+        .copy-btn {
+          width: 44px;
+          height: 44px;
+        }
+
+        .lang-select,
+        .header-logo-link {
+          height: 44px;
+        }
+
+        .sidebar-nav a,
+        .btn {
+          min-height: 44px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
     </style>
 
     <script async src="/posthog.js"></script>
   </head>
   <body>
-    <!-- Controls -->
-    <div class="controls">
-      <select
-        class="lang-select"
-        id="langSelect"
-        onchange="changeLanguage()"
-        aria-label="Select Language"
-      >
-        <option value="en">🇺🇸 EN</option>
-        <option value="es">🇪🇸 ES</option>
-      </select>
-
-      <label class="theme-switch" aria-label="Toggle Theme">
-        <input type="checkbox" id="themeCheckbox" onchange="toggleTheme()" />
-        <span class="slider">
-          <span class="icon-moon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </span>
-          <span class="icon-sun">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-          </span>
-        </span>
-      </label>
-    </div>
-
-    <header>
-      <div class="container">
-        <div class="header-content">
-          <div>
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                margin-bottom: 0.25rem;
-              "
-            >
-              <div class="app-icon">
-                <img
-                  src="/lc.svg"
-                  alt="LICENSEWARE Collector Logo"
-                  width="70"
-                  height="70"
-                  loading="eager"
-                />
-              </div>
-              <h1 data-i18n="app.title">LICENSEWARE Collector</h1>
-            </div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="app-icon">
+            <img
+              src="/lc.svg"
+              alt="LICENSEWARE Collector Logo"
+              width="64"
+              height="64"
+              loading="eager"
+            />
           </div>
+          <h1 data-i18n="app.title">LICENSEWARE Collector</h1>
         </div>
 
-        <!-- Licenseware Logo with Link -->
-        <a
-          href="https://www.licenseware.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit LICENSEWARE ™ Homepage"
-        >
-          <img
-            src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
-            alt="LICENSEWARE ™"
-            class="header-logo"
-            loading="eager"
-          />
-        </a>
+        <div class="header-actions">
+          <select
+            class="lang-select"
+            id="langSelect"
+            onchange="changeLanguage()"
+            aria-label="Select Language"
+          >
+            <option value="en">🇺🇸 EN</option>
+            <option value="es">🇪🇸 ES</option>
+          </select>
+
+          <div class="theme-switcher" role="group" aria-label="Theme">
+            <button type="button" data-theme-value="light" aria-pressed="false" aria-label="Light theme" title="Light">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+            </button>
+            <button type="button" data-theme-value="dark" aria-pressed="false" aria-label="Dark theme" title="Dark">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button type="button" data-theme-value="system" aria-pressed="true" aria-label="System theme" title="System">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+            </button>
+          </div>
+
+          <a
+            class="header-logo-link"
+            href="https://www.licenseware.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit LICENSEWARE ™ Homepage"
+          >
+            <img
+              src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
+              alt="LICENSEWARE ™"
+              class="header-logo"
+              height="40"
+              loading="eager"
+            />
+          </a>
+        </div>
       </div>
     </header>
 
     <div class="main-layout">
+      <details class="toc-mobile" id="tocMobile">
+        <summary>
+          <span data-i18n="nav.onthispage">On this page</span>
+          <span class="toc-mobile-current" id="tocMobileCurrent"></span>
+        </summary>
+        <nav class="toc-mobile-panel" aria-label="On this page"></nav>
+      </details>
       <!-- Sidebar Navigation -->
       <aside class="sidebar" aria-label="Page navigation">
         <nav aria-label="Table of contents">
@@ -1407,7 +1635,7 @@
             aria-label="Unsupported Windows versions"
           >
             <strong
-              style="color: var(--warning)"
+              style="color: var(--warn)"
               data-i18n="compat.legacy.title"
               >⚠️ Older Windows versions</strong
             ><br />
@@ -1465,7 +1693,7 @@
                 </span>
                 <div>
                   <strong data-i18n="network.api_title"
-                    >api.licenseware.io <span style="font-weight: normal">or</span> api.us.licenseware.io <span style="font-weight: normal">or</span> api.au.licenseware.io</strong
+                    >api.licenseware.io <span style="font-weight: 500">or</span> api.us.licenseware.io <span style="font-weight: 500">or</span> api.au.licenseware.io</strong
                   ><span class="port-badge">HTTPS 443</span><br />
                   <small
                     style="color: var(--text-secondary)"
@@ -1492,7 +1720,7 @@
                 </span>
                 <div>
                   <strong data-i18n="network.logs_title"
-                    >pushlogs.licenseware.io <span style="font-weight: normal">or</span> pushlogs.us.licenseware.io <span style="font-weight: normal">or</span> pushlogs.au.licenseware.io</strong
+                    >pushlogs.licenseware.io <span style="font-weight: 500">or</span> pushlogs.us.licenseware.io <span style="font-weight: 500">or</span> pushlogs.au.licenseware.io</strong
                   ><span class="port-badge">HTTPS 443</span><br />
                   <small
                     style="color: var(--text-secondary)"
@@ -1536,7 +1764,7 @@
               role="note"
             >
               <strong
-                style="color: var(--warning)"
+                style="color: var(--warn)"
                 data-i18n="network.firewall.title"
                 >⚠️ Firewall Configuration</strong
               ><br />
@@ -1750,14 +1978,7 @@
           <div class="os-grid">
             <!-- Windows -->
             <div
-              style="
-                background: var(--bg-highlight);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.25rem;
-                display: flex;
-                flex-direction: column;
-              "
+              class="download-card"
             >
               <div
                 style="
@@ -1766,7 +1987,7 @@
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--text-secondary);
+                  border-bottom: 1px solid var(--line);
                 "
               >
                 <span style="font-size: 1.5rem; display: flex">
@@ -1782,26 +2003,9 @@
                     />
                   </svg>
                 </span>
-                <h3 style="margin: 0; font-size: 1rem">Windows</h3>
+                <h3 style="margin: 0">Windows</h3>
               </div>
-              <a
-                href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.msi"
-                style="
-                  display: flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                  padding: 0.75rem 1rem;
-                  background: var(--primary);
-                  color: #fff;
-                  border-radius: 6px;
-                  text-decoration: none;
-                  font-weight: 700;
-                  font-size: 0.875rem;
-                  transition: opacity 0.2s;
-                "
-                onmouseover="this.style.opacity = '0.9'"
-                onmouseout="this.style.opacity = '1'"
-              >
+              <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.msi" class="btn btn-primary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -1819,7 +2023,6 @@
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
                 <span
-                  style="flex: 1; text-align: center"
                   data-i18n="downloads.msi"
                   >Download .msi</span
                 >
@@ -1854,14 +2057,7 @@
 
             <!-- Linux -->
             <div
-              style="
-                background: var(--bg-highlight);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.25rem;
-                display: flex;
-                flex-direction: column;
-              "
+              class="download-card"
             >
               <div
                 style="
@@ -1870,7 +2066,7 @@
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--text-secondary);
+                  border-bottom: 1px solid var(--line);
                 "
               >
                 <span style="font-size: 1.5rem; display: flex">
@@ -1886,27 +2082,10 @@
                     />
                   </svg>
                 </span>
-                <h3 style="margin: 0; font-size: 1rem">Linux</h3>
+                <h3 style="margin: 0">Linux</h3>
               </div>
               <div style="display: flex; flex-direction: column; gap: 0.5rem">
-                <a
-                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.deb"
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    padding: 0.75rem 1rem;
-                    background: var(--primary);
-                    color: #fff;
-                    border-radius: 6px;
-                    text-decoration: none;
-                    font-weight: 700;
-                    font-size: 0.875rem;
-                    transition: opacity 0.2s;
-                  "
-                  onmouseover="this.style.opacity = '0.9'"
-                  onmouseout="this.style.opacity = '1'"
-                >
+                <a href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.deb" class="btn btn-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -1923,28 +2102,11 @@
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span style="flex: 1; text-align: center"
+                  <span
                     >.deb &middot; x64 (amd64)</span
                   >
                 </a>
-                <a
-                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_arm64.deb"
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    padding: 0.75rem 1rem;
-                    background: var(--primary);
-                    color: #fff;
-                    border-radius: 6px;
-                    text-decoration: none;
-                    font-weight: 700;
-                    font-size: 0.875rem;
-                    transition: opacity 0.2s;
-                  "
-                  onmouseover="this.style.opacity = '0.9'"
-                  onmouseout="this.style.opacity = '1'"
-                >
+                <a href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_arm64.deb" class="btn btn-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -1961,28 +2123,11 @@
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span style="flex: 1; text-align: center"
+                  <span
                     >.deb &middot; ARM64</span
                   >
                 </a>
-                <a
-                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.rpm"
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    padding: 0.75rem 1rem;
-                    background: var(--primary);
-                    color: #fff;
-                    border-radius: 6px;
-                    text-decoration: none;
-                    font-weight: 700;
-                    font-size: 0.875rem;
-                    transition: opacity 0.2s;
-                  "
-                  onmouseover="this.style.opacity = '0.9'"
-                  onmouseout="this.style.opacity = '1'"
-                >
+                <a href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.rpm" class="btn btn-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -1999,28 +2144,11 @@
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span style="flex: 1; text-align: center"
+                  <span
                     >.rpm &middot; x64 (amd64)</span
                   >
                 </a>
-                <a
-                  href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_arm64.rpm"
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    padding: 0.75rem 1rem;
-                    background: var(--primary);
-                    color: #fff;
-                    border-radius: 6px;
-                    text-decoration: none;
-                    font-weight: 700;
-                    font-size: 0.875rem;
-                    transition: opacity 0.2s;
-                  "
-                  onmouseover="this.style.opacity = '0.9'"
-                  onmouseout="this.style.opacity = '1'"
-                >
+                <a href="https://cdn.licenseware-collector.com/d/latest/licenseware-collector_arm64.rpm" class="btn btn-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -2037,7 +2165,7 @@
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                   </svg>
-                  <span style="flex: 1; text-align: center"
+                  <span
                     >.rpm &middot; ARM64</span
                   >
                 </a>
@@ -2058,14 +2186,7 @@
 
             <!-- macOS -->
             <div
-              style="
-                background: var(--bg-highlight);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.25rem;
-                display: flex;
-                flex-direction: column;
-              "
+              class="download-card"
             >
               <div
                 style="
@@ -2074,7 +2195,7 @@
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--text-secondary);
+                  border-bottom: 1px solid var(--line);
                 "
               >
                 <span style="font-size: 1.5rem; display: flex">
@@ -2090,26 +2211,9 @@
                     />
                   </svg>
                 </span>
-                <h3 style="margin: 0; font-size: 1rem">macOS</h3>
+                <h3 style="margin: 0">macOS</h3>
               </div>
-              <a
-                href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg"
-                style="
-                  display: flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                  padding: 0.75rem 1rem;
-                  background: var(--primary);
-                  color: #fff;
-                  border-radius: 6px;
-                  text-decoration: none;
-                  font-weight: 700;
-                  font-size: 0.875rem;
-                  transition: opacity 0.2s;
-                "
-                onmouseover="this.style.opacity = '0.9'"
-                onmouseout="this.style.opacity = '1'"
-              >
+              <a href="https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg" class="btn btn-primary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -2127,7 +2231,6 @@
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
                 <span
-                  style="flex: 1; text-align: center"
                   data-i18n="downloads.pkg"
                   >Download .pkg</span
                 >
@@ -2232,7 +2335,7 @@
             >
               <iframe
                 src="https://demo.arcade.software/mDCx0fYhr6rsxYqxStLe?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-                title="Generate and Manage API Keys in Licenseware Collector"
+                title="Generate and Manage API Keys in LICENSEWARE Collector"
                 frameborder="0"
                 loading="lazy"
                 webkitallowfullscreen
@@ -2254,30 +2357,12 @@
 
           <!-- Common Step: Get Your Token -->
           <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
-            <div
-              style="
-                width: 28px;
-                height: 28px;
-                background: var(--primary);
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
-                font-size: 0.9rem;
-                flex-shrink: 0;
-              "
-            >
+            <div class="step-num" aria-hidden="true">
               1
             </div>
             <div style="flex: 1">
               <h3
-                style="
-                  margin: 0 0 0.5rem 0;
-                  font-size: 1.05rem;
-                  font-weight: 700;
-                "
+                style="margin: 0 0 0.5rem 0"
                 data-i18n="install.step1.title"
               >
                 Get Your Token
@@ -2317,89 +2402,71 @@
 
           <!-- Step 2 Header -->
           <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem">
-            <div
-              style="
-                width: 28px;
-                height: 28px;
-                background: var(--primary);
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
-                font-size: 0.9rem;
-                flex-shrink: 0;
-              "
-            >
+            <div class="step-num" aria-hidden="true">
               2
             </div>
             <h3
-              style="
-                margin: 0;
-                font-size: 1.05rem;
-                font-weight: 700;
-                line-height: 28px;
-              "
+              style="margin: 0; line-height: 28px"
               data-i18n="install.step2.title"
             >
               Download and Install
             </h3>
           </div>
 
-<div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem">
-<h3 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700">Linux (.deb / .rpm)</h3>
-<p style="margin: 0 0 1rem 0; color: var(--warning); font-size: 0.85rem" data-i18n="install.unix.root">⚠️ Requires root privileges</p>
+<div style="border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem">
+<h3 style="margin: 0 0 0.75rem 0">Linux (.deb / .rpm)</h3>
+<p style="margin: 0 0 1rem 0; color: var(--warn); font-size: 0.85rem" data-i18n="install.unix.root">⚠️ Requires root privileges</p>
 <ol style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary); line-height: 1.7">
 <li style="margin-bottom: 0.75rem">
-<strong style="color: var(--text-primary)" data-i18n="install.linux.step1">Install and enrol in one step</strong>
+<strong style="color: var(--text)" data-i18n="install.linux.step1">Install and enrol in one step</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.oneliner.note">The script picks the right package, checks its <code>SHA256SUMS</code>, installs it, waits for registration and removes what it installed if the machine does not register. Extra options: <code>--proxy URL</code>, <code>--version V</code>, <code>--dry-run</code>. If your sudo rules refuse <code>TOKEN=</code>, save the token in a file and use <code>... | sudo sh -s -- --token-file /root/lc-token</code>.</p>
 </li>
 <li style="margin-bottom: 0.75rem">
-<strong style="color: var(--text-primary)" data-i18n="install.linux.step2">Or download the package and install it yourself</strong>
+<strong style="color: var(--text)" data-i18n="install.linux.step2">Or download the package and install it yourself</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">curl -fsSLO https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.deb</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>curl -fsSLO https://cdn.licenseware-collector.com/d/latest/licenseware-collector_amd64.deb</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">sudo TOKEN=&lt;enrolment-token&gt; apt install ./licenseware-collector_amd64.deb</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>sudo TOKEN=&lt;enrolment-token&gt; apt install ./licenseware-collector_amd64.deb</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.step2.note">On RHEL / Fedora / SUSE use <code>sudo TOKEN=&lt;enrolment-token&gt; dnf install ./licenseware-collector_amd64.rpm</code>. Put <code>TOKEN=</code> after <code>sudo</code>, not before it (<code>TOKEN=... sudo apt</code> loses the variable). The package waits up to a minute and says whether registration finished.</p>
 <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.env.note">If sudo refuses <code>TOKEN=</code>, use <code>sudo env TOKEN=&lt;enrolment-token&gt; apt install ...</code>, or create <code>/etc/default/licenseware-collector</code> (mode 0600) containing <code>TOKEN=&lt;enrolment-token&gt;</code> and install without the variable. A fresh install without a token is refused before anything is written.</p>
 </li>
 <li>
-<strong style="color: var(--text-primary)" data-i18n="install.linux.step3">Check it works</strong>
+<strong style="color: var(--text)" data-i18n="install.linux.step3">Check it works</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">licenseware-collector status</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>licenseware-collector status</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.linux.check.note">Exit code 0 and <code>registered</code> in the output mean the machine is enrolled.</p>
 </li>
 </ol>
 
-<div style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.25rem">
-<h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 700" data-i18n="install.unix.ref.title">Full Command Reference</h4>
+<div style="margin-top: 1.5rem; border-top: 1px solid var(--line); padding-top: 1.25rem">
+<h4 style="margin: 0 0 0.5rem 0" data-i18n="install.unix.ref.title">Full Command Reference</h4>
 <p style="margin: 0 0 0.75rem 0; font-size: 0.85rem; color: var(--text-secondary)" data-i18n="install.unix.ref.desc">The command is on your <code>PATH</code> on Linux and macOS (run it with <code>sudo</code> where it changes something). Proxy, custom CA certificate and the other settings are described in <a href="#settings">Settings</a>; change them at any time with <code>sudo licenseware-collector set</code>.</p>
-<table style="width: 100%; font-size: 0.85rem; border-collapse: collapse; margin-top: 1rem">
+<div class="table-wrap" role="region" tabindex="0" aria-label="Full Command Reference">
+<table>
 <thead>
-<tr style="text-align: left; border-bottom: 1px solid var(--border)">
+<tr style="text-align: left; border-bottom: 1px solid var(--line)">
 <th style="padding: 0.5rem 0.75rem">Flag / Variable</th>
 <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.required">Required</th>
 <th style="padding: 0.5rem 0.75rem" data-i18n="install.win.ref.flagdesc">Description</th>
 </tr>
 </thead>
 <tbody style="color: var(--text-secondary)">
-<tr style="border-bottom: 1px solid var(--border)">
+<tr style="border-bottom: 1px solid var(--line)">
 <td style="padding: 0.5rem 0.75rem"><code>TOKEN</code></td>
-<td style="padding: 0.5rem 0.75rem"><strong style="color: var(--warning)">Yes</strong></td>
-<td style="padding: 0.5rem 0.75rem" data-i18n="install.unix.ref.token.desc">Enrolment token from the Licenseware platform, given at install time. <code>LICENSEWARE_ENROLL_TOKEN</code> is deprecated and prints a warning; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> and <code>--enroll-token</code> are no longer accepted.</td>
+<td style="padding: 0.5rem 0.75rem"><strong style="color: var(--warn)">Yes</strong></td>
+<td style="padding: 0.5rem 0.75rem" data-i18n="install.unix.ref.token.desc">Enrolment token from the LICENSEWARE platform, given at install time. <code>LICENSEWARE_ENROLL_TOKEN</code> is deprecated and prints a warning; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> and <code>--enroll-token</code> are no longer accepted.</td>
 </tr>
-<tr style="border-bottom: 1px solid var(--border)">
+<tr style="border-bottom: 1px solid var(--line)">
 <td style="padding: 0.5rem 0.75rem"><code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code></td>
 <td style="padding: 0.5rem 0.75rem">No</td>
 <td style="padding: 0.5rem 0.75rem" data-i18n="install.unix.ref.settings.desc">Optional settings for a proxy and a custom CA certificate. See <a href="#settings">Settings</a>.</td>
@@ -2408,38 +2475,39 @@
 </table>
 </div>
 </div>
+</div>
 
-<div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem">
-<h3 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700">macOS (.pkg)</h3>
-<p style="margin: 0 0 1rem 0; color: var(--warning); font-size: 0.85rem" data-i18n="install.macos.root">⚠️ Requires root privileges</p>
+<div style="border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem">
+<h3 style="margin: 0 0 0.75rem 0">macOS (.pkg)</h3>
+<p style="margin: 0 0 1rem 0; color: var(--warn); font-size: 0.85rem" data-i18n="install.macos.root">⚠️ Requires root privileges</p>
 <ol style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary); line-height: 1.7">
 <li style="margin-bottom: 0.75rem">
-<strong style="color: var(--text-primary)" data-i18n="install.macos.step1">Install and enrol in one step</strong>
+<strong style="color: var(--text)" data-i18n="install.macos.step1">Install and enrol in one step</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>curl -fsSL https://cdn.licenseware-collector.com/install.sh | sudo TOKEN=&lt;enrolment-token&gt; sh</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.macos.oneliner.note">Downloads the package, checks its <code>SHA256SUMS</code>, installs it and waits for registration (up to 3 minutes).</p>
 </li>
 <li style="margin-bottom: 0.75rem">
-<strong style="color: var(--text-primary)" data-i18n="install.macos.step2">Or install by hand</strong>
+<strong style="color: var(--text)" data-i18n="install.macos.step2">Or install by hand</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">curl -fsSLO https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>curl -fsSLO https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.pkg</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">sudo install -m 0600 /dev/null /usr/local/etc/licenseware-collector
+<pre><code>sudo install -m 0600 /dev/null /usr/local/etc/licenseware-collector
 echo 'TOKEN=&lt;enrolment-token&gt;' | sudo tee /usr/local/etc/licenseware-collector &gt;/dev/null
 sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.macos.step2.note"><code>installer</code> does not pass environment variables to the package, so the token goes in the env file first. If it fails, the reason is in <code>/var/log/install.log</code>.</p>
 </li>
 <li>
-<strong style="color: var(--text-primary)" data-i18n="install.macos.step3">Check it works</strong>
+<strong style="color: var(--text)" data-i18n="install.macos.step3">Check it works</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">licenseware-collector status</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>licenseware-collector status</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary)" data-i18n="install.macos.check.note">Exit code 0 and <code>registered</code> in the output mean the Mac is enrolled.</p>
 </li>
@@ -2453,20 +2521,20 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
           <!-- Windows Installation -->
           <div
             style="
-              border: 1px solid var(--border);
+              border: 1px solid var(--line);
               border-radius: 12px;
               padding: 1.25rem;
             "
           >
             <h3
-              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              style="margin: 0 0 0.75rem 0"
             >
               Windows
             </h3>
             <p
               style="
                 margin: 0 0 1rem 0;
-                color: var(--warning);
+                color: var(--warn);
                 font-size: 0.85rem;
               "
               data-i18n="install.win.admin"
@@ -2476,27 +2544,27 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
 
 <ol style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary); line-height: 1.7">
 <li style="margin-bottom: 0.75rem">
-<strong style="color: var(--text-primary)" data-i18n="install.win.step1">Download the installer</strong>
+<strong style="color: var(--text)" data-i18n="install.win.step1">Download the installer</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">Invoke-WebRequest -Uri https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.msi `
+<pre><code>Invoke-WebRequest -Uri https://cdn.licenseware-collector.com/d/latest/LicensewareCollector.msi `
   -OutFile LicensewareCollector.msi</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 </li>
 <li style="margin-bottom: 0.75rem">
-<strong style="color: var(--text-primary)" data-i18n="install.win.step2">Install, passing the enrolment token</strong>
+<strong style="color: var(--text)" data-i18n="install.win.step2">Install, passing the enrolment token</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">msiexec /i LicensewareCollector.msi /qn TOKEN=&lt;enrolment-token&gt;</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>msiexec /i LicensewareCollector.msi /qn TOKEN=&lt;enrolment-token&gt;</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.note">The token is marked as a secure property, so it is never written to the MSI log. To keep it off the command line, put it on the first line of a file and pass <code>TOKENFILE=C:\path\token.txt</code> instead. Run the same command with a newer <code>.msi</code> to upgrade in place; an enrolled machine needs no token.</span>
 <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.result">Exit code 0 means the machine is registered and the service is running (the installer waits up to 3 minutes). On failure it exits with 1603, rolls back completely and leaves <code>%ProgramData%\Licenseware\setup.log</code> with the reason. Installing without a token is refused.</span>
 </li>
 <li>
-<strong style="color: var(--text-primary)" data-i18n="install.win.step3">Check it works</strong>
+<strong style="color: var(--text)" data-i18n="install.win.step3">Check it works</strong>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word">LicensewareCollector status</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+<pre><code>LicensewareCollector status</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
 </div>
 <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 0.25rem" data-i18n="install.win.check.note">In a new elevated prompt (so the updated <code>PATH</code> is loaded). Exit code 0 and <code>registered</code> in the output mean the machine is enrolled.</span>
 </li>
@@ -2527,7 +2595,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               Exit codes
             </h4>
 
-            <div style="overflow-x: auto">
+            <div class="table-wrap" role="region" tabindex="0" aria-label="Exit codes">
               <table>
                 <thead>
                   <tr>
@@ -2590,7 +2658,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               token is required on a fresh install.
             </p>
 
-            <div style="overflow-x: auto">
+            <div class="table-wrap" role="region" tabindex="0" aria-label="MSI properties">
               <table>
                 <thead>
                   <tr>
@@ -2682,14 +2750,14 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
             </h4>
 
             <p data-i18n="mdm.detect.desc">
-              The agent records whether the Licenseware backend has
+              The agent records whether the LICENSEWARE backend has
               acknowledged it. On Windows that state is mirrored into the
               registry, so Intune and SCCM can use a built-in registry rule — no
               script. Do not use a file-version or product-code rule: both
               report success even when the agent is not registered.
             </p>
 
-            <div style="overflow-x: auto">
+            <div class="table-wrap" role="region" tabindex="0" aria-label="Detecting a registered agent">
               <table>
                 <thead>
                   <tr>
@@ -2747,7 +2815,7 @@ sudo installer -pkg LicensewareCollector.pkg -target /</code></pre>
               <pre><code style="font-size: 0.85rem"
 >licenseware-collector status --json
 jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json</code></pre>
-              <button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+              <button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -2756,7 +2824,7 @@ jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json
             </div>
 
             <aside class="highlight-box warning" style="margin-top: 1rem" role="note">
-              <strong style="color: var(--warning)" data-i18n="mdm.detect.health.title"
+              <strong style="color: var(--warn)" data-i18n="mdm.detect.health.title"
                 >⚠️ Never use --require-healthy in a detection rule</strong
               ><br />
               <span data-i18n="mdm.detect.health.desc"
@@ -2772,16 +2840,12 @@ jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json
             <div
               style="
                 margin-top: 1.5rem;
-                border-top: 1px solid var(--border);
+                border-top: 1px solid var(--line);
                 padding-top: 1.25rem;
               "
             >
               <h4
-                style="
-                  margin: 0 0 0.5rem 0;
-                  font-size: 0.95rem;
-                  font-weight: 700;
-                "
+                style="margin: 0 0 0.5rem 0"
                 data-i18n="install.win.ref.title"
               >
                 Full Command Reference
@@ -2802,6 +2866,7 @@ jq -e '.status == "registered"' /var/lib/licenseware-collector/registration.json
                   >$env:TOKEN = "&lt;enrolment-token&gt;"
 LicensewareCollector register</code></pre>
                 <button
+                  type="button"
                   class="copy-btn"
                   onclick="copyToClipboard(this)"
                   aria-label="Copy command"
@@ -2926,8 +2991,9 @@ LicensewareCollector register</code></pre>
             <h2 id="settings-title" data-i18n="settings.title">Settings</h2>
           </div>
 
-          <p data-i18n="settings.desc">Settings are stored on the machine and win over the Licenseware control plane. Change them with the <code>set</code> command, at install time, or through your MDM profile.</p>
+          <p data-i18n="settings.desc">Settings are stored on the machine and win over the LICENSEWARE control plane. Change them with the <code>set</code> command, at install time, or through your MDM profile.</p>
 
+          <div class="table-wrap" role="region" tabindex="0" aria-label="Settings">
           <table>
             <thead>
               <tr>
@@ -2970,12 +3036,13 @@ LicensewareCollector register</code></pre>
 
             <tr>
                 <td><code>LOG_SHIP_ENABLED</code></td>
-                <td data-i18n="settings.row.log_ship_enabled.desc"><code>false</code> stops sending the collector's own log to Licenseware.</td>
+                <td data-i18n="settings.row.log_ship_enabled.desc"><code>false</code> stops sending the collector's own log to LICENSEWARE.</td>
                 <td data-i18n="settings.row.log_ship_enabled.default"><code>true</code></td>
               </tr>
 
           </tbody>
           </table>
+          </div>
 
           <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="settings.where.title">Where to set them</h3>
 
@@ -2986,13 +3053,14 @@ LicensewareCollector register</code></pre>
           </ul>
 
           <div style="margin-top: 0.5rem">
-            <strong style="color: var(--text-primary)">Linux / macOS</strong>
+            <strong style="color: var(--text)">Linux / macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <pre><code style="font-size: 0.85rem"
                 >sudo licenseware-collector set
 sudo licenseware-collector set LOG_LEVEL=debug
 sudo licenseware-collector set PROXY=</code></pre>
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -3008,11 +3076,12 @@ sudo licenseware-collector set PROXY=</code></pre>
           <p style="margin-top: 1rem; color: var(--text-secondary)" data-i18n="settings.set.note">The first command lists every setting with its value and source. A trailing <code>=</code> with no value removes the setting.</p>
 
           <div style="margin-top: 0.75rem">
-            <strong style="color: var(--text-primary)">Windows (elevated prompt)</strong>
+            <strong style="color: var(--text)">Windows (elevated prompt)</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <pre><code style="font-size: 0.85rem"
                 >LicensewareCollector set LOG_LEVEL=debug</code></pre>
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -3064,12 +3133,13 @@ sudo licenseware-collector set PROXY=</code></pre>
           <p style="color: var(--text-secondary); margin-bottom: 1rem" data-i18n="proxy.apply.desc">Use <code>set</code>. It checks the value, stores it and restarts the service.</p>
 
           <div style="margin-top: 0.5rem">
-            <strong style="color: var(--text-primary)">Linux / macOS</strong>
+            <strong style="color: var(--text)">Linux / macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <pre><code style="font-size: 0.85rem"
                 >sudo licenseware-collector set PROXY=http://proxy.corp.com:8080
 sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code></pre>
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -3083,11 +3153,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           </div>
 
           <div style="margin-top: 0.75rem">
-            <strong style="color: var(--text-primary)">Windows (elevated prompt)</strong>
+            <strong style="color: var(--text)">Windows (elevated prompt)</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <pre><code style="font-size: 0.85rem"
                 >LicensewareCollector set PROXY=http://proxy.corp.com:8080</code></pre>
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -3128,11 +3199,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <h3 class="section-title" style="margin-top: 1.5rem" data-i18n="customca.apply.title">Change it afterwards</h3>
 
           <div style="margin-top: 0.5rem">
-            <strong style="color: var(--text-primary)">Linux / macOS</strong>
+            <strong style="color: var(--text)">Linux / macOS</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <pre><code style="font-size: 0.85rem"
                 >sudo licenseware-collector set CA_CERT=/etc/ssl/certs/corp-ca.pem</code></pre>
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -3146,11 +3218,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           </div>
 
           <div style="margin-top: 0.75rem">
-            <strong style="color: var(--text-primary)">Windows (elevated prompt)</strong>
+            <strong style="color: var(--text)">Windows (elevated prompt)</strong>
             <div class="code-block" style="margin-top: 0.5rem">
               <pre><code style="font-size: 0.85rem"
                 >LicensewareCollector set CA_CERT=C:\ProgramData\Licenseware\ca.pem</code></pre>
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -3197,7 +3270,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             role="note"
             aria-label="Uninstall privileges warning"
           >
-            <strong style="color: var(--warning)">⚠️</strong>
+            <strong style="color: var(--warn)">⚠️</strong>
             <span data-i18n="uninstall.warning"
               >Requires elevated privileges (sudo on Linux/macOS, Administrator
               on Windows)</span
@@ -3207,14 +3280,14 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <!-- Linux / macOS -->
           <div
             style="
-              border: 1px solid var(--border);
+              border: 1px solid var(--line);
               border-radius: 12px;
               padding: 1.25rem;
               margin-top: 1rem;
             "
           >
             <h3
-              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              style="margin: 0 0 0.75rem 0"
               data-i18n="uninstall.linux.title"
             >
               Linux
@@ -3222,7 +3295,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <ol style="margin: 0; padding-left: 1.25rem">
               <li>
                 <strong
-                  style="color: var(--text-primary)"
+                  style="color: var(--text)"
                   data-i18n="uninstall.linux.deb"
                   >Debian / Ubuntu</strong
                 >
@@ -3231,6 +3304,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     >sudo apt remove licenseware-collector</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy command"
@@ -3263,7 +3337,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               </li>
               <li>
                 <strong
-                  style="color: var(--text-primary)"
+                  style="color: var(--text)"
                   data-i18n="uninstall.linux.cleanup"
                   >RHEL / Fedora / SUSE</strong
                 >
@@ -3272,6 +3346,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     >sudo dnf remove licenseware-collector</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy command"
@@ -3318,14 +3393,14 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <!-- macOS -->
           <div
             style="
-              border: 1px solid var(--border);
+              border: 1px solid var(--line);
               border-radius: 12px;
               padding: 1.25rem;
               margin-top: 1rem;
             "
           >
             <h3
-              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              style="margin: 0 0 0.75rem 0"
               data-i18n="uninstall.macos.title"
             >
               macOS
@@ -3344,6 +3419,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
                 >sudo licenseware-collector uninstall --force</code></pre>
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -3371,14 +3447,14 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <!-- Windows -->
           <div
             style="
-              border: 1px solid var(--border);
+              border: 1px solid var(--line);
               border-radius: 12px;
               padding: 1.25rem;
               margin-top: 1rem;
             "
           >
             <h3
-              style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700"
+              style="margin: 0 0 0.75rem 0"
               data-i18n="uninstall.win.title"
             >
               Windows (Administrator PowerShell)
@@ -3386,7 +3462,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <ol style="margin: 0; padding-left: 1.25rem">
               <li>
                 <strong
-                  style="color: var(--text-primary)"
+                  style="color: var(--text)"
                   data-i18n="uninstall.win.cmd"
                   >Run the uninstall command (it runs <code>msiexec /x</code> for you)</strong
                 >
@@ -3395,6 +3471,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     >LicensewareCollector uninstall --force</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy command"
@@ -3427,7 +3504,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               </li>
               <li>
                 <strong
-                  style="color: var(--text-primary)"
+                  style="color: var(--text)"
                   data-i18n="uninstall.win.msi"
                   >Or uninstall the package directly</strong
                 >
@@ -3435,6 +3512,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   <pre><code style="font-size: 0.85rem; white-space: pre-wrap; word-break: break-word"
                     >msiexec /x LicensewareCollector.msi</code></pre>
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy command"
@@ -3467,7 +3545,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               </li>
               <li>
                 <strong
-                  style="color: var(--text-primary)"
+                  style="color: var(--text)"
                   data-i18n="uninstall.win.cleanup"
                   >Or remove it from the UI:</strong
                 >
@@ -3476,6 +3554,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     >Settings &gt; Apps &gt; Installed apps</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy command"
@@ -3553,6 +3632,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             All communication uses HTTPS with Bearer token authentication.
           </p>
 
+          <div class="table-wrap" role="region" tabindex="0" aria-label="API Endpoints">
           <table>
             <thead>
               <tr>
@@ -3597,6 +3677,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               </tr>
             </tbody>
           </table>
+          </div>
         </section>
 
         <!-- Process Flow -->
@@ -3634,7 +3715,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
             <span class="flow-arrow">→</span>
             <div
               class="flow-step"
-              style="border-color: var(--success); color: var(--success)"
+              style="border-color: var(--ok); color: var(--ok)"
               data-i18n="process.done"
             >
               ✓ Done!
@@ -3647,23 +3728,23 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <div class="flow-diagram">
             <div
               class="flow-step"
-              style="border-color: var(--border); font-size: 0.8rem"
+              style="border-color: var(--line); font-size: 0.8rem"
               data-i18n="process.step3"
             >
               Fetch Query<br />Catalogs
             </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
+            <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
             <div
               class="flow-step"
-              style="border-color: var(--border); font-size: 0.8rem"
+              style="border-color: var(--line); font-size: 0.8rem"
               data-i18n="process.step4"
             >
               Execute<br />Queries
             </div>
-            <span class="flow-arrow" style="color: var(--secondary)">→</span>
+            <span class="flow-arrow" style="color: var(--text-secondary)">→</span>
             <div
               class="flow-step"
-              style="border-color: var(--border); font-size: 0.8rem"
+              style="border-color: var(--line); font-size: 0.8rem"
               data-i18n="process.step5"
             >
               Upload to<br />LICENSEWARE ™
@@ -3731,7 +3812,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
           <aside class="highlight-box" role="note">
             <h3
-              style="font-size: 1rem; margin: 0 0 0.5rem; font-weight: 700"
+              style="margin: 0 0 0.5rem"
               data-i18n="catalogs.not.title"
             >
               What the Collector does not collect
@@ -3757,7 +3838,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
           <aside class="highlight-box warning" role="note">
             <h3
-              style="font-size: 1rem; margin: 0 0 0.5rem; font-weight: 700"
+              style="margin: 0 0 0.5rem"
               data-i18n="catalogs.pd.title"
             >
               Personal data
@@ -3789,14 +3870,13 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               "
             >
               <h3
-                style="font-size: 1.1rem; margin: 0; font-weight: 700"
+                style="margin: 0"
                 data-i18n="catalogs.a.title"
               >
                 Catalogue A: Inventory and processes
               </h3>
               <span
-                class="port-badge"
-                style="background: var(--success); margin-left: 0"
+                class="port-badge is-ok"
                 data-i18n="time.60m"
                 >Every 60 minutes</span
               >
@@ -3813,7 +3893,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               inventory, plus a point-in-time view of running processes,
               services and logged-in users.
             </p>
-            <div class="spec-wrap">
+            <div class="table-wrap" role="region" tabindex="0" aria-label="Catalogue A: Inventory and processes">
               <table class="spec">
                 <caption class="visually-hidden">
                   Catalogue A: inventory and processes, collected every 60
@@ -4084,14 +4164,13 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               "
             >
               <h3
-                style="font-size: 1.1rem; margin: 0; font-weight: 700"
+                style="margin: 0"
                 data-i18n="catalogs.b.title"
               >
                 Catalogue B: Software usage
               </h3>
               <span
-                class="port-badge"
-                style="background: var(--success); margin-left: 0"
+                class="port-badge is-ok"
                 data-i18n="time.240m"
                 >Every 240 minutes</span
               >
@@ -4107,7 +4186,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               Execution history used to work out when software was last used,
               for licence reclamation and audit evidence.
             </p>
-            <div class="spec-wrap">
+            <div class="table-wrap" role="region" tabindex="0" aria-label="Catalogue B: Software usage">
               <table class="spec">
                 <caption class="visually-hidden">
                   Catalogue B: software usage, collected every 240 minutes
@@ -4186,7 +4265,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
           <!-- Operational logs -->
           <h3
-            style="font-size: 1.1rem; margin: 2rem 0 0.5rem; font-weight: 700"
+            style="margin: 2rem 0 0.5rem"
             data-i18n="catalogs.logs.title"
           >
             Operational logs
@@ -4202,11 +4281,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
           <!-- Change history -->
           <h3
-            style="font-size: 1.1rem; margin: 2rem 0 0.5rem; font-weight: 700"
+            style="margin: 2rem 0 0.5rem"
             data-i18n="catalogs.history.title"
           >
             Change history
           </h3>
+          <div class="table-wrap" role="region" tabindex="0" aria-label="Change history">
           <table class="spec-history">
             <tbody>
               <tr>
@@ -4227,6 +4307,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
               </tr>
             </tbody>
           </table>
+          </div>
           <p
             style="color: var(--text-secondary); font-size: 0.85rem"
             data-i18n="catalogs.notify"
@@ -4263,12 +4344,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
           <div class="os-grid">
             <!-- Linux -->
             <div
-              style="
-                background: var(--bg-highlight);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.25rem;
-              "
+              class="download-card"
             >
               <div
                 style="
@@ -4277,7 +4353,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--text-secondary);
+                  border-bottom: 1px solid var(--line);
                 "
               >
                 <span style="font-size: 1.5rem; display: flex">
@@ -4294,7 +4370,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     />
                   </svg>
                 </span>
-                <h3 style="margin: 0; font-size: 1rem">Linux</h3>
+                <h3 style="margin: 0">Linux</h3>
               </div>
               <div style="font-size: 0.8rem">
                 <div class="path-container">
@@ -4312,12 +4388,13 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/usr/libexec/licenseware-collector/licenseware-collector</code
                   >
                   <!-- SVG Copy Icon -->
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4361,11 +4438,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/etc/systemd/system/licenseware-collector.service</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4409,11 +4487,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/etc/default/licenseware-collector</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4458,11 +4537,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/var/lib/licenseware-collector/registration.json</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4497,12 +4577,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
             <!-- Windows -->
             <div
-              style="
-                background: var(--bg-highlight);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.25rem;
-              "
+              class="download-card"
             >
               <div
                 style="
@@ -4511,7 +4586,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--text-secondary);
+                  border-bottom: 1px solid var(--line);
                 "
               >
                 <span style="font-size: 1.5rem; display: flex">
@@ -4527,7 +4602,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     />
                   </svg>
                 </span>
-                <h3 style="margin: 0; font-size: 1rem">Windows</h3>
+                <h3 style="margin: 0">Windows</h3>
               </div>
               <div style="font-size: 0.8rem">
                 <div class="path-container">
@@ -4545,11 +4620,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >%ProgramFiles%\Licenseware\LicensewareCollector.exe</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4594,11 +4670,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >C:\ProgramData\Licenseware\bin\LicensewareCollector.exe</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4642,11 +4719,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >C:\ProgramData\Licenseware\collector.env</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4691,11 +4769,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >C:\ProgramData\Licenseware\registration.json</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4740,11 +4819,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >HKLM\SOFTWARE\Licenseware\Collector</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4792,12 +4872,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 
             <!-- macOS -->
             <div
-              style="
-                background: var(--bg-highlight);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.25rem;
-              "
+              class="download-card"
             >
               <div
                 style="
@@ -4806,7 +4881,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                   gap: 0.5rem;
                   margin-bottom: 1rem;
                   padding-bottom: 0.75rem;
-                  border-bottom: 2px solid var(--text-secondary);
+                  border-bottom: 1px solid var(--line);
                 "
               >
                 <span style="font-size: 1.5rem; display: flex">
@@ -4822,7 +4897,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     />
                   </svg>
                 </span>
-                <h3 style="margin: 0; font-size: 1rem">macOS</h3>
+                <h3 style="margin: 0">macOS</h3>
               </div>
               <div style="font-size: 0.8rem">
                 <div class="path-container">
@@ -4840,11 +4915,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/usr/local/libexec/licenseware-collector/licenseware-collector</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4888,11 +4964,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/Library/LaunchDaemons/io.licenseware.licenseware-collector.plist</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4936,11 +5013,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/usr/local/etc/licenseware-collector</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -4985,11 +5063,12 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
                     style="
                       font-size: 0.75rem;
                       word-break: break-all;
-                      color: var(--text-primary);
+                      color: var(--text);
                     "
                     >/usr/local/libexec/licenseware-collector/registration.json</code
                   >
                   <button
+                    type="button"
                     class="copy-btn"
                     onclick="copyToClipboard(this)"
                     aria-label="Copy path"
@@ -5130,7 +5209,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>sudo TOKEN=&lt;enrolment-token&gt; licenseware-collector register</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.register">Enrol this machine (or repair an enrolled one)</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5139,7 +5218,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>licenseware-collector status</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.status">Show service and registration state</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5148,7 +5227,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>sudo licenseware-collector set</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.set">List or change settings (restarts the service)</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5157,7 +5236,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>sudo licenseware-collector restart</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.restart">Restart the service</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5166,7 +5245,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>sudo licenseware-collector stop</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.stop">Stop the service</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5175,7 +5254,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>licenseware-collector diagnose</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.diagnose">Write a redacted support zip in the current directory</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5184,7 +5263,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>sudo licenseware-collector update</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.update">Check for and apply an agent update (<code>-c</code> checks only)</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5193,7 +5272,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>sudo licenseware-collector uninstall --force</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.uninstall">Remove the collector</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5202,7 +5281,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>sudo licenseware-collector run-once</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.run-once">Run every query once (for testing)</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5211,7 +5290,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>licenseware-collector system-info</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.system-info">Print this machine's identifiers as JSON</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5220,7 +5299,7 @@ sudo licenseware-collector set NO_PROXY=localhost,127.0.0.1,.internal.corp</code
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
 </span>
 <div><code>licenseware-collector licence</code><br /><small style="color: var(--text-secondary)" data-i18n="quick.cmd.licence">Print the licence agreement and third-party notices</small></div>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </li>
@@ -5268,9 +5347,9 @@ Run <code>status</code> first. It says whether the service is running and when t
 <div style="margin-top: 0.75rem">
 <small style="color: var(--text-secondary)" data-i18n="logs.first.unix">Linux and macOS:</small>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre style="margin: 0; font-size: 0.85rem; white-space: pre-wrap; word-break: break-word;"><code>licenseware-collector status
+<pre><code>licenseware-collector status
 licenseware-collector diagnose</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </div>
@@ -5278,9 +5357,9 @@ licenseware-collector diagnose</code></pre>
 <div style="margin-top: 0.75rem">
 <small style="color: var(--text-secondary)" data-i18n="logs.first.win">Windows (elevated prompt):</small>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre style="margin: 0; font-size: 0.85rem; white-space: pre-wrap; word-break: break-word;"><code>LicensewareCollector status
+<pre><code>LicensewareCollector status
 LicensewareCollector diagnose</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </div>
@@ -5301,6 +5380,7 @@ Below is where to read the collector's logs. It writes them to standard error; t
 The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default is <code>info</code>. Change it with <code>sudo licenseware-collector set LOG_LEVEL=debug</code>; this restarts the service.
 </p>
 
+          <div class="table-wrap" role="region" tabindex="0" aria-label="Log Level">
           <table>
             <thead>
               <tr>
@@ -5337,6 +5417,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
               </tr>
             </tbody>
           </table>
+          </div>
 
           <h3 class="section-title" style="margin-top: 1.5rem">Linux</h3>
 
@@ -5356,6 +5437,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
                 >journalctl -u licenseware-collector -f</code
               >
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -5391,6 +5473,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
                 >journalctl -u licenseware-collector --since "1 hour ago"</code
               >
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -5433,6 +5516,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
                 >tail -f /var/log/licenseware-collector.log</code
               >
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -5468,6 +5552,7 @@ The verbosity is controlled by the <code>LOG_LEVEL</code> setting. The default i
                 >cat /var/log/licenseware-collector.log</code
               >
               <button
+                type="button"
                 class="copy-btn"
                 onclick="copyToClipboard(this)"
                 aria-label="Copy command"
@@ -5502,7 +5587,7 @@ The Windows service writes the collector's own log to the Windows Event Log unde
 <small style="color: var(--text-secondary)" data-i18n="logs.win.install">1. Read the collector's log (the last 50 events):</small>
 <div class="code-block" style="margin-top: 0.5rem">
 <code style="font-size: 0.85rem">Get-WinEvent -ProviderName "licenseware-collector" -MaxEvents 50</code>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </div>
@@ -5511,13 +5596,13 @@ The Windows service writes the collector's own log to the Windows Event Log unde
 <div style="margin-top: 0.75rem">
 <small style="color: var(--text-secondary)" data-i18n="logs.win.scm">2. Pull Service Control Manager events (start, stop, crash, recovery) for the last 24 hours:</small>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre style="margin: 0; font-size: 0.85rem; white-space: pre-wrap; word-break: break-word;"><code>Get-WinEvent -FilterHashtable @{
+<pre><code>Get-WinEvent -FilterHashtable @{
   LogName   = 'System'
   StartTime = (Get-Date).AddDays(-1)
   ProviderName = 'Service Control Manager'
 } | Where-Object { $_.Message -match 'licenseware-collector' } |
   Format-List TimeCreated, Id, LevelDisplayName, Message</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </div>
@@ -5526,12 +5611,12 @@ The Windows service writes the collector's own log to the Windows Event Log unde
 <div style="margin-top: 0.75rem">
 <small style="color: var(--text-secondary)" data-i18n="logs.win.interactive">3. Capture the full application output by stopping the service and running one collection cycle interactively. All logs stream to the console:</small>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre style="margin: 0; font-size: 0.85rem; white-space: pre-wrap; word-break: break-word;"><code>Stop-Service licenseware-collector
+<pre><code>Stop-Service licenseware-collector
 $env:LOG_LEVEL = 'debug'
 LicensewareCollector run-once *&gt;&amp;1 |
   Tee-Object -FilePath "$env:USERPROFILE\licenseware-collector-debug.log"
 Start-Service licenseware-collector</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </div>
@@ -5541,8 +5626,8 @@ Start-Service licenseware-collector</code></pre>
 <div style="margin-top: 0.75rem">
 <small style="color: var(--text-secondary)" data-i18n="logs.win.setuplog">4. If the installer finishes but no service appears, read the installer's own log. It records why enrolment failed and survives the rollback that removes everything else. The enrolment token is never written to it:</small>
 <div class="code-block" style="margin-top: 0.5rem">
-<pre style="margin: 0; font-size: 0.85rem; white-space: pre-wrap; word-break: break-word;"><code>Get-Content C:\ProgramData\Licenseware\setup.log</code></pre>
-<button class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
+<pre><code>Get-Content C:\ProgramData\Licenseware\setup.log</code></pre>
+<button type="button" class="copy-btn" onclick="copyToClipboard(this)" aria-label="Copy command">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 </button>
 </div>
@@ -6115,6 +6200,7 @@ Start-Service licenseware-collector</code></pre>
 
               <h3>Definitions and Interpretation</h3>
 
+              <div class="table-wrap" role="region" tabindex="0" aria-label="Definitions and Interpretation">
               <table>
                 <thead>
                   <tr>
@@ -6264,6 +6350,7 @@ Start-Service licenseware-collector</code></pre>
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </details>
         </section>
@@ -6271,14 +6358,7 @@ Start-Service licenseware-collector</code></pre>
     </div>
 
     <footer role="contentinfo">
-      <div
-        class="container"
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
+      <div class="container">
         <div style="text-align: left">
           <p data-i18n="footer.copyright">
             © 2026 LICENSEWARE®. All rights reserved.
@@ -6307,46 +6387,72 @@ Start-Service licenseware-collector</code></pre>
             src="https://9142296.fs1.hubspotusercontent-na1.net/hubfs/9142296/Logos/Black%20simple.png"
             alt="LICENSEWARE ™"
             class="header-logo"
-            style="opacity: 0.6; max-height: 24px"
             loading="lazy"
           />
         </a>
       </div>
     </footer>
 
+    <div id="copyStatus" class="visually-hidden" aria-live="polite"></div>
+
     <script>
-      // Theme Toggle Logic
-      function toggleTheme() {
-        const checkbox = document.getElementById("themeCheckbox");
-        if (checkbox.checked) {
-          document.body.classList.add("light-mode");
-          document.body.classList.remove("dark-mode");
-        } else {
-          document.body.classList.add("dark-mode");
-          document.body.classList.remove("light-mode");
+      // Theme: Light / Dark / System. The head script already set
+      // html[data-theme] before first paint; this keeps the buttons and the
+      // stored choice in step and follows the OS while on System.
+      const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+      const themeButtons = document.querySelectorAll("[data-theme-value]");
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+
+      function readThemePref() {
+        try {
+          return localStorage.getItem("lc-theme") || "system";
+        } catch (e) {
+          return "system";
         }
       }
 
-      // Initialize theme based on OS preference
-      (function initTheme() {
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        const checkbox = document.getElementById("themeCheckbox");
-        if (prefersDark) {
-          checkbox.checked = false;
-          document.body.classList.add("dark-mode");
-        } else {
-          checkbox.checked = true;
-          document.body.classList.add("light-mode");
+      function applyTheme(pref, animate) {
+        const root = document.documentElement;
+        const dark = pref === "dark" || (pref === "system" && themeMedia.matches);
+        if (animate && !reducedMotion.matches) {
+          root.classList.add("theme-transition");
+          window.setTimeout(() => root.classList.remove("theme-transition"), 200);
         }
-      })();
+        root.setAttribute("data-theme", dark ? "dark" : "light");
+        root.setAttribute("data-theme-pref", pref);
+        themeButtons.forEach((btn) => {
+          btn.setAttribute(
+            "aria-pressed",
+            String(btn.getAttribute("data-theme-value") === pref),
+          );
+        });
+      }
+
+      themeButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const pref = btn.getAttribute("data-theme-value");
+          try {
+            localStorage.setItem("lc-theme", pref);
+          } catch (e) {}
+          applyTheme(pref, true);
+        });
+      });
+
+      themeMedia.addEventListener("change", () => {
+        if (readThemePref() === "system") applyTheme("system", true);
+      });
+
+      applyTheme(readThemePref(), false);
 
       // Language Toggle Logic
       const translations = {
         en: {
           "app.title": "LICENSEWARE Collector",
           "nav.overview": "Overview",
+          "nav.onthispage": "On this page",
+          "copy.done": "Copied",
           "nav.what": "What is it?",
           "nav.compatibility": "OS Compatibility",
           "nav.requirements": "Requirements",
@@ -6386,8 +6492,8 @@ Start-Service licenseware-collector</code></pre>
           "compat.legacy.desc":
             "Windows 7, Windows 8.1, Windows Server 2012 R2 and earlier are not supported. The agent requires Windows 10 or Windows Server 2016 or later.",
           "network.title": "Network Requirements",
-          "network.api_title": "api.licenseware.io <span style=\"font-weight: normal\">or</span> api.us.licenseware.io <span style=\"font-weight: normal\">or</span> api.au.licenseware.io",
-          "network.logs_title": "pushlogs.licenseware.io <span style=\"font-weight: normal\">or</span> pushlogs.us.licenseware.io <span style=\"font-weight: normal\">or</span> pushlogs.au.licenseware.io",
+          "network.api_title": "api.licenseware.io <span style=\"font-weight: 500\">or</span> api.us.licenseware.io <span style=\"font-weight: 500\">or</span> api.au.licenseware.io",
+          "network.logs_title": "pushlogs.licenseware.io <span style=\"font-weight: 500\">or</span> pushlogs.us.licenseware.io <span style=\"font-weight: 500\">or</span> pushlogs.au.licenseware.io",
           "network.api_desc":
             "Data ingestion, enrolment and configuration. Allow the one for your region: <code>api.licenseware.io</code> (EU), <code>api.us.licenseware.io</code> (US) or <code>api.au.licenseware.io</code> (AU). The agent uses the one named in your enrolment token.",
           "network.logs_desc":
@@ -6518,7 +6624,7 @@ Start-Service licenseware-collector</code></pre>
           "mdm.codes.note":
             "These are standard Windows Installer codes. There are no vendor-specific values.",
           "mdm.detect.title": "Detecting a registered agent",
-          "mdm.detect.desc": "The agent records whether the Licenseware backend has acknowledged it. On Windows that state is mirrored into the registry, so Intune and SCCM can use a built-in registry rule — no script. Do not use a file-version or product-code rule: both report success even when the agent is not registered.",
+          "mdm.detect.desc": "The agent records whether the LICENSEWARE backend has acknowledged it. On Windows that state is mirrored into the registry, so Intune and SCCM can use a built-in registry rule — no script. Do not use a file-version or product-code rule: both report success even when the agent is not registered.",
           "mdm.detect.reg.col_setting": "Setting",
           "mdm.detect.reg.col_value": "Value",
           "mdm.detect.reg.type": "Rule type",
@@ -6564,7 +6670,7 @@ Start-Service licenseware-collector</code></pre>
           "install.win.ref.desc": "To enrol or repair a machine by hand, run this in an elevated prompt:",
           "install.win.ref.required": "Required",
           "install.win.ref.flagdesc": "Description",
-          "install.unix.ref.token.desc": "Enrolment token from the Licenseware platform, given at install time. <code>LICENSEWARE_ENROLL_TOKEN</code> is deprecated and prints a warning; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> and <code>--enroll-token</code> are no longer accepted.",
+          "install.unix.ref.token.desc": "Enrolment token from the LICENSEWARE platform, given at install time. <code>LICENSEWARE_ENROLL_TOKEN</code> is deprecated and prints a warning; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> and <code>--enroll-token</code> are no longer accepted.",
           "proxy.setup.title": "Set it at install",
           "proxy.apply.title": "Change it afterwards",
           "proxy.apply.desc": "Use <code>set</code>. It checks the value, stores it and restarts the service.",
@@ -6661,7 +6767,7 @@ Start-Service licenseware-collector</code></pre>
           "install.win.ref.token": "<code>TOKEN</code> is the only token input. The <code>ENROLLTOKEN</code> MSI property is a deprecated alias, and the <code>LICENSEWARE_ENROLL_TOKEN</code> variable is deprecated (read with a warning). <code>ENROLL_TOKEN</code> is no longer read.",
           "install.win.ref.settings": "Proxy, custom CA, auto-update and log level (<code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code>, <code>LOG_LEVEL</code>) are settings, not flags: see <a href=\"#settings\">Settings</a>.",
           "settings.title": "Settings",
-          "settings.desc": "Settings are stored on the machine and win over the Licenseware control plane. Change them with the <code>set</code> command, at install time, or through your MDM profile.",
+          "settings.desc": "Settings are stored on the machine and win over the LICENSEWARE control plane. Change them with the <code>set</code> command, at install time, or through your MDM profile.",
           "settings.table.setting": "Setting",
           "settings.table.desc": "What it does",
           "settings.table.default": "Default",
@@ -6675,7 +6781,7 @@ Start-Service licenseware-collector</code></pre>
           "settings.row.log_level.default": "<code>info</code>",
           "settings.row.autoupdate.desc": "<code>0</code> turns the collector's self-update off on this machine.",
           "settings.row.autoupdate.default": "On",
-          "settings.row.log_ship_enabled.desc": "<code>false</code> stops sending the collector's own log to Licenseware.",
+          "settings.row.log_ship_enabled.desc": "<code>false</code> stops sending the collector's own log to LICENSEWARE.",
           "settings.row.log_ship_enabled.default": "<code>true</code>",
           "settings.where.title": "Where to set them",
           "settings.where.msi": "<strong>Windows MSI:</strong> properties <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code> and <code>LOG_LEVEL</code> on the <code>msiexec</code> command line.",
@@ -6718,6 +6824,8 @@ Start-Service licenseware-collector</code></pre>
         es: {
           "app.title": "LICENSEWARE Collector",
           "nav.overview": "Resumen",
+          "nav.onthispage": "En esta página",
+          "copy.done": "Copiado",
           "nav.what": "¿Qué es?",
           "nav.compatibility": "Compatibilidad",
           "nav.requirements": "Requisitos",
@@ -6757,8 +6865,8 @@ Start-Service licenseware-collector</code></pre>
           "compat.legacy.desc":
             "Windows 7, Windows 8.1, Windows Server 2012 R2 y versiones anteriores no son compatibles. El agente requiere Windows 10 o Windows Server 2016 o posterior.",
           "network.title": "Requisitos de Red",
-          "network.api_title": "api.licenseware.io <span style=\"font-weight: normal\">o</span> api.us.licenseware.io <span style=\"font-weight: normal\">o</span> api.au.licenseware.io",
-          "network.logs_title": "pushlogs.licenseware.io <span style=\"font-weight: normal\">o</span> pushlogs.us.licenseware.io <span style=\"font-weight: normal\">o</span> pushlogs.au.licenseware.io",
+          "network.api_title": "api.licenseware.io <span style=\"font-weight: 500\">o</span> api.us.licenseware.io <span style=\"font-weight: 500\">o</span> api.au.licenseware.io",
+          "network.logs_title": "pushlogs.licenseware.io <span style=\"font-weight: 500\">o</span> pushlogs.us.licenseware.io <span style=\"font-weight: 500\">o</span> pushlogs.au.licenseware.io",
           "network.api_desc":
             "Ingesta de datos, inscripción y configuración. Permita el de su región: <code>api.licenseware.io</code> (UE), <code>api.us.licenseware.io</code> (EE. UU.) o <code>api.au.licenseware.io</code> (AU). El agente usa el que indica su token de inscripción.",
           "network.logs_desc":
@@ -6890,7 +6998,7 @@ Start-Service licenseware-collector</code></pre>
           "mdm.codes.note":
             "Son códigos estándar de Windows Installer. No hay valores específicos del proveedor.",
           "mdm.detect.title": "Detectar un agente registrado",
-          "mdm.detect.desc": "El agente registra si el backend de Licenseware lo ha reconocido. En Windows ese estado se replica en el registro, de modo que Intune y SCCM pueden usar una regla de registro integrada, sin script. No use una regla por versión de archivo ni por código de producto: ambas informan éxito incluso cuando el agente no está registrado.",
+          "mdm.detect.desc": "El agente registra si el backend de LICENSEWARE lo ha reconocido. En Windows ese estado se replica en el registro, de modo que Intune y SCCM pueden usar una regla de registro integrada, sin script. No use una regla por versión de archivo ni por código de producto: ambas informan éxito incluso cuando el agente no está registrado.",
           "mdm.detect.reg.col_setting": "Ajuste",
           "mdm.detect.reg.col_value": "Valor",
           "mdm.detect.reg.type": "Tipo de regla",
@@ -6936,7 +7044,7 @@ Start-Service licenseware-collector</code></pre>
           "install.win.ref.desc": "Para inscribir o reparar un equipo manualmente, ejecute esto en un símbolo del sistema con privilegios elevados:",
           "install.win.ref.required": "Requerido",
           "install.win.ref.flagdesc": "Descripción",
-          "install.unix.ref.token.desc": "Token de inscripción de la plataforma Licenseware, indicado al instalar. <code>LICENSEWARE_ENROLL_TOKEN</code> está obsoleto y muestra una advertencia; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> y <code>--enroll-token</code> ya no se aceptan.",
+          "install.unix.ref.token.desc": "Token de inscripción de la plataforma LICENSEWARE, indicado al instalar. <code>LICENSEWARE_ENROLL_TOKEN</code> está obsoleto y muestra una advertencia; <code>LICENSEWARE_TOKEN</code>, <code>ENROLL_TOKEN</code> y <code>--enroll-token</code> ya no se aceptan.",
           "proxy.setup.title": "Configurarlo al instalar",
           "proxy.apply.title": "Cambiarlo después",
           "proxy.apply.desc": "Use <code>set</code>. Comprueba el valor, lo guarda y reinicia el servicio.",
@@ -7035,7 +7143,7 @@ Start-Service licenseware-collector</code></pre>
           "install.win.ref.token": "<code>TOKEN</code> es la única entrada de token. La propiedad MSI <code>ENROLLTOKEN</code> es un alias obsoleto, y la variable <code>LICENSEWARE_ENROLL_TOKEN</code> está obsoleta (se lee con una advertencia). <code>ENROLL_TOKEN</code> ya no se lee.",
           "install.win.ref.settings": "El proxy, la CA personalizada, la actualización automática y el nivel de registro (<code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code>, <code>LOG_LEVEL</code>) son ajustes, no flags: vea <a href=\"#settings\">Ajustes</a>.",
           "settings.title": "Ajustes",
-          "settings.desc": "Los ajustes se guardan en la propia máquina y tienen prioridad sobre el plano de control de Licenseware. Cámbielos con el comando <code>set</code>, al instalar o mediante su perfil MDM.",
+          "settings.desc": "Los ajustes se guardan en la propia máquina y tienen prioridad sobre el plano de control de LICENSEWARE. Cámbielos con el comando <code>set</code>, al instalar o mediante su perfil MDM.",
           "settings.table.setting": "Ajuste",
           "settings.table.desc": "Qué hace",
           "settings.table.default": "Valor por defecto",
@@ -7049,7 +7157,7 @@ Start-Service licenseware-collector</code></pre>
           "settings.row.log_level.default": "<code>info</code>",
           "settings.row.autoupdate.desc": "<code>0</code> desactiva la actualización automática del colector en esta máquina.",
           "settings.row.autoupdate.default": "Activada",
-          "settings.row.log_ship_enabled.desc": "<code>false</code> deja de enviar el propio log del colector a Licenseware.",
+          "settings.row.log_ship_enabled.desc": "<code>false</code> deja de enviar el propio log del colector a LICENSEWARE.",
           "settings.row.log_ship_enabled.default": "<code>true</code>",
           "settings.where.title": "Dónde configurarlos",
           "settings.where.msi": "<strong>MSI de Windows:</strong> propiedades <code>PROXY</code>, <code>NO_PROXY</code>, <code>CA_CERT</code>, <code>AUTOUPDATE</code> y <code>LOG_LEVEL</code> en la línea de comandos de <code>msiexec</code>.",
@@ -7120,75 +7228,118 @@ Start-Service licenseware-collector</code></pre>
             el.innerHTML = translations[currentLang][key];
           }
         });
+        scrollSpy();
       }
 
       function copyToClipboard(btn) {
-        // Find the code element sibling
         const parent = btn.parentElement;
         const codeElement =
           parent.querySelector("code") ||
           parent.parentElement.querySelector("code");
+        if (!codeElement) return;
 
-        if (codeElement) {
-          const textToCopy = codeElement.innerText;
-          navigator.clipboard
-            .writeText(textToCopy)
-            .then(() => {
-              // Visual feedback - swap SVG
-              const originalHTML = btn.innerHTML;
-              btn.innerHTML =
-                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-              btn.style.color = "var(--success)";
-
-              setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.style.color = "";
-              }, 2000);
-            })
-            .catch((err) => {
-              console.error("Failed to copy: ", err);
-            });
-        }
+        navigator.clipboard
+          .writeText(codeElement.innerText)
+          .then(() => {
+            const originalHTML = btn.innerHTML;
+            const status = document.getElementById("copyStatus");
+            btn.innerHTML =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            btn.classList.add("is-copied");
+            if (status) {
+              status.textContent = "";
+              window.setTimeout(() => {
+                status.textContent =
+                  translations[currentLang]["copy.done"] || "Copied";
+              }, 50);
+            }
+            window.setTimeout(() => {
+              btn.innerHTML = originalHTML;
+              btn.classList.remove("is-copied");
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error("Failed to copy: ", err);
+          });
       }
 
-      // Scroll Spy Logic
-      const sections = document.querySelectorAll("section");
+      // Below 1024px the sidebar is replaced by a sticky "On this page"
+      // drawer holding the same links.
+      const sidebarList = document.querySelector(".sidebar .sidebar-nav");
+      const tocMobile = document.getElementById("tocMobile");
+      const tocMobileCurrent = document.getElementById("tocMobileCurrent");
+      if (sidebarList && tocMobile) {
+        tocMobile
+          .querySelector(".toc-mobile-panel")
+          .appendChild(sidebarList.cloneNode(true));
+        tocMobile.addEventListener("click", (event) => {
+          if (event.target.closest("a")) tocMobile.open = false;
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && tocMobile.open) {
+            tocMobile.open = false;
+            tocMobile.querySelector("summary").focus();
+          }
+        });
+        document.addEventListener("click", (event) => {
+          if (tocMobile.open && !tocMobile.contains(event.target)) {
+            tocMobile.open = false;
+          }
+        });
+      }
+
+      // Scroll spy: the last section whose top has passed the offset line.
       const navLinks = document.querySelectorAll(".sidebar-nav a");
+      const spyTargets = [
+        ...new Set([...navLinks].map((link) => link.getAttribute("href"))),
+      ]
+        .map((href) => document.getElementById(href.slice(1)))
+        .filter(Boolean);
 
       function scrollSpy() {
-        let current = "";
-        const scrollPosition = window.scrollY + 100; // Offset for sticky header
-
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-
-          if (
-            scrollPosition >= sectionTop &&
-            scrollPosition < sectionTop + sectionHeight
-          ) {
-            current = section.getAttribute("id");
-          }
+        const line =
+          parseFloat(
+            getComputedStyle(document.documentElement).scrollPaddingTop,
+          ) + 16;
+        let current = spyTargets[0];
+        spyTargets.forEach((target) => {
+          if (target.getBoundingClientRect().top <= line) current = target;
         });
-
-        // Fallback for bottom of page
         if (
           window.innerHeight + window.scrollY >=
-          document.body.offsetHeight - 50
+          document.documentElement.scrollHeight - 4
         ) {
-          const lastSection = sections[sections.length - 1];
-          if (lastSection) current = lastSection.getAttribute("id");
+          current = spyTargets[spyTargets.length - 1];
         }
-
+        const id = current ? `#${current.id}` : "";
+        let label = "";
         navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
+          const active = link.getAttribute("href") === id;
+          link.classList.toggle("active", active);
+          if (active) {
+            link.setAttribute("aria-current", "location");
+            label = link.textContent.trim();
+          } else {
+            link.removeAttribute("aria-current");
           }
         });
+        if (tocMobileCurrent) tocMobileCurrent.textContent = label;
       }
 
-      window.addEventListener("scroll", scrollSpy);
+      let spyQueued = false;
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (spyQueued) return;
+          spyQueued = true;
+          window.requestAnimationFrame(() => {
+            spyQueued = false;
+            scrollSpy();
+          });
+        },
+        { passive: true },
+      );
+      window.addEventListener("resize", scrollSpy);
       window.addEventListener("load", scrollSpy); // Check on load
       window.addEventListener("load", openLicenceOnAnchor); // Deep link to the agreement
     </script>
