@@ -123,7 +123,13 @@
         --header-offset: calc(var(--header-h) + 16px);
         --header-bg: rgba(16, 16, 16, 0.88);
         --brand-logo-filter: none;
-        --theme-pill: 50px;
+        --cg-glow-o: 1;
+        --cg-link-o: 0.45;
+        --cg-sphere: rgba(14, 22, 20, 0.82);
+        --cg-grid: #d2d8e4;
+        --cg-grid-f: 0.16;
+        --cg-grid-b: 0.05;
+        --cg-shell-o: 1;
         --table-head-bg: #373737;
         --table-head-line: #515151;
         --table-row: #1d1d1d;
@@ -158,6 +164,13 @@
         --logo-filter: none;
         --header-bg: rgba(229, 229, 229, 0.88);
         --brand-logo-filter: invert(1);
+        --cg-glow-o: 0.66;
+        --cg-link-o: 0.4;
+        --cg-sphere: rgba(255, 255, 255, 0.7);
+        --cg-grid: #ababab;
+        --cg-grid-f: 0.85;
+        --cg-grid-b: 0.3;
+        --cg-shell-o: 0.4;
         --table-head-bg: #ffffff;
         --table-head-line: #bbbbbb;
         --table-row: #efefef;
@@ -193,6 +206,13 @@
           --logo-filter: none;
           --header-bg: rgba(229, 229, 229, 0.88);
           --brand-logo-filter: invert(1);
+          --cg-glow-o: 0.66;
+          --cg-link-o: 0.4;
+          --cg-sphere: rgba(255, 255, 255, 0.7);
+          --cg-grid: #ababab;
+          --cg-grid-f: 0.85;
+          --cg-grid-b: 0.3;
+          --cg-shell-o: 0.4;
           --table-head-bg: #ffffff;
           --table-head-line: #bbbbbb;
           --table-row: #efefef;
@@ -374,14 +394,16 @@
         min-height: 40px;
         font-size: 12px;
         font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
+        letter-spacing: 0.5px;
         color: var(--text);
         text-decoration: none;
         border-radius: 4px;
       }
 
-      .site-nav-links a:hover,
+      .site-nav-links a:hover {
+        color: var(--text);
+      }
+
       .site-nav-links a.is-active {
         color: var(--accent-text);
       }
@@ -428,6 +450,57 @@
         display: block;
       }
 
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .theme-trigger {
+        width: 40px;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .theme-trigger svg {
+        display: none;
+      }
+
+      :root:not([data-theme-pref]) .theme-trigger [data-icon="system"],
+      :root[data-theme-pref="system"] .theme-trigger [data-icon="system"],
+      :root[data-theme-pref="light"] .theme-trigger [data-icon="light"],
+      :root[data-theme-pref="dark"] .theme-trigger [data-icon="dark"] {
+        display: block;
+      }
+
+      .menu-item-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      @media (min-width: 1024px) {
+        .site-nav {
+          display: contents;
+        }
+
+        .site-nav-links {
+          order: 1;
+        }
+
+        .site-nav .lang-menu {
+          order: 2;
+        }
+
+        .theme-menu {
+          order: 3;
+        }
+
+        .site-nav .btn-signin {
+          order: 4;
+        }
+      }
+
       /* Language: the website's text menu */
       .lang-menu {
         position: relative;
@@ -446,6 +519,7 @@
         font-family: var(--font);
         font-size: 12px;
         font-weight: 700;
+        letter-spacing: 0.5px;
         cursor: pointer;
       }
 
@@ -519,49 +593,6 @@
         visibility: visible;
       }
 
-      /* Theme: the app's floating control, bottom right */
-      .theme-switcher {
-        position: fixed;
-        right: 24px;
-        bottom: 24px;
-        z-index: 90;
-        display: inline-flex;
-        gap: 4px;
-        padding: 4px;
-        background: var(--surface);
-        border: 1px solid var(--line-strong);
-        border-radius: var(--radius-md);
-        box-shadow: var(--popover-shadow);
-      }
-
-      .theme-switcher button {
-        width: 40px;
-        height: 40px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border: 0;
-        border-radius: var(--radius-sm);
-        background: transparent;
-        color: var(--text-secondary);
-        cursor: pointer;
-      }
-
-      .theme-switcher button:hover {
-        background: var(--surface-chip);
-        color: var(--text);
-      }
-
-      .theme-switcher button[aria-pressed="true"] {
-        background: var(--accent);
-        color: #ffffff;
-      }
-
-      .theme-switcher svg {
-        width: 18px;
-        height: 18px;
-      }
-
       /* --- Layout --- */
       .main-layout {
         display: grid;
@@ -597,36 +628,6 @@
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--line-strong) transparent;
-      }
-
-      .sidebar-foot {
-        flex: none;
-        display: flex;
-        justify-content: center;
-        margin: 12px -12px -4px;
-        padding: 12px 12px 0;
-        border-top: 1px solid var(--line);
-      }
-
-      .sidebar-foot:empty {
-        display: none;
-      }
-
-      .sidebar-foot .theme-switcher {
-        position: static;
-        box-shadow: none;
-      }
-
-      .theme-switcher {
-        transition:
-          transform 200ms ease,
-          opacity 200ms ease;
-      }
-
-      .theme-switcher.is-tucked {
-        transform: translateY(calc(100% + 24px));
-        opacity: 0;
-        pointer-events: none;
       }
 
       .sidebar-nav a {
@@ -1596,7 +1597,7 @@
 
       .hero-grid {
         display: grid;
-        grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 48px;
         align-items: start;
       }
@@ -1651,65 +1652,137 @@
 
       .hero-visual {
         position: relative;
-        width: min(420px, 100%);
+        width: min(520px, 100%);
         aspect-ratio: 1;
         justify-self: center;
+        align-self: center;
       }
 
-      .hero-glow {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          ellipse farthest-side,
-          color-mix(in srgb, var(--accent) 18%, transparent),
-          transparent
-        );
-      }
-
-      .hero-rings {
-        position: absolute;
-        inset: 0;
+      .cg {
+        display: block;
         width: 100%;
         height: 100%;
+        overflow: visible;
+      }
+
+      .cg-glow {
+        opacity: var(--cg-glow-o);
+      }
+
+      .cg-orbit {
         fill: none;
-      }
-
-      .hero-rings .ring {
-        stroke: var(--line);
+        stroke: var(--accent-text);
+        stroke-opacity: 0.35;
         stroke-width: 1;
+        stroke-dasharray: 1 7;
+        stroke-linecap: round;
+        vector-effect: non-scaling-stroke;
       }
 
-      .hero-rings .ring-strong {
+      .cg-link {
+        fill: none;
+        stroke: var(--accent);
+        stroke-opacity: var(--cg-link-o);
+        stroke-width: 1;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .cg-pulse {
+        fill: var(--bright);
+      }
+
+      .cg-sphere {
+        fill: var(--cg-sphere);
+      }
+
+      .cg-grid {
+        fill: none;
+        stroke: var(--cg-grid);
+        stroke-width: 0.8;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .cg-grid-f {
+        stroke-opacity: var(--cg-grid-f);
+      }
+
+      .cg-grid-b {
+        stroke-opacity: var(--cg-grid-b);
+      }
+
+      .cg-shell {
+        opacity: var(--cg-shell-o);
+      }
+
+      .cg-rim {
+        fill: none;
+        stroke: var(--cg-grid);
+        stroke-opacity: 0.3;
+        stroke-width: 1;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .cg-tile {
+        fill: var(--surface);
         stroke: var(--line-strong);
         stroke-width: 1;
+        vector-effect: non-scaling-stroke;
       }
 
-      .hero-rings .ring-dots circle {
-        fill: var(--accent-text);
+      .cg-glyph * {
+        fill: none;
+        stroke: var(--text);
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
       }
 
-      .hero-icon {
+      .cg-badge {
+        fill: var(--surface-raised);
+        stroke: var(--line-strong);
+        stroke-width: 1;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .cg-mark {
+        fill: var(--text);
+      }
+
+      .cg-platform {
         position: absolute;
         left: 50%;
-        top: 50%;
-        width: 120px;
-        height: 120px;
-        transform: translate(-50%, -50%);
-        border-radius: var(--radius-lg);
+        top: 13%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        transform: translate(-50%, calc(-100% + 20px));
       }
 
-      .hero-tile {
-        position: absolute;
+      .cg-platform-label {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text-secondary);
+        white-space: nowrap;
+      }
+
+      .cg-platform-tile {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 40px;
         height: 40px;
-        transform: translate(-50%, -50%);
         background: var(--surface);
-        border: 1px solid var(--line);
+        border: 1px solid var(--line-strong);
         border-radius: var(--radius-md);
-        color: var(--text);
+      }
+
+      .cg-platform-tile svg {
+        width: 22px;
+        height: auto;
+        filter: var(--brand-logo-filter);
       }
 
       .hero-stats {
@@ -1755,7 +1828,12 @@
         text-transform: uppercase;
       }
 
+      .card-header-chip {
+        margin-left: auto;
+      }
+
       .version-chip strong {
+        text-transform: none;
         color: var(--text);
         font-family: var(--mono);
         letter-spacing: 0;
@@ -2008,9 +2086,6 @@
           grid-template-columns: minmax(0, 1fr);
         }
 
-        .site-footer {
-          padding-bottom: calc(var(--theme-pill) + 16px + 24px);
-        }
       }
 
       @media (max-width: 640px) {
@@ -2029,15 +2104,6 @@
 
         .os-box {
           padding: 16px;
-        }
-
-        .theme-switcher {
-          right: 16px;
-          bottom: 16px;
-        }
-
-        .site-footer {
-          padding-bottom: calc(var(--theme-pill) + 16px + 16px);
         }
 
         .demo-frame {
@@ -2154,11 +2220,6 @@
       }
 
       @media (pointer: coarse) {
-        :root {
-          --theme-pill: 58px;
-        }
-
-        .theme-switcher button,
         .copy-btn {
           width: 44px;
           height: 44px;
@@ -2187,6 +2248,10 @@
       @media (max-width: 1023px) {
         .menu-toggle {
           display: inline-flex;
+        }
+
+        .header-right {
+          gap: 8px;
         }
 
         .site-nav {
@@ -2249,7 +2314,7 @@
         }
 
         .hero-visual {
-          width: 300px;
+          width: 320px;
         }
 
         .footer-grid {
@@ -2281,12 +2346,20 @@
         }
 
         .hero-visual {
-          width: 240px;
+          width: 280px;
         }
 
-        .hero-icon {
-          width: 88px;
-          height: 88px;
+        .cg-platform {
+          transform: translate(-50%, calc(-100% + 16px));
+        }
+
+        .cg-platform-tile {
+          width: 32px;
+          height: 32px;
+        }
+
+        .cg-platform-tile svg {
+          width: 18px;
         }
 
         .hero + .main-layout {
@@ -2301,11 +2374,6 @@
         }
       }
 
-      @media (max-width: 374px) {
-        .hero-visual {
-          display: none;
-        }
-      }
     </style>
 
     <script async src="/posthog.js"></script>
@@ -2320,36 +2388,48 @@
           <span class="brand-divider" aria-hidden="true"></span>
           <span class="brand-product">Collector</span>
         </div>
-        <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu" data-i18n-aria="hdr.menu">
-          <svg class="icon-open" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
-          <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg>
-        </button>
-        <nav class="site-nav" id="siteNav" aria-label="Main">
-          <ul class="site-nav-links" role="list">
-              <li><a href="#downloads" data-i18n="nav.h.downloads">Downloads</a></li>
-              <li><a href="#installation" data-i18n="nav.h.install">Installation</a></li>
-              <li><a href="#settings" data-i18n="nav.h.settings">Settings</a></li>
-              <li><a href="#catalogs" data-i18n="nav.h.catalogs">Data collection</a></li>
-              <li><a href="#commands" data-i18n="nav.h.commands">Commands</a></li>
-          </ul>
-            <div class="lang-menu" id="langMenu">
-              <button type="button" class="lang-trigger" id="langButton" aria-haspopup="menu" aria-expanded="false" aria-controls="langList">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="visually-hidden">Language: </span><span id="langCode">EN</span><svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+        <div class="header-right">
+          <nav class="site-nav" id="siteNav" aria-label="Main">
+            <ul class="site-nav-links" role="list">
+                <li><a href="#downloads" data-i18n="nav.h.downloads">Downloads</a></li>
+                <li><a href="#installation" data-i18n="nav.h.install">Installation</a></li>
+                <li><a href="#settings" data-i18n="nav.h.settings">Settings</a></li>
+                <li><a href="#catalogs" data-i18n="nav.h.catalogs">Data collection</a></li>
+                <li><a href="#commands" data-i18n="nav.h.commands">Commands</a></li>
+            </ul>
+              <div class="lang-menu" id="langMenu">
+                <button type="button" class="lang-trigger" id="langButton" aria-haspopup="menu" aria-expanded="false" aria-controls="langList">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="visually-hidden">Language: </span><span id="langCode">EN</span><svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <ul class="lang-list" id="langList" role="menu" aria-labelledby="langButton" hidden>
+                  <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en" aria-current="true"><span>English</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+                  <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es"><span>Español</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+                </ul>
+              </div>
+            <a class="btn btn-signin" href="https://app.licenseware.io/" target="_blank" rel="noopener noreferrer"><span data-i18n="hdr.signin">Sign in</span></a>
+          </nav>
+            <div class="lang-menu theme-menu" id="themeMenu">
+              <button type="button" class="lang-trigger theme-trigger" id="themeButton" aria-haspopup="menu" aria-expanded="false" aria-controls="themeList" aria-label="Theme: System">
+                <svg data-icon="light" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg><svg data-icon="dark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg data-icon="system" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
               </button>
-              <ul class="lang-list" id="langList" role="menu" aria-labelledby="langButton" hidden>
-                <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en" aria-current="true"><span>English</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
-                <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es"><span>Español</span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+              <ul class="lang-list" id="themeList" role="menu" aria-labelledby="themeButton" hidden>
+                <li role="none"><button type="button" role="menuitem" data-theme-value="light"><span class="menu-item-main"><svg data-icon="light" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg><span data-i18n="theme.light">Light</span></span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+                <li role="none"><button type="button" role="menuitem" data-theme-value="dark"><span class="menu-item-main"><svg data-icon="dark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><span data-i18n="theme.dark">Dark</span></span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
+                <li role="none"><button type="button" role="menuitem" data-theme-value="system"><span class="menu-item-main"><svg data-icon="system" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg><span data-i18n="theme.system">System</span></span><svg class="lang-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></button></li>
               </ul>
             </div>
-          <a class="btn btn-signin" href="https://app.licenseware.io/" target="_blank" rel="noopener noreferrer"><span data-i18n="hdr.signin">Sign in</span></a>
-        </nav>
+          <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu" data-i18n-aria="hdr.menu">
+            <svg class="icon-open" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+            <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+          </button>
+        </div>
       </div>
     </header>
 
     <section class="hero" id="overview" aria-labelledby="hero-title">
       <div class="hero-grid">
         <div class="hero-text">
-          <p class="eyebrow" data-i18n="intro.eyebrow">Software inventory agent</p>
+          <p class="eyebrow" data-i18n="intro.eyebrow">IT Asset Inventory Agent</p>
           <h1 class="hero-title" id="hero-title" data-i18n="app.title">LICENSEWARE Collector</h1>
           <h2 id="overview-title" class="visually-hidden" data-i18n="overview.title">What is LICENSEWARE Collector?</h2>
           <p class="lede" data-i18n="overview.desc">A <strong>free</strong> lightweight agent that collects system and software inventory data from your servers and securely transmits it to the LICENSEWARE™ platform for software license compliance analysis.</p>
@@ -2357,22 +2437,34 @@
             <a class="btn btn-primary" href="#downloads"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span data-i18n="intro.download">Download</span></a>
             <a class="btn btn-secondary" href="#installation"><span data-i18n="intro.guide">Installation guide</span></a>
           </div>
-          <div class="hero-meta">
-            <span class="version-chip"><span data-i18n="intro.version">Current release</span> <strong>0.17.0</strong></span>
-          </div>
         </div>
-        <div class="hero-visual" aria-hidden="true">
-          <div class="hero-glow"></div>
-          <svg class="hero-rings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" focusable="false">
-            <circle class="ring-strong" cx="210" cy="210" r="180" />
-            <circle class="ring" cx="210" cy="210" r="130" />
-            <circle class="ring" cx="210" cy="210" r="84" />
-            <g class="ring-dots"><circle cx="379.1" cy="271.6" r="3.5" /><circle cx="94.3" cy="347.9" r="3.5" /><circle cx="210.0" cy="30.0" r="3.5" /><circle cx="87.8" cy="254.5" r="3.5" /><circle cx="254.5" cy="87.8" r="3.5" /><circle cx="269.4" cy="269.4" r="3.5" /></g>
+        <div class="hero-visual" role="img" aria-label="The Collector gathers inventory from servers, laptops and cloud machines and sends it to the LICENSEWARE platform" data-i18n-aria="hero.visual">
+          <svg class="cg" id="collectorGraphic" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <defs>
+              <radialGradient id="cgGlow"><stop offset="0" stop-color="#1b7a5a" stop-opacity=".32"/><stop offset=".5" stop-color="#1b7a5a" stop-opacity=".1"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgCore"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".5"/><stop offset=".55" stop-color="#228b22" stop-opacity=".22"/><stop offset="1" stop-color="#228b22" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgShell" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset=".6" stop-color="#fff" stop-opacity=".01"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></radialGradient>
+            </defs>
+            <circle class="cg-glow" cx="260" cy="290" r="250" fill="url(#cgGlow)"/>
+            <path class="cg-orbit" d="M48 290A212 86.4 0 0 1 472 290"/>
+            <g id="cgBack"><g class="cg-dev" data-i="2" transform="translate(76.4 246.8) scale(0.812)" opacity="0.62"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="3" y="3.5" width="18" height="17" rx="2"/><path d="M3 7.5h18"/><rect x="7" y="10.5" width="10" height="6.5" rx="1" stroke-dasharray="2 2"/></g></g><g class="cg-dev" data-i="3" transform="translate(260 203.6) scale(0.750)" opacity="0.50"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M9 15.5h6"/></g></g><g class="cg-dev" data-i="4" transform="translate(443.6 246.8) scale(0.812)" opacity="0.62"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="4" y="3.5" width="16" height="7" rx="1.5"/><rect x="4" y="13.5" width="16" height="7" rx="1.5"/><path d="M7.5 7h.01M7.5 17h.01M11 7h5.5M11 17h5.5"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 88 88"><path class="cg-mark" d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg></g></g></g>
+            <path class="cg-link" id="cgLinks" d="M260 376.4L260 290M76.4 333.2L260 290M76.4 246.8L260 290M260 203.6L260 290M443.6 246.8L260 290M443.6 333.2L260 290"/>
+            <path class="cg-link cg-link-up" d="M260 182L260 67.6"/>
+            <g id="cgPulses"><circle class="cg-pulse" r="3.5" cx="260" cy="363.5" opacity="0.45"/><circle class="cg-pulse" r="3.5" cx="164.5" cy="312.5" opacity="0.84"/><circle class="cg-pulse" r="3.5" cx="225.1" cy="281.8" opacity="0.29"/><circle class="cg-pulse" r="3.5" cx="260" cy="229.5" opacity="0.28"/><circle class="cg-pulse" r="3.5" cx="327.9" cy="274" opacity="0.47"/><circle class="cg-pulse" r="3.5" cx="267.3" cy="291.7" opacity="0.10"/><circle class="cg-pulse" id="cgUp" r="3.5" cx="260" cy="124.8" opacity="1.00"/></g>
+            <circle class="cg-sphere" cx="260" cy="290" r="108"/>
+            <path class="cg-grid cg-grid-b" id="cgGridB" d="M314 375.4L312.2 381.1L306.8 386.4L298.2 391M221.8 391L213.2 386.4L207.8 381.1L206 375.4L207.8 369.7L213.2 364.4L221.8 359.8L233 356.3L246 354.1L260 353.4L274 354.1L287 356.3L298.2 359.8L306.8 364.4L312.2 369.7L314 375.4M353.5 339.3L350.3 349.2M169.7 349.2L166.5 339.3L169.7 329.4L179 320.2L193.9 312.3L213.2 306.3L235.8 302.5L260 301.2L284.2 302.5L306.8 306.3L326.1 312.3L341 320.2L350.3 329.4L353.5 339.3M152 290L155.7 278.6L166.5 268L183.6 258.9L206 251.9L232 247.5L260 246L288 247.5L314 251.9L336.4 258.9L353.5 268L364.3 278.6L368 290M169.7 230.8L179 221.6L193.9 213.7L213.2 207.7L235.8 203.9L260 202.6L284.2 203.9L306.8 207.7L326.1 213.7L341 221.6L350.3 230.8M221.8 189L233 185.5L246 183.3L260 182.6L274 183.3L287 185.5L298.2 189M152 290L155.7 315.5L166.5 339.3L183.6 359.7L206 375.4L232 385.3L260 388.6L288 385.3L314 375.4L336.4 359.7L353.5 339.3L364.3 315.5L368 290M193.9 204.7L179 221.6L169.7 243.2L166.5 268L169.7 294.3L179 320.2L193.9 344.2L213.2 364.4L235.8 379.6L260 388.6L284.2 391L306.8 386.4L326.1 375.3M233 185.5L221.8 193.3L213.2 207.7L207.8 227.6L206 251.9L207.8 278.7L213.2 306.3L221.8 332.8L233 356.3L246 375.4L260 388.6L274 395.1L287 394.5M260 182.6L260 189.1L260 202.6L260 221.9L260 246L260 273L260 301.2L260 328.6L260 353.4L260 373.9L260 388.6L260 396.7L260 397.4M287 185.5L298.2 193.3L306.8 207.7L312.2 227.6L314 251.9L312.2 278.7L306.8 306.3L298.2 332.8L287 356.3L274 375.4L260 388.6L246 395.1L233 394.5M326.1 204.7L341 221.6L350.3 243.2L353.5 268L350.3 294.3L341 320.2L326.1 344.2L306.8 364.4L284.2 379.6L260 388.6L235.8 391L213.2 386.4L193.9 375.3"/>
+            <circle cx="260" cy="290" r="108" fill="url(#cgCore)"/>
+            <path class="cg-grid cg-grid-f" id="cgGridF" d="M298.2 391L287 394.5L274 396.7L260 397.4L246 396.7L233 394.5L221.8 391M350.3 349.2L341 358.4L326.1 366.3L306.8 372.3L284.2 376.1L260 377.4L235.8 376.1L213.2 372.3L193.9 366.3L179 358.4L169.7 349.2M368 290L364.3 301.4L353.5 312L336.4 321.1L314 328.1L288 332.5L260 334L232 332.5L206 328.1L183.6 321.1L166.5 312L155.7 301.4L152 290M353.5 240.7L350.3 250.6L341 259.8L326.1 267.7L306.8 273.7L284.2 277.5L260 278.8L235.8 277.5L213.2 273.7L193.9 267.7L179 259.8L169.7 250.6L166.5 240.7L169.7 230.8M350.3 230.8L353.5 240.7M314 204.6L312.2 210.3L306.8 215.6L298.2 220.2L287 223.7L274 225.9L260 226.6L246 225.9L233 223.7L221.8 220.2L213.2 215.6L207.8 210.3L206 204.6L207.8 198.9L213.2 193.6L221.8 189M298.2 189L306.8 193.6L312.2 198.9L314 204.6M368 290L364.3 264.5L353.5 240.7L336.4 220.3L314 204.6L288 194.7L260 191.4L232 194.7L206 204.6L183.6 220.3L166.5 240.7L155.7 264.5L152 290M353.5 312L350.3 285.7L341 259.8L326.1 235.8L306.8 215.6L284.2 200.4L260 191.4L235.8 189L213.2 193.6L193.9 204.7M326.1 375.3L341 358.4L350.3 336.8L353.5 312M314 328.1L312.2 301.3L306.8 273.7L298.2 247.2L287 223.7L274 204.6L260 191.4L246 184.9L233 185.5M287 394.5L298.2 386.7L306.8 372.3L312.2 352.4L314 328.1M260 334L260 307L260 278.8L260 251.4L260 226.6L260 206.1L260 191.4L260 183.3L260 182.6M260 397.4L260 390.9L260 377.4L260 358.1L260 334M206 328.1L207.8 301.3L213.2 273.7L221.8 247.2L233 223.7L246 204.6L260 191.4L274 184.9L287 185.5M233 394.5L221.8 386.7L213.2 372.3L207.8 352.4L206 328.1M166.5 312L169.7 285.7L179 259.8L193.9 235.8L213.2 215.6L235.8 200.4L260 191.4L284.2 189L306.8 193.6L326.1 204.7M193.9 375.3L179 358.4L169.7 336.8L166.5 312"/>
+            <circle class="cg-shell" cx="260" cy="290" r="108" fill="url(#cgShell)"/>
+            <circle class="cg-rim" cx="260" cy="290" r="108"/>
+            <svg x="192" y="222" width="136" height="136" viewBox="0 0 70 70"><g transform="translate(-651 -369)"><rect width="70" height="70" rx="6" style="fill: rgb(0, 191, 165);" transform="translate(651 369)"/><g><path d="M246.243 61.115h-2.36v8.4h5.832v-1.941h-3.471z" transform="translate(434.933 355.908)" style="fill:#fff"/><path d="M245.52 4635.469a4.538 4.538 0 0 1-2.239-.525 3.625 3.625 0 0 1-1.46-1.478 4.612 4.612 0 0 1-.513-2.222 4.538 4.538 0 0 1 .513-2.2 3.632 3.632 0 0 1 1.46-1.473 4.548 4.548 0 0 1 2.239-.523 5.033 5.033 0 0 1 1.564.243 3.291 3.291 0 0 1 1.218.657l-.658 1.535a4.008 4.008 0 0 0-1.039-.553 3.179 3.179 0 0 0-1.039-.174 1.9 1.9 0 0 0-1.518.623 2.8 2.8 0 0 0-.537 1.869 2.853 2.853 0 0 0 .537 1.882 1.882 1.882 0 0 0 1.518.635 3.218 3.218 0 0 0 1.039-.174 4.071 4.071 0 0 0 1.039-.554l.658 1.535a3.327 3.327 0 0 1-1.218.657 5.107 5.107 0 0 1-1.564.24z" transform="translate(444.937 -4210.022)" style="fill:#fff"/><g><path d="M0 19.73 2.6 2.7.132 0z" transform="rotate(-115 464.357 -11.65)" style="stroke-miterlimit:10;fill:#fff"/><path d="M7.549 19.489 7.7 0 0 4.5zM7.2 17.953.475 4.642 7.339.629z" transform="rotate(-115 468.414 -8.987)" style="stroke-miterlimit:10;fill:#fff"/><path d="m0 16.084 5.95 7.59L20.4 0zm5.913 6.961L.5 16.144l18.553-14.62z" transform="rotate(-157.97 386.048 135.591)" style="stroke-miterlimit:10;fill:#fff"/><path d="M0 24.359 5.214 10.99 1.493 0z" transform="rotate(-130.02 430.426 42.112)" style="stroke-miterlimit:10;fill:#fff"/><path d="M0 18.833 2.478 2.575.126 0z" transform="rotate(65 33.406 749.157)" style="stroke-miterlimit:10;fill:#fff"/><path d="M7.206 18.6 7.353 0 0 4.3zm-.331-1.466L.453 4.431 7.006.6z" transform="rotate(65 37.395 743.079)" style="stroke-miterlimit:10;fill:#fff"/></g></g></g></svg>
+            <path class="cg-orbit" d="M48 290A212 86.4 0 0 0 472 290"/>
+            <g id="cgFront"><g class="cg-dev" data-i="0" transform="translate(260 376.4) scale(1.000)" opacity="1.00"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="4" y="3.5" width="16" height="7" rx="1.5"/><rect x="4" y="13.5" width="16" height="7" rx="1.5"/><path d="M7.5 7h.01M7.5 17h.01M11 7h5.5M11 17h5.5"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 24 24"><path class="cg-mark" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg></g></g><g class="cg-dev" data-i="1" transform="translate(76.4 333.2) scale(0.938)" opacity="0.88"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M2.5 19h19M10 17h4"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 88 88"><path class="cg-mark" d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg></g></g><g class="cg-dev" data-i="5" transform="translate(443.6 333.2) scale(0.938)" opacity="0.88"><rect class="cg-tile" x="-30.0" y="-30.0" width="60" height="60" rx="12"/><g class="cg-glyph" transform="translate(-15 -15) scale(1.25)"><rect x="3" y="3.5" width="18" height="13" rx="1.5"/><path d="M9.5 20.5h5M12 16.5v4"/></g><g transform="translate(21.0 21.0)"><rect class="cg-badge" x="-10" y="-10" width="20" height="20" rx="6"/><svg x="-6" y="-6" width="12" height="12" viewBox="0 0 384 512"><path class="cg-mark" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg></g></g></g>
           </svg>
-          <img class="hero-icon" src="/lc.svg" alt="" width="120" height="120" />
-          <span class="hero-tile is-linux" style="left: 9.73%; top: 35.34%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.71 15.29l-3.71-3.71 3.71-3.71 1.42 1.42-2.3 2.29 2.3 2.29-1.42 1.42zM19 15h-6v-2h6v2z"/></svg></span>
-          <span class="hero-tile is-windows" style="left: 82.83%; top: 22.45%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" width="18" height="18" fill="currentColor" focusable="false"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.025 46.167zm4.258-39.12L88 0v41.77H39.928zm0 39.384H88v41.77l-48.072-6.79z"/></svg></span>
-          <span class="hero-tile is-apple" style="left: 57.44%; top: 92.21%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="currentColor" focusable="false"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg></span>
+          <div class="cg-platform" aria-hidden="true">
+            <span class="cg-platform-label" data-i18n="hero.platform">LICENSEWARE platform</span>
+            <span class="cg-platform-tile"><svg viewBox="0 0 190 166" focusable="false"><image href="/licenseware-logo.png" width="722" height="166"/></svg></span>
+          </div>
         </div>
       </div>
       <ul class="hero-stats" role="list">
@@ -2476,7 +2568,6 @@
             </li>
           </ul>
         </nav>
-        <div class="sidebar-foot" id="sidebarFoot"></div>
       </aside>
 
       <!-- Main Content -->
@@ -2838,6 +2929,7 @@
             <h2 id="downloads-title" data-i18n="downloads.title">
               Direct Downloads
             </h2>
+            <span class="version-chip card-header-chip"><strong>v0.17.0</strong></span>
           </div>
 
           <p
@@ -7054,7 +7146,7 @@ Start-Service licenseware-collector</code></pre>
       </div>
       <div class="container">
         <div class="footer-bottom">
-          <p class="footer-copy" data-i18n="footer.copyright">© 2026 LICENSEWARE. All rights reserved.</p>
+          <p class="footer-copy"><span data-i18n="footer.copyright">© 2026 LICENSEWARE. All rights reserved.</span> · Collector 0.17.0</p>
           <ul class="footer-bottom-links" role="list">
             <li><a href="https://licenseware.io/legal/" target="_blank" rel="noopener" data-i18n="footer.legal">Legal</a></li>
             <li><a href="#licence-agreement" data-i18n="footer.licence">Licence agreement</a></li>
@@ -7063,17 +7155,6 @@ Start-Service licenseware-collector</code></pre>
       </div>
     </footer>
 
-    <div class="theme-switcher" role="group" aria-label="Theme">
-      <button type="button" data-theme-value="light" aria-pressed="false" aria-label="Light theme" title="Light">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
-      </button>
-      <button type="button" data-theme-value="dark" aria-pressed="false" aria-label="Dark theme" title="Dark">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      </button>
-      <button type="button" data-theme-value="system" aria-pressed="true" aria-label="System theme" title="System">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
-      </button>
-    </div>
 
     <div id="copyStatus" class="visually-hidden" aria-live="polite"></div>
 
@@ -7105,10 +7186,11 @@ Start-Service licenseware-collector</code></pre>
         root.setAttribute("data-theme", dark ? "dark" : "light");
         root.setAttribute("data-theme-pref", pref);
         themeButtons.forEach((btn) => {
-          btn.setAttribute(
-            "aria-pressed",
-            String(btn.getAttribute("data-theme-value") === pref),
-          );
+          if (btn.getAttribute("data-theme-value") === pref) {
+            btn.setAttribute("aria-current", "true");
+          } else {
+            btn.removeAttribute("aria-current");
+          }
         });
       }
 
@@ -7119,6 +7201,7 @@ Start-Service licenseware-collector</code></pre>
             localStorage.setItem("lc-theme", pref);
           } catch (e) {}
           applyTheme(pref, true);
+          updateThemeLabel();
         });
       });
 
@@ -7127,52 +7210,6 @@ Start-Service licenseware-collector</code></pre>
       });
 
       applyTheme(readThemePref(), false);
-
-      // One theme control: docked at the foot of the sticky sidebar from
-      // 1024px, floating bottom right below that, where it tucks away while
-      // the reader scrolls down and returns on scroll up or after 1.5s.
-      const themeControl = document.querySelector(".theme-switcher");
-      const sidebarFoot = document.getElementById("sidebarFoot");
-      const wideLayout = window.matchMedia("(min-width: 1024px)");
-      function placeThemeControl() {
-        if (!themeControl || !sidebarFoot) return;
-        if (wideLayout.matches) {
-          themeControl.classList.remove("is-tucked");
-          if (themeControl.parentElement !== sidebarFoot) {
-            sidebarFoot.appendChild(themeControl);
-          }
-        } else if (themeControl.parentElement !== document.body) {
-          document.body.insertBefore(
-            themeControl,
-            document.getElementById("copyStatus"),
-          );
-        }
-      }
-      placeThemeControl();
-      wideLayout.addEventListener("change", placeThemeControl);
-
-      let lastScrollY = window.scrollY;
-      let tuckTimer = 0;
-      window.addEventListener(
-        "scroll",
-        () => {
-          const y = window.scrollY;
-          if (!themeControl || wideLayout.matches) {
-            lastScrollY = y;
-            return;
-          }
-          const down = y > lastScrollY;
-          lastScrollY = y;
-          if (themeControl.contains(document.activeElement)) return;
-          themeControl.classList.toggle("is-tucked", down && y > 80);
-          window.clearTimeout(tuckTimer);
-          tuckTimer = window.setTimeout(
-            () => themeControl.classList.remove("is-tucked"),
-            1500,
-          );
-        },
-        { passive: true },
-      );
 
       // Language Toggle Logic
       const translations = {
@@ -7457,6 +7494,12 @@ Start-Service licenseware-collector</code></pre>
           "footer.copyright": "© 2026 LICENSEWARE. All rights reserved.",
           "footer.licence": "Licence agreement",
           "footer.legal": "Legal",
+          "theme.label": "Theme",
+          "theme.light": "Light",
+          "theme.dark": "Dark",
+          "theme.system": "System",
+          "hero.platform": "LICENSEWARE platform",
+          "hero.visual": "The Collector gathers inventory from servers, laptops and cloud machines and sends it to the LICENSEWARE platform",
           "nav.h.downloads": "Downloads",
           "nav.h.install": "Installation",
           "nav.h.settings": "Settings",
@@ -7472,10 +7515,9 @@ Start-Service licenseware-collector</code></pre>
           "footer.tagline": "A free agent that sends system and software inventory to LICENSEWARE.",
           "footer.website": "Website",
           "footer.col.contact": "Get in touch",
-          "intro.eyebrow": "Software inventory agent",
+          "intro.eyebrow": "IT Asset Inventory Agent",
           "intro.download": "Download",
           "intro.guide": "Installation guide",
-          "intro.version": "Current release",
           "demo.title": "Generate and Manage API Keys in LICENSEWARE Collector",
           "demo.sub": "Interactive demo &middot; click to load",
           "demo.caption": "Step 1 as an interactive walkthrough: create an API key (enrolment token) in the LICENSEWARE app. Loads from demo.arcade.software when you start it.",
@@ -7860,6 +7902,12 @@ Start-Service licenseware-collector</code></pre>
             "© 2026 LICENSEWARE. Todos los derechos reservados.",
           "footer.licence": "Acuerdo de licencia",
           "footer.legal": "Legal",
+          "theme.label": "Tema",
+          "theme.light": "Claro",
+          "theme.dark": "Oscuro",
+          "theme.system": "Sistema",
+          "hero.platform": "Plataforma LICENSEWARE",
+          "hero.visual": "El Collector recopila el inventario de servidores, portátiles y máquinas en la nube y lo envía a la plataforma LICENSEWARE",
           "nav.h.downloads": "Descargas",
           "nav.h.install": "Instalación",
           "nav.h.settings": "Configuración",
@@ -7875,10 +7923,9 @@ Start-Service licenseware-collector</code></pre>
           "footer.tagline": "Un agente gratuito que envía el inventario de sistemas y software a LICENSEWARE.",
           "footer.website": "Sitio web",
           "footer.col.contact": "Contacto",
-          "intro.eyebrow": "Agente de inventario de software",
+          "intro.eyebrow": "Agente de inventario de activos de TI",
           "intro.download": "Descargar",
           "intro.guide": "Guía de instalación",
-          "intro.version": "Versión actual",
           "demo.title": "Generar y gestionar claves API en LICENSEWARE Collector",
           "demo.sub": "Demo interactiva &middot; clic para cargar",
           "demo.caption": "El paso 1 como demo interactiva: crear una clave API (token de inscripción) en la app LICENSEWARE. Se carga desde demo.arcade.software al iniciarla.",
@@ -8016,7 +8063,13 @@ Start-Service licenseware-collector</code></pre>
         }
       }
 
-      langButton.addEventListener("click", () => setLangMenu(langList.hidden));
+      langButton.addEventListener("click", () => {
+        if (typeof themeList !== "undefined" && !themeList.hidden) {
+          themeList.hidden = true;
+          themeButton.setAttribute("aria-expanded", "false");
+        }
+        setLangMenu(langList.hidden);
+      });
       langButton.addEventListener("keydown", (event) => {
         if (event.key === "ArrowDown" || event.key === "ArrowUp") {
           event.preventDefault();
@@ -8042,6 +8095,69 @@ Start-Service licenseware-collector</code></pre>
           langItems[next].focus();
         });
       });
+      // Theme menu: same behaviour as the language menu.
+      const themeButton = document.getElementById("themeButton");
+      const themeList = document.getElementById("themeList");
+      const themeItems = [...themeList.querySelectorAll('[role="menuitem"]')];
+      function updateThemeLabel() {
+        const t = translations[currentLang];
+        const pref = document.documentElement.getAttribute("data-theme-pref") || "system";
+        themeButton.setAttribute(
+          "aria-label",
+          `${t["theme.label"]}: ${t[`theme.${pref}`]}`,
+        );
+      }
+      function setThemeMenu(open, focusIndex) {
+        themeList.hidden = !open;
+        themeButton.setAttribute("aria-expanded", String(open));
+        if (open) {
+          const current = themeItems.findIndex(
+            (item) => item.getAttribute("aria-current") === "true",
+          );
+          themeItems[focusIndex !== undefined ? focusIndex : Math.max(0, current)].focus();
+        }
+      }
+      themeButton.addEventListener("click", () => {
+        if (!langList.hidden) setLangMenu(false);
+        setThemeMenu(themeList.hidden);
+      });
+      themeButton.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+          event.preventDefault();
+          setThemeMenu(true, event.key === "ArrowUp" ? themeItems.length - 1 : 0);
+        }
+      });
+      themeItems.forEach((item, i) => {
+        item.addEventListener("click", () => {
+          setThemeMenu(false);
+          themeButton.focus();
+        });
+        item.addEventListener("keydown", (event) => {
+          let next = -1;
+          if (event.key === "ArrowDown") next = (i + 1) % themeItems.length;
+          else if (event.key === "ArrowUp")
+            next = (i - 1 + themeItems.length) % themeItems.length;
+          else if (event.key === "Home") next = 0;
+          else if (event.key === "End") next = themeItems.length - 1;
+          else if (event.key === "Tab") setThemeMenu(false);
+          if (next < 0) return;
+          event.preventDefault();
+          themeItems[next].focus();
+        });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !themeList.hidden) {
+          setThemeMenu(false);
+          themeButton.focus();
+        }
+      });
+      document.addEventListener("click", (event) => {
+        if (!themeList.hidden && !event.target.closest("#themeMenu")) {
+          setThemeMenu(false);
+        }
+      });
+      updateThemeLabel();
+
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !langList.hidden) {
           setLangMenu(false);
@@ -8081,6 +8197,7 @@ Start-Service licenseware-collector</code></pre>
         });
         scrollSpy();
         clampCells();
+        updateThemeLabel();
       }
 
       function copyToClipboard(btn) {
@@ -8174,7 +8291,7 @@ Start-Service licenseware-collector</code></pre>
         if (
           event.key === "Escape" &&
           siteNav.classList.contains("is-open") &&
-          !event.target.closest("#langMenu")
+          !event.target.closest("#langMenu, #themeMenu")
         ) {
           setMenu(false);
           menuToggle.focus();
@@ -8430,6 +8547,95 @@ Start-Service licenseware-collector</code></pre>
       clampCells();
       window.addEventListener("load", clampCells);
       window.addEventListener("resize", clampCells);
+
+      // Hero graphic: devices orbit the Collector and inventory flows in.
+      // The markup is the first frame; this only animates it.
+      (function () {
+        const svg = document.getElementById("collectorGraphic");
+        if (!svg || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const CX = 260, CY = 290, RS = 108, RO = 212, ST = Math.sin(0.42), CT = Math.cos(0.42);
+        const PLY = 67.6;
+        const A0 = [90, 150, 210, 270, 330, 30];
+        const devs = [...svg.querySelectorAll(".cg-dev")].sort((a, b) => a.dataset.i - b.dataset.i);
+        const back = svg.querySelector("#cgBack"), front = svg.querySelector("#cgFront");
+        const links = svg.querySelector("#cgLinks");
+        const gridF = svg.querySelector("#cgGridF"), gridB = svg.querySelector("#cgGridB");
+        const pulses = [...svg.querySelectorAll("#cgPulses .cg-pulse:not(#cgUp)")];
+        const up = svg.querySelector("#cgUp");
+        const pt = [0.15, 0.48, 0.81, 0.3, 0.63, 0.96];
+        let upT = 0.5;
+        const r1 = (v) => Math.round(v * 10) / 10;
+        const rad = Math.PI / 180;
+        const grid = [];
+        for (const lat of [-60, -30, 0, 30, 60]) {
+          const line = [];
+          for (let l = 0; l <= 360; l += 15) line.push([lat * rad, l * rad, 0]);
+          grid.push(line);
+        }
+        for (let lon = 0; lon < 180; lon += 30) {
+          const line = [];
+          for (let t = 0; t <= 360; t += 15) line.push([t * rad, lon * rad, 1]);
+          grid.push(line);
+        }
+        function sphere(yaw) {
+          let pf = "", pb = "";
+          for (const line of grid) {
+            let prev = null, was = -1;
+            for (const [u, v, m] of line) {
+              let X, Y, Z;
+              if (m) {
+                X = Math.cos(u) * Math.cos(v + yaw); Y = Math.sin(u); Z = Math.cos(u) * Math.sin(v + yaw);
+              } else {
+                X = Math.cos(u) * Math.cos(v + yaw); Y = Math.sin(u); Z = Math.cos(u) * Math.sin(v + yaw);
+              }
+              const q = [CX + RS * X, CY - RS * (Y * CT - Z * ST), Z * CT + Y * ST];
+              if (prev) {
+                const f = prev[2] + q[2] > 0 ? 1 : 0;
+                const seg = (f === was ? "" : `M${r1(prev[0])} ${r1(prev[1])}`) + `L${r1(q[0])} ${r1(q[1])}`;
+                if (f) pf += seg; else pb += seg;
+                was = f;
+              }
+              prev = q;
+            }
+          }
+          gridF.setAttribute("d", pf);
+          gridB.setAttribute("d", pb);
+        }
+        const fps = window.innerWidth < 782 ? 20 : 60, step = 1000 / fps - 2;
+        let yaw = 0, last = 0, drawn = -1e9, visible = true;
+        new IntersectionObserver((e) => { visible = e[e.length - 1].isIntersecting; }).observe(svg);
+        function frame(t) {
+          requestAnimationFrame(frame);
+          if (!visible || document.hidden) { last = t; return; }
+          if (t - drawn < step) return;
+          const dt = Math.min(t - last, 100);
+          last = t; drawn = t;
+          yaw += dt * 0.006;
+          let d = "";
+          devs.forEach((el, i) => {
+            const a = (A0[i] + yaw) * rad, dep = (Math.sin(a) + 1) / 2;
+            const x = CX + RO * Math.cos(a), y = CY + RO * Math.sin(a) * ST;
+            el.setAttribute("transform", `translate(${r1(x)} ${r1(y)}) scale(${(0.75 + 0.25 * dep).toFixed(3)})`);
+            el.setAttribute("opacity", (0.5 + 0.5 * dep).toFixed(2));
+            const layer = dep >= 0.5 ? front : back;
+            if (el.parentNode !== layer) layer.appendChild(el);
+            d += `M${r1(x)} ${r1(y)}L${CX} ${CY}`;
+            pt[i] += dt * 0.00034;
+            if (pt[i] >= 1) pt[i] -= 1;
+            const p = pulses[i], k = pt[i];
+            p.setAttribute("cx", r1(x + (CX - x) * k));
+            p.setAttribute("cy", r1(y + (CY - y) * k));
+            p.setAttribute("opacity", (Math.sin(Math.PI * k) * (0.35 + 0.65 * dep)).toFixed(2));
+          });
+          links.setAttribute("d", d);
+          upT += dt * 0.0004;
+          if (upT >= 1) upT -= 1;
+          up.setAttribute("cy", r1(CY - RS + (PLY - (CY - RS)) * upT));
+          up.setAttribute("opacity", Math.sin(Math.PI * upT).toFixed(2));
+          sphere(yaw * rad);
+        }
+        requestAnimationFrame((t) => { last = t; frame(t); });
+      })();
 
       let spyQueued = false;
       window.addEventListener(
