@@ -125,11 +125,12 @@
         --brand-logo-filter: none;
         --cg-glow-o: 1;
         --cg-blue-o: 1;
-        --cg-grid: #d2d8e4;
+        --cg-grid: #5fe0cc;
+        --cg-net-color: #00bfa5;
         --cg-grid-f: 0.16;
         --cg-grid-b: 0.05;
-        --cg-dot: #c9d4ee;
-        --cg-particle: var(--bright);
+        --cg-dot: #5fe0cc;
+        --cg-particle: #00bfa5;
         --cg-shell-o: 1;
         --cg-net-b: 0.06;
         --cg-net-m: 0.13;
@@ -171,15 +172,16 @@
         --brand-logo-filter: invert(1);
         --cg-glow-o: 0.55;
         --cg-blue-o: 0.5;
-        --cg-grid: #ababab;
+        --cg-grid: #008573;
+        --cg-net-color: #008573;
         --cg-grid-f: 0.8;
         --cg-grid-b: 0.28;
-        --cg-dot: #808080;
-        --cg-particle: var(--accent);
+        --cg-dot: #008573;
+        --cg-particle: #008573;
         --cg-shell-o: 0.35;
-        --cg-net-b: 0.22;
-        --cg-net-m: 0.4;
-        --cg-net-f: 0.55;
+        --cg-net-b: 0.16;
+        --cg-net-m: 0.28;
+        --cg-net-f: 0.42;
         --hz-glow-o: 0.2;
         --table-head-bg: #ffffff;
         --table-head-line: #bbbbbb;
@@ -218,15 +220,16 @@
           --brand-logo-filter: invert(1);
           --cg-glow-o: 0.55;
           --cg-blue-o: 0.5;
-          --cg-grid: #ababab;
+          --cg-grid: #008573;
+          --cg-net-color: #008573;
           --cg-grid-f: 0.8;
           --cg-grid-b: 0.28;
-          --cg-dot: #808080;
-          --cg-particle: var(--accent);
+          --cg-dot: #008573;
+          --cg-particle: #008573;
           --cg-shell-o: 0.35;
-          --cg-net-b: 0.22;
-          --cg-net-m: 0.4;
-          --cg-net-f: 0.55;
+          --cg-net-b: 0.16;
+          --cg-net-m: 0.28;
+          --cg-net-f: 0.42;
           --hz-glow-o: 0.2;
           --table-head-bg: #ffffff;
           --table-head-line: #bbbbbb;
@@ -1860,7 +1863,7 @@
 
       .cg-net {
         fill: none;
-        stroke: var(--cg-grid);
+        stroke: var(--cg-net-color);
         stroke-width: 0.8;
         stroke-linecap: round;
         vector-effect: non-scaling-stroke;
@@ -1904,6 +1907,7 @@
         flex: none;
         width: 72px;
         height: 72px;
+        clip-path: inset(0 round 25%);
       }
 
       .hero-stats {
@@ -3535,10 +3539,10 @@
         <div class="hero-visual" role="img" aria-label="Abstract illustration of inventory data flowing into LICENSEWARE" data-i18n-aria="hero.visual">
           <svg class="cg" id="collectorGraphic" viewBox="-104 -104 728 728" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <defs>
-              <radialGradient id="cgGreen"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".33"/><stop offset=".2" stop-color="#2f8f4f" stop-opacity=".22"/><stop offset=".4" stop-color="#228b22" stop-opacity=".11"/><stop offset=".6" stop-color="#1b7a5a" stop-opacity=".045"/><stop offset=".8" stop-color="#1b7a5a" stop-opacity=".012"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgGreen"><stop offset="0" stop-color="#00bfa5" stop-opacity=".33"/><stop offset=".2" stop-color="#00a890" stop-opacity=".22"/><stop offset=".4" stop-color="#008573" stop-opacity=".11"/><stop offset=".6" stop-color="#008573" stop-opacity=".045"/><stop offset=".8" stop-color="#008573" stop-opacity=".012"/><stop offset="1" stop-color="#008573" stop-opacity="0"/></radialGradient>
               <radialGradient id="cgBlue"><stop offset="0" stop-color="#1d4ed2" stop-opacity=".12"/><stop offset=".3" stop-color="#1d4ed2" stop-opacity=".07"/><stop offset=".6" stop-color="#1d4ed2" stop-opacity=".025"/><stop offset="1" stop-color="#1d4ed2" stop-opacity="0"/></radialGradient>
-              <radialGradient id="cgHaze"><stop offset=".72" stop-color="#57d16c" stop-opacity="0"/><stop offset=".82" stop-color="#57d16c" stop-opacity=".07"/><stop offset="1" stop-color="#57d16c" stop-opacity="0"/></radialGradient>
-              <radialGradient id="cgHub"><stop offset="0" stop-color="#57d16c" stop-opacity=".55"/><stop offset=".4" stop-color="#57d16c" stop-opacity=".18"/><stop offset="1" stop-color="#57d16c" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgHaze"><stop offset=".72" stop-color="#00bfa5" stop-opacity="0"/><stop offset=".82" stop-color="#00bfa5" stop-opacity=".07"/><stop offset="1" stop-color="#00bfa5" stop-opacity="0"/></radialGradient>
+              <radialGradient id="cgHub"><stop offset="0" stop-color="#5fe0cc" stop-opacity=".55"/><stop offset=".4" stop-color="#00bfa5" stop-opacity=".18"/><stop offset="1" stop-color="#00bfa5" stop-opacity="0"/></radialGradient>
             </defs>
             <circle class="cg-blue" cx="225" cy="245" r="205" fill="url(#cgBlue)"/>
             <circle class="cg-glow" cx="260" cy="260" r="225" fill="url(#cgGreen)"/>
@@ -8028,7 +8032,7 @@ Start-Service licenseware-collector</code></pre>
       <div class="footer-horizon" aria-hidden="true">
         <svg id="horizonGraphic" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" focusable="false">
           <defs>
-            <radialGradient id="hzGreen" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#3f9a5c" stop-opacity=".5"/><stop offset=".45" stop-color="#1b7a5a" stop-opacity=".16"/><stop offset="1" stop-color="#1b7a5a" stop-opacity="0"/></radialGradient>
+            <radialGradient id="hzGreen" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#00bfa5" stop-opacity=".5"/><stop offset=".45" stop-color="#008573" stop-opacity=".16"/><stop offset="1" stop-color="#008573" stop-opacity="0"/></radialGradient>
             <radialGradient id="hzBlue"><stop offset="0" stop-color="#1d4ed2" stop-opacity=".14"/><stop offset="1" stop-color="#1d4ed2" stop-opacity="0"/></radialGradient>
           </defs>
           <ellipse class="cg-blue" cx="460" cy="84" rx="620" ry="150" fill="url(#hzBlue)"/>
